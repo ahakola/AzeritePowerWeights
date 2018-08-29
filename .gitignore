@@ -1,0 +1,11 @@
+# All the WIP .rar-files
+*.rar
+
+# All images
+*.png
+
+# All SimCraft related
+SimcProfiles\*
+
+# Dev Memo
+Notes.lua
