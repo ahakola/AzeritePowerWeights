@@ -903,8 +903,42 @@ local function _toggleEditorUI()
 	end
 end
 
+
 -- Hook and Init functions
-function f:HookAzeriteUI()
+local function _activeSpec() -- Get current active spec for scoreData population etc.
+	local currentSpec = GetSpecialization()
+	if currentSpec then
+		local specID = GetSpecializationInfo(currentSpec)
+		if specID then
+			playerSpecID = specID
+		end
+	end
+end
+
+local function _populateWeights() -- Populate scoreData with active spec's scale
+	local scaleKey = cfg.specScales[playerSpecID].scaleID
+	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
+	if groupSet and classID and specNum and scaleName then
+		classID = tonumber(classID)
+		specNum = tonumber(specNum)
+		for _, dataSet in ipairs(groupSet == "C" and customScales or n.defaultScalesData) do
+			if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
+				wipe(scoreData)
+				for k, v in pairs(dataSet[4]) do
+					scoreData[k] = v
+				end
+
+				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
+				return
+			end
+		end
+		Debug("Couldn't populate scoreData", 2, groupSet, classID, specNum, scaleName)
+	else
+		Debug("Couldn't populate scoreData", 1, groupSet, classID, specNum, scaleName)
+	end
+end
+
+function f:HookAzeriteUI() -- Set Parents and Anchors
 	Debug("HOOK UI")
 	self:InitUI()
 
@@ -943,7 +977,7 @@ end
 local baseScore = ""
 ]]
 local initDone
-function f:InitUI()
+function f:InitUI() -- Build UI and set up some initial data
 	if initDone then return end
 	initDone = true
 
@@ -997,30 +1031,16 @@ function f:InitUI()
 	-- Content Area
 	n:CreateImportGroup(n.scalesScroll)
 
-	-- Populate scoreData
-	local scaleKey = cfg.specScales[playerSpecID].scaleID
-	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
-	if groupSet and classID and specNum and scaleName then
-		classID = tonumber(classID)
-		specNum = tonumber(specNum)
-		for _, dataSet in ipairs(groupSet == "C" and customScales or n.defaultScalesData) do
-			if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
-				wipe(scoreData)
-				for k, v in pairs(dataSet[4]) do
-					scoreData[k] = v
-				end
-
-				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
-				return
-			end
-		end
-		Debug("Couldn't populate scoreData", 2, groupSet, classID, specNum, scaleName)
-	else
-		Debug("Couldn't populate scoreData", 1, groupSet, classID, specNum, scaleName)
+	-- Check if we have spec
+	if not (playerSpecID and cfg.specScales[playerSpecID] and cfg.specScales[playerSpecID].scaleID) then
+		Debug("No playerSpecID detected", playerSpecID, cfg.specScales[playerSpecID] and cfg.specScales[playerSpecID].scaleID or "!No specScales", GetRealmName(), UnitName("player"), GetSpecializationInfo(GetSpecialization()))
+		_activeSpec()
 	end
+	-- Populate scoreData
+	_populateWeights()
 end
 
-function f:UpdateValues()
+function f:UpdateValues() -- Update scores
 	lock = nil
 	if not _G.AzeriteEmpoweredItemUI or not _G.AzeriteEmpoweredItemUI:IsShown() then return end
 	Debug("UPDATE VALUES")
@@ -1183,11 +1203,7 @@ function f:ADDON_LOADED(event, addon)
 end
 
 function f:PLAYER_LOGIN(event)
-	local currentSpec = GetSpecialization()
-	if currentSpec then
-		local specID = GetSpecializationInfo(currentSpec)
-		playerSpecID = specID
-	end
+	_activeSpec()
 end
 
 function f:AZERITE_ITEM_POWER_LEVEL_CHANGED(event)
@@ -1212,11 +1228,8 @@ end
 function f:PLAYER_SPECIALIZATION_CHANGED(event, ...)
 	--Debug(event, tostringall(...)) -- ... = unit == player always
 
-	local currentSpec = GetSpecialization()
-	if currentSpec then
-		local specID = GetSpecializationInfo(currentSpec)
-		playerSpecID = specID
-	end
+	_activeSpec()
+	_populateWeights()
 
 	delayedUpdate()
 end
