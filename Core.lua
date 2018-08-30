@@ -1403,7 +1403,7 @@ function f:CreateOptions()
 			},
 			importingUpgrade_Desc = {
 				type = "description",
-				name = L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification,
+				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification .. FONT_COLOR_CODE_CLOSE,
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
 				width = "full",
@@ -1443,7 +1443,7 @@ function f:CreateOptions()
 			},
 			zonePowers_Desc = {
 				type = "description",
-				name = L.Config_WeightEditor_ShowZone_Desc_Proc,
+				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowZone_Desc_Proc .. FONT_COLOR_CODE_CLOSE,
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
 				width = "full",
@@ -1467,7 +1467,7 @@ function f:CreateOptions()
 			},
 			pvpPowers_Desc = {
 				type = "description",
-				name = L.Config_WeightEditor_ShowPvP_Desc_Import,
+				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP_Desc_Import .. FONT_COLOR_CODE_CLOSE,
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
 				width = "full",
