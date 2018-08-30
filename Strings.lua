@@ -67,6 +67,8 @@ do -- enUS / enGB
 	L.PowersTitles_Defensive = "Defensive Powers"
 	L.PowersTitles_Role = "Role Powers"
 	L.PowersTitles_Zone = "Raid and Zone Powers"
+	L.PowersTitles_Profession = "Profession Powers"
+	L.PowersTitles_PvP = "PvP Powers"
 
 	L.PowersScoreString = "Current score: %1$d/%2$d\nMaximum score: %3$d\nAzerite level: %4$d/%5$d" -- %1$d = currentScore, %2$d = currentPotential, %3$d = maximumScore, %4$d = currentLevel, %5$d = maxLevel
 
@@ -79,7 +81,8 @@ do -- enUS / enGB
 	L.Config_WeightEditor_Title = "Scales weight editor"
 	L.Config_WeightEditor_Desc = "Following settings only affects the powers shown in the scale weight editor. Even if you disable them, all and any Azerite powers will be still scored if they have weight set to them in the active scale."
 	L.Config_WeightEditor_ImportingCanUpdate = "Importing can update existing scales"
-	L.Config_WeightEditor_ImportingCanUpdate_Desc = "When importing scale with same name, class and specialization as pre-existing scale, it updates the existing scale with the new weights instead of creating new scale. Different scales with same name can exist for different specializations or classes."
+	L.Config_WeightEditor_ImportingCanUpdate_Desc = "When importing scale with same name, class and specialization as pre-existing scale, existing scale will be updated with the new weights instead of creating new scale."
+	L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification = "There can be multiple scales with same name as long as they are for different specializations or classes."
 	L.Config_WeightEditor_ShowDefensive = "Show Defensive powers"
 	L.Config_WeightEditor_ShowDefensive_Desc = "Show common and class specific Defensive powers in the scale weight editor."
 	L.Config_WeightEditor_ShowRole = "Show Role specific powers"
@@ -89,6 +92,11 @@ do -- enUS / enGB
 	L.Config_WeightEditor_ShowZone = "Show Zone specific powers"
 	L.Config_WeightEditor_ShowZone_Desc = "Show Zone specific powers in the scale weight editor. These powers can only appear in items acquired in particular zones related to the power."
 	L.Config_WeightEditor_ShowZone_Desc_Proc = "Normal zone specific powers can activate/proc everywhere, but raid powers will do so only while inside their related raid instance (e.g. Uldir powers will only proc while inside Uldir raid instance).\nRaid powers are marked with an asterisk (*) next to their name in the scale weight editor."
+	L.Config_WeightEditor_ShowProfession = "Show Profession specific powers"
+	L.Config_WeightEditor_ShowProfession_Desc = "Show Profession specific powers in the scale weight editor. These powers can only appear in items created with professions. Currently these can only appear in Engineering headgear."
+	L.Config_WeightEditor_ShowPvP = "Show PvP specific powers"
+	L.Config_WeightEditor_ShowPvP_Desc = "Show PvP specific powers in the scale weight editor. You'll only see your own factions powers, but changes made to them will be mirrored to both factions."
+	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting the resulting export-string will only include your own factions pvp powers but they are interchangeable with opposing factions pvp-powerIDs. When Importing from import-string with pvp powers only for one faction, powers will get their weights mirrored to both factions."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME

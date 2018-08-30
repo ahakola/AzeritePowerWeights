@@ -31,6 +31,8 @@ local charDefaults = {
 	rolePowers = true,
 	rolePowersNoOffRolePowers = true,
 	zonePowers = true,
+	professionPowers = false,
+	pvpPowers = false,
 	specScales = {}
 }
 
@@ -152,6 +154,23 @@ local function _customSort(a, b)
 	end
 end
 
+local pvpPairs = { -- Used for Exporting/Importing. These powers have same effects, but are different powers
+	-- Horde
+	[486] = 6,
+	[487] = 6,
+	[488] = 6,
+	[489] = 6,
+	[490] = 6,
+	[491] = 6,
+
+	-- Alliance
+	[492] = -6,
+	[493] = -6,
+	[494] = -6,
+	[495] = -6,
+	[496] = -6,
+	[497] = -6
+}
 local function insertCustomScalesData(scaleName, classIndex, specID, powerData) -- Inser into table
 	local t = {}
 	if powerData and powerData ~= "" then -- String to table
@@ -163,6 +182,9 @@ local function insertCustomScalesData(scaleName, classIndex, specID, powerData) 
 			if azeritePowerID and value and value > 0 then
 				value = value > reallyBigNumber and reallyBigNumber or value
 				t[azeritePowerID] = value
+				if pvpPairs[azeritePowerID] then -- Mirror PvP Powers for both factions
+					t[azeritePowerID + pvpPairs[azeritePowerID]] = value
+				end
 			end
 		end
 	end
@@ -341,9 +363,18 @@ end
 local function _exportScale(powerWeights, scaleName, classID, specID) -- Create export string and show export popup
 	local template = "( %s:%d:\"%s\":%d:%d:%s )"
 	local t = {}
+	local isHorde = UnitFactionGroup("player") == "Horde"
 	for k, v in pairs(powerWeights) do
 		if type(tonumber(v)) == "number" and tonumber(v) > 0 then
-			t[#t + 1] = k.."="..v
+			if pvpPairs[tonumber(k)] then
+				if isHorde and pvpPairs[tonumber(k)] > 0 then -- Horde player and Horde power
+					t[#t + 1] = k.."="..v
+				elseif not isHorde and pvpPairs[tonumber(k)] < 0 then -- Alliance player and Alliance power
+					t[#t + 1] = k.."="..v
+				end
+			else
+				t[#t + 1] = k.."="..v
+			end
 		end
 	end
 	sort(t)
@@ -678,10 +709,14 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 		local value = tonumber(text) or 0
 		value = value > reallyBigNumber and reallyBigNumber or value
 		local pointer = widget:GetUserData("dataPointer")
+		local pairPointer = widget:GetUserData("pairPointer")
 		-- Save to DB
 		powerWeights[pointer] = value
 		widget:SetText(text == "" and "" or (value and value or ""))
 		AceGUI:ClearFocus()
+		if pairPointer then
+			powerWeights[pairPointer] = value
+		end
 		if isCurrentScales then
 			-- Update visible numbers
 			scoreData[pointer] = value
@@ -869,6 +904,59 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			e[c]:SetRelativeWidth(.5)
 			if isCustomScale then
 				e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
+				e[c]:SetCallback("OnEnterPressed", _saveValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+		end
+	end
+
+	if cfg.professionPowers then
+		local professionTitle = AceGUI:Create("Heading")
+		professionTitle:SetText(L.PowersTitles_Profession)
+		professionTitle:SetFullWidth(true)
+		container:AddChild(professionTitle)
+
+		-- Profession Powers
+		for i, powerData in ipairs(n.sourceData.profession) do
+			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+			e[c]:SetRelativeWidth(.5)
+			if isCustomScale then
+				e[c]:SetUserData("dataPointer", n.sourceData.profession[i].azeritePowerID)
+				e[c]:SetCallback("OnEnterPressed", _saveValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+		end
+	end
+
+	if cfg.pvpPowers then
+		local pvpTitle = AceGUI:Create("Heading")
+		pvpTitle:SetText(L.PowersTitles_PvP)
+		pvpTitle:SetFullWidth(true)
+		container:AddChild(pvpTitle)
+
+		-- PvP Powers
+		local isHorde = UnitFactionGroup("player") == "Horde"
+		local startPoint = isHorde and 1 or 7
+		local endPoint = isHorde and 6 or 12
+		for i = startPoint, endPoint do
+			local powerData = n.sourceData.pvp[i]
+			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+			e[c]:SetRelativeWidth(.5)
+			if isCustomScale then
+				e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
+				e[c]:SetUserData("pairPointer", n.sourceData.pvp[i].pair)
 				e[c]:SetCallback("OnEnterPressed", _saveValue)
 			else
 				e[c]:SetDisabled(true)
@@ -1274,7 +1362,7 @@ function f:CreateOptions()
 			scalesHeader = {
 				type = "header",
 				name = L.Config_Scales_Title,
-				order = 10,
+				order = 5,
 			},
 			scalesText = {
 				type = "description",
@@ -1282,7 +1370,7 @@ function f:CreateOptions()
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
 				width = "full",
-				order = 11,
+				order = 10,
 			},
 			onlyOwnClassDefaults = {
 				type = "toggle",
@@ -1290,7 +1378,7 @@ function f:CreateOptions()
 				desc = L.Config_Scales_OwnClassDefaultsOnly_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 12,
+				order = 15,
 			},
 			editorHeader = {
 				type = "header",
@@ -1303,7 +1391,7 @@ function f:CreateOptions()
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
 				width = "full",
-				order = 21,
+				order = 25,
 			},
 			importingCanUpdate = {
 				type = "toggle",
@@ -1311,7 +1399,15 @@ function f:CreateOptions()
 				desc = L.Config_WeightEditor_ImportingCanUpdate_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 22,
+				order = 30,
+			},
+			importingUpgrade_Desc = {
+				type = "description",
+				name = L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification,
+				fontSize = "medium",
+				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
+				width = "full",
+				order = 35,
 			},
 			defensivePowers = {
 				type = "toggle",
@@ -1319,7 +1415,7 @@ function f:CreateOptions()
 				desc = L.Config_WeightEditor_ShowDefensive_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 23,
+				order = 40,
 			},
 			rolePowers = {
 				type = "toggle",
@@ -1327,7 +1423,7 @@ function f:CreateOptions()
 				desc = L.Config_WeightEditor_ShowRole_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 24,
+				order = 45,
 			},
 			rolePowersNoOffRolePowers = {
 				type = "toggle",
@@ -1335,7 +1431,7 @@ function f:CreateOptions()
 				desc = L.Config_WeightEditor_ShowRolesOnlyForOwnSpec_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 25,
+				order = 50,
 			},
 			zonePowers = {
 				type = "toggle",
@@ -1343,7 +1439,7 @@ function f:CreateOptions()
 				desc = L.Config_WeightEditor_ShowZone_Desc,
 				descStyle = "inline",
 				width = "full",
-				order = 26,
+				order = 55,
 			},
 			zonePowers_Desc = {
 				type = "description",
@@ -1351,7 +1447,31 @@ function f:CreateOptions()
 				fontSize = "medium",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
 				width = "full",
-				order = 27,
+				order = 60,
+			},
+			professionPowers = {
+				type = "toggle",
+				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowProfession .. FONT_COLOR_CODE_CLOSE,
+				desc = L.Config_WeightEditor_ShowProfession_Desc,
+				descStyle = "inline",
+				width = "full",
+				order = 65,
+			},
+			pvpPowers = {
+				type = "toggle",
+				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP .. FONT_COLOR_CODE_CLOSE,
+				desc = L.Config_WeightEditor_ShowPvP_Desc,
+				descStyle = "inline",
+				width = "full",
+				order = 70,
+			},
+			pvpPowers_Desc = {
+				type = "description",
+				name = L.Config_WeightEditor_ShowPvP_Desc_Import,
+				fontSize = "medium",
+				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
+				width = "full",
+				order = 75,
 			},
 		},
 	}

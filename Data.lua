@@ -12,224 +12,10 @@ local L = n.L
 
 -- Powers for every Class and Spec
 local sourceData = {
-	["role"] = {
-		["tank"] = {
-			{
-				["icon"] = 1029596,
-				["name"] = "Winds of War",
-				["azeritePowerID"] = 43,
-			}, -- [1]
-			{
-				["icon"] = 1129419,
-				["name"] = "Azerite Veins",
-				["azeritePowerID"] = 89,
-			}, -- [2]
-			{
-				["icon"] = 134978,
-				["name"] = "Crystalline Carapace",
-				["azeritePowerID"] = 98,
-			}, -- [3]
-			{
-				["icon"] = 645224,
-				["name"] = "Ablative Shielding",
-				["azeritePowerID"] = 99,
-			}, -- [4]
-			{
-				["icon"] = 136031,
-				["name"] = "Strength in Numbers",
-				["azeritePowerID"] = 100,
-			}, -- [5]
-			{
-				["icon"] = 1323035,
-				["name"] = "Shimmering Haven",
-				["azeritePowerID"] = 101,
-			}, -- [6]
-		},
-		["nonhealer"] = {
-			{
-				["icon"] = 1029585,
-				["name"] = "Elemental Whirl",
-				["azeritePowerID"] = 21,
-			}, -- [1]
-			{
-				["icon"] = 252174,
-				["name"] = "Overwhelming Power",
-				["azeritePowerID"] = 30,
-			}, -- [2]
-			{
-				["icon"] = 132109,
-				["name"] = "Gutripper",
-				["azeritePowerID"] = 31,
-			}, -- [3]
-			{
-				["icon"] = 646670,
-				["name"] = "Azerite Globules",
-				["azeritePowerID"] = 462,
-			}, -- [4]
-		},
-		["healer"] = {
-			{
-				["icon"] = 463526,
-				["name"] = "Woundbinder",
-				["azeritePowerID"] = 19,
-			}, -- [1]
-			{
-				["icon"] = 413576,
-				["name"] = "Savior",
-				["azeritePowerID"] = 42,
-			}, -- [2]
-			{
-				["icon"] = 513195,
-				["name"] = "Synergistic Growth",
-				["azeritePowerID"] = 102,
-			}, -- [3]
-			{
-				["icon"] = 970412,
-				["name"] = "Concentrated Mending",
-				["azeritePowerID"] = 103,
-			}, -- [4]
-			{
-				["icon"] = 236832,
-				["name"] = "Bracing Chill",
-				["azeritePowerID"] = 104,
-			}, -- [5]
-			{
-				["icon"] = 133020,
-				["name"] = "Ephemeral Recovery",
-				["azeritePowerID"] = 105,
-			}, -- [6]
-			{
-				["icon"] = 135905,
-				["name"] = "Blessed Portents",
-				["azeritePowerID"] = 463,
-			}, -- [7]
-		},
-		["common"] = {
-			{
-				["icon"] = 538560,
-				["name"] = "Blood Siphon",
-				["azeritePowerID"] = 18,
-			}, -- [1]
-			{
-				["icon"] = 236166,
-				["name"] = "Lifespeed",
-				["azeritePowerID"] = 20,
-			}, -- [2]
-			{
-				["icon"] = 237589,
-				["name"] = "Heed My Call",
-				["azeritePowerID"] = 22,
-			}, -- [3]
-			{
-				["icon"] = 132565,
-				["name"] = "On My Way",
-				["azeritePowerID"] = 38,
-			}, -- [4]
-			{
-				["icon"] = 514016,
-				["name"] = "Unstable Flames",
-				["azeritePowerID"] = 459,
-			}, -- [5]
-			{
-				["icon"] = 2065623,
-				["name"] = "Earthlink",
-				["azeritePowerID"] = 461,
-			}, -- [6]
-		},
-	},
 	["center"] = {
 		["icon"] = 2065624,
 		["name"] = "Azerite Empowered",
 		["azeritePowerID"] = 13,
-	},
-	["zone"] = {
-		{
-			["icon"] = 135885,
-			["name"] = "Champion of Azeroth",
-			["azeritePowerID"] = 82,
-		}, -- [1]
-		{
-			["icon"] = 135780,
-			["name"] = "Ruinous Bolt",
-			["azeritePowerID"] = 156,
-		}, -- [2]
-		{
-			["icon"] = 2011133,
-			["name"] = "Rezan's Fury",
-			["azeritePowerID"] = 157,
-		}, -- [3]
-		{
-			["icon"] = 132299,
-			["name"] = "Meticulous Scheming",
-			["azeritePowerID"] = 192,
-		}, -- [4]
-		{
-			["icon"] = 1778229,
-			["name"] = "Blightborne Infusion",
-			["azeritePowerID"] = 193,
-		}, -- [5]
-		{
-			["icon"] = 840409,
-			["name"] = "Filthy Transfusion",
-			["azeritePowerID"] = 194,
-		}, -- [6]
-		{
-			["icon"] = 463858,
-			["name"] = "Secrets of the Deep",
-			["azeritePowerID"] = 195,
-		}, -- [7]
-		{
-			["icon"] = 796638,
-			["name"] = "Swirling Sands",
-			["azeritePowerID"] = 196,
-		}, -- [8]
-		{
-			["icon"] = 1698701,
-			["name"] = "Tidal Surge",
-			["azeritePowerID"] = 478,
-		}, -- [9]
-		{
-			["icon"] = 135642,
-			["name"] = "Dagger in the Back",
-			["azeritePowerID"] = 479,
-		}, -- [10]
-		{
-			["icon"] = 463568,
-			["name"] = "Blood Rite",
-			["azeritePowerID"] = 480,
-		}, -- [11]
-		{
-			["icon"] = 132193,
-			["name"] = "Incite the Pack",
-			["azeritePowerID"] = 481,
-		}, -- [12]
-		{
-			["icon"] = 839983,
-			["name"] = "Thunderous Blast",
-			["azeritePowerID"] = 482,
-		}, -- [13]
-		{
-			["icon"] = 2032578,
-			["name"] = "Unstable Catalyst",
-			["azeritePowerID"] = 504,
-		}, -- [14]
-		{
-			["icon"] = 1029595,
-			["name"] = "Tradewinds",
-			["azeritePowerID"] = 505,
-		}, -- [15]
-	},
-	["raid"] = {
-		{
-			["icon"] = 2000853,
-			["name"] = "Archive of the Titans",
-			["azeritePowerID"] = 483,
-		}, -- [1]
-		{
-			["icon"] = 136039,
-			["name"] = "Laser Matrix",
-			["azeritePowerID"] = 485,
-		}, -- [2]
 	},
 	["class"] = {
 		{
@@ -1591,6 +1377,326 @@ local sourceData = {
 				["azeritePowerID"] = 87,
 			}, -- [8]
 		},
+	},
+	["role"] = {
+		["tank"] = {
+			{
+				["icon"] = 1029596,
+				["name"] = "Winds of War",
+				["azeritePowerID"] = 43,
+			}, -- [1]
+			{
+				["icon"] = 1129419,
+				["name"] = "Azerite Veins",
+				["azeritePowerID"] = 89,
+			}, -- [2]
+			{
+				["icon"] = 134978,
+				["name"] = "Crystalline Carapace",
+				["azeritePowerID"] = 98,
+			}, -- [3]
+			{
+				["icon"] = 645224,
+				["name"] = "Ablative Shielding",
+				["azeritePowerID"] = 99,
+			}, -- [4]
+			{
+				["icon"] = 136031,
+				["name"] = "Strength in Numbers",
+				["azeritePowerID"] = 100,
+			}, -- [5]
+			{
+				["icon"] = 1323035,
+				["name"] = "Shimmering Haven",
+				["azeritePowerID"] = 101,
+			}, -- [6]
+		},
+		["nonhealer"] = {
+			{
+				["icon"] = 1029585,
+				["name"] = "Elemental Whirl",
+				["azeritePowerID"] = 21,
+			}, -- [1]
+			{
+				["icon"] = 252174,
+				["name"] = "Overwhelming Power",
+				["azeritePowerID"] = 30,
+			}, -- [2]
+			{
+				["icon"] = 132109,
+				["name"] = "Gutripper",
+				["azeritePowerID"] = 31,
+			}, -- [3]
+			{
+				["icon"] = 646670,
+				["name"] = "Azerite Globules",
+				["azeritePowerID"] = 462,
+			}, -- [4]
+		},
+		["healer"] = {
+			{
+				["icon"] = 463526,
+				["name"] = "Woundbinder",
+				["azeritePowerID"] = 19,
+			}, -- [1]
+			{
+				["icon"] = 413576,
+				["name"] = "Savior",
+				["azeritePowerID"] = 42,
+			}, -- [2]
+			{
+				["icon"] = 513195,
+				["name"] = "Synergistic Growth",
+				["azeritePowerID"] = 102,
+			}, -- [3]
+			{
+				["icon"] = 970412,
+				["name"] = "Concentrated Mending",
+				["azeritePowerID"] = 103,
+			}, -- [4]
+			{
+				["icon"] = 236832,
+				["name"] = "Bracing Chill",
+				["azeritePowerID"] = 104,
+			}, -- [5]
+			{
+				["icon"] = 133020,
+				["name"] = "Ephemeral Recovery",
+				["azeritePowerID"] = 105,
+			}, -- [6]
+			{
+				["icon"] = 135905,
+				["name"] = "Blessed Portents",
+				["azeritePowerID"] = 463,
+			}, -- [7]
+		},
+		["common"] = {
+			{
+				["icon"] = 538560,
+				["name"] = "Blood Siphon",
+				["azeritePowerID"] = 18,
+			}, -- [1]
+			{
+				["icon"] = 236166,
+				["name"] = "Lifespeed",
+				["azeritePowerID"] = 20,
+			}, -- [2]
+			{
+				["icon"] = 237589,
+				["name"] = "Heed My Call",
+				["azeritePowerID"] = 22,
+			}, -- [3]
+			{
+				["icon"] = 132565,
+				["name"] = "On My Way",
+				["azeritePowerID"] = 38,
+			}, -- [4]
+			{
+				["icon"] = 514016,
+				["name"] = "Unstable Flames",
+				["azeritePowerID"] = 459,
+			}, -- [5]
+			{
+				["icon"] = 2065623,
+				["name"] = "Earthlink",
+				["azeritePowerID"] = 461,
+			}, -- [6]
+		},
+	},
+	["raid"] = {
+		{
+			["icon"] = 2000853,
+			["name"] = "Archive of the Titans",
+			["azeritePowerID"] = 483,
+		}, -- [1]
+		{
+			["icon"] = 136039,
+			["name"] = "Laser Matrix",
+			["azeritePowerID"] = 485,
+		}, -- [2]
+	},
+	["zone"] = {
+		{
+			["icon"] = 135885,
+			["name"] = "Champion of Azeroth",
+			["azeritePowerID"] = 82,
+		}, -- [1]
+		{
+			["icon"] = 135780,
+			["name"] = "Ruinous Bolt",
+			["azeritePowerID"] = 156,
+		}, -- [2]
+		{
+			["icon"] = 2011133,
+			["name"] = "Rezan's Fury",
+			["azeritePowerID"] = 157,
+		}, -- [3]
+		{
+			["icon"] = 132299,
+			["name"] = "Meticulous Scheming",
+			["azeritePowerID"] = 192,
+		}, -- [4]
+		{
+			["icon"] = 1778229,
+			["name"] = "Blightborne Infusion",
+			["azeritePowerID"] = 193,
+		}, -- [5]
+		{
+			["icon"] = 840409,
+			["name"] = "Filthy Transfusion",
+			["azeritePowerID"] = 194,
+		}, -- [6]
+		{
+			["icon"] = 463858,
+			["name"] = "Secrets of the Deep",
+			["azeritePowerID"] = 195,
+		}, -- [7]
+		{
+			["icon"] = 796638,
+			["name"] = "Swirling Sands",
+			["azeritePowerID"] = 196,
+		}, -- [8]
+		{
+			["icon"] = 1698701,
+			["name"] = "Tidal Surge",
+			["azeritePowerID"] = 478,
+		}, -- [9]
+		{
+			["icon"] = 135642,
+			["name"] = "Dagger in the Back",
+			["azeritePowerID"] = 479,
+		}, -- [10]
+		{
+			["icon"] = 463568,
+			["name"] = "Blood Rite",
+			["azeritePowerID"] = 480,
+		}, -- [11]
+		{
+			["icon"] = 132193,
+			["name"] = "Incite the Pack",
+			["azeritePowerID"] = 481,
+		}, -- [12]
+		{
+			["icon"] = 839983,
+			["name"] = "Thunderous Blast",
+			["azeritePowerID"] = 482,
+		}, -- [13]
+		{
+			["icon"] = 2032578,
+			["name"] = "Unstable Catalyst",
+			["azeritePowerID"] = 504,
+		}, -- [14]
+		{
+			["icon"] = 1029595,
+			["name"] = "Tradewinds",
+			["azeritePowerID"] = 505,
+		}, -- [15]
+	},
+	["profession"] = { -- Engineering
+		{
+			["icon"] = 463515,
+			["name"] = "Barrage Of Many Bombs",
+			["azeritePowerID"] = 498,
+		}, -- [1]
+		{
+			["icon"] = 134427,
+			["name"] = "Ricocheting Inflatable Pyrosaw",
+			["azeritePowerID"] = 499,
+		}, -- [2]
+		{
+			["icon"] = 1320373,
+			["name"] = "Synaptic Spark Capacitor",
+			["azeritePowerID"] = 500,
+		}, -- [3]
+		{
+			["icon"] = 133873,
+			["name"] = "Relational Normalization Gizmo",
+			["azeritePowerID"] = 501,
+		}, -- [4]
+		{
+			["icon"] = 1336885,
+			["name"] = "Personal Absorb-o-Tron",
+			["azeritePowerID"] = 502,
+		}, -- [5]
+		{
+			["icon"] = 514950,
+			["name"] = "Auto-Self-Cauterizer",
+			["azeritePowerID"] = 503,
+		}, -- [6]
+	},
+	["pvp"] = {
+		{
+			["icon"] = 1028980,
+			["name"] = "Glory in Battle",
+			["azeritePowerID"] = 486,
+			["pair"] = 492, -- Liberator's Might
+		}, -- [1]
+		{
+			["icon"] = 1035504,
+			["name"] = "Retaliatory Fury",
+			["azeritePowerID"] = 487,
+			["pair"] = 493, -- Last Gift
+		}, -- [2]
+		{
+			["icon"] = 236646,
+			["name"] = "Battlefield Focus",
+			["azeritePowerID"] = 488,
+			["pair"] = 494, -- Battlefield Precision
+		}, -- [3]
+		{
+			["icon"] = 236560,
+			["name"] = "Sylvanas' Resolve",
+			["azeritePowerID"] = 489,
+			["pair"] = 495, -- Anduin's Dedication
+		}, -- [4]
+		{
+			["icon"] = 236324,
+			["name"] = "Combined Might",
+			["azeritePowerID"] = 490,
+			["pair"] = 496, -- Stronger Together
+		}, -- [5]
+		{
+			["icon"] = 136003,
+			["name"] = "Collective Will",
+			["azeritePowerID"] = 491,
+			["pair"] = 497, -- Stand As One
+		}, -- [6]
+		{
+			["icon"] = 1028984,
+			["name"] = "Liberator's Might",
+			["azeritePowerID"] = 492,
+			["pair"] = 486, -- Glory in Battle
+		}, -- [7]
+		{
+			["icon"] = 236478,
+			["name"] = "Last Gift",
+			["azeritePowerID"] = 493,
+			["pair"] = 487, -- Retaliatory Fury
+		}, -- [8]
+		{
+			["icon"] = 132486,
+			["name"] = "Battlefield Precision",
+			["azeritePowerID"] = 494,
+			["pair"] = 488, -- Battlefield Focus
+		}, -- [9]
+		{
+			["icon"] = 1042294,
+			["name"] = "Anduin's Dedication",
+			["azeritePowerID"] = 495,
+			["pair"] = 489, -- Sylvanas' Resolve
+		}, -- [10]
+		{
+			["icon"] = 2022762,
+			["name"] = "Stronger Together",
+			["azeritePowerID"] = 496,
+			["pair"] = 490, -- Combined Might
+		}, -- [11]
+		{
+			["icon"] = 236344,
+			["name"] = "Stand As One",
+			["azeritePowerID"] = 497,
+			["pair"] = 491, -- Collective Will
+		}, -- [12]
 	},
 }
 n.sourceData = sourceData
