@@ -120,7 +120,7 @@ elseif LOCALE == "koKR" then
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhCN" then
---@localization(locale="znCN", format="lua_additive_table", handle-subnamespaces="concat")@
+--@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
