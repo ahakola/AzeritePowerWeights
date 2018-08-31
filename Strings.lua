@@ -62,6 +62,7 @@ do -- enUS / enGB
 	L.WeightEditor_ExportText = "Export"
 	L.WeightEditor_RenameText = "Rename"
 	L.WeightEditor_DeleteText = "Delete"
+	L.WeightEditor_CurrentScale = "Current scale: %s" -- %s current scaleName
 
 	L.PowersTitles_Class = "Class Powers"
 	L.PowersTitles_Defensive = "Defensive Powers"
@@ -78,11 +79,13 @@ do -- enUS / enGB
 	L.Config_Scales_OwnClassDefaultsOnly = "List own class Default-scales only"
 	L.Config_Scales_OwnClassDefaultsOnly_Desc = "List Default-scales for your own class only, instead of listing all of them."
 
+	L.Config_Importing_Title = "Importing"
+	L.Config_Importing_ImportingCanUpdate = "Importing can update existing scales"
+	L.Config_Importing_ImportingCanUpdate_Desc = "When importing scale with same name, class and specialization as pre-existing scale, existing scale will be updated with the new weights instead of creating new scale."
+	L.Config_Importing_ImportingCanUpdate_Desc_Clarification = "There can be multiple scales with same name as long as they are for different specializations or classes."
+
 	L.Config_WeightEditor_Title = "Scales weight editor"
 	L.Config_WeightEditor_Desc = "Following settings only affects the powers shown in the scale weight editor. Even if you disable them, all and any Azerite powers will be still scored if they have weight set to them in the active scale."
-	L.Config_WeightEditor_ImportingCanUpdate = "Importing can update existing scales"
-	L.Config_WeightEditor_ImportingCanUpdate_Desc = "When importing scale with same name, class and specialization as pre-existing scale, existing scale will be updated with the new weights instead of creating new scale."
-	L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification = "There can be multiple scales with same name as long as they are for different specializations or classes."
 	L.Config_WeightEditor_ShowDefensive = "Show Defensive powers"
 	L.Config_WeightEditor_ShowDefensive_Desc = "Show common and class specific Defensive powers in the scale weight editor."
 	L.Config_WeightEditor_ShowRole = "Show Role specific powers"
@@ -96,7 +99,7 @@ do -- enUS / enGB
 	L.Config_WeightEditor_ShowProfession_Desc = "Show Profession specific powers in the scale weight editor. These powers can only appear in items created with professions. Currently these can only appear in Engineering headgear."
 	L.Config_WeightEditor_ShowPvP = "Show PvP specific powers"
 	L.Config_WeightEditor_ShowPvP_Desc = "Show PvP specific powers in the scale weight editor. You'll only see your own factions powers, but changes made to them will be mirrored to both factions."
-	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting the resulting export-string will only include your own factions pvp powers but they are interchangeable with opposing factions pvp-powerIDs. When Importing from import-string with pvp powers only for one faction, powers will get their weights mirrored to both factions."
+	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting the resulting export-string will only include your own factions pvp powers but they are interchangeable with opposing factions pvp-powerIDs.\nWhen Importing import-string with pvp powers only from one faction, powers will get their weights mirrored to both factions on Import."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME

@@ -329,6 +329,7 @@ local function _enableScale(powerWeights, scaleKey)
 	end
 
 	local _, _, _, scaleName = strsplit("/", scaleKey)
+	n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
 
 	cfg.specScales[playerSpecID].scaleID = scaleKey
 	cfg.specScales[playerSpecID].scaleName = scaleName
@@ -1015,6 +1016,7 @@ local function _populateWeights() -- Populate scoreData with active spec's scale
 				for k, v in pairs(dataSet[4]) do
 					scoreData[k] = v
 				end
+				n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
 
 				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
 				return
@@ -1359,119 +1361,157 @@ function f:CreateOptions()
 				width = "full",
 				order = 0,
 			},
-			scalesHeader = {
+			line = {
 				type = "header",
+				name = "",
+				width = "full",
+				order = 1,
+			},
+			spacer1 = {
+				type = "description",
+				name = " ",
+				width = "full",
+				order = 2,
+			},
+			gScales = {
+				type = "group",
 				name = L.Config_Scales_Title,
+				inline = true,
+				order = 3,
+				args = {
+					scalesText = {
+						type = "description",
+						name = L.Config_Scales_Desc,
+						fontSize = "medium",
+						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
+						width = "full",
+						order = 0,
+					},
+					onlyOwnClassDefaults = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Scales_OwnClassDefaultsOnly .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Scales_OwnClassDefaultsOnly_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 1,
+					},
+				},
+			},
+			spacer2 = {
+				type = "description",
+				name = " ",
+				width = "full",
+				order = 4,
+			},
+			gImport = {
+				type = "group",
+				name = L.Config_Importing_Title,
+				inline = true,
 				order = 5,
+				args = {
+					importingCanUpdate = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Importing_ImportingCanUpdate .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Importing_ImportingCanUpdate_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 0,
+					},
+					importingUpgrade_Desc = {
+						type = "description",
+						name = GRAY_FONT_COLOR_CODE .. L.Config_Importing_ImportingCanUpdate_Desc_Clarification .. FONT_COLOR_CODE_CLOSE,
+						fontSize = "medium",
+						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
+						width = "full",
+						order = 1,
+					},
+				},
 			},
-			scalesText = {
+			spacer3 = {
 				type = "description",
-				name = L.Config_Scales_Desc,
-				fontSize = "medium",
-				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
+				name = " ",
 				width = "full",
-				order = 10,
+				order = 6,
 			},
-			onlyOwnClassDefaults = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_Scales_OwnClassDefaultsOnly .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_Scales_OwnClassDefaultsOnly_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 15,
-			},
-			editorHeader = {
-				type = "header",
+			gEditor = {
+				type = "group",
 				name = L.Config_WeightEditor_Title,
-				order = 20,
-			},
-			editorText = {
-				type = "description",
-				name = L.Config_WeightEditor_Desc,
-				fontSize = "medium",
-				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
-				width = "full",
-				order = 25,
-			},
-			importingCanUpdate = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ImportingCanUpdate .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ImportingCanUpdate_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 30,
-			},
-			importingUpgrade_Desc = {
-				type = "description",
-				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ImportingCanUpdate_Desc_Clarification .. FONT_COLOR_CODE_CLOSE,
-				fontSize = "medium",
-				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
-				width = "full",
-				order = 35,
-			},
-			defensivePowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowDefensive .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowDefensive_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 40,
-			},
-			rolePowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowRole .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowRole_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 45,
-			},
-			rolePowersNoOffRolePowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowRolesOnlyForOwnSpec .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowRolesOnlyForOwnSpec_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 50,
-			},
-			zonePowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowZone .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowZone_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 55,
-			},
-			zonePowers_Desc = {
-				type = "description",
-				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowZone_Desc_Proc .. FONT_COLOR_CODE_CLOSE,
-				fontSize = "medium",
-				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
-				width = "full",
-				order = 60,
-			},
-			professionPowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowProfession .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowProfession_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 65,
-			},
-			pvpPowers = {
-				type = "toggle",
-				name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP .. FONT_COLOR_CODE_CLOSE,
-				desc = L.Config_WeightEditor_ShowPvP_Desc,
-				descStyle = "inline",
-				width = "full",
-				order = 70,
-			},
-			pvpPowers_Desc = {
-				type = "description",
-				name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP_Desc_Import .. FONT_COLOR_CODE_CLOSE,
-				fontSize = "medium",
-				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
-				width = "full",
-				order = 75,
+				inline = true,
+				order = 7,
+				args = {
+					editorText = {
+						type = "description",
+						name = L.Config_WeightEditor_Desc,
+						fontSize = "medium",
+						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
+						width = "full",
+						order = 0,
+					},
+					defensivePowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowDefensive .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowDefensive_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 1,
+					},
+					rolePowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowRole .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowRole_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 2,
+					},
+					rolePowersNoOffRolePowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowRolesOnlyForOwnSpec .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowRolesOnlyForOwnSpec_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 3,
+					},
+					zonePowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowZone .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowZone_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 4,
+					},
+					zonePowers_Desc = {
+						type = "description",
+						name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowZone_Desc_Proc .. FONT_COLOR_CODE_CLOSE,
+						fontSize = "medium",
+						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
+						width = "full",
+						order = 5,
+					},
+					professionPowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowProfession .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowProfession_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 6,
+					},
+					pvpPowers = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_WeightEditor_ShowPvP_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 7,
+					},
+					pvpPowers_Desc = {
+						type = "description",
+						name = GRAY_FONT_COLOR_CODE .. L.Config_WeightEditor_ShowPvP_Desc_Import .. FONT_COLOR_CODE_CLOSE,
+						fontSize = "medium",
+						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
+						width = "full",
+						order = 8,
+					},
+				},
 			},
 		},
 	}
