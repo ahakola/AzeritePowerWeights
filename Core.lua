@@ -1484,6 +1484,17 @@ GameTooltip:HookScript("OnHide", function()
 end)
 
 -- Event functions
+local function prerequisitesLoaded() -- Both this and Blizzard_AzeriteUI has been loaded
+	-- Hook 'em & Cook 'em
+	hooksecurefunc(_G.AzeriteEmpoweredItemUI, "UpdateTiers", delayedUpdate)
+	--hooksecurefunc(_G.AzeriteEmpoweredItemUI, "Refresh", delayedUpdate)
+	hooksecurefunc(_G.AzeriteEmpoweredItemUI, "OnItemSet", delayedUpdate)
+	C_Timer.After(0, function() -- Fire on next frame instead of current frame
+		delayedUpdate()
+		_G.AzeriteEmpoweredItemUI:HookScript("OnShow", delayedUpdate)
+	end)
+	f:HookAzeriteUI()
+end
 function f:ADDON_LOADED(event, addon)
 	if addon == ADDON_NAME then
 		AzeritePowerWeightsDB = initDB(AzeritePowerWeightsDB, dbDefaults)
@@ -1518,23 +1529,21 @@ function f:ADDON_LOADED(event, addon)
 			end
 		end
 
+		if IsAddOnLoaded("Blizzard_AzeriteUI") then
+			prerequisitesLoaded()
+		end
+		--[[
 		if _G.AzeriteEmpoweredItemUI then
 			self:HookAzeriteUI()
 		end
+		]]
 
 		self:CreateOptions()
 
 	elseif addon == "Blizzard_AzeriteUI" then
-		-- Hook 'em & Cook 'em
-		hooksecurefunc(_G.AzeriteEmpoweredItemUI, "UpdateTiers", delayedUpdate)
-		--hooksecurefunc(_G.AzeriteEmpoweredItemUI, "Refresh", delayedUpdate)
-		hooksecurefunc(_G.AzeriteEmpoweredItemUI, "OnItemSet", delayedUpdate)
-		C_Timer.After(0, function() -- Fire on next frame instead of current frame
-			delayedUpdate()
-			_G.AzeriteEmpoweredItemUI:HookScript("OnShow", delayedUpdate)
-		end)
-		self:HookAzeriteUI()
-
+		if IsAddOnLoaded(ADDON_NAME) then
+			prerequisitesLoaded()
+		end
 	end
 end
 
