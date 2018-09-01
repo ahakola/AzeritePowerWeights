@@ -1077,6 +1077,7 @@ local function _activeSpec() -- Get current active spec for scoreData population
 end
 
 local function _populateWeights() -- Populate scoreData with active spec's scale
+	if not playerSpecID then return end -- No playerSpecID yet, return
 	local scaleKey = cfg.specScales[playerSpecID].scaleID
 	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
 	if groupSet and classID and specNum and scaleName then
@@ -1101,6 +1102,7 @@ local function _populateWeights() -- Populate scoreData with active spec's scale
 end
 
 function f:HookAzeriteUI() -- Set Parents and Anchors
+	if not playerSpecID then return end -- No playerSpecID yet, return
 	Debug("HOOK UI")
 	self:InitUI()
 
@@ -1117,7 +1119,7 @@ function f:HookAzeriteUI() -- Set Parents and Anchors
 		n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
 	end
 
-	n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI)
+	n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
 	n.enableButton.frame:Show()
 
 	_G.AzeriteEmpoweredItemUI:HookScript("OnHide", function() -- Hide strings on frame hide
@@ -1194,7 +1196,7 @@ function f:InitUI() -- Build UI and set up some initial data
 	n:CreateImportGroup(n.scalesScroll)
 
 	-- Check if we have spec
-	if not (playerSpecID and cfg.specScales[playerSpecID] and cfg.specScales[playerSpecID].scaleID) then
+	if not (playerSpecID and cfg and cfg.specScales[playerSpecID] and cfg.specScales[playerSpecID].scaleID) then
 		Debug("No playerSpecID detected", playerSpecID, cfg.specScales[playerSpecID] and cfg.specScales[playerSpecID].scaleID or "!No specScales", GetRealmName(), UnitName("player"), GetSpecializationInfo(GetSpecialization()))
 		_activeSpec()
 	end
@@ -1484,17 +1486,6 @@ GameTooltip:HookScript("OnHide", function()
 end)
 
 -- Event functions
-local function prerequisitesLoaded() -- Both this addon and Blizzard_AzeriteUI has been loaded
-	-- Hook 'em & Cook 'em
-	hooksecurefunc(_G.AzeriteEmpoweredItemUI, "UpdateTiers", delayedUpdate)
-	--hooksecurefunc(_G.AzeriteEmpoweredItemUI, "Refresh", delayedUpdate)
-	hooksecurefunc(_G.AzeriteEmpoweredItemUI, "OnItemSet", delayedUpdate)
-	C_Timer.After(0, function() -- Fire on next frame instead of current frame
-		delayedUpdate()
-		_G.AzeriteEmpoweredItemUI:HookScript("OnShow", delayedUpdate)
-	end)
-	f:HookAzeriteUI()
-end
 function f:ADDON_LOADED(event, addon)
 	if addon == ADDON_NAME then
 		AzeritePowerWeightsDB = initDB(AzeritePowerWeightsDB, dbDefaults)
@@ -1529,26 +1520,27 @@ function f:ADDON_LOADED(event, addon)
 			end
 		end
 
-		if IsAddOnLoaded("Blizzard_AzeriteUI") then
-			prerequisitesLoaded()
-		end
-		--[[
-		if _G.AzeriteEmpoweredItemUI then
-			self:HookAzeriteUI()
-		end
-		]]
-
 		self:CreateOptions()
 
 	elseif addon == "Blizzard_AzeriteUI" then
-		if IsAddOnLoaded(ADDON_NAME) then
-			prerequisitesLoaded()
-		end
+		-- Hook 'em & Cook 'em
+		hooksecurefunc(_G.AzeriteEmpoweredItemUI, "UpdateTiers", delayedUpdate)
+		--hooksecurefunc(_G.AzeriteEmpoweredItemUI, "Refresh", delayedUpdate)
+		hooksecurefunc(_G.AzeriteEmpoweredItemUI, "OnItemSet", delayedUpdate)
+		C_Timer.After(0, function() -- Fire on next frame instead of current frame
+			delayedUpdate()
+			_G.AzeriteEmpoweredItemUI:HookScript("OnShow", delayedUpdate)
+		end)
+		self:HookAzeriteUI()
 	end
 end
 
 function f:PLAYER_LOGIN(event)
 	_activeSpec()
+
+	if _G.AzeriteEmpoweredItemUI then
+		self:HookAzeriteUI()
+	end
 end
 
 function f:AZERITE_ITEM_POWER_LEVEL_CHANGED(event)

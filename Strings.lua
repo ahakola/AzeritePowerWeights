@@ -135,7 +135,7 @@ elseif LOCALE == "koKR" then
 elseif LOCALE == "zhCN" then
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then
+elseif LOCALE == "zhTW" then -- BNSSNB (xx)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end
