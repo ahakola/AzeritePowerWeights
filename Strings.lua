@@ -62,6 +62,7 @@ do -- enUS / enGB
 	L.WeightEditor_ExportText = "Export"
 	L.WeightEditor_RenameText = "Rename"
 	L.WeightEditor_DeleteText = "Delete"
+	L.WeightEditor_TooltipText = "Show in Tooltips"
 	L.WeightEditor_CurrentScale = "Current scale: %s" -- %s current scaleName
 
 	L.PowersTitles_Class = "Class Powers"
@@ -72,6 +73,7 @@ do -- enUS / enGB
 	L.PowersTitles_PvP = "PvP Powers"
 
 	L.PowersScoreString = "Current score: %1$d/%2$d\nMaximum score: %3$d\nAzerite level: %4$d/%5$d" -- %1$d = currentScore, %2$d = currentPotential, %3$d = maximumScore, %4$d = currentLevel, %5$d = maxLevel
+	L.ItemToolTip_AzeriteLevel = "Azerite level: %1$d / %2$d" -- %1$d = currentLevel, %2$d = maxLevel
 
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
 	L.Config_Scales_Title = "Scales list"
@@ -106,7 +108,7 @@ do -- enUS / enGB
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
 end
 
-if LOCALE == "deDE" then
+if LOCALE == "deDE" then -- Sinusquell (13)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then

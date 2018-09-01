@@ -33,7 +33,8 @@ local charDefaults = {
 	zonePowers = true,
 	professionPowers = false,
 	pvpPowers = false,
-	specScales = {}
+	specScales = {},
+	tooltipScales = {}
 }
 
 -- Slots for Azerite Gear
@@ -506,12 +507,27 @@ local function _renameScale(scaleName, classID, specID, isCurrentScales) -- Show
 				_enableScale(scaleWeights, "C/"..classID.."/"..specID.."/"..finalName)
 			end
 
+			-- Check if we have to rename scaleKeys for other tooltips
+			for realmName, realmData in pairs(db.char) do
+				for charName, charData in pairs(realmData) do
+					if charData.tooltipScales and #charData.tooltipScales > 0 then
+						for i, tooltipData in ipairs(charData.tooltipScales) do
+							if tooltipData.scaleName == scaleName and tooltipData.scaleID == "C/"..classID.."/"..specID.."/"..scaleName then -- Found character with same scale, update scaleKey
+								Debug("> Changing scaleKey for tooltipScales", i, charName, realmName)
+								tooltipData.scaleID = "C/"..classID.."/"..specID.."/"..finalName
+								tooltipData.scaleName = finalName
+							end
+						end
+					end
+				end
+			end
+
 			-- Check if we have to rename scaleKeys for other characters using same scale
 			for realmName, realmData in pairs(db.char) do
 				for charName, charData in pairs(realmData) do
 					for spec, specData in pairs(charData.specScales) do
 						if spec == specID and specData.scaleName == scaleName and specData.scaleID == "C/"..classID.."/"..specID.."/"..scaleName then -- Found character with same scale, update scaleKey
-							Debug("> Changing scaleKey for", charName, realmName)
+							Debug("> Changing scaleKey for specScales", charName, realmName)
 							specData.scaleID = "C/"..classID.."/"..specID.."/"..finalName
 							specData.scaleName = finalName
 						end
@@ -567,12 +583,27 @@ local function _deleteScale(scaleName, classID, specID, isCurrentScales) -- Show
 			Print(L.DeletePopup_DeletedDefaultScale)
 		end
 
+		-- Check if this scale was in tooltips
+		for realmName, realmData in pairs(db.char) do
+			for charName, charData in pairs(realmData) do
+				if charData.tooltipScales and #charData.tooltipScales > 0 then
+					for i = #charData.tooltipScales, 1 , -1 do -- Go backwards to prevent holes and errors
+						local tooltipData = charData.tooltipScales[i]
+						if tooltipData.scaleName == scaleName and tooltipData.scaleID == "C/"..classID.."/"..specID.."/"..scaleName then -- Found character with same scale, remove scaleKey
+							Debug("> Deleting scaleKey from tooltipScales", i, charName, realmName)
+							tremove(charData.tooltipScales, i)
+						end
+					end
+				end
+			end
+		end
+
 		-- Check if someone used this scale and remove it so they can revert back to default on their next login
 		for realmName, realmData in pairs(db.char) do
 			for charName, charData in pairs(realmData) do
 				for spec, specData in pairs(charData.specScales) do
 					if spec == specID and specData.scaleName == scaleName and specData.scaleID == "C/"..classID.."/"..specID.."/"..scaleName then -- Found character with same scale, remove scaleKey
-						Debug("> Deleting scaleKey", specID, charName, realmName)
+						Debug("> Deleting scaleKey from specScales", specID, charName, realmName)
 						charData.specScales[spec] = nil
 					end
 				end
@@ -675,6 +706,39 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 		end)
 		container:AddChild(deleteButton)
 	end
+
+	-- Tooltip start
+	local tooltipCheckbox = AceGUI:Create("CheckBox")
+	tooltipCheckbox:SetLabel(L.WeightEditor_TooltipText)
+	tooltipCheckbox:SetFullWidth(true)
+	tooltipCheckbox:SetValue(false)
+	tooltipCheckbox:SetCallback("OnValueChanged", function(widget, callback, checked)
+		if checked == true then
+			local _, _, _, thisScaleName = strsplit("/", scaleKey)
+			cfg.tooltipScales[#cfg.tooltipScales + 1] = {
+				scaleID = scaleKey,
+				scaleName = thisScaleName
+			}
+		else
+			if #cfg.tooltipScales > 0 then
+				for i = #cfg.tooltipScales, 1, -1 do -- Just to make sure if for any errorous reason, there are multiple copies of same scale, they all get removed.
+					local v = cfg.tooltipScales[i]
+					if v.scaleID == scaleKey then
+						tremove(cfg.tooltipScales, i)
+					end
+				end
+			end
+		end
+		widget:SetValue(checked)
+	end)
+	container:AddChild(tooltipCheckbox)
+
+	for _, v in ipairs(cfg.tooltipScales) do
+		if v.scaleID == scaleKey then
+			tooltipCheckbox:SetValue(true)
+		end
+	end
+	-- Tooltip end
 
 	local spacer = AceGUI:Create("Label")
 	spacer:SetText(" \n ")
@@ -992,8 +1056,16 @@ local function _toggleEditorUI()
 	end
 end
 
-
 -- Hook and Init functions
+local function _isInteger(number)
+	return number == floor(number)
+end
+
+local function _getDecimals(number)
+	local num, decimals = strsplit(".", tostring(number))
+	return decimals and strlen(decimals) or 0
+end
+
 local function _activeSpec() -- Get current active spec for scoreData population etc.
 	local currentSpec = GetSpecialization()
 	if currentSpec then
@@ -1230,12 +1302,186 @@ function f:UpdateValues() -- Update scores
 		end
 	end
 
-	local baseScore = format(L.PowersScoreString, currentScore, currentPotential, maxScore, currentLevel, maxLevel)
+	-- Integer or Float?
+	local cS, cP, mS
+	if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
+		cS, cP, mS = currentScore, currentPotential, maxScore
+	else
+		local decimals = max(_getDecimals(currentScore), _getDecimals(currentPotential), _getDecimals(maxScore))
+		cS = (("%%.%df"):format(decimals)):format(currentScore)
+		cP = (("%%.%df"):format(decimals)):format(currentPotential)
+		mS = (("%%.%df"):format(decimals)):format(maxScore)
+	end
+
+	local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
 
 	n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
 
 	--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
 end
+
+-- Item Tooltip & Hook - Hacked together and probably could be done better
+local azeriteEmpoweredItemLocation = ItemLocation:CreateEmpty()
+
+local function _updateTooltip(tooltip, itemLink)
+	local currentLevel, maxLevel = 0, 0
+	local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
+	if azeriteItemLocation then
+		currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
+	end
+
+	local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
+
+	local currentScore, currentPotential, maxScore, scaleInfo = {}, {}, {}, {}
+	for i, tooltipScale in ipairs(cfg.tooltipScales) do
+		currentScore[i] = 0
+		currentPotential[i] = 0
+		maxScore[i] = 0
+		scaleInfo[i] = {}
+
+		local dataPointer
+		local groupSet, classID, specNum, scaleName = strsplit("/", tooltipScale.scaleID)
+		if groupSet and classID and specNum and scaleName then
+			classID = tonumber(classID)
+			specNum = tonumber(specNum)
+			for _, dataSet in ipairs(groupSet == "C" and customScales or n.defaultScalesData) do
+				if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
+					dataPointer = dataSet[4]
+
+					scaleInfo[i].class = classID
+					if groupSet == "C" then
+						local _, specName, _, iconID = GetSpecializationInfoByID(specNum)
+						scaleInfo[i].icon = iconID
+					else
+						local _, specName, _, iconID = GetSpecializationInfoForClassID(classID, specNum)
+						scaleInfo[i].icon = iconID
+					end
+
+					break
+				end
+			end
+		end
+
+		if dataPointer then
+			for tierIndex, tierInfo in ipairs(allTierInfo) do
+				local maximum, tierMaximum = 0, 0
+				for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
+					local score = 0
+					local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID)
+					if powerInfo then
+						score = dataPointer[powerInfo.azeritePowerID] or dataPointer[powerInfo.spellID] or 0
+
+						if azeriteEmpoweredItemLocation:HasAnyLocation() and C_AzeriteEmpoweredItem.IsPowerSelected(azeriteEmpoweredItemLocation, powerInfo.azeritePowerID) then
+							currentScore[i] = currentScore[i] + score
+							--Debug("+++", powerInfo.azeritePowerID, GetSpellInfo(powerInfo.spellID), score)
+						else
+							--Debug("---", powerInfo.azeritePowerID, GetSpellInfo(powerInfo.spellID), score)
+						end
+					end
+					
+					if maximum < score then
+						maximum = score
+					end
+					if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
+						tierMaximum = score
+					end
+				end
+
+				--Debug(tierIndex, maximum)
+				maxScore[i] = maxScore[i] + maximum
+				currentPotential[i] = currentPotential[i] + tierMaximum
+				if maxLevel < tierInfo.unlockLevel then
+					maxLevel = tierInfo.unlockLevel
+				end
+			end
+		end
+	end
+
+	tooltip:AddLine(" \n"..ADDON_NAME)
+
+	for i = 1, #maxScore do
+		local _, classTag = GetClassInfo(scaleInfo[i].class)
+		local c = _G.RAID_CLASS_COLORS[classTag]
+
+		local string = "|T%d:0|t |c%s%s|r: "
+		if _isInteger(currentScore[i]) and _isInteger(currentPotential[i]) and _isInteger(maxScore[i]) then -- All integers
+			string = string .. "%d / %d / %d"
+		else -- There are some floats
+			local decimals = max(_getDecimals(currentScore[i]), _getDecimals(currentPotential[i]), _getDecimals(maxScore[i]))
+			--Debug("Decimals:", decimals)
+			string = string .. ("%%.%df / %%.%df / %%.%df"):format(decimals, decimals, decimals)
+		end
+		tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
+	end
+
+	tooltip:AddLine(format(L.ItemToolTip_AzeriteLevel, currentLevel, maxLevel))
+	tooltip:Show() -- Make updates visible
+end
+
+-- Item from bags
+hooksecurefunc(GameTooltip, "SetBagItem", function(self, ...) -- This can be called 4-5 times per second
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local bag, slot = ...
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+
+		_updateTooltip(_G.GameTooltip, itemLink)
+	end
+end)
+
+-- Equipped item
+hooksecurefunc(GameTooltip, "SetInventoryItem", function(self, ...) -- This can be called 4-5 times per second
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local unit, equipLoc = ... -- player 1 nil true
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(equipLoc)
+
+		_updateTooltip(_G.GameTooltip, itemLink)
+	end
+end)
+
+-- Any other item, EJ etc.
+hooksecurefunc(GameTooltip, "SetHyperlink", function(self, ...)
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+
+		_updateTooltip(_G.GameTooltip, itemLink)
+	end
+end)
+
+-- World Quest rewards (https://www.townlong-yak.com/framexml/27547/GameTooltip.lua#925)
+hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self, questLogIndex, questID)
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemTexture, quantity, quality, isUsable, itemID = GetQuestLogRewardInfo(questLogIndex, questID)
+	local itemName, itemLink = GetItemInfo(itemID)
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		_updateTooltip(self.Tooltip, itemLink)
+	end
+end)
+
+GameTooltip:HookScript("OnHide", function()
+	azeriteEmpoweredItemLocation:Clear()
+end)
 
 -- Event functions
 function f:ADDON_LOADED(event, addon)
