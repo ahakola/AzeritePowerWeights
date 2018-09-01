@@ -1484,7 +1484,7 @@ GameTooltip:HookScript("OnHide", function()
 end)
 
 -- Event functions
-local function prerequisitesLoaded() -- Both this and Blizzard_AzeriteUI has been loaded
+local function prerequisitesLoaded() -- Both this addon and Blizzard_AzeriteUI has been loaded
 	-- Hook 'em & Cook 'em
 	hooksecurefunc(_G.AzeriteEmpoweredItemUI, "UpdateTiers", delayedUpdate)
 	--hooksecurefunc(_G.AzeriteEmpoweredItemUI, "Refresh", delayedUpdate)
