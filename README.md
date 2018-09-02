@@ -33,5 +33,5 @@ If you are looking for specialization specific traits and it isn't there, it mig
 - koKR (Korean):
 - ptBR (Brazilian Portuguese):
 - ruRU (Russian): **dartraiden**
-- zhCN (Simplified Chinese):
+- zhCN (Simplified Chinese): **riggzh**
 - zhTW (Traditional Chinese): **BNSSNB**

@@ -1089,7 +1089,9 @@ local function _populateWeights() -- Populate scoreData with active spec's scale
 				for k, v in pairs(dataSet[4]) do
 					scoreData[k] = v
 				end
-				n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+				if n.guiContainer then
+					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+				end
 
 				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
 				return
@@ -1568,7 +1570,10 @@ function f:PLAYER_SPECIALIZATION_CHANGED(event, ...)
 	--Debug(event, tostringall(...)) -- ... = unit == player always
 
 	_activeSpec()
-	_populateWeights()
+
+	if _G.AzeriteEmpoweredItemUI then
+		_populateWeights()
+	end
 
 	delayedUpdate()
 end
