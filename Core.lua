@@ -1402,18 +1402,20 @@ local function _updateTooltip(tooltip, itemLink)
 	tooltip:AddLine(" \n"..ADDON_NAME)
 
 	for i = 1, #maxScore do
-		local _, classTag = GetClassInfo(scaleInfo[i].class)
-		local c = _G.RAID_CLASS_COLORS[classTag]
+		if scaleInfo[i].class then
+			local _, classTag = GetClassInfo(scaleInfo[i].class)
+			local c = _G.RAID_CLASS_COLORS[classTag]
 
-		local string = "|T%d:0|t |c%s%s|r: "
-		if _isInteger(currentScore[i]) and _isInteger(currentPotential[i]) and _isInteger(maxScore[i]) then -- All integers
-			string = string .. "%d / %d / %d"
-		else -- There are some floats
-			local decimals = max(_getDecimals(currentScore[i]), _getDecimals(currentPotential[i]), _getDecimals(maxScore[i]))
-			--Debug("Decimals:", decimals)
-			string = string .. ("%%.%df / %%.%df / %%.%df"):format(decimals, decimals, decimals)
+			local string = "|T%d:0|t |c%s%s|r: "
+			if _isInteger(currentScore[i]) and _isInteger(currentPotential[i]) and _isInteger(maxScore[i]) then -- All integers
+				string = string .. "%d / %d / %d"
+			else -- There are some floats
+				local decimals = max(_getDecimals(currentScore[i]), _getDecimals(currentPotential[i]), _getDecimals(maxScore[i]))
+				--Debug("Decimals:", decimals)
+				string = string .. ("%%.%df / %%.%df / %%.%df"):format(decimals, decimals, decimals)
+			end
+			tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
 		end
-		tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
 	end
 
 	tooltip:AddLine(format(L.ItemToolTip_AzeriteLevel, currentLevel, maxLevel))

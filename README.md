@@ -18,6 +18,12 @@ Only one scale can be active to be showing scores in the Azerite UI at any given
 
 ---
 
+If you are looking for role specific Azerite trait, but can't find it in the Weight Editor, the trait could be aimed for different role than you current (even though it could be usable by your class because you have access to specialization with that role). To make it appear in the Weight Editor, make sure `Show Role specific powers only for my own specialization role` is disabled in the Config (`ESC - Interface - AddOns - AzeritePowerWeights`)
+
+If you are looking for specialization specific traits and it isn't there, it might be aimed for different specialization, but usable also by your current specialization. I'm working on getting these sorted out and added to the Weight Editor, but meanwhile you'll have to `Export` the scale, add the weight by hand and `Import` the string to update the scale.
+
+---
+
 ### Translations
 - deDE (German): **Sinusquell**
 - esES (Spanish):
@@ -26,6 +32,6 @@ Only one scale can be active to be showing scores in the Azerite UI at any given
 - itIT (Italian):
 - koKR (Korean):
 - ptBR (Brazilian Portuguese):
-- ruRU (Russian):
+- ruRU (Russian): **dartraiden**
 - zhCN (Simplified Chinese):
 - zhTW (Traditional Chinese): **BNSSNB**

@@ -108,7 +108,7 @@ do -- enUS / enGB
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
 end
 
-if LOCALE == "deDE" then -- Sinusquell (13)
+if LOCALE == "deDE" then -- Sinusquell (41)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then
@@ -126,7 +126,7 @@ elseif LOCALE == "itIT" then
 elseif LOCALE == "ptBR" then
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then
+elseif LOCALE == "ruRU" then -- dartraiden (74)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "koKR" then
@@ -135,7 +135,7 @@ elseif LOCALE == "koKR" then
 elseif LOCALE == "zhCN" then
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (62)
+elseif LOCALE == "zhTW" then -- BNSSNB (73)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end
