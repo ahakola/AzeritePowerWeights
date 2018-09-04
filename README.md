@@ -41,3 +41,9 @@ If you still can't find a trait and you are 100% sure you should be able to find
 - zhTW (Traditional Chinese): **BNSSNB**
 
 ---
+
+### Default scales
+
+Dates are in DD.MM.YY-format.
+
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [imported 03.09.18]
