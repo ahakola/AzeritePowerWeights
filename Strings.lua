@@ -72,7 +72,7 @@ do -- enUS / enGB
 	L.PowersTitles_Profession = "Profession Powers"
 	L.PowersTitles_PvP = "PvP Powers"
 
-	L.PowersScoreString = "Current score: %1$d/%2$d\nMaximum score: %3$d\nAzerite level: %4$d/%5$d" -- %1$d = currentScore, %2$d = currentPotential, %3$d = maximumScore, %4$d = currentLevel, %5$d = maxLevel
+	L.PowersScoreString = "Current score: %1$s/%2$s\nMaximum score: %3$s\nAzerite level: %4$d/%5$d" -- %1$s = currentScore, %2$s = currentPotential, %3$s = maximumScore, %4$d = currentLevel, %5$d = maxLevel
 	L.ItemToolTip_AzeriteLevel = "Azerite level: %1$d / %2$d" -- %1$d = currentLevel, %2$d = maxLevel
 
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
@@ -117,7 +117,7 @@ elseif LOCALE == "esES" then
 elseif LOCALE == "esMX" then
 --@localization(locale="esMX", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "frFR" then
+elseif LOCALE == "frFR" then -- tthegarde (20)
 --@localization(locale="frFR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "itIT" then
@@ -129,10 +129,10 @@ elseif LOCALE == "ptBR" then
 elseif LOCALE == "ruRU" then -- dartraiden (74)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "koKR" then
+elseif LOCALE == "koKR" then -- Killberos (49)
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhCN" then -- riggzh (38)
+elseif LOCALE == "zhCN" then -- plok245 (38), riggzh (36)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then -- BNSSNB (73), Sinusquell (1)

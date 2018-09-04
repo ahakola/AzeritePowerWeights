@@ -1312,9 +1312,9 @@ function f:UpdateValues() -- Update scores
 		cS, cP, mS = currentScore, currentPotential, maxScore
 	else
 		local decimals = max(_getDecimals(currentScore), _getDecimals(currentPotential), _getDecimals(maxScore))
-		cS = (("%%.%df"):format(decimals)):format(currentScore)
-		cP = (("%%.%df"):format(decimals)):format(currentPotential)
-		mS = (("%%.%df"):format(decimals)):format(maxScore)
+		cS = (currentScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentScore)
+		cP = (currentPotential == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentPotential)
+		mS = (maxScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(maxScore)
 	end
 
 	local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
@@ -1414,7 +1414,12 @@ local function _updateTooltip(tooltip, itemLink)
 			else -- There are some floats
 				local decimals = max(_getDecimals(currentScore[i]), _getDecimals(currentPotential[i]), _getDecimals(maxScore[i]))
 				--Debug("Decimals:", decimals)
-				string = string .. ("%%.%df / %%.%df / %%.%df"):format(decimals, decimals, decimals)
+				--string = string .. ("%%.%df / %%.%df / %%.%df"):format(decimals, decimals, decimals)
+				string = string .. (currentScore[i] == 0 and "%d" or ("%%.%df"):format(decimals))
+				string = string .. " / "
+				string = string .. (currentPotential[i] == 0 and "%d" or ("%%.%df"):format(decimals))
+				string = string .. " / "
+				string = string .. (maxScore[i] == 0 and "%d" or ("%%.%df"):format(decimals))
 			end
 			tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
 		end

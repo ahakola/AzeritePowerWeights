@@ -6,9 +6,13 @@ Helps you pick the best Azerite powers on your gear for your class and spec.
 
 ## !! WARNING: READ THIS BEFORE USING THIS ADDON !!
 
-Current `Default-scales` were quickly put together using `SimulationCraft` and `Excel` and **they probably aren't anywhere near the right weights**. SimulationCraft doesn't support healers and, at the time of simulations, Protection Warriors and for some reason I didn't get any usable results for Guardian Druids `Default Defensive -scales`.
+Most of the current `Default-scales` are done by myself using `SimulationCraft` and `Excel` and **might contain some errors**. `SimulationCraft` doesn't support healers and, at the time of my last simulations, Protection Warriors.
 
-If you have good source for ranking Azerite powers for your own spec, you make and export the best Custom-scale for your spec yourself, or you can help me improve my SimulationCraft templates, don't hesitate to contact me via PM, comment or ticket so I can improve the `Default-scales`.
+These `Default-scales` are ment to be a all-around starter weights for people who aren't good at simulating their own results. For more accurate and up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class or sites specialized at doing simulations for all the different classes and specializations.
+
+At the time of writing this, at least https://www.herodamage.com/ and https://bloodmallet.com/ provides import-strings for all the specializations supported by `SimulationCraft` (I'm not affiliated with these sites).
+
+If you have good source for ranking Azerite powers for your own spec, you make and export the best Custom-scale for your spec yourself, or you can help me improve my `SimulationCraft` templates, don't hesitate to contact me via PM, comment or ticket so I can improve the `Default-scales`.
 
 ---
 
@@ -20,7 +24,7 @@ Only one scale can be active to be showing scores in the Azerite UI at any given
 
 If you are looking for role specific Azerite trait, but can't find it in the Weight Editor, the trait could be aimed for different role than you current (even though it could be usable by your class because you have access to specialization with that role). To make it appear in the Weight Editor, make sure `Show Role specific powers only for my own specialization role` is disabled in the Config (`ESC - Interface - AddOns - AzeritePowerWeights`)
 
-If you are looking for specialization specific traits and it isn't there, it might be aimed for different specialization, but usable also by your current specialization. I'm working on getting these sorted out and added to the Weight Editor, but meanwhile you'll have to `Export` the scale, add the weight by hand and `Import` the string to update the scale.
+If you still can't find a trait and you are 100% sure you should be able to find it, don't hesitate to open a issue ticket or contact me any other way!
 
 ---
 
@@ -28,10 +32,12 @@ If you are looking for specialization specific traits and it isn't there, it mig
 - deDE (German): **Sinusquell**
 - esES (Spanish):
 - esMX (Latin American Spanish):
-- frFR (French):
+- frFR (French): **tthegarde**
 - itIT (Italian):
-- koKR (Korean):
+- koKR (Korean): **Killberos**
 - ptBR (Brazilian Portuguese):
 - ruRU (Russian): **dartraiden**
-- zhCN (Simplified Chinese): **riggzh**
+- zhCN (Simplified Chinese): **riggzh, plok245**
 - zhTW (Traditional Chinese): **BNSSNB**
+
+---
