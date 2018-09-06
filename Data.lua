@@ -1715,11 +1715,13 @@ local sourceData = {
 	["defensive"] = {
 		{
 			{
+				["spellID"] = 280023,
 				["icon"] = 132351,
 				["name"] = "Moment of Glory",
 				["azeritePowerID"] = 476,
 			}, -- [1]
 			{
+				["spellID"] = 280128,
 				["icon"] = 132342,
 				["name"] = "Bury the Hatchet",
 				["azeritePowerID"] = 477,
@@ -1727,11 +1729,13 @@ local sourceData = {
 		}, -- [1]
 		{
 			{
+				["spellID"] = 274388,
 				["icon"] = 524354,
 				["name"] = "Stalwart Protector",
 				["azeritePowerID"] = 206,
 			}, -- [1]
 			{
+				["spellID"] = 280017,
 				["icon"] = 1360759,
 				["name"] = "Gallant Steed",
 				["azeritePowerID"] = 471,
@@ -1739,11 +1743,13 @@ local sourceData = {
 		}, -- [2]
 		{
 			{
+				["spellID"] = 274355,
 				["icon"] = 132199,
 				["name"] = "Shellshock",
 				["azeritePowerID"] = 203,
 			}, -- [1]
 			{
+				["spellID"] = 280014,
 				["icon"] = 132293,
 				["name"] = "Duck and Cover",
 				["azeritePowerID"] = 469,
@@ -1751,11 +1757,13 @@ local sourceData = {
 		}, -- [3]
 		{
 			{
+				["spellID"] = 274692,
 				["icon"] = 132307,
 				["name"] = "Footpad",
 				["azeritePowerID"] = 217,
 			}, -- [1]
 			{
+				["spellID"] = 280020,
 				["icon"] = 136177,
 				["name"] = "Shrouded Mantle",
 				["azeritePowerID"] = 473,
@@ -1763,11 +1771,13 @@ local sourceData = {
 		}, -- [4]
 		{
 			{
+				["spellID"] = 274366,
 				["icon"] = 135994,
 				["name"] = "Sanctum",
 				["azeritePowerID"] = 204,
 			}, -- [1]
 			{
+				["spellID"] = 280018,
 				["icon"] = 136066,
 				["name"] = "Twist Magic",
 				["azeritePowerID"] = 472,
@@ -1775,11 +1785,13 @@ local sourceData = {
 		}, -- [5]
 		{
 			{
+				["spellID"] = 280010,
 				["icon"] = 136120,
 				["name"] = "Runic Barrier",
 				["azeritePowerID"] = 201,
 			}, -- [1]
 			{
+				["spellID"] = 280011,
 				["icon"] = 237561,
 				["name"] = "March of the Damned",
 				["azeritePowerID"] = 465,
@@ -1787,11 +1799,13 @@ local sourceData = {
 		}, -- [6]
 		{
 			{
+				["spellID"] = 274412,
 				["icon"] = 538565,
 				["name"] = "Serene Spirit",
 				["azeritePowerID"] = 207,
 			}, -- [1]
 			{
+				["spellID"] = 280021,
 				["icon"] = 136095,
 				["name"] = "Pack Spirit",
 				["azeritePowerID"] = 474,
@@ -1799,11 +1813,13 @@ local sourceData = {
 		}, -- [7]
 		{
 			{
+				["spellID"] = 274379,
 				["icon"] = 135991,
 				["name"] = "Eldritch Warding",
 				["azeritePowerID"] = 205,
 			}, -- [1]
 			{
+				["spellID"] = 280015,
 				["icon"] = 135736,
 				["name"] = "Cauterizing Blink",
 				["azeritePowerID"] = 468,
@@ -1811,11 +1827,13 @@ local sourceData = {
 		}, -- [8]
 		{
 			{
+				["spellID"] = 274418,
 				["icon"] = 538745,
 				["name"] = "Lifeblood",
 				["azeritePowerID"] = 208,
 			}, -- [1]
 			{
+				["spellID"] = 280022,
 				["icon"] = 136169,
 				["name"] = "Desperate Power",
 				["azeritePowerID"] = 475,
@@ -1823,11 +1841,13 @@ local sourceData = {
 		}, -- [9]
 		{
 			{
+				["spellID"] = 274762,
 				["icon"] = 606546,
 				["name"] = "Strength of Spirit",
 				["azeritePowerID"] = 218,
 			}, -- [1]
 			{
+				["spellID"] = 280016,
 				["icon"] = 642414,
 				["name"] = "Sweep the Leg",
 				["azeritePowerID"] = 470,
@@ -1835,11 +1855,13 @@ local sourceData = {
 		}, -- [10]
 		{
 			{
+				["spellID"] = 274813,
 				["icon"] = 136080,
 				["name"] = "Reawakening",
 				["azeritePowerID"] = 219,
 			}, -- [1]
 			{
+				["spellID"] = 280013,
 				["icon"] = 136097,
 				["name"] = "Ursoc's Endurance",
 				["azeritePowerID"] = 467,
@@ -1847,11 +1869,13 @@ local sourceData = {
 		}, -- [11]
 		{
 			{
+				["spellID"] = 274344,
 				["icon"] = 1305158,
 				["name"] = "Soulmonger",
 				["azeritePowerID"] = 202,
 			}, -- [1]
 			{
+				["spellID"] = 280012,
 				["icon"] = 828455,
 				["name"] = "Burning Soul",
 				["azeritePowerID"] = 466,
@@ -1859,41 +1883,49 @@ local sourceData = {
 		}, -- [12]
 		["common"] = {
 			{
+				["spellID"] = 268594,
 				["icon"] = 538536,
 				["name"] = "Longstrider",
 				["azeritePowerID"] = 14,
 			}, -- [1]
 			{
+				["spellID"] = 263962,
 				["icon"] = 1769069,
 				["name"] = "Resounding Protection",
 				["azeritePowerID"] = 15,
 			}, -- [2]
 			{
+				["spellID"] = 268599,
 				["icon"] = 237395,
 				["name"] = "Vampiric Speed",
 				["azeritePowerID"] = 44,
 			}, -- [3]
 			{
+				["spellID"] = 268437,
 				["icon"] = 1387707,
 				["name"] = "Impassive Visage",
 				["azeritePowerID"] = 83,
 			}, -- [4]
 			{
+				["spellID"] = 268595,
 				["icon"] = 651746,
 				["name"] = "Bulwark of the Masses",
 				["azeritePowerID"] = 84,
 			}, -- [5]
 			{
+				["spellID"] = 268596,
 				["icon"] = 1686575,
 				["name"] = "Gemhide",
 				["azeritePowerID"] = 85,
 			}, -- [6]
 			{
+				["spellID"] = 268435,
 				["icon"] = 646669,
 				["name"] = "Azerite Fortification",
 				["azeritePowerID"] = 86,
 			}, -- [7]
 			{
+				["spellID"] = 268600,
 				["icon"] = 413591,
 				["name"] = "Self Reliance",
 				["azeritePowerID"] = 87,

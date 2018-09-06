@@ -25,6 +25,7 @@ local dbDefaults = {
 }
 local charDefaults = {
 	debug = false,
+	addILvlToScore = false,
 	onlyOwnClassDefaults = true,
 	importingCanUpdate = true,
 	defensivePowers = true,
@@ -1306,6 +1307,13 @@ function f:UpdateValues() -- Update scores
 		end
 	end
 
+	local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
+	if cfg.addILvlToScore and effectiveILvl then
+		currentScore = currentScore + effectiveILvl
+		currentPotential = currentPotential + effectiveILvl
+		maxScore = maxScore + effectiveILvl
+	end
+
 	-- Integer or Float?
 	local cS, cP, mS
 	if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
@@ -1403,8 +1411,15 @@ local function _updateTooltip(tooltip, itemLink)
 
 	tooltip:AddLine(" \n"..ADDON_NAME)
 
+	local effectiveILvl = GetDetailedItemLevelInfo(itemLink)
 	for i = 1, #maxScore do
 		if scaleInfo[i].class then
+			if cfg.addILvlToScore and effectiveILvl then
+				currentScore[i] = currentScore[i] + effectiveILvl
+				currentPotential[i] = currentPotential[i] + effectiveILvl
+				maxScore[i] = maxScore[i] + effectiveILvl
+			end
+
 			local _, classTag = GetClassInfo(scaleInfo[i].class)
 			local c = _G.RAID_CLASS_COLORS[classTag]
 
@@ -1481,7 +1496,8 @@ hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self, questL
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
-	local itemName, itemTexture, quantity, quality, isUsable, itemID = GetQuestLogRewardInfo(questLogIndex, questID)
+	local iName, itemTexture, quantity, quality, isUsable, itemID = GetQuestLogRewardInfo(questLogIndex, questID)
+	if not itemID or type(itemID) ~= "number" then return end
 	local itemName, itemLink = GetItemInfo(itemID)
 	if not itemName then return end
 
@@ -1769,6 +1785,28 @@ function f:CreateOptions()
 						image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertOther",
 						width = "full",
 						order = 8,
+					},
+				},
+			},
+			spacer4 = {
+				type = "description",
+				name = " ",
+				width = "full",
+				order = 8,
+			},
+			gScore = {
+				type = "group",
+				name = L.Config_Score_Title,
+				inline = true,
+				order = 9,
+				args = {
+					addILvlToScore = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_AddItemLevelToScore .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_AddItemLevelToScore_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 0,
 					},
 				},
 			},

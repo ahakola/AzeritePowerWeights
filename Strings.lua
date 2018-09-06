@@ -76,6 +76,7 @@ do -- enUS / enGB
 	L.ItemToolTip_AzeriteLevel = "Azerite level: %1$d / %2$d" -- %1$d = currentLevel, %2$d = maxLevel
 
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
+
 	L.Config_Scales_Title = "Scales list"
 	L.Config_Scales_Desc = "Following settings only affects the list of Default scales. All Custom scales will be always listed to every class."
 	L.Config_Scales_OwnClassDefaultsOnly = "List own class Default-scales only"
@@ -101,7 +102,11 @@ do -- enUS / enGB
 	L.Config_WeightEditor_ShowProfession_Desc = "Show Profession specific powers in the scale weight editor. These powers can only appear in items created with professions. Currently these can only appear in Engineering headgear."
 	L.Config_WeightEditor_ShowPvP = "Show PvP specific powers"
 	L.Config_WeightEditor_ShowPvP_Desc = "Show PvP specific powers in the scale weight editor. You'll only see your own factions powers, but changes made to them will be mirrored to both factions."
-	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting the resulting export-string will only include your own factions pvp powers but they are interchangeable with opposing factions pvp-powerIDs.\nWhen Importing import-string with pvp powers only from one faction, powers will get their weights mirrored to both factions on Import."
+	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting, the resulting export-string will only include your own factions pvp powers, but they are interchangeable with opposing factions pvp-powerIDs.\nWhen Importing import-string with pvp powers only from one faction, powers will get their weights mirrored to both factions on Import."
+
+	L.Config_Score_Title = "Score"
+	L.Config_Score_AddItemLevelToScore = "Add itemlevel to all scores"
+	L.Config_Score_AddItemLevelToScore_Desc = "Add Azerite items itemlevel to all current score, current potential and maximum score calculations."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME
@@ -123,7 +128,7 @@ elseif LOCALE == "frFR" then -- tthegarde (20)
 elseif LOCALE == "itIT" then
 --@localization(locale="itIT", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ptBR" then
+elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "ruRU" then -- dartraiden (74)
@@ -132,7 +137,7 @@ elseif LOCALE == "ruRU" then -- dartraiden (74)
 elseif LOCALE == "koKR" then -- Killberos (53)
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhCN" then -- plok245 (38), riggzh (36)
+elseif LOCALE == "zhCN" then -- plok245 (39), riggzh (35)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then -- BNSSNB (73), Sinusquell (1)

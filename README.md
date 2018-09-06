@@ -35,7 +35,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 - frFR (French): **tthegarde**
 - itIT (Italian):
 - koKR (Korean): **Killberos**
-- ptBR (Brazilian Portuguese):
+- ptBR (Brazilian Portuguese): **mariogusman**
 - ruRU (Russian): **dartraiden**
 - zhCN (Simplified Chinese): **riggzh, plok245**
 - zhTW (Traditional Chinese): **BNSSNB**
