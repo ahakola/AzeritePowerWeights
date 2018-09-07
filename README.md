@@ -29,7 +29,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 ---
 
 ### Translations
-- deDE (German): **Sinusquell**
+- deDE (German): **Sinusquell, Tiggi2702**
 - esES (Spanish):
 - esMX (Latin American Spanish):
 - frFR (French): **tthegarde**
