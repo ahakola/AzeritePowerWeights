@@ -1334,6 +1334,12 @@ end
 
 -- Item Tooltip & Hook - Hacked together and probably could be done better
 local azeriteEmpoweredItemLocation = ItemLocation:CreateEmpty()
+local itemEquipLocToSlot = {
+	["INVTYPE_HEAD"] = 1,
+	["INVTYPE_SHOULDER"] = 3,
+	["INVTYPE_CHEST"] = 5,
+	["INVTYPE_ROBE"] = 5
+}
 
 local function _updateTooltip(tooltip, itemLink)
 	local currentLevel, maxLevel = 0, 0
@@ -1456,7 +1462,7 @@ hooksecurefunc(GameTooltip, "SetBagItem", function(self, ...) -- This can be cal
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
 		azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
 
-		_updateTooltip(_G.GameTooltip, itemLink)
+		_updateTooltip(self, itemLink)
 	end
 end)
 
@@ -1472,7 +1478,7 @@ hooksecurefunc(GameTooltip, "SetInventoryItem", function(self, ...) -- This can 
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
 		azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(equipLoc)
 
-		_updateTooltip(_G.GameTooltip, itemLink)
+		_updateTooltip(self, itemLink)
 	end
 end)
 
@@ -1485,9 +1491,54 @@ hooksecurefunc(GameTooltip, "SetHyperlink", function(self, ...)
 	if not itemName then return end
 
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		_updateTooltip(self, itemLink)
+	end
+end)
+
+-- Vendor item (https://wow.gamepedia.com/Widget_API)
+hooksecurefunc(GameTooltip, "SetMerchantItem", function(self, ...) -- ... = merchantSlot
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
 		azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
 
-		_updateTooltip(_G.GameTooltip, itemLink)
+		_updateTooltip(self, itemLink)
+	end
+end)
+
+-- Comparison tooltip for Vendor items (https://www.townlong-yak.com/framexml/27602/GameTooltip.lua#490)
+hooksecurefunc(GameTooltip.shoppingTooltips[1], "SetCompareItem", function(self, ...) -- ... = ShoppingTooltip2, GameTooltip
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+		azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLocToSlot[itemEquipLoc])
+
+		_updateTooltip(self, itemLink)
+	end
+end)
+
+-- Comparison tooltip for WQ items (https://github.com/phanx-wow/PhanxBorder/blob/master/Blizzard.lua#L205)
+hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem", function(self, ...) -- ... = WorldMapCompareTooltip2, WorldMapTooltipTooltip
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+		azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLocToSlot[itemEquipLoc])
+
+		_updateTooltip(self, itemLink)
 	end
 end)
 
