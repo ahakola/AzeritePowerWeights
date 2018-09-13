@@ -116,7 +116,7 @@ end
 if LOCALE == "deDE" then -- Sinusquell (42), Tiggi2702 (6)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "esES" then
+elseif LOCALE == "esES" then -- isaracho (3)
 --@localization(locale="esES", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esMX" then
@@ -131,7 +131,7 @@ elseif LOCALE == "itIT" then
 elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (74)
+elseif LOCALE == "ruRU" then -- dartraiden (77)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "koKR" then -- Killberos (53)

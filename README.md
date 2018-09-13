@@ -22,7 +22,7 @@ Only one scale can be active to be showing scores in the Azerite UI at any given
 
 ---
 
-If you are looking for role specific Azerite trait, but can't find it in the Weight Editor, the trait could be aimed for different role than you current (even though it could be usable by your class because you have access to specialization with that role). To make it appear in the Weight Editor, make sure `Show Role specific powers only for my own specialization role` is disabled in the Config (`ESC - Interface - AddOns - AzeritePowerWeights`)
+If you are looking for role specific Azerite trait (not to be confused with specialization specific traits), but can't find it in the Weight Editor, the trait could be aimed for different role than you current (even though it could be usable by your class because you have access to specialization with that role). To make it appear in the Weight Editor, make sure `Show Role specific powers only for my own specialization role` is disabled in the Config (`ESC - Interface - AddOns - AzeritePowerWeights`)
 
 If you still can't find a trait and you are 100% sure you should be able to find it, don't hesitate to open a issue ticket or contact me any other way!
 
@@ -30,7 +30,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 
 ### Translations
 - deDE (German): **Sinusquell, Tiggi2702**
-- esES (Spanish):
+- esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
 - frFR (French): **tthegarde**
 - itIT (Italian):
