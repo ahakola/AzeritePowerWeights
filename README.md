@@ -14,7 +14,7 @@ The addon can add itemlevel to the score calculations if you wish so. You can us
 
 You can also enable relative scores to replace the absolute number values with percentages compared to your current equipped item for that slot and have the tooltip texts shown only for relative scales if the possible gain is upgrade.
 
-![Relative Scores](https://i.imgur.com/I3X6OxT.png "Relative Scores")
+![Relative Scores](https://i.imgur.com/sDyn6J3.png "Relative Scores")
 
 ---
 

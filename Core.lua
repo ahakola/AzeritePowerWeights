@@ -1491,9 +1491,9 @@ local function _updateTooltip(tooltip, itemLink)
 		if cfg.relativeScore and dataPointer then
 			local equippedScore, equippedPotential, equippedMax = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
-			currentScore[i] = currentScore[i] == 0 and 0 or floor((equippedScore / currentScore[i] - 1) * 100 + .5)
-			currentPotential[i] = currentPotential[i] == 0 and 0 or floor((equippedPotential / currentPotential[i] - 1) * 100 + .5)
-			maxScore[i] = maxScore[i] == 0 and 0 or floor((equippedMax / maxScore[i] - 1) * 100 + .5)
+			currentScore[i] = currentScore[i] == 0 and 0 or floor((currentScore[i] / equippedScore - 1) * 100 + .5)
+			currentPotential[i] = currentPotential[i] == 0 and 0 or floor((currentPotential[i] / equippedPotential - 1) * 100 + .5)
+			maxScore[i] = maxScore[i] == 0 and 0 or floor((maxScore[i] / equippedMax - 1) * 100 + .5)
 		end
 	end
 
