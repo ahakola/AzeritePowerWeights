@@ -17,7 +17,7 @@ local ACR = LibStub("AceConfigRegistry-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 
 -- Default DB settings
-local dbVersion = 1
+local dbVersion = 2
 local dbDefaults = {
 	customScales = {},
 	char = {},
@@ -25,15 +25,18 @@ local dbDefaults = {
 }
 local charDefaults = {
 	debug = false,
-	addILvlToScore = false,
 	onlyOwnClassDefaults = true,
 	importingCanUpdate = true,
 	defensivePowers = true,
 	rolePowers = true,
-	rolePowersNoOffRolePowers = true,
+	rolePowersNoOffRolePowers = false,
 	zonePowers = true,
 	professionPowers = false,
 	pvpPowers = false,
+	addILvlToScore = false,
+	scaleByAzeriteEmpowered = false,
+	relativeScore = false,
+	showOnlyUpgrades = false,
 	specScales = {},
 	tooltipScales = {}
 }
@@ -871,7 +874,8 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 		for i, powerData in ipairs(n.sourceData.role.common) do
 			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+			local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:3:::64:16:16:64:0:16|t" -- Tank, DPS & Healer
+			e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
 			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 			e[c]:SetRelativeWidth(.5)
 			if isCustomScale then
@@ -883,12 +887,14 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			container:AddChild(e[c])
 			c = c + 1
 		end
+
 		-- Non-Healer Powers
 		if bit.band(roleBits, bit.bor(BIT_DAMAGER, BIT_TANK)) ~= 0 then
 			for i, powerData in ipairs(n.sourceData.role.nonhealer) do
 				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 				e[c] = AceGUI:Create("EditBox")
-				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:2:::64:16:16:48:0:16|t" -- Tank & DPS
+				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
 				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 				e[c]:SetRelativeWidth(.5)
 				if isCustomScale then
@@ -906,7 +912,8 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			for i, powerData in ipairs(n.sourceData.role.tank) do
 				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 				e[c] = AceGUI:Create("EditBox")
-				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:32:48:0:16|t" -- Tank
+				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
 				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 				e[c]:SetRelativeWidth(.5)
 				if isCustomScale then
@@ -924,7 +931,8 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			for i, powerData in ipairs(n.sourceData.role.healer) do
 				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 				e[c] = AceGUI:Create("EditBox")
-				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:48:64:0:16|t" -- Healer
+				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
 				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 				e[c]:SetRelativeWidth(.5)
 				if isCustomScale then
@@ -1290,7 +1298,7 @@ function f:UpdateValues() -- Update scores
 			if powerInfo then
 				score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
 			end
-			
+
 			if maximum < score then
 				maximum = score
 			end
@@ -1309,6 +1317,11 @@ function f:UpdateValues() -- Update scores
 
 	local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
 	if cfg.addILvlToScore and effectiveILvl then
+		if cfg.scaleByAzeriteEmpowered then
+			local azeriteEmpoweredWeight = scoreData[13] or 0
+			effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+		end
+
 		currentScore = currentScore + effectiveILvl
 		currentPotential = currentPotential + effectiveILvl
 		maxScore = maxScore + effectiveILvl
@@ -1340,6 +1353,54 @@ local itemEquipLocToSlot = {
 	["INVTYPE_CHEST"] = 5,
 	["INVTYPE_ROBE"] = 5
 }
+
+local function _getGearScore(dataPointer, itemEquipLoc)
+	local currentLevel, maxLevel = 0, 0
+	local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
+	if azeriteItemLocation then
+		currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
+	end
+
+	local itemLink = GetInventoryItemLink("player", itemEquipLoc)
+	
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		local equipLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLoc)
+		local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
+
+		local currentScore, currentPotential, maxScore = 0, 0, 0
+		for tierIndex, tierInfo in ipairs(allTierInfo) do
+			local maximum, tierMaximum = 0, 0
+			for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
+				local score = 0
+				local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID)
+				if powerInfo then
+					score = dataPointer[powerInfo.azeritePowerID] or dataPointer[powerInfo.spellID] or 0
+
+					if equipLocation:HasAnyLocation() and C_AzeriteEmpoweredItem.IsPowerSelected(equipLocation, powerInfo.azeritePowerID) then
+						currentScore = currentScore + score
+					end
+				end
+				
+				if maximum < score then
+					maximum = score
+				end
+				if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
+					tierMaximum = score
+				end
+			end
+
+			maxScore = maxScore + maximum
+			currentPotential = currentPotential + tierMaximum
+			if maxLevel < tierInfo.unlockLevel then
+				maxLevel = tierInfo.unlockLevel
+			end
+		end
+
+		return currentScore, currentPotential, maxScore
+	end
+
+	return false, false, false
+end
 
 local function _updateTooltip(tooltip, itemLink)
 	local currentLevel, maxLevel = 0, 0
@@ -1413,24 +1474,46 @@ local function _updateTooltip(tooltip, itemLink)
 				end
 			end
 		end
-	end
 
-	tooltip:AddLine(" \n"..ADDON_NAME)
-
-	local effectiveILvl = GetDetailedItemLevelInfo(itemLink)
-	for i = 1, #maxScore do
-		if scaleInfo[i].class then
-			if cfg.addILvlToScore and effectiveILvl then
-				currentScore[i] = currentScore[i] + effectiveILvl
-				currentPotential[i] = currentPotential[i] + effectiveILvl
-				maxScore[i] = maxScore[i] + effectiveILvl
+		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)		
+		if cfg.addILvlToScore and effectiveILvl then
+			if cfg.scaleByAzeriteEmpowered then
+				local azeriteEmpoweredWeight = dataPointer[13] or 0
+				effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
 			end
 
+			currentScore[i] = currentScore[i] + effectiveILvl
+			currentPotential[i] = currentPotential[i] + effectiveILvl
+			maxScore[i] = maxScore[i] + effectiveILvl
+		end
+
+		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+		if cfg.relativeScore and dataPointer then
+			local equippedScore, equippedPotential, equippedMax = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
+
+			currentScore[i] = currentScore[i] == 0 and 0 or floor((equippedScore / currentScore[i] - 1) * 100 + .5)
+			currentPotential[i] = currentPotential[i] == 0 and 0 or floor((equippedPotential / currentPotential[i] - 1) * 100 + .5)
+			maxScore[i] = maxScore[i] == 0 and 0 or floor((equippedMax / maxScore[i] - 1) * 100 + .5)
+		end
+	end
+
+	--tooltip:AddLine(" \n"..ADDON_NAME)
+	local tooltipLine = " \n" .. ADDON_NAME .. "\n"
+	local showTooltipLine = false
+
+	for i = 1, #maxScore do
+		if scaleInfo[i].class then
 			local _, classTag = GetClassInfo(scaleInfo[i].class)
 			local c = _G.RAID_CLASS_COLORS[classTag]
 
 			local string = "|T%d:0|t |c%s%s|r: "
-			if _isInteger(currentScore[i]) and _isInteger(currentPotential[i]) and _isInteger(maxScore[i]) then -- All integers
+			if cfg.relativeScore then -- Relative score
+				string = string .. ("%s%%d%s%s"):format(currentScore[i] < 0 and RED_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE .. "+", "%%", FONT_COLOR_CODE_CLOSE)
+				string = string .. " / "
+				string = string .. ("%s%%d%s%s"):format(currentPotential[i] < 0 and RED_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE .. "+", "%%", FONT_COLOR_CODE_CLOSE)
+				string = string .. " / "
+				string = string .. ("%s%%d%s%s"):format(maxScore[i] < 0 and RED_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE .. "+", "%%", FONT_COLOR_CODE_CLOSE)
+			elseif _isInteger(currentScore[i]) and _isInteger(currentPotential[i]) and _isInteger(maxScore[i]) then -- All integers
 				string = string .. "%d / %d / %d"
 			else -- There are some floats
 				local decimals = max(_getDecimals(currentScore[i]), _getDecimals(currentPotential[i]), _getDecimals(maxScore[i]))
@@ -1442,11 +1525,20 @@ local function _updateTooltip(tooltip, itemLink)
 				string = string .. " / "
 				string = string .. (maxScore[i] == 0 and "%d" or ("%%.%df"):format(decimals))
 			end
-			tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
+
+			if not cfg.showOnlyUpgrades or cfg.showOnlyUpgrades and (currentScore[i] > 0 or currentPotential[i] > 0 or maxScore[i] > 0) then
+				--tooltip:AddLine(format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]),  1, 1, 1)
+				tooltipLine = tooltipLine .. format(string, scaleInfo[i].icon, c.colorStr, cfg.tooltipScales[i].scaleName, currentScore[i], currentPotential[i], maxScore[i]) .. "\n"
+				showTooltipLine = true
+			end
 		end
 	end
 
-	tooltip:AddLine(format(L.ItemToolTip_AzeriteLevel, currentLevel, maxLevel))
+	--tooltip:AddLine(format(L.ItemToolTip_AzeriteLevel, currentLevel, maxLevel))
+	tooltipLine = tooltipLine .. format(L.ItemToolTip_AzeriteLevel, currentLevel, maxLevel)
+	if showTooltipLine then
+		tooltip:AddLine(tooltipLine)
+	end
 	tooltip:Show() -- Make updates visible
 end
 
@@ -1561,6 +1653,7 @@ GameTooltip:HookScript("OnHide", function()
 	azeriteEmpoweredItemLocation:Clear()
 end)
 
+
 -- Event functions
 function f:ADDON_LOADED(event, addon)
 	if addon == ADDON_NAME then
@@ -1569,6 +1662,15 @@ function f:ADDON_LOADED(event, addon)
 
 		local playerName = UnitName("player")
 		local playerRealm = GetRealmName()
+
+		if db.dbVersion == 1 then -- Changing default-setting for all users because the old system wasn't clear enough for some users.
+			for rName, rData in pairs(db.char) do
+				for pName, pData in pairs(rData) do
+					db.char[rName][pName].rolePowersNoOffRolePowers = false
+				end
+			end
+			db.dbVersion = 2
+		end
 
 		db.char[playerRealm] = db.char[playerRealm] or {}
 		db.char[playerRealm][playerName] = initDB(db.char[playerRealm][playerName], charDefaults)
@@ -1858,6 +1960,30 @@ function f:CreateOptions()
 						descStyle = "inline",
 						width = "full",
 						order = 0,
+					},
+					scaleByAzeriteEmpowered = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. format(L.Config_Score_ScaleByAzeriteEmpowered, GetSpellInfo(263978) or "Azerite Empowered") .. FONT_COLOR_CODE_CLOSE,
+						desc = format(L.Config_Score_ScaleByAzeriteEmpowered_Desc, NORMAL_FONT_COLOR_CODE .. (GetSpellInfo(263978) or "Azerite Empowered") .. FONT_COLOR_CODE_CLOSE),
+						descStyle = "inline",
+						width = "full",
+						order = 1,
+					},
+					relativeScore = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_RelativeScore .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_RelativeScore_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 2,
+					},
+					showOnlyUpgrades = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_ShowOnlyUpgrades .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_ShowOnlyUpgrades_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 3,
 					},
 				},
 			},
