@@ -1249,6 +1249,9 @@ function f:UpdateValues() -- Update scores
 				currentScore = currentScore + score
 			end
 
+			if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
+				score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
+			end
 			local s = AcquireString(frame, score)
 			activeStrings[#activeStrings + 1] = s
 		end
@@ -1399,7 +1402,7 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 		return currentScore, currentPotential, maxScore
 	end
 
-	return false, false, false
+	return 0, 0, 0
 end
 
 local function _updateTooltip(tooltip, itemLink)
@@ -1475,7 +1478,7 @@ local function _updateTooltip(tooltip, itemLink)
 			end
 		end
 
-		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)		
+		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)
 		if cfg.addILvlToScore and effectiveILvl then
 			if cfg.scaleByAzeriteEmpowered then
 				local azeriteEmpoweredWeight = dataPointer and dataPointer[13] or 0
@@ -1491,9 +1494,15 @@ local function _updateTooltip(tooltip, itemLink)
 		if cfg.relativeScore and dataPointer then
 			local equippedScore, equippedPotential, equippedMax = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
-			currentScore[i] = currentScore[i] == 0 and 0 or floor((currentScore[i] / equippedScore - 1) * 100 + .5)
-			currentPotential[i] = currentPotential[i] == 0 and 0 or floor((currentPotential[i] / equippedPotential - 1) * 100 + .5)
-			maxScore[i] = maxScore[i] == 0 and 0 or floor((maxScore[i] / equippedMax - 1) * 100 + .5)
+			if cfg.addILvlToScore and effectiveILvl then
+				equippedScore = equippedScore + effectiveILvl
+				equippedPotential = equippedPotential + effectiveILvl
+				equippedMax = equippedMax + effectiveILvl
+			end
+
+			currentScore[i] = equippedScore == 0 and 0 or floor((currentScore[i] / equippedScore - 1) * 100 + .5)
+			currentPotential[i] = equippedPotential == 0 and 0 or floor((currentPotential[i] / equippedPotential - 1) * 100 + .5)
+			maxScore[i] = equippedMax == 0 and 0 or floor((maxScore[i] / equippedMax - 1) * 100 + .5)
 		end
 	end
 
@@ -1651,6 +1660,19 @@ end)
 
 GameTooltip:HookScript("OnHide", function()
 	azeriteEmpoweredItemLocation:Clear()
+end)
+
+-- Quest rewards (https://www.townlong-yak.com/framexml/27602/QuestInfo.lua#964)
+hooksecurefunc(GameTooltip, "SetQuestItem", function(self, ...) -- ... = type, ID
+	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+
+	local itemName, itemLink = self:GetItem()
+	if not itemName then return end
+
+	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		_updateTooltip(self, itemLink)
+	end
 end)
 
 
