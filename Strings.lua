@@ -134,19 +134,19 @@ elseif LOCALE == "frFR" then -- tthegarde (20)
 elseif LOCALE == "itIT" then
 --@localization(locale="itIT", format="lua_additive_table", handle-subnamespaces="concat")@
 
+elseif LOCALE == "koKR" then -- Killberos (53)
+--@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
+
 elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "ruRU" then -- dartraiden (77)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "koKR" then -- Killberos (53)
---@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
-
 elseif LOCALE == "zhCN" then -- plok245 (41), riggzh (36)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (76), Sinusquell (1)
+elseif LOCALE == "zhTW" then -- BNSSNB (82), Sinusquell (1)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end

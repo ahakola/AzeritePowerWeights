@@ -6,11 +6,15 @@ Helps you pick the best Azerite powers on your gear for your class and spec.
 
 This addon adds score markers on the Azerite powers on your Azerite gear to help you pick the best powers for your class and spec and tells you not only your current total score, but also the current and maximum score potential for the item. You can use built in `Default-scales`, make `New` scales for any class and spec or share them with others using `Export`/`Import`.
 
-Only one scale can be active to be showing scores in the Azerite UI at any given time, but **you can check as many scales you want to be shown on tooltips** in the Weights Editor. Tooltips will have list of those scales with current score, current potential and maximum score for the item you hover on. **If you enable scales to be shown on tooltips for your offspecs, you can tell fast if an item has potential to be a possible upgrade for you or not without changing Default-scales**.
+Only one scale can be active to be showing scores in the Azerite UI at any given time, but **you can check as many scales you want to be shown on tooltips** in the Weights Editor. Tooltips will have list of those scales with current score, current potential and maximum score for the item you hover on. **If you enable scales to be shown on tooltips for your offspecs or different scenarios, you can tell fast if an item has potential to be a possible upgrade for you or not without changing Default-scales**.
+
+---
 
 The addon can add itemlevel to the score calculations if you wish so. You can use either *+1 itemlevel = +1 score* or let the addon calculate the score value of *+1 itemlevel* based on your scales weight for `Azerite Empowered` (*+5ilvl center trait*).
 
-![Itemlevel](https://i.imgur.com/86YLTnr.png "Itemlevel")
+![Itemlevel](https://i.imgur.com/KqL93Ns.png "Itemlevel")
+
+---
 
 You can also enable relative scores to replace the absolute number values with percentages compared to your current equipped item for that slot and have the tooltip texts shown only for relative scales if the possible gain is upgrade.
 

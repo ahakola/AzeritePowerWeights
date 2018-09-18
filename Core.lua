@@ -1318,7 +1318,7 @@ function f:UpdateValues() -- Update scores
 	local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
 	if cfg.addILvlToScore and effectiveILvl then
 		if cfg.scaleByAzeriteEmpowered then
-			local azeriteEmpoweredWeight = scoreData[13] or 0
+			local azeriteEmpoweredWeight = scoreData and scoreData[13] or 0
 			effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
 		end
 
@@ -1478,7 +1478,7 @@ local function _updateTooltip(tooltip, itemLink)
 		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)		
 		if cfg.addILvlToScore and effectiveILvl then
 			if cfg.scaleByAzeriteEmpowered then
-				local azeriteEmpoweredWeight = dataPointer[13] or 0
+				local azeriteEmpoweredWeight = dataPointer and dataPointer[13] or 0
 				effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
 			end
 
