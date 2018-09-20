@@ -1,3 +1,7 @@
+### 8.0.19
+
+- Updating Russian translations
+
 ### 8.0.18
 
 - Fixes to "add itemlevel" calculations when relative values are enabled.
