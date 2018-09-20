@@ -140,7 +140,7 @@ elseif LOCALE == "koKR" then -- Killberos (53)
 elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (77)
+elseif LOCALE == "ruRU" then -- dartraiden (83)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhCN" then -- plok245 (41), riggzh (36)
