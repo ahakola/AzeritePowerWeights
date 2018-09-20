@@ -19,7 +19,7 @@
 ### 8.0.15
 
 - **The setting to hide role specific traits for other than your current specs role in the Weight Editor wasn't clear to some people so I changed the default value of that setting for ALL characters (existing and new).**
-- Addon now shows all role specific traits in the Weight Editor by default.
+   - Addon now shows all role specific traits in the Weight Editor by default.
    - If you don't want to see them, you can enable hiding them in the settings.
    - The reason why it was on by default in previous versions was because some hybrid classes has access to quite a lot of traits and I wanted to keep the Weight Editor as clutter free as possible, but this caused some people to not find the trait they were looking for and clearly didn't know about the setting.
 - Role specific traits have now icons in front of the trait name to illustrate what roles the traits are aimed for.
