@@ -74,7 +74,10 @@ do -- enUS / enGB
 
 	L.PowersScoreString = "Current score: %1$s/%2$s\nMaximum score: %3$s\nAzerite level: %4$d/%5$d" -- %1$s = currentScore, %2$s = currentPotential, %3$s = maximumScore, %4$d = currentLevel, %5$d = maxLevel
 	L.ItemToolTip_AzeriteLevel = "Azerite level: %1$d / %2$d" -- %1$d = currentLevel, %2$d = maxLevel
+	L.ItemToolTip_Legend = "Current score / Current potetial / Maximum score"
 
+	L.Config_SettingsAddonExplanation = "This addon calculates \"Current score\", \"Current potetial\" and \"Maximum score\" for Azerite gear based on your selected scale's weights."
+	L.Config_SettingsScoreExplanation = "\"Current score\" is the sum of the currently selected Azerite powers in the item.\n\"Current potetial\" is the sum of the highest weighted Azerite powers from each tier you have access to in the item.\n\"Maximum score\" is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the item."
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
 
 	L.Config_Scales_Title = "Scales list"
@@ -113,6 +116,8 @@ do -- enUS / enGB
 	L.Config_Score_RelativeScore_Desc = "Instead of showing absolute values of scales in tooltips, calculate the relative value compared to currently equiped items and show them in percentages."
 	L.Config_Score_ShowOnlyUpgrades = "Show tooltips only for upgrades"
 	L.Config_Score_ShowOnlyUpgrades_Desc = "Show scales values in tooltips only if it is an upgrade compared to currently equiped item. This works only with relative values enabled."
+	L.Config_Score_ShowTooltipLegend = "Show legend in tooltips"
+	L.Config_Score_ShowTooltipLegend_Desc = "Show reminder for \"Current score / Current potetial / Maximum score\" in tooltips."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME
@@ -122,7 +127,7 @@ end
 if LOCALE == "deDE" then -- Sinusquell (42), Tiggi2702 (6)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "esES" then -- isaracho (3)
+elseif LOCALE == "esES" then -- isaracho (4)
 --@localization(locale="esES", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esMX" then
@@ -143,7 +148,7 @@ elseif LOCALE == "ptBR" then -- mariogusman (74)
 elseif LOCALE == "ruRU" then -- dartraiden (83)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhCN" then -- plok245 (41), riggzh (36)
+elseif LOCALE == "zhCN" then -- plok245 (47), riggzh (36)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then -- BNSSNB (82), Sinusquell (1)

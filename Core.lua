@@ -37,6 +37,7 @@ local charDefaults = {
 	scaleByAzeriteEmpowered = false,
 	relativeScore = false,
 	showOnlyUpgrades = false,
+	showTooltipLegend = true,
 	specScales = {},
 	tooltipScales = {}
 }
@@ -1508,6 +1509,9 @@ local function _updateTooltip(tooltip, itemLink)
 
 	--tooltip:AddLine(" \n"..ADDON_NAME)
 	local tooltipLine = " \n" .. ADDON_NAME .. "\n"
+	if cfg.showTooltipLegend then
+		tooltipLine = tooltipLine .. HIGHLIGHT_FONT_COLOR_CODE .. L.ItemToolTip_Legend .. FONT_COLOR_CODE_CLOSE .. "\n"
+	end
 	local showTooltipLine = false
 
 	for i = 1, #maxScore do
@@ -1803,31 +1807,44 @@ function f:CreateOptions()
 		get = function(info) return cfg[ info[#info] ] end,
 		set = function(info, value) cfg[ info[#info] ] = value; self:RefreshConfig(); end,
 		args = {
+			addonExplanation = {
+				type = "description",
+				name = NORMAL_FONT_COLOR_CODE .. L.Config_SettingsAddonExplanation .. FONT_COLOR_CODE_CLOSE,
+				fontSize = "medium",
+				width = "full",
+				order = 0,
+			},
+			scoreExplanation = {
+				type = "description",
+				name = L.Config_SettingsScoreExplanation,
+				width = "full",
+				order = 1,
+			},
+			line = {
+				type = "header",
+				name = "",
+				width = "full",
+				order = 2,
+			},
 			reminder = {
 				type = "description",
 				name = L.Config_SettingsSavedPerChar,
 				fontSize = "large",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
 				width = "full",
-				order = 0,
-			},
-			line = {
-				type = "header",
-				name = "",
-				width = "full",
-				order = 1,
+				order = 3,
 			},
 			spacer1 = {
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 2,
+				order = 4,
 			},
 			gScales = {
 				type = "group",
 				name = L.Config_Scales_Title,
 				inline = true,
-				order = 3,
+				order = 5,
 				args = {
 					scalesText = {
 						type = "description",
@@ -1851,13 +1868,13 @@ function f:CreateOptions()
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 4,
+				order = 6,
 			},
 			gImport = {
 				type = "group",
 				name = L.Config_Importing_Title,
 				inline = true,
-				order = 5,
+				order = 7,
 				args = {
 					importingCanUpdate = {
 						type = "toggle",
@@ -1881,13 +1898,13 @@ function f:CreateOptions()
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 6,
+				order = 8,
 			},
 			gEditor = {
 				type = "group",
 				name = L.Config_WeightEditor_Title,
 				inline = true,
-				order = 7,
+				order = 9,
 				args = {
 					editorText = {
 						type = "description",
@@ -1967,13 +1984,13 @@ function f:CreateOptions()
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 8,
+				order = 10,
 			},
 			gScore = {
 				type = "group",
 				name = L.Config_Score_Title,
 				inline = true,
-				order = 9,
+				order = 11,
 				args = {
 					addILvlToScore = {
 						type = "toggle",
@@ -2006,6 +2023,14 @@ function f:CreateOptions()
 						descStyle = "inline",
 						width = "full",
 						order = 3,
+					},
+					showTooltipLegend = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_ShowTooltipLegend .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_ShowTooltipLegend_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 4,
 					},
 				},
 			},

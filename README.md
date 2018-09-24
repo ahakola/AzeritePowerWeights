@@ -4,6 +4,14 @@ Helps you pick the best Azerite powers on your gear for your class and spec.
 
 ---
 
+This addon calculates **Current score**, **Current potetial** and **Maximum score** for Azerite gear based on your selected scale's weights.
+
+- **Current score** is the sum of the currently selected Azerite powers in the Azerite item.
+- **Current potetial** is the sum of the highest weighted Azerite powers from each tier you have access to in the Azerite item.
+- **Maximum score** is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the Azerite item.
+
+---
+
 This addon adds score markers on the Azerite powers on your Azerite gear to help you pick the best powers for your class and spec and tells you not only your current total score, but also the current and maximum score potential for the item. You can use built in `Default-scales`, make `New` scales for any class and spec or share them with others using `Export`/`Import`.
 
 Only one scale can be active to be showing scores in the Azerite UI at any given time, but **you can check as many scales you want to be shown on tooltips** in the Weights Editor. Tooltips will have list of those scales with current score, current potential and maximum score for the item you hover on. **If you enable scales to be shown on tooltips for your offspecs or different scenarios, you can tell fast if an item has potential to be a possible upgrade for you or not without changing Default-scales**.
