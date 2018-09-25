@@ -151,7 +151,7 @@ elseif LOCALE == "ruRU" then -- dartraiden (83)
 elseif LOCALE == "zhCN" then -- plok245 (47), riggzh (36)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (82), Sinusquell (1)
+elseif LOCALE == "zhTW" then -- BNSSNB (87), Sinusquell (1)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end

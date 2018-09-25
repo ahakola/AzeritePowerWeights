@@ -68,4 +68,4 @@ If you still can't find a trait and you are 100% sure you should be able to find
 
 Dates are in DD.MM.YY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [imported 03.09.18]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 25.09.18]

@@ -1,3 +1,8 @@
+### 8.0.21
+
+- Updated Default-scales because Blizzard has done some balancing on Azerite powers.
+- Updating Traditional Chinese translations
+
 ### 8.0.20
 
 - Added legend for "Current score / Current potential / Maximum score" for the tooltips. This can be disabled in the config.
