@@ -1,3 +1,8 @@
+### 8.0.22
+
+- Fix visibility of Weight Editor when using addon "Aurora"
+- Updating Russian translations
+
 ### 8.0.21
 
 - Updated Default-scales because Blizzard has done some balancing on Azerite powers.

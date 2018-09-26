@@ -1053,10 +1053,12 @@ end
 local function _toggleEditorUI()
 	if not n.guiContainer then return end
 
+	n.guiContainer:ClearAllPoints()
 	if _G.AzeriteEmpoweredItemUI:IsShown() then
-		n.guiContainer.frame:SetParent(_G.AzeriteEmpoweredItemUI)
+		n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI, "TOPRIGHT", 10, 0)
+		n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMRIGHT", 10, 0)
 	else
-		n.guiContainer.frame:SetParent(_G.UIParent)
+		n.guiContainer:SetPoint("CENTER", _G.UIParent)
 	end
 
 	if n.guiContainer:IsShown() then
