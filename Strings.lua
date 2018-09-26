@@ -74,10 +74,10 @@ do -- enUS / enGB
 
 	L.PowersScoreString = "Current score: %1$s/%2$s\nMaximum score: %3$s\nAzerite level: %4$d/%5$d" -- %1$s = currentScore, %2$s = currentPotential, %3$s = maximumScore, %4$d = currentLevel, %5$d = maxLevel
 	L.ItemToolTip_AzeriteLevel = "Azerite level: %1$d / %2$d" -- %1$d = currentLevel, %2$d = maxLevel
-	L.ItemToolTip_Legend = "Current score / Current potetial / Maximum score"
+	L.ItemToolTip_Legend = "Current score / Current potential / Maximum score"
 
-	L.Config_SettingsAddonExplanation = "This addon calculates \"Current score\", \"Current potetial\" and \"Maximum score\" for Azerite gear based on your selected scale's weights."
-	L.Config_SettingsScoreExplanation = "\"Current score\" is the sum of the currently selected Azerite powers in the item.\n\"Current potetial\" is the sum of the highest weighted Azerite powers from each tier you have access to in the item.\n\"Maximum score\" is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the item."
+	L.Config_SettingsAddonExplanation = "This addon calculates \"Current score\", \"Current potential\" and \"Maximum score\" for Azerite gear based on your selected scale's weights."
+	L.Config_SettingsScoreExplanation = "\"Current score\" is the sum of the currently selected Azerite powers in the item.\n\"Current potential\" is the sum of the highest weighted Azerite powers from each tier you have access to in the item.\n\"Maximum score\" is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the item."
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
 
 	L.Config_Scales_Title = "Scales list"
@@ -102,7 +102,7 @@ do -- enUS / enGB
 	L.Config_WeightEditor_ShowZone_Desc = "Show Zone specific powers in the scale weight editor. These powers can only appear in items acquired in particular zones related to the power."
 	L.Config_WeightEditor_ShowZone_Desc_Proc = "Zone specific powers can activate/proc everywhere, but raid powers have secondary effect which will activate only while inside their related raid instance (e.g. Uldir powers secondary effect will only proc while inside Uldir raid instance).\nRaid powers are marked with an asterisk (*) next to their name in the scale weight editor."
 	L.Config_WeightEditor_ShowProfession = "Show Profession specific powers"
-	L.Config_WeightEditor_ShowProfession_Desc = "Show Profession specific powers in the scale weight editor. These powers can only appear in items created with professions. Currently these can only appear in Engineering headgear."
+	L.Config_WeightEditor_ShowProfession_Desc = "Show Profession specific powers in the scale weight editor. These powers can only appear in items created with professions. Currently, these can only appear in Engineering headgear."
 	L.Config_WeightEditor_ShowPvP = "Show PvP specific powers"
 	L.Config_WeightEditor_ShowPvP_Desc = "Show PvP specific powers in the scale weight editor. You'll only see your own factions powers, but changes made to them will be mirrored to both factions."
 	L.Config_WeightEditor_ShowPvP_Desc_Import = "When Exporting, the resulting export-string will only include your own factions pvp powers, but they are interchangeable with opposing factions pvp-powerIDs.\nWhen Importing import-string with pvp powers only from one faction, powers will get their weights mirrored to both factions on Import."
@@ -113,11 +113,11 @@ do -- enUS / enGB
 	L.Config_Score_ScaleByAzeriteEmpowered = "Scale itemlevel score by the weight of %s in the scale" -- %s Name of Azerite Empowered, returned by _G.GetSpellInfo(263978)
 	L.Config_Score_ScaleByAzeriteEmpowered_Desc = "When adding itemlevel to the scores, use the weight of %s of the scale to calculate value of +1 itemlevel instead of using +1 itemlevel = +1 score." -- %s Name of Azerite Empowered, returned by _G.GetSpellInfo(263978)
 	L.Config_Score_RelativeScore = "Show relative values in tooltips instead of absolute values"
-	L.Config_Score_RelativeScore_Desc = "Instead of showing absolute values of scales in tooltips, calculate the relative value compared to currently equiped items and show them in percentages."
+	L.Config_Score_RelativeScore_Desc = "Instead of showing absolute values of scales in tooltips, calculate the relative value compared to currently equipped items and show them in percentages."
 	L.Config_Score_ShowOnlyUpgrades = "Show tooltips only for upgrades"
-	L.Config_Score_ShowOnlyUpgrades_Desc = "Show scales values in tooltips only if it is an upgrade compared to currently equiped item. This works only with relative values enabled."
+	L.Config_Score_ShowOnlyUpgrades_Desc = "Show scales values in tooltips only if it is an upgrade compared to currently equipped item. This works only with relative values enabled."
 	L.Config_Score_ShowTooltipLegend = "Show legend in tooltips"
-	L.Config_Score_ShowTooltipLegend_Desc = "Show reminder for \"Current score / Current potetial / Maximum score\" in tooltips."
+	L.Config_Score_ShowTooltipLegend_Desc = "Show reminder for \"Current score / Current potential / Maximum score\" in tooltips."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME

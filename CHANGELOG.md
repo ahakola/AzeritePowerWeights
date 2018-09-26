@@ -114,7 +114,7 @@
 - Added Profession created item specific powers and PvP powers.
    - Both of these categories are off by default from the Weight Editor, but powers will be scored with them if they exists in the scales like with every other category.
    - You can turn these categories on by checking config in `ESC -> Interface -> AddOns -> AzeritePowerWeights`.
-- Currently only profession created item with Azerite powers are the Engineeering goggles, but I named it as `Professions` to keep it future-proof.
+- Currently only profession created item with Azerite powers are the Engineering goggles, but I named it as `Professions` to keep it future-proof.
 - When PvP-category is enabled, you'll only see your own factions powers, but changes made to them will be mirrored so you can use same Custom-scales for characters on different factions.
    - When you Export scale to a string, you'll get export-string with only your own factions powerIDs to keep the string shorter, but these are interchangeable with opposing factions IDs.
    - When you Import scale from string with only one factions PvP powers, the weights will be mirrored to both factions powers.
