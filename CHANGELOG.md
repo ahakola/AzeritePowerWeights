@@ -1,3 +1,7 @@
+### 8.0.23
+
+- Updating Russian translations
+
 ### 8.0.22
 
 - Fix visibility of Weight Editor when using addon "Aurora"
