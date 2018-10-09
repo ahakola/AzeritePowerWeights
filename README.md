@@ -10,6 +10,8 @@ This addon calculates **Current score**, **Current potetial** and **Maximum scor
 - **Current potetial** is the sum of the highest weighted Azerite powers from each tier you have access to in the Azerite item.
 - **Maximum score** is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the Azerite item.
 
+![Score Legend](https://i.imgur.com/DGu2MtV.png "Score Legend")
+
 ---
 
 This addon adds score markers on the Azerite powers on your Azerite gear to help you pick the best powers for your class and spec and tells you not only your current total score, but also the current and maximum score potential for the item. You can use built in `Default-scales`, make `New` scales for any class and spec or share them with others using `Export`/`Import`.

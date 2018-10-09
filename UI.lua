@@ -73,6 +73,9 @@ local function CreatePopUp(mode, titleText, descriptionText, editboxText, callba
 		popupOpenAlready = false
 	end)
 
+	--frame.frame:SetToplevel()
+	frame.frame:Raise()
+
 	local text = AceGUI:Create("Label")
 	text:SetFullWidth(true)
 	text:SetFontObject(GameFontHighlight)

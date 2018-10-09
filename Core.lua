@@ -35,6 +35,7 @@ local charDefaults = {
 	pvpPowers = false,
 	addILvlToScore = false,
 	scaleByAzeriteEmpowered = false,
+	addPrimaryStatToScore = false,
 	relativeScore = false,
 	showOnlyUpgrades = false,
 	showTooltipLegend = true,
@@ -1333,6 +1334,15 @@ function f:UpdateValues() -- Update scores
 		maxScore = maxScore + effectiveILvl
 	end
 
+	local stats = GetItemStats(_G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemLink())
+	if cfg.addPrimaryStatToScore and stats then
+		local statScore = stats["ITEM_MOD_AGILITY_SHORT"] or stats["ITEM_MOD_INTELLECT_SHORT"] or stats["ITEM_MOD_STRENGTH_SHORT"] or 0
+
+		currentScore = currentScore + statScore
+		currentPotential = currentPotential + statScore
+		maxScore = maxScore + statScore
+	end
+
 	-- Integer or Float?
 	local cS, cP, mS
 	if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
@@ -1402,10 +1412,10 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 			end
 		end
 
-		return currentScore, currentPotential, maxScore
+		return currentScore, currentPotential, maxScore, itemLink
 	end
 
-	return 0, 0, 0
+	return 0, 0, 0, itemLink
 end
 
 local function _updateTooltip(tooltip, itemLink)
@@ -1493,14 +1503,31 @@ local function _updateTooltip(tooltip, itemLink)
 			maxScore[i] = maxScore[i] + effectiveILvl
 		end
 
+		local stats = GetItemStats(itemLink)
+		if cfg.addPrimaryStatToScore and stats then
+			local statScore = stats["ITEM_MOD_AGILITY_SHORT"] or stats["ITEM_MOD_INTELLECT_SHORT"] or stats["ITEM_MOD_STRENGTH_SHORT"] or 0
+
+			currentScore[i] = currentScore[i] + statScore
+			currentPotential[i] = currentPotential[i] + statScore
+			maxScore[i] = maxScore[i] + statScore
+		end
+
 		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 		if cfg.relativeScore and dataPointer then
-			local equippedScore, equippedPotential, equippedMax = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
+			local equippedScore, equippedPotential, equippedMax, equippedItemLink = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
 			if cfg.addILvlToScore and effectiveILvl then
 				equippedScore = equippedScore + effectiveILvl
 				equippedPotential = equippedPotential + effectiveILvl
 				equippedMax = equippedMax + effectiveILvl
+			end
+
+			local equippedStats = GetItemStats(equippedItemLink)
+			if cfg.addPrimaryStatToScore and equippedStats then
+				local statScore = equippedStats["ITEM_MOD_AGILITY_SHORT"] or equippedStats["ITEM_MOD_INTELLECT_SHORT"] or equippedStats["ITEM_MOD_STRENGTH_SHORT"] or 0
+				equippedScore = equippedScore + statScore
+				equippedPotential = equippedPotential + statScore
+				equippedMax = equippedMax + statScore
 			end
 
 			currentScore[i] = equippedScore == 0 and 0 or floor((currentScore[i] / equippedScore - 1) * 100 + .5)
@@ -2010,13 +2037,21 @@ function f:CreateOptions()
 						width = "full",
 						order = 1,
 					},
+					addPrimaryStatToScore = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_AddPrimaryStatToScore .. FONT_COLOR_CODE_CLOSE,
+						desc = format(L.Config_Score_AddPrimaryStatToScore_Desc, _G.ITEM_MOD_AGILITY_SHORT, _G.ITEM_MOD_INTELLECT_SHORT, _G.ITEM_MOD_STRENGTH_SHORT),
+						descStyle = "inline",
+						width = "full",
+						order = 2,
+					},
 					relativeScore = {
 						type = "toggle",
 						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_RelativeScore .. FONT_COLOR_CODE_CLOSE,
 						desc = L.Config_Score_RelativeScore_Desc,
 						descStyle = "inline",
 						width = "full",
-						order = 2,
+						order = 3,
 					},
 					showOnlyUpgrades = {
 						type = "toggle",
@@ -2024,7 +2059,7 @@ function f:CreateOptions()
 						desc = L.Config_Score_ShowOnlyUpgrades_Desc,
 						descStyle = "inline",
 						width = "full",
-						order = 3,
+						order = 4,
 					},
 					showTooltipLegend = {
 						type = "toggle",
@@ -2032,7 +2067,7 @@ function f:CreateOptions()
 						desc = L.Config_Score_ShowTooltipLegend_Desc,
 						descStyle = "inline",
 						width = "full",
-						order = 4,
+						order = 5,
 					},
 				},
 			},
