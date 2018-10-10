@@ -126,7 +126,7 @@ do -- enUS / enGB
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
 end
 
-if LOCALE == "deDE" then -- Sinusquell (42), Tiggi2702 (6)
+if LOCALE == "deDE" then -- Sinusquell (42), Tiggi2702 (6), Vivan (2)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then -- isaracho (4)
@@ -135,7 +135,7 @@ elseif LOCALE == "esES" then -- isaracho (4)
 elseif LOCALE == "esMX" then
 --@localization(locale="esMX", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "frFR" then -- tthegarde (20)
+elseif LOCALE == "frFR" then -- tthegarde (20), Marechoux (9)
 --@localization(locale="frFR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "itIT" then
@@ -147,13 +147,13 @@ elseif LOCALE == "koKR" then -- Killberos (53)
 elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (70), Hubbotu (18)
+elseif LOCALE == "ruRU" then -- dartraiden (70), Hubbotu (18), rtim0905 (1), Wolfeg (1)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhCN" then -- plok245 (47), riggzh (36)
+elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (34)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (87), Sinusquell (1)
+elseif LOCALE == "zhTW" then -- BNSSNB (89), Sinusquell (1)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end

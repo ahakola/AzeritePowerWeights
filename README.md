@@ -53,15 +53,15 @@ If you still can't find a trait and you are 100% sure you should be able to find
 ---
 
 ### Translations
-- deDE (German): **Sinusquell, Tiggi2702**
+- deDE (German): **Sinusquell, Tiggi2702, Vivan**
 - esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
-- frFR (French): **tthegarde**
+- frFR (French): **tthegarde, Marechoux**
 - itIT (Italian):
 - koKR (Korean): **Killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**
-- ruRU (Russian): **dartraiden, Hubbotu**
-- zhCN (Simplified Chinese): **riggzh, plok245**
+- ruRU (Russian): **dartraiden, Hubbotu, rtim0905, Wolfeg**
+- zhCN (Simplified Chinese): **riggzh, plok245, xlfd2008**
 - zhTW (Traditional Chinese): **BNSSNB**
 
 ---
