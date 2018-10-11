@@ -1,3 +1,7 @@
+### 8.0.26
+
+- Update German translations
+
 ### 8.0.25
 
 - Update French, German, Russian, Simplified Chinese and Traditional Chinese translations
@@ -5,7 +9,7 @@
 ### 8.0.24
 
 - Added option to add primary stats (Agi/Int/Str) to the score calculations. In Azerite item +1 stat = +1 score in calculations.
-- This adds 2 new lines for translators at ([Curseforge Localization tool](https://wow.curseforge.com/projects/azeritepowerweights/localization))
+- This adds 2 new lines for translators at [Curseforge Localization tool](https://wow.curseforge.com/projects/azeritepowerweights/localization)
 
 ### 8.0.23
 
