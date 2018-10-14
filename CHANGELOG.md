@@ -1,3 +1,8 @@
+### 8.0.27
+
+- dartraiden fixed few typos in English translations
+- Update Russian translations
+
 ### 8.0.26
 
 - Update German translations
