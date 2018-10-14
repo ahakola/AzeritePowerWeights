@@ -178,7 +178,7 @@ local pvpPairs = { -- Used for Exporting/Importing. These powers have same effec
 	[496] = -6,
 	[497] = -6
 }
-local function insertCustomScalesData(scaleName, classIndex, specID, powerData) -- Inser into table
+local function insertCustomScalesData(scaleName, classIndex, specID, powerData) -- Insert into table
 	local t = {}
 	if powerData and powerData ~= "" then -- String to table
 		for _, weight in pairs({ strsplit(",", powerData) }) do
@@ -727,7 +727,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			}
 		else
 			if #cfg.tooltipScales > 0 then
-				for i = #cfg.tooltipScales, 1, -1 do -- Just to make sure if for any errorous reason, there are multiple copies of same scale, they all get removed.
+				for i = #cfg.tooltipScales, 1, -1 do -- Just to make sure if for any erroneous reason, there are multiple copies of same scale, they all get removed.
 					local v = cfg.tooltipScales[i]
 					if v.scaleID == scaleKey then
 						tremove(cfg.tooltipScales, i)

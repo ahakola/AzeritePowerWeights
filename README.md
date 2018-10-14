@@ -4,10 +4,10 @@ Helps you pick the best Azerite powers on your gear for your class and spec.
 
 ---
 
-This addon calculates **Current score**, **Current potetial** and **Maximum score** for Azerite gear based on your selected scale's weights.
+This addon calculates **Current score**, **Current potential** and **Maximum score** for Azerite gear based on your selected scale's weights.
 
 - **Current score** is the sum of the currently selected Azerite powers in the Azerite item.
-- **Current potetial** is the sum of the highest weighted Azerite powers from each tier you have access to in the Azerite item.
+- **Current potential** is the sum of the highest weighted Azerite powers from each tier you have access to in the Azerite item.
 - **Maximum score** is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the Azerite item.
 
 ![Score Legend](https://i.imgur.com/DGu2MtV.png "Score Legend")
@@ -32,7 +32,7 @@ You can also enable relative scores to replace the absolute number values with p
 
 ---
 
-`Default-scales` are ment to be a all-around starter weights for people who aren't good at simulating their own results. My plan is not to push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results.**
+`Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is not to push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results.**
 
 Most of the current `Default-scales` are done by myself using `SimulationCraft` and `Excel` and **might contain some errors**. `SimulationCraft` doesn't support healers and, at the time of my last simulations, Protection Warriors.
 
