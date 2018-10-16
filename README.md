@@ -60,7 +60,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 - itIT (Italian):
 - koKR (Korean): **Killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**
-- ruRU (Russian): **dartraiden, Hubbotu, rtim0905, Wolfeg**
+- ruRU (Russian): **dartraiden, Hubbotu, rtim0905, Wolfeg, lorientalas**
 - zhCN (Simplified Chinese): **riggzh, plok245, xlfd2008**
 - zhTW (Traditional Chinese): **BNSSNB**
 
