@@ -1,3 +1,7 @@
+### 8.0.29
+
+- Update German translations
+
 ### 8.0.28
 
 - Update Russian translations

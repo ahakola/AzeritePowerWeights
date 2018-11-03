@@ -53,7 +53,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 ---
 
 ### Translations
-- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06**
+- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph**
 - esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
 - frFR (French): **tthegarde, Marechoux**
