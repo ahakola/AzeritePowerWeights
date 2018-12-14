@@ -64,6 +64,8 @@ If you still can't find a trait and you are 100% sure you should be able to find
 - zhCN (Simplified Chinese): **riggzh, plok245, xlfd2008**
 - zhTW (Traditional Chinese): **BNSSNB**
 
+Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219&p=2263#p2263
+
 ---
 
 ### Default scales
