@@ -121,7 +121,8 @@ do
 		string:SetPoint("CENTER", parent)
 		string:SetText(text)
 
-		f:SetFrameStrata(parent:GetFrameStrata())
+		--f:SetFrameStrata(parent:GetFrameStrata())
+		f:SetFrameStrata("HIGH") -- parent:GetFrameStrata() returns MEDIUM after a while for some reason?
 		--f:SetToplevel()
 		--f:Raise()
 
@@ -1260,7 +1261,7 @@ function f:UpdateValues() -- Update scores
 			if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
 				score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
 			end
-			Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected)
+			--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected)
 			local s = AcquireString(frame, score)
 			activeStrings[#activeStrings + 1] = s
 		end
@@ -1364,6 +1365,7 @@ function f:UpdateValues() -- Update scores
 	n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
 
 	--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
+	Debug("Active Strings:", #activeStrings, f:GetFrameStrata())
 end
 
 -- Item Tooltip & Hook - Hacked together and probably could be done better

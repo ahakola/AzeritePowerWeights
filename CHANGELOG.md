@@ -1,3 +1,7 @@
+### 8.1.1
+
+- Trying to fix the bug where trait scores won't be shown after first time (or after a short period of time if you are fast) you open up the AzeriteItemUI.
+
 ### 8.1.0
 
 - TOC update
