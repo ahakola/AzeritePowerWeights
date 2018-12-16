@@ -1,3 +1,8 @@
+### 8.1.3
+
+- Fix the missing class defensive traits for Shamans.
+- Updated German translations.
+
 ### 8.1.2
 
 - Add support for new 8.1 traits in Weight Editor.

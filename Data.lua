@@ -1026,59 +1026,41 @@ local sourceData = {
 					["azeritePowerID"] = 179,
 				}, -- [3]
 				{
-					["spellID"] = 274412,
-					["icon"] = 538565,
-					["name"] = "Serene Spirit",
-					["azeritePowerID"] = 207,
-				}, -- [4]
-				{
 					["spellID"] = 275388,
 					["icon"] = 237443,
 					["name"] = "Lightning Conduit",
 					["azeritePowerID"] = 223,
-				}, -- [5]
+				}, -- [4]
 				{
 					["spellID"] = 278697,
 					["icon"] = 136028,
 					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
-				}, -- [6]
+				}, -- [5]
 				{
 					["spellID"] = 278719,
 					["icon"] = 132314,
 					["name"] = "Roiling Storm",
 					["azeritePowerID"] = 420,
-				}, -- [7]
+				}, -- [6]
 				{
 					["spellID"] = 277666,
 					["icon"] = 451167,
 					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
-				}, -- [8]
+				}, -- [7]
 				{
 					["spellID"] = 277671,
 					["icon"] = 136048,
 					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
-				}, -- [9]
-				{
-					["spellID"] = 280021,
-					["icon"] = 136095,
-					["name"] = "Pack Spirit",
-					["azeritePowerID"] = 474,
-				}, -- [10]
+				}, -- [8]
 				{
 					["spellID"] = 287768,
 					["icon"] = 136046,
 					["name"] = "Thunderaan's Fury",
 					["azeritePowerID"] = 530,
-				}, -- [11]
-				{
-					["spellID"] = 287774,
-					["icon"] = 133439,
-					["name"] = "Ancient Ankh Talisman",
-					["azeritePowerID"] = 539,
-				}, -- [12]
+				}, -- [9]
 			},
 			[264] = {
 				{
@@ -1118,77 +1100,59 @@ local sourceData = {
 					["azeritePowerID"] = 191,
 				}, -- [6]
 				{
-					["spellID"] = 274412,
-					["icon"] = 538565,
-					["name"] = "Serene Spirit",
-					["azeritePowerID"] = 207,
-				}, -- [7]
-				{
 					["spellID"] = 275488,
 					["icon"] = 135127,
 					["name"] = "Swelling Stream",
 					["azeritePowerID"] = 224,
-				}, -- [8]
+				}, -- [7]
 				{
 					["spellID"] = 278697,
 					["icon"] = 136028,
 					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
-				}, -- [9]
+				}, -- [8]
 				{
 					["spellID"] = 278713,
 					["icon"] = 252995,
 					["name"] = "Surging Tides",
 					["azeritePowerID"] = 422,
-				}, -- [10]
+				}, -- [9]
 				{
 					["spellID"] = 278715,
 					["icon"] = 237586,
 					["name"] = "Spouting Spirits",
 					["azeritePowerID"] = 423,
-				}, -- [11]
+				}, -- [10]
 				{
 					["spellID"] = 277666,
 					["icon"] = 451167,
 					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
-				}, -- [12]
+				}, -- [11]
 				{
 					["spellID"] = 277671,
 					["icon"] = 136048,
 					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
-				}, -- [13]
+				}, -- [12]
 				{
 					["spellID"] = 277658,
 					["icon"] = 136037,
 					["name"] = "Overflowing Shores",
 					["azeritePowerID"] = 449,
-				}, -- [14]
+				}, -- [13]
 				{
 					["spellID"] = 279829,
 					["icon"] = 451169,
 					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
-				}, -- [15]
-				{
-					["spellID"] = 280021,
-					["icon"] = 136095,
-					["name"] = "Pack Spirit",
-					["azeritePowerID"] = 474,
-				}, -- [16]
-				{
-					["spellID"] = 287774,
-					["icon"] = 133439,
-					["name"] = "Ancient Ankh Talisman",
-					["azeritePowerID"] = 539,
-				}, -- [17]
+				}, -- [14]
 				{
 					["spellID"] = 287300,
 					["icon"] = 237590,
 					["name"] = "Turn of the Tide",
 					["azeritePowerID"] = 563,
-				}, -- [18]
+				}, -- [15]
 			},
 			[262] = {
 				{
@@ -1216,65 +1180,47 @@ local sourceData = {
 					["azeritePowerID"] = 178,
 				}, -- [4]
 				{
-					["spellID"] = 274412,
-					["icon"] = 538565,
-					["name"] = "Serene Spirit",
-					["azeritePowerID"] = 207,
-				}, -- [5]
-				{
 					["spellID"] = 275381,
 					["icon"] = 135790,
 					["name"] = "Echo of the Elementals",
 					["azeritePowerID"] = 222,
-				}, -- [6]
+				}, -- [5]
 				{
 					["spellID"] = 278697,
 					["icon"] = 136028,
 					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
-				}, -- [7]
+				}, -- [6]
 				{
 					["spellID"] = 286949,
 					["icon"] = 136025,
 					["name"] = "Tectonic Thunder",
 					["azeritePowerID"] = 417,
-				}, -- [8]
+				}, -- [7]
 				{
 					["spellID"] = 277666,
 					["icon"] = 451167,
 					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
-				}, -- [9]
+				}, -- [8]
 				{
 					["spellID"] = 277671,
 					["icon"] = 136048,
 					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
-				}, -- [10]
+				}, -- [9]
 				{
 					["spellID"] = 279829,
 					["icon"] = 451169,
 					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
-				}, -- [11]
-				{
-					["spellID"] = 280021,
-					["icon"] = 136095,
-					["name"] = "Pack Spirit",
-					["azeritePowerID"] = 474,
-				}, -- [12]
+				}, -- [10]
 				{
 					["spellID"] = 286949,
 					["icon"] = 136025,
 					["name"] = "Tectonic Thunder",
 					["azeritePowerID"] = 512,
-				}, -- [13]
-				{
-					["spellID"] = 287774,
-					["icon"] = 133439,
-					["name"] = "Ancient Ankh Talisman",
-					["azeritePowerID"] = 539,
-				}, -- [14]
+				}, -- [11]
 			},
 		}, -- [7]
 		{
@@ -1791,7 +1737,6 @@ local sourceData = {
 					["name"] = "Twisted Claws",
 					["azeritePowerID"] = 241,
 				}, -- [4]
-
 				{
 					["spellID"] = 289314,
 					["icon"] = 571585,
@@ -2160,7 +2105,26 @@ local sourceData = {
 				["azeritePowerID"] = 549,
 			}, -- [3]
 		}, -- [6]
-		nil, -- [7]
+		{
+			{
+				["spellID"] = 274412,
+				["icon"] = 538565,
+				["name"] = "Serene Spirit",
+				["azeritePowerID"] = 207,
+			}, -- [1]
+			{
+				["spellID"] = 280021,
+				["icon"] = 136095,
+				["name"] = "Pack Spirit",
+				["azeritePowerID"] = 474,
+			}, -- [2]
+			{
+				["spellID"] = 287774,
+				["icon"] = 133439,
+				["name"] = "Ancient Ankh Talisman",
+				["azeritePowerID"] = 539,
+			}, -- [3]
+		}, -- [7]
 		{
 			{
 				["spellID"] = 274379,
