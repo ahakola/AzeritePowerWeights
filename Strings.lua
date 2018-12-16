@@ -126,7 +126,7 @@ do -- enUS / enGB
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
 end
 
-if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (6), Vivan (2), pas06 (2), Cytoph (2)
+if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (6), Vivan (2), pas06 (2), Cytoph (2), imna1975 (7)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then -- isaracho (4)

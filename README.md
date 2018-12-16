@@ -32,13 +32,13 @@ You can also enable relative scores to replace the absolute number values with p
 
 ---
 
-`Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is not to push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results.**
+`Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is to NOT push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results.**
 
-Most of the current `Default-scales` are done by myself using `SimulationCraft` and `Excel` and **might contain some errors**. `SimulationCraft` doesn't support healers and, at the time of my last simulations, Protection Warriors.
+Most of the current `Default-scales` are done by myself using `SimulationCraft` and **might contain some errors**. `SimulationCraft` doesn't support healers and, at the time of my last simulations, Protection Warriors.
 
 At the time of writing this, at least https://www.herodamage.com/ and https://bloodmallet.com/ provides import-strings for all the specializations supported by `SimulationCraft` (I'm not affiliated with these sites).
 
-If you have good source for ranking Azerite powers for your own spec, you make and export the best Custom-scale for your spec yourself, or you can help me improve my `SimulationCraft` templates, don't hesitate to contact me via PM, comment or ticket so I can improve the `Default-scales`.
+If you have good source for ranking Azerite powers for your own spec, you make and export the best Custom-scale for your spec yourself, or you can help me improve my `SimulationCraft` templates, don't hesitate to contact me via PM, comment or ticket so everyone can benefit from the improved `Default-scales`.
 
 ---
 
@@ -53,7 +53,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 ---
 
 ### Translations
-- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph**
+- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975**
 - esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
 - frFR (French): **tthegarde, Marechoux**
@@ -72,4 +72,5 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 25.09.18]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 16.12.2018]
+- Default-scales for 8.1 (quick and dirty, more accurate ones coming later) [updated 16.12.2018]

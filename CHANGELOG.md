@@ -1,3 +1,12 @@
+### 8.1.2
+
+- Add support for new 8.1 traits in Weight Editor.
+   - Don't hesitate to open a ticket or contact me other ways if you find traits missing or in wrong places.
+- Update Default-scales for 8.1 with quick and dirty sim results (using SimC default `target_error=0.2`).
+   - I'll add more accurate results in the near future.
+   - Don't hesitate to contact me if you want to help me improve the Default-scales or offer your own as Default for class/spec.
+- Updated German translations.
+
 ### 8.1.1
 
 - Trying to fix the bug where trait scores won't be shown after first time (or after a short period of time if you are fast) you open up the AzeriteItemUI.

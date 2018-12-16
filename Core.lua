@@ -761,6 +761,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 	classTitle:SetFullWidth(true)
 	container:AddChild(classTitle)
 
+	local isHorde = UnitFactionGroup("player") == "Horde"
 	local roleBits = 0x0
 	local BIT_DAMAGER = 0x1
 	local BIT_TANK = 0x2
@@ -977,7 +978,30 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			c = c + 1
 		end
 		-- Zone Powers
-		for i, powerData in ipairs(n.sourceData.zone) do
+		-- 8.0:
+		local startPoint = 1
+		local endPoint = 15
+		for i = startPoint, endPoint do
+			local powerData = n.sourceData.zone[i]
+			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+			e[c]:SetRelativeWidth(.5)
+			if isCustomScale then
+				e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
+				e[c]:SetCallback("OnEnterPressed", _saveValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+		end
+		-- Different Zone traits for Alliance and Horde in 8.1
+		local tidesStart = isHorde and 18 or 16
+		local tidesEnd = isHorde and 19 or 17
+		for i = tidesStart, tidesEnd do
+			local powerData = n.sourceData.zone[i]
 			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 			e[c] = AceGUI:Create("EditBox")
 			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
@@ -1025,7 +1049,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 		container:AddChild(pvpTitle)
 
 		-- PvP Powers
-		local isHorde = UnitFactionGroup("player") == "Horde"
+		-- 8.0:
 		local startPoint = isHorde and 1 or 7
 		local endPoint = isHorde and 6 or 12
 		for i = startPoint, endPoint do
@@ -1038,6 +1062,23 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			if isCustomScale then
 				e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
 				e[c]:SetUserData("pairPointer", n.sourceData.pvp[i].pair)
+				e[c]:SetCallback("OnEnterPressed", _saveValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+		end
+		-- 8.1:
+		for i = 13, #n.sourceData.pvp do
+			local powerData = n.sourceData.pvp[i]
+			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+			e[c]:SetRelativeWidth(.5)
+			if isCustomScale then
+				e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
 				e[c]:SetCallback("OnEnterPressed", _saveValue)
 			else
 				e[c]:SetDisabled(true)
