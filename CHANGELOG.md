@@ -1,3 +1,8 @@
+### 8.1.4
+
+- Trying to fix the Default-scales not loading on some non-English clients.
+- Update Default-scales with more accurate ones (`target_error=0.05`).
+
 ### 8.1.3
 
 - Fix the missing class defensive traits for Shamans.
