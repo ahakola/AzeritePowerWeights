@@ -1,3 +1,7 @@
+### 8.1.5
+
+- More fixes to the Default-scales not loading on some non-English clients.
+
 ### 8.1.4
 
 - Trying to fix the Default-scales not loading on some non-English clients.

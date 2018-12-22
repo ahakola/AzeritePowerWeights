@@ -342,7 +342,8 @@ local function _enableScale(powerWeights, scaleKey)
 	end
 
 	local groupSet, _, _, scaleName = strsplit("/", scaleKey)
-	n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+	--n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+	n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName))
 
 	cfg.specScales[playerSpecID].scaleID = scaleKey
 	--cfg.specScales[playerSpecID].scaleName = scaleName
@@ -1152,7 +1153,8 @@ local function _populateWeights() -- Populate scoreData with active spec's scale
 					scoreData[k] = v
 				end
 				if n.guiContainer then
-					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+					--n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName))
 				end
 
 				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
@@ -1794,11 +1796,17 @@ function f:ADDON_LOADED(event, addon)
 		for i = 1, GetNumSpecializationsForClassID(playerClassID) do
 			local specID = GetSpecializationInfoForClassID(playerClassID, i)
 			if
-				not cfg.specScales[specID] or
+				not cfg.specScales[specID]
+			or
 				-- Localized Default-scalenames were causing issues, trying to revert those to normal state
 				(cfg.specScales[specID].scaleName == L.DefaultScaleName_Default or
 				cfg.specScales[specID].scaleName == L.DefaultScaleName_Defensive or
 				cfg.specScales[specID].scaleName == L.DefaultScaleName_Offensive)
+			or
+				-- More checks for the above
+				(select(3, strmatch(cfg.specScales[specID].scaleID, "D/(%d+)/(%d+)/(.+)")) == L.DefaultScaleName_Default or
+				select(3, strmatch(cfg.specScales[specID].scaleID, "D/(%d+)/(%d+)/(.+)")) == L.DefaultScaleName_Defensive or
+				select(3, strmatch(cfg.specScales[specID].scaleID, "D/(%d+)/(%d+)/(.+)")) == L.DefaultScaleName_Offensive)
 			then
 
 				local scaleKey = n.GetDefaultScaleSet(playerClassID, i)
