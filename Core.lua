@@ -271,7 +271,7 @@ local function _buildTree(t)
 		local c = _G.RAID_CLASS_COLORS[classTag]
 
 		--local scaleName = n.defaultNameTable[ dataSet[1] ] and classDisplayName .. " - " .. name .. " (" .. dataSet[1] .. ")" or classDisplayName .. " - " .. name
-		local scaleName = n.defaultNameTable[ dataSet[1] ] and classDisplayName .. " - " .. name .. " (" .. n.defaultNameTable[ dataSet[1] ] .. ")" or classDisplayName .. " - " .. name
+		local scaleName = (n.defaultNameTable[ dataSet[1] ] and n.defaultNameTable[ dataSet[1] ] ~= L.DefaultScaleName_Default) and classDisplayName .. " - " .. name .. " (" .. n.defaultNameTable[ dataSet[1] ] .. ")" or classDisplayName .. " - " .. name
 		if (dataSet) and ((cfg.onlyOwnClassDefaults and classID == playerClassID) or (not cfg.onlyOwnClassDefaults)) then
 			t[2].children[#t[2].children + 1] = {
 				value = "D/"..dataSet[2].."/"..dataSet[3].."/"..dataSet[1],
@@ -335,7 +335,7 @@ local function _SelectGroup(widget, callback, group)
 end
 
 local function _enableScale(powerWeights, scaleKey)
-	--Debug("Enable Scale:", scaleKey)
+	Debug("Enable Scale:", scaleKey)
 	wipe(scoreData)
 	for k, v in pairs(powerWeights) do
 		scoreData[k] = v
@@ -346,8 +346,8 @@ local function _enableScale(powerWeights, scaleKey)
 	n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName))
 
 	cfg.specScales[playerSpecID].scaleID = scaleKey
-	--cfg.specScales[playerSpecID].scaleName = scaleName
-	cfg.specScales[playerSpecID].scaleName = groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName
+	cfg.specScales[playerSpecID].scaleName = scaleName
+	--cfg.specScales[playerSpecID].scaleName = groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName
 	n.treeGroup:SelectByValue(cfg.specScales[playerSpecID].scaleID)
 end
 
@@ -1154,7 +1154,7 @@ local function _populateWeights() -- Populate scoreData with active spec's scale
 				end
 				if n.guiContainer then
 					--n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
-					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or scaleName) or scaleName))
+					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName))
 				end
 
 				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
@@ -1289,6 +1289,7 @@ function f:UpdateValues() -- Update scores
 
 	local container = _G.AzeriteEmpoweredItemUI.ClipFrame.PowerContainerFrame
 	local children = { container:GetChildren() }
+	local frameTmp = "> Frames:"
 	for _, frame in ipairs(children) do
 		if frame and frame:IsShown() then
 			--Debug(">" frame.azeritePowerID, frame.spellID, frame.unlockLevel)
@@ -1307,11 +1308,13 @@ function f:UpdateValues() -- Update scores
 			if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
 				score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
 			end
-			--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected)
+			frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
+			--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
 			local s = AcquireString(frame, score)
 			activeStrings[#activeStrings + 1] = s
 		end
 	end
+	Debug(frameTmp)
 
 	-- Calculate maxScore for the item
 	local allTierInfo = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetAllTierInfo()
@@ -1351,6 +1354,7 @@ function f:UpdateValues() -- Update scores
 
 	for tierIndex, tierInfo in ipairs(allTierInfo) do
 		local maximum, tierMaximum = 0, 0
+		local scoreTmp = "> Tier " .. tierIndex .. ":"
 		for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
 			local score = 0
 			local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID)
@@ -1364,8 +1368,11 @@ function f:UpdateValues() -- Update scores
 			if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
 				tierMaximum = score
 			end
+			scoreTmp = scoreTmp .. " " .. (azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[azeritePowerID] or "!")
+			--Debug("> Tier:", tierIndex, "Trait:", powerInfo.azeritePowerID, "Score:", score)
 		end
 
+		Debug(scoreTmp)
 		--Debug(tierIndex, maximum)
 		maxScore = maxScore + maximum
 		currentPotential = currentPotential + tierMaximum
@@ -1408,7 +1415,10 @@ function f:UpdateValues() -- Update scores
 
 	local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
 
-	n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+	local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
+
+	--n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+	n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
 
 	--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
 	Debug("Active Strings:", #activeStrings, f:GetFrameStrata())
@@ -2167,7 +2177,7 @@ local SlashHandlers = {
 		--ReloadUI()
 	end,
 	["scale"] = function()
-		Print(">", cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown)
+		Print("> '%s' - '%s'", cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
 	end,
 	["bang"] = function(...)
 		local number = tonumber(...)
