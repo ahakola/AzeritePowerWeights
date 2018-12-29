@@ -1579,10 +1579,16 @@ local function _updateTooltip(tooltip, itemLink)
 		if cfg.relativeScore and dataPointer then
 			local equippedScore, equippedPotential, equippedMax, equippedItemLink = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
-			if cfg.addILvlToScore and effectiveILvl then
-				equippedScore = equippedScore + effectiveILvl
-				equippedPotential = equippedPotential + effectiveILvl
-				equippedMax = equippedMax + effectiveILvl
+			local equippedEffectiveILvl = GetDetailedItemLevelInfo(equippedItemLink)
+			if cfg.addILvlToScore and equippedEffectiveILvl then
+				if cfg.scaleByAzeriteEmpowered then
+					local azeriteEmpoweredWeight = dataPointer and dataPointer[13] or 0
+					equippedEffectiveILvl = equippedEffectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+				end
+
+				equippedScore = equippedScore + equippedEffectiveILvl
+				equippedPotential = equippedPotential + equippedEffectiveILvl
+				equippedMax = equippedMax + equippedEffectiveILvl
 			end
 
 			local equippedStats = GetItemStats(equippedItemLink)

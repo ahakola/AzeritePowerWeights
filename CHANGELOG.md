@@ -1,3 +1,8 @@
+### 8.1.6
+
+- Fixing error in relative scores with itemlevels on tooltips
+- Minor bug fixes
+
 ### 8.1.5
 
 - More fixes to the Default-scales not loading on some non-English clients.
