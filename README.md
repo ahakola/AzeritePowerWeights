@@ -56,7 +56,7 @@ If you still can't find a trait and you are 100% sure you should be able to find
 - deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975**
 - esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
-- frFR (French): **tthegarde, Marechoux**
+- frFR (French): **tthegarde, Marechoux, follower4jas**
 - itIT (Italian):
 - koKR (Korean): **Killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**

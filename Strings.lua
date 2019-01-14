@@ -135,7 +135,7 @@ elseif LOCALE == "esES" then -- isaracho (4)
 elseif LOCALE == "esMX" then
 --@localization(locale="esMX", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "frFR" then -- tthegarde (20), Marechoux (9)
+elseif LOCALE == "frFR" then -- tthegarde (19), Marechoux (9), follower4jas (1)
 --@localization(locale="frFR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "itIT" then

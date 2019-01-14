@@ -1,3 +1,7 @@
+### 8.1.7
+
+- Update French translations.
+
 ### 8.1.6
 
 - Fixing error in relative scores with itemlevels on tooltips
