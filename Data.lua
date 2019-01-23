@@ -107,12 +107,6 @@ local sourceData = {
 					["name"] = "Brace for Impact",
 					["azeritePowerID"] = 450,
 				}, -- [6]
-				{
-					["spellID"] = 287377,
-					["icon"] = 254108,
-					["name"] = "Bastion of Might",
-					["azeritePowerID"] = 520,
-				}, -- [7]
 			},
 			[71] = {
 				{
@@ -151,18 +145,6 @@ local sourceData = {
 					["name"] = "Lord of War",
 					["azeritePowerID"] = 435,
 				}, -- [6]
-				{
-					["spellID"] = 287377,
-					["icon"] = 254108,
-					["name"] = "Bastion of Might",
-					["azeritePowerID"] = 520,
-				}, -- [7]
-				{
-					["spellID"] = 288452,
-					["icon"] = 236317,
-					["name"] = "Striking the Anvil",
-					["azeritePowerID"] = 550,
-				}, -- [8]
 			},
 			[72] = {
 				{
@@ -207,18 +189,6 @@ local sourceData = {
 					["name"] = "Infinite Fury",
 					["azeritePowerID"] = 451,
 				}, -- [7]
-				{
-					["spellID"] = 288056,
-					["icon"] = 132344,
-					["name"] = "Unbridled Ferocity",
-					["azeritePowerID"] = 544,
-				}, -- [8]
-				{
-					["spellID"] = 288080,
-					["icon"] = 236276,
-					["name"] = "Cold Steel, Hot Blood",
-					["azeritePowerID"] = 545,
-				}, -- [9]
 			},
 		}, -- [1]
 		{
@@ -271,18 +241,6 @@ local sourceData = {
 					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
 				}, -- [8]
-				{
-					["spellID"] = 286390,
-					["icon"] = 236263,
-					["name"] = "Empyrean Power",
-					["azeritePowerID"] = 507,
-				}, -- [9]
-				{
-					["spellID"] = 286229,
-					["icon"] = 135878,
-					["name"] = "Light's Decree",
-					["azeritePowerID"] = 508,
-				}, -- [10]
 			},
 			[65] = {
 				{
@@ -345,12 +303,6 @@ local sourceData = {
 					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
 				}, -- [10]
-				{
-					["spellID"] = 287268,
-					["icon"] = 1360764,
-					["name"] = "Glimmer of Light",
-					["azeritePowerID"] = 533,
-				}, -- [11]
 			},
 			[66] = {
 				{
@@ -407,12 +359,6 @@ local sourceData = {
 					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
 				}, -- [9]
-				{
-					["spellID"] = 287126,
-					["icon"] = 135981,
-					["name"] = "Righteous Conviction",
-					["azeritePowerID"] = 527,
-				}, -- [10]
 			},
 		}, -- [2]
 		{
@@ -465,18 +411,6 @@ local sourceData = {
 					["name"] = "Primeval Intuition",
 					["azeritePowerID"] = 373,
 				}, -- [8]
-				{
-					["spellID"] = 287093,
-					["icon"] = 236186,
-					["name"] = "Dire Consequences",
-					["azeritePowerID"] = 518,
-				}, -- [9]
-				{
-					["spellID"] = 288570,
-					["icon"] = 132210,
-					["name"] = "Primeval Intuition",
-					["azeritePowerID"] = 551,
-				}, -- [10]
 			},
 			[254] = {
 				{
@@ -515,12 +449,6 @@ local sourceData = {
 					["name"] = "Focused Fire",
 					["azeritePowerID"] = 370,
 				}, -- [6]
-				{
-					["spellID"] = 287707,
-					["icon"] = 132212,
-					["name"] = "Surging Shots",
-					["azeritePowerID"] = 528,
-				}, -- [7]
 			},
 			[253] = {
 				{
@@ -565,12 +493,6 @@ local sourceData = {
 					["name"] = "Rapid Reload",
 					["azeritePowerID"] = 369,
 				}, -- [7]
-				{
-					["spellID"] = 287093,
-					["icon"] = 236186,
-					["name"] = "Dire Consequences",
-					["azeritePowerID"] = 518,
-				}, -- [8]
 			},
 		}, -- [3]
 		{
@@ -611,12 +533,6 @@ local sourceData = {
 					["name"] = "Brigand's Blitz",
 					["azeritePowerID"] = 446,
 				}, -- [6]
-				{
-					["spellID"] = 288979,
-					["icon"] = 132350,
-					["name"] = "Keep Your Wits About You",
-					["azeritePowerID"] = 559,
-				}, -- [7]
 			},
 			[261] = {
 				{
@@ -655,12 +571,6 @@ local sourceData = {
 					["name"] = "Perforate",
 					["azeritePowerID"] = 445,
 				}, -- [6]
-				{
-					["spellID"] = 286121,
-					["icon"] = 237532,
-					["name"] = "Replicating Shadows",
-					["azeritePowerID"] = 506,
-				}, -- [7]
 			},
 			[259] = {
 				{
@@ -699,18 +609,6 @@ local sourceData = {
 					["name"] = "Shrouded Suffocation",
 					["azeritePowerID"] = 408,
 				}, -- [6]
-				{
-					["spellID"] = 286573,
-					["icon"] = 458726,
-					["name"] = "Nothing Personal",
-					["azeritePowerID"] = 509,
-				}, -- [7]
-				{
-					["spellID"] = 287649,
-					["icon"] = 236273,
-					["name"] = "Echoing Blades",
-					["azeritePowerID"] = 524,
-				}, -- [8]
 			},
 		}, -- [4]
 		{
@@ -757,12 +655,6 @@ local sourceData = {
 					["name"] = "Promise of Deliverance",
 					["azeritePowerID"] = 402,
 				}, -- [7]
-				{
-					["spellID"] = 287336,
-					["icon"] = 135937,
-					["name"] = "Promise of Deliverance",
-					["azeritePowerID"] = 534,
-				}, -- [8]
 			},
 			[258] = {
 				{
@@ -851,12 +743,6 @@ local sourceData = {
 					["name"] = "Enduring Luminescence",
 					["azeritePowerID"] = 399,
 				}, -- [7]
-				{
-					["spellID"] = 287355,
-					["icon"] = 135922,
-					["name"] = "Sudden Revelation",
-					["azeritePowerID"] = 535,
-				}, -- [8]
 			},
 		}, -- [5]
 		{
@@ -903,18 +789,6 @@ local sourceData = {
 					["name"] = "Last Surprise",
 					["azeritePowerID"] = 351,
 				}, -- [7]
-				{
-					["spellID"] = 286832,
-					["icon"] = 342913,
-					["name"] = "Helchains",
-					["azeritePowerID"] = 511,
-				}, -- [8]
-				{
-					["spellID"] = 288417,
-					["icon"] = 348276,
-					["name"] = "Magus of the Dead",
-					["azeritePowerID"] = 552,
-				}, -- [9]
 			},
 			[251] = {
 				{
@@ -953,12 +827,6 @@ local sourceData = {
 					["name"] = "Frozen Tempest",
 					["azeritePowerID"] = 347,
 				}, -- [6]
-				{
-					["spellID"] = 287283,
-					["icon"] = 1580450,
-					["name"] = "Frostwhelp's Indignation",
-					["azeritePowerID"] = 519,
-				}, -- [7]
 			},
 			[250] = {
 				{
@@ -997,12 +865,6 @@ local sourceData = {
 					["name"] = "Bones of the Damned",
 					["azeritePowerID"] = 349,
 				}, -- [6]
-				{
-					["spellID"] = 289339,
-					["icon"] = 135338,
-					["name"] = "Bloody Runeblade",
-					["azeritePowerID"] = 557,
-				}, -- [7]
 			},
 		}, -- [6]
 		{
@@ -1147,12 +1009,6 @@ local sourceData = {
 					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
 				}, -- [14]
-				{
-					["spellID"] = 287300,
-					["icon"] = 237590,
-					["name"] = "Turn of the Tide",
-					["azeritePowerID"] = 563,
-				}, -- [15]
 			},
 			[262] = {
 				{
@@ -1215,12 +1071,6 @@ local sourceData = {
 					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
 				}, -- [10]
-				{
-					["spellID"] = 286949,
-					["icon"] = 136025,
-					["name"] = "Tectonic Thunder",
-					["azeritePowerID"] = 512,
-				}, -- [11]
 			},
 		}, -- [7]
 		{
@@ -1261,12 +1111,6 @@ local sourceData = {
 					["name"] = "Frigid Grasp",
 					["azeritePowerID"] = 381,
 				}, -- [6]
-				{
-					["spellID"] = 288164,
-					["icon"] = 236209,
-					["name"] = "Flash Freeze",
-					["azeritePowerID"] = 547,
-				}, -- [7]
 			},
 			[63] = {
 				{
@@ -1305,12 +1149,6 @@ local sourceData = {
 					["name"] = "Firemind",
 					["azeritePowerID"] = 378,
 				}, -- [6]
-				{
-					["spellID"] = 288755,
-					["icon"] = 460698,
-					["name"] = "Wildfire",
-					["azeritePowerID"] = 556,
-				}, -- [7]
 			},
 			[62] = {
 				{
@@ -1349,12 +1187,6 @@ local sourceData = {
 					["name"] = "Explosive Echo",
 					["azeritePowerID"] = 375,
 				}, -- [6]
-				{
-					["spellID"] = 286027,
-					["icon"] = 135732,
-					["name"] = "Equipoise",
-					["azeritePowerID"] = 514,
-				}, -- [7]
 			},
 		}, -- [8]
 		{
@@ -1401,12 +1233,6 @@ local sourceData = {
 					["name"] = "Supreme Commander",
 					["azeritePowerID"] = 458,
 				}, -- [7]
-				{
-					["spellID"] = 287059,
-					["icon"] = 237561,
-					["name"] = "Baleful Invocation",
-					["azeritePowerID"] = 515,
-				}, -- [8]
 			},
 			[267] = {
 				{
@@ -1445,12 +1271,6 @@ local sourceData = {
 					["name"] = "Bursting Flare",
 					["azeritePowerID"] = 460,
 				}, -- [6]
-				{
-					["spellID"] = 287637,
-					["icon"] = 134075,
-					["name"] = "Chaos Shards",
-					["azeritePowerID"] = 525,
-				}, -- [7]
 			},
 			[265] = {
 				{
@@ -1489,12 +1309,6 @@ local sourceData = {
 					["name"] = "Pandemic Invocation",
 					["azeritePowerID"] = 442,
 				}, -- [6]
-				{
-					["spellID"] = 289364,
-					["icon"] = 136230,
-					["name"] = "Pandemic Invocation",
-					["azeritePowerID"] = 565,
-				}, -- [7]
 			},
 		}, -- [9]
 		{
@@ -1535,24 +1349,6 @@ local sourceData = {
 					["name"] = "Dance of Chi-Ji",
 					["azeritePowerID"] = 391,
 				}, -- [6]
-				{
-					["spellID"] = 286585,
-					["icon"] = 607849,
-					["name"] = "Dance of Chi-Ji",
-					["azeritePowerID"] = 516,
-				}, -- [7]
-				{
-					["spellID"] = 287055,
-					["icon"] = 606548,
-					["name"] = "Fury of Xuen",
-					["azeritePowerID"] = 517,
-				}, -- [8]
-				{
-					["spellID"] = 288634,
-					["icon"] = 1381297,
-					["name"] = "Glory of the Dawn",
-					["azeritePowerID"] = 553,
-				}, -- [9]
 			},
 			[270] = {
 				{
@@ -1609,12 +1405,6 @@ local sourceData = {
 					["name"] = "Glory of the Dawn",
 					["azeritePowerID"] = 388,
 				}, -- [9]
-				{
-					["spellID"] = 287829,
-					["icon"] = 611418,
-					["name"] = "Secret Infusion",
-					["azeritePowerID"] = 536,
-				}, -- [10]
 			},
 			[268] = {
 				{
@@ -1653,12 +1443,6 @@ local sourceData = {
 					["name"] = "Elusive Footwork",
 					["azeritePowerID"] = 384,
 				}, -- [6]
-				{
-					["spellID"] = 285958,
-					["icon"] = 1360979,
-					["name"] = "Straight, No Chaser",
-					["azeritePowerID"] = 513,
-				}, -- [7]
 			},
 		}, -- [10]
 		{
@@ -1761,12 +1545,6 @@ local sourceData = {
 					["name"] = "Guardian's Wrath",
 					["azeritePowerID"] = 361,
 				}, -- [8]
-				{
-					["spellID"] = 289314,
-					["icon"] = 571585,
-					["name"] = "Burst of Savagery",
-					["azeritePowerID"] = 567,
-				}, -- [9]
 			},
 			[102] = {
 				{
@@ -1817,12 +1595,6 @@ local sourceData = {
 					["name"] = "Lively Spirit",
 					["azeritePowerID"] = 364,
 				}, -- [8]
-				{
-					["spellID"] = 287773,
-					["icon"] = 135730,
-					["name"] = "Arcanic Pulsar",
-					["azeritePowerID"] = 529,
-				}, -- [9]
 			},
 			[105] = {
 				{
@@ -1879,12 +1651,6 @@ local sourceData = {
 					["name"] = "Lively Spirit",
 					["azeritePowerID"] = 364,
 				}, -- [9]
-				{
-					["spellID"] = 287251,
-					["icon"] = 236153,
-					["name"] = "Early Harvest",
-					["azeritePowerID"] = 532,
-				}, -- [10]
 			},
 		}, -- [11]
 		{
@@ -1931,12 +1697,6 @@ local sourceData = {
 					["name"] = "Eyes of Rage",
 					["azeritePowerID"] = 353,
 				}, -- [7]
-				{
-					["spellID"] = 288754,
-					["icon"] = 1305157,
-					["name"] = "Chaotic Transformation",
-					["azeritePowerID"] = 555,
-				}, -- [8]
 			},
 			[581] = {
 				{
@@ -1975,12 +1735,6 @@ local sourceData = {
 					["name"] = "Essence Sever",
 					["azeritePowerID"] = 355,
 				}, -- [6]
-				{
-					["spellID"] = 288878,
-					["icon"] = 615099,
-					["name"] = "Hour of Reaping",
-					["azeritePowerID"] = 558,
-				}, -- [7]
 			},
 		}, -- [12]
 	},

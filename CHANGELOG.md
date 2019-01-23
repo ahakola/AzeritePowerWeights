@@ -1,3 +1,8 @@
+### 8.1.8
+
+- Trying to remove duplicate traits from class traits [Ticket #19]https://wow.curseforge.com/projects/azeritepowerweights/issues/19
+   - Let me know if I missed some or removed something I shouldn't have.
+
 ### 8.1.7
 
 - Update French translations.
