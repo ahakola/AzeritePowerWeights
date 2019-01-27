@@ -1,6 +1,11 @@
+### 8.1.9
+
+- Update Default-scales (`target_error=0.05`)
+   - Protection Warriors seems to be supported now by SimulationCraft so they also get scales this time.
+
 ### 8.1.8
 
-- Trying to remove duplicate traits from class traits [Ticket #19]https://wow.curseforge.com/projects/azeritepowerweights/issues/19
+- Trying to remove duplicate traits from class traits [Ticket #19](https://wow.curseforge.com/projects/azeritepowerweights/issues/19)
    - Let me know if I missed some or removed something I shouldn't have.
 
 ### 8.1.7
@@ -45,7 +50,7 @@
 - This is mostly to fix the invisible score texts.
    - The addon supports new 8.1 traits via importing them (export, edit and import your own scales if you are experienced user), even when they don't show up in the editor yet. Working on it.
    - Also no changes to Default-scales. Updated Default-scales will be delivered as soon as my box of worms has run all the simulations.
-- Translators are more than welcome to contribute their efforts at [Curseforge Localization tool]https://wow.curseforge.com/projects/azeritepowerweights/localization
+- Translators are more than welcome to contribute their efforts at [Curseforge Localization tool](https://wow.curseforge.com/projects/azeritepowerweights/localization)
 
 ### 8.0.29
 
