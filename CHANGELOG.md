@@ -1,3 +1,8 @@
+### 8.1.10
+
+- Blizzard made some significant changes to some of the Azerite-traits so I re-simmed the Default-scales with the newest nightly build of SimulationCraft
+- While wathing russian streamer who happened to use this addon, I noticed the `PowersScoreString` floored decimals for him. I checked the translations and made changes to German, Korean, Russian and Traditional Chinese translations on that line to let people using those translations also see the decimals in the calculations. Translators should go and make sure the updated line still makes sense.
+
 ### 8.1.9
 
 - Update Default-scales (`target_error=0.05`)

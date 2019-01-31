@@ -32,7 +32,9 @@ You can also enable relative scores to replace the absolute number values with p
 
 ---
 
-`Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is to NOT push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest either simulating your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results.**
+## Scales
+
+`Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is to NOT push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest you use `Custom-scales` by either simulate your own results tailored for your own characters or search for import-strings at sites specialized in theorycrafting for your own class and specialization or sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results. There isn't a single magic scale that works everytime all the time.**
 
 Most of the current `Default-scales` are done by myself using `SimulationCraft` and **might contain some errors**. `SimulationCraft` doesn't support healers, so I can't simulate `Default-scales` for those specs. PM me if you want to help contribute for `Default-scales`.
 
@@ -72,5 +74,5 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 27.01.2019]
-- Default-scales for 8.1 [updated 27.01.2019]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 31.01.2019]
+- Default-scales for 8.1 [updated 31.01.2019]
