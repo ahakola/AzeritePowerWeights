@@ -1,3 +1,9 @@
+### 8.1.11
+
+- 8.1.5 compatibility fixes
+- Adds +5 to itemlevel calculations if the center trait is open but not selected. [Ticket #22](https://wow.curseforge.com/projects/azeritepowerweights/issues/22)
+- I'll add few new planned features in the near future and redo the Default-scales asap SimulationCraft updates their stuff for 8.1.5
+
 ### 8.1.10
 
 - Blizzard made some significant changes to some of the Azerite-traits so I re-simmed the Default-scales with the newest nightly build of SimulationCraft

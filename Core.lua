@@ -1275,7 +1275,7 @@ function f:UpdateValues() -- Update scores
 	if not _G.AzeriteEmpoweredItemUI or not _G.AzeriteEmpoweredItemUI:IsShown() then return end
 	Debug("UPDATE VALUES")
 
-	local currentScore, currentPotential, maxScore, currentLevel, maxLevel = 0, 0, 0, 0, 0
+	local currentScore, currentPotential, maxScore, currentLevel, maxLevel, midTrait = 0, 0, 0, 0, 0, 0
 	local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
 	if azeriteItemLocation then
 		currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
@@ -1303,6 +1303,11 @@ function f:UpdateValues() -- Update scores
 
 			if frame.isSelected == true then
 				currentScore = currentScore + score
+
+				if powerInfo.azeritePowerID == 13 then -- Middle
+					midTrait = midTrait + 1
+					Debug("UpdateValues Middle is selected")
+				end
 			end
 
 			if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
@@ -1381,16 +1386,27 @@ function f:UpdateValues() -- Update scores
 		end
 	end
 
+	if currentLevel >= maxLevel then
+		midTrait = midTrait + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
+		if midTrait == 1 then
+			Debug("UpdateValues Middle is open")
+		end
+	else
+		Debug("UpdateValues Middle is locked")
+	end
+
 	local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
 	if cfg.addILvlToScore and effectiveILvl then
+		local middleTraitValue = midTrait == 1 and 5 or 0
 		if cfg.scaleByAzeriteEmpowered then
 			local azeriteEmpoweredWeight = scoreData and scoreData[13] or 0
 			effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+			middleTraitValue = middleTraitValue / 5 * azeriteEmpoweredWeight
 		end
 
-		currentScore = currentScore + effectiveILvl
-		currentPotential = currentPotential + effectiveILvl
-		maxScore = maxScore + effectiveILvl
+		currentScore = currentScore + effectiveILvl + middleTraitValue
+		currentPotential = currentPotential + effectiveILvl + middleTraitValue
+		maxScore = maxScore + effectiveILvl + (midTrait == 2 and 0 or middleTraitValue)
 	end
 
 	local stats = GetItemStats(_G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemLink())
@@ -1446,7 +1462,7 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 		local equipLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLoc)
 		local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
 
-		local currentScore, currentPotential, maxScore = 0, 0, 0
+		local currentScore, currentPotential, maxScore, midTrait = 0, 0, 0, 0
 		for tierIndex, tierInfo in ipairs(allTierInfo) do
 			local maximum, tierMaximum = 0, 0
 			for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
@@ -1457,6 +1473,11 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 
 					if equipLocation:HasAnyLocation() and C_AzeriteEmpoweredItem.IsPowerSelected(equipLocation, powerInfo.azeritePowerID) then
 						currentScore = currentScore + score
+
+						if powerInfo.azeritePowerID == 13 then -- Middle
+							midTrait = midTrait + 1
+							Debug("_getGearScore Middle is selected")
+						end
 					end
 				end
 				
@@ -1475,10 +1496,19 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 			end
 		end
 
-		return currentScore, currentPotential, maxScore, itemLink
+		if currentLevel >= maxLevel then
+			midTrait = midTrait + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
+			if midTrait == 1 then
+				Debug("_getGearScore Middle is open")
+			end
+		else
+			Debug("_getGearScore Middle is locked")
+		end
+
+		return currentScore, currentPotential, maxScore, itemLink, midTrait
 	end
 
-	return 0, 0, 0, itemLink
+	return 0, 0, 0, itemLink, 0
 end
 
 local function _updateTooltip(tooltip, itemLink)
@@ -1490,12 +1520,13 @@ local function _updateTooltip(tooltip, itemLink)
 
 	local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
 
-	local currentScore, currentPotential, maxScore, scaleInfo = {}, {}, {}, {}
+	local currentScore, currentPotential, maxScore, scaleInfo, midTrait = {}, {}, {}, {}, {}
 	for i, tooltipScale in ipairs(cfg.tooltipScales) do
 		currentScore[i] = 0
 		currentPotential[i] = 0
 		maxScore[i] = 0
 		scaleInfo[i] = {}
+		midTrait[i] = 0
 
 		local dataPointer
 		local groupSet, classID, specNum, scaleName = strsplit("/", tooltipScale.scaleID)
@@ -1532,6 +1563,11 @@ local function _updateTooltip(tooltip, itemLink)
 						if azeriteEmpoweredItemLocation:HasAnyLocation() and C_AzeriteEmpoweredItem.IsPowerSelected(azeriteEmpoweredItemLocation, powerInfo.azeritePowerID) then
 							currentScore[i] = currentScore[i] + score
 							--Debug("+++", powerInfo.azeritePowerID, GetSpellInfo(powerInfo.spellID), score)
+
+							if powerInfo.azeritePowerID == 13 then -- Middle
+								midTrait[i] = midTrait[i] + 1
+								Debug("_updateTooltip Middle is selected")
+							end
 						else
 							--Debug("---", powerInfo.azeritePowerID, GetSpellInfo(powerInfo.spellID), score)
 						end
@@ -1554,16 +1590,29 @@ local function _updateTooltip(tooltip, itemLink)
 			end
 		end
 
+		if currentLevel >= maxLevel then
+			midTrait[i] = midTrait[i] + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
+			if midTrait[i] == 1 then
+				Debug("_updateTooltip Middle is open")
+			end
+		else
+			Debug("_updateTooltip Middle is locked")
+		end
+
+		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)
 		if cfg.addILvlToScore and effectiveILvl then
+			local middleTraitValue = midTrait[i] == 1 and 5 or 0
 			if cfg.scaleByAzeriteEmpowered then
 				local azeriteEmpoweredWeight = dataPointer and dataPointer[13] or 0
 				effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+				middleTraitValue = middleTraitValue / 5 * azeriteEmpoweredWeight
 			end
 
-			currentScore[i] = currentScore[i] + effectiveILvl
-			currentPotential[i] = currentPotential[i] + effectiveILvl
-			maxScore[i] = maxScore[i] + effectiveILvl
+			currentScore[i] = currentScore[i] + effectiveILvl + middleTraitValue
+			currentPotential[i] = currentPotential[i] + effectiveILvl + middleTraitValue
+			maxScore[i] = maxScore[i] + effectiveILvl + (midTrait[i] == 2 and 0 or middleTraitValue)
+			Debug("ilvl:", currentScore[i], currentPotential[i], maxScore[i], effectiveILvl, midTrait[i], middleTraitValue)
 		end
 
 		local stats = GetItemStats(itemLink)
@@ -1575,20 +1624,22 @@ local function _updateTooltip(tooltip, itemLink)
 			maxScore[i] = maxScore[i] + statScore
 		end
 
-		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 		if cfg.relativeScore and dataPointer then
-			local equippedScore, equippedPotential, equippedMax, equippedItemLink = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
+			local equippedScore, equippedPotential, equippedMax, equippedItemLink, equippedMidTrait = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
 			local equippedEffectiveILvl = GetDetailedItemLevelInfo(equippedItemLink)
 			if cfg.addILvlToScore and equippedEffectiveILvl then
+				local middleTraitValue = equippedMidTrait == 1 and 5 or 0
 				if cfg.scaleByAzeriteEmpowered then
 					local azeriteEmpoweredWeight = dataPointer and dataPointer[13] or 0
 					equippedEffectiveILvl = equippedEffectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+					middleTraitValue = middleTraitValue / 5 * azeriteEmpoweredWeight
 				end
 
-				equippedScore = equippedScore + equippedEffectiveILvl
-				equippedPotential = equippedPotential + equippedEffectiveILvl
-				equippedMax = equippedMax + equippedEffectiveILvl
+				equippedScore = equippedScore + equippedEffectiveILvl + middleTraitValue
+				equippedPotential = equippedPotential + equippedEffectiveILvl + middleTraitValue
+				equippedMax = equippedMax + equippedEffectiveILvl + (equippedMidTrait == 2 and 0 or middleTraitValue)
+				Debug("ilvl:", equippedScore, equippedPotential, equippedMax, equippedEffectiveILvl, equippedMidTrait, middleTraitValue)
 			end
 
 			local equippedStats = GetItemStats(equippedItemLink)
@@ -1655,6 +1706,7 @@ end
 
 -- Item from bags
 hooksecurefunc(GameTooltip, "SetBagItem", function(self, ...) -- This can be called 4-5 times per second
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1671,6 +1723,7 @@ end)
 
 -- Equipped item
 hooksecurefunc(GameTooltip, "SetInventoryItem", function(self, ...) -- This can be called 4-5 times per second
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1687,6 +1740,7 @@ end)
 
 -- Any other item, EJ etc.
 hooksecurefunc(GameTooltip, "SetHyperlink", function(self, ...)
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1700,6 +1754,7 @@ end)
 
 -- Vendor item (https://wow.gamepedia.com/Widget_API)
 hooksecurefunc(GameTooltip, "SetMerchantItem", function(self, ...) -- ... = merchantSlot
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1715,6 +1770,7 @@ end)
 
 -- Comparison tooltip for Vendor items (https://www.townlong-yak.com/framexml/27602/GameTooltip.lua#490)
 hooksecurefunc(GameTooltip.shoppingTooltips[1], "SetCompareItem", function(self, ...) -- ... = ShoppingTooltip2, GameTooltip
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1730,7 +1786,10 @@ hooksecurefunc(GameTooltip.shoppingTooltips[1], "SetCompareItem", function(self,
 end)
 
 -- Comparison tooltip for WQ items (https://github.com/phanx-wow/PhanxBorder/blob/master/Blizzard.lua#L205)
+-- WorldmapTooltip is being deprecated in 8.1.5. GameTooltip should be used instead. (https://www.wowinterface.com/forums/showthread.php?t=56964)
+--[[
 hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem", function(self, ...) -- ... = WorldMapCompareTooltip2, WorldMapTooltipTooltip
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1744,9 +1803,11 @@ hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem", function(self, ...) --
 		_updateTooltip(self, itemLink)
 	end
 end)
+]]
 
 -- World Quest rewards (https://www.townlong-yak.com/framexml/27547/GameTooltip.lua#925)
 hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self, questLogIndex, questID)
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
@@ -1766,6 +1827,7 @@ end)
 
 -- Quest rewards (https://www.townlong-yak.com/framexml/27602/QuestInfo.lua#964)
 hooksecurefunc(GameTooltip, "SetQuestItem", function(self, ...) -- ... = type, ID
+	if not cfg or not cfg.tooltipScales then return end
 	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
