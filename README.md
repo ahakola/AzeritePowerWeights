@@ -54,6 +54,16 @@ If you still can't find a trait and you are 100% sure you should be able to find
 
 ---
 
+## Errors, bugs and feature requests
+
+If you run into errors or bugs or have request for new feature, **please check if someone has already made a ticket** for it. Going through same information posted across all the different pages and inboxes takes time away from actually fixing the problems.
+
+You can find all the tickets at the [Issue tracker on project site](https://wow.curseforge.com/projects/azeritepowerweights/issues?filter-tag=&filter-action=) and post your new findings to the existing tickets if the new information is still relevant. If you can't find existing ticket for the bug/feature request, then you can create a new one.
+
+If you don't get any errors but the addon is clearly not working, make sure you have Lua-errors turned on (**/console scriptErrors 1**).
+
+---
+
 ### Translations
 - deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975**
 - esES (Spanish): **isaracho**
@@ -72,7 +82,7 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 ### Default scales
 
-Dates are in DD.MM.YY-format.
+Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 31.01.2019]
-- Default-scales for 8.1 [updated 31.01.2019]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 19.03.2019]
+- Default-scales for 8.1.5 [updated 19.03.2019]

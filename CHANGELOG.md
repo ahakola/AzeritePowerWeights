@@ -1,3 +1,16 @@
+### 8.1.12
+
+- Update Default-scales to 8.1.5
+- Added "Mass Import"-feature, you can now Import multiple scales at once
+   - Mass Import accepts normal Import-strings separated by linechange (aka, every Import-string in its own line).
+- Added Created/Imported/Updated -feature [Ticket #15](https://wow.curseforge.com/projects/azeritepowerweights/issues/15)
+   - This shows the date the scale was Created, Imported or Updated last time.
+   - Changing the values on the scale will update the Updated timestamp.
+- Added feature to hide Custom-scales for other than your current spec
+   - This is off by default, but can be enabled in the Config same place where you setup the hiding of Default-scales for other specs.
+- These new features means there are new lines to be translatated.
+   - If you want to contribute, go to [Curseforge Localization tool](https://wow.curseforge.com/projects/azeritepowerweights/localization) and help translate, review and/or correct the translations.
+
 ### 8.1.11
 
 - 8.1.5 compatibility fixes

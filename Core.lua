@@ -26,6 +26,7 @@ local dbDefaults = {
 local charDefaults = {
 	debug = false,
 	onlyOwnClassDefaults = true,
+	onlyOwnClassCustoms = false,
 	importingCanUpdate = true,
 	defensivePowers = true,
 	rolePowers = true,
@@ -183,7 +184,7 @@ local pvpPairs = { -- Used for Exporting/Importing. These powers have same effec
 	[496] = -6,
 	[497] = -6
 }
-local function insertCustomScalesData(scaleName, classIndex, specID, powerData) -- Insert into table
+local function insertCustomScalesData(scaleName, classIndex, specID, powerData, scaleMode) -- Insert into table
 	local t = {}
 	if powerData and powerData ~= "" then -- String to table
 		for _, weight in pairs({ strsplit(",", powerData) }) do
@@ -206,6 +207,8 @@ local function insertCustomScalesData(scaleName, classIndex, specID, powerData) 
 	for key, dataSet in ipairs(customScales) do
 		if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classIndex and dataSet[3] == specID then
 			dataSet[4] = t
+			dataSet[5] = time() -- Timestamp
+			dataSet[6] = 2 -- Set scaleMode to 2 (Only Imports should update scales)
 			updated = true
 			break
 		end
@@ -217,7 +220,9 @@ local function insertCustomScalesData(scaleName, classIndex, specID, powerData) 
 			scaleName,
 			classIndex,
 			specID,
-			t
+			t,
+			time(), -- Timestamp
+			scaleMode -- Set scaleMode either 1 (Created) or 2 (Imported)
 		}
 	end
 
@@ -249,7 +254,8 @@ local function _buildTree(t)
 		local specID, name, description, iconID, role, class = GetSpecializationInfoByID(dataSet[3])
 		local c = _G.RAID_CLASS_COLORS[classTag]
 
-		if (dataSet) then
+		--if (dataSet) then
+		if (dataSet) and ((cfg.onlyOwnClassCustoms and classID == playerClassID) or (not cfg.onlyOwnClassCustoms)) then -- Hide custom scales of other classes if enabled
 			t[1].children[#t[1].children + 1] = {
 				value = "C/"..dataSet[2].."/"..dataSet[3].."/"..dataSet[1],
 				text = ("|c%s%s|r"):format(c.colorStr, dataSet[1]),
@@ -306,7 +312,8 @@ local function _SelectGroup(widget, callback, group)
 
 			for _, dataSet in ipairs(customScales) do
 				if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
-					n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet[1], dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum) -- specNum is actually specID here
+					--n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet[1], dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum) -- specNum is actually specID here
+					n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum) -- specNum is actually specID here
 
 					break
 				end
@@ -320,7 +327,8 @@ local function _SelectGroup(widget, callback, group)
 					local classDisplayName, classTag, classID = GetClassInfo(dataSet[2])
 					local specID, name, description, iconID, role, isRecommended, isAllowed = GetSpecializationInfoForClassID(classID, dataSet[3])
 
-					n:CreateWeightEditorGroup(false, n.scalesScroll, ("%s - %s (%s)"):format(classDisplayName, name, dataSet[1]), dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID)
+					--n:CreateWeightEditorGroup(false, n.scalesScroll, ("%s - %s (%s)"):format(classDisplayName, name, dataSet[1]), dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID)
+					n:CreateWeightEditorGroup(false, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID)
 
 					break
 				end
@@ -402,49 +410,75 @@ local function _exportScale(powerWeights, scaleName, classID, specID) -- Create 
 	n.CreatePopUp("Export", L.ExportPopup_Title, format(L.ExportPopup_Desc, NORMAL_FONT_COLOR_CODE .. scaleName .. FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE), exportString)
 end
 
-local function _importScale() -- Show import popup and parse input
+local function _importScale(importMode) -- Show import popup and parse input
 	local template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*%)%s*$"
 	local callbackFunction = function(widget, callback, ...)
-		local importString = widget:GetUserData("importString") or ""
-		--Debug(tostringall(strfind(importString, template)))
+		local function _saveString(importString)
+			local startPos, endPos, stringVersion, scaleName, classID, specID, powerWeights = strfind(importString, template)
+			stringVersion = tonumber(stringVersion) or 0
+			scaleName = scaleName or L.ScaleName_Unnamed
+			powerWeights = powerWeights or ""
+			classID = tonumber(classID) or nil
+			specID = tonumber(specID) or nil
 
-		local startPos, endPos, stringVersion, scaleName, classID, specID, powerWeights = strfind(importString, template)
-		stringVersion = tonumber(stringVersion) or 0
-		scaleName = scaleName or L.ScaleName_Unnamed
-		powerWeights = powerWeights or ""
-		classID = tonumber(classID) or nil
-		specID = tonumber(specID) or nil
-
-		if not cfg.importingCanUpdate then -- No updating for you, get collision free name
-			scaleName = _checkForNameCollisions(scaleName, false, classID, specID)
-		end
-
-		if stringVersion < importVersion then -- String version is old
-			Print(L.ImportPopup_Error_OldStringVersion)
-		elseif type(classID) ~= "number" or classID < 1 or type(specID) ~= "number" or specID < 1 then -- No class or no spec, this really shouldn't happen ever
-			Print(L.ImportPopup_Error_MalformedString)
-		else -- Everything seems to be OK
-			local result = insertCustomScalesData(scaleName, classID, specID, powerWeights)
-
-			-- Rebuild Tree
-			n.treeGroup.tree = _buildTree(n.treeGroup.tree)
-			n.treeGroup:SelectByValue("C/"..classID.."/"..specID.."/"..scaleName)
-			n.treeGroup:RefreshTree(true)
-
-			if result then -- Updated old scale
-				Print(L.ImportPopup_UpdatedScale, scaleName)
-			else -- Created new
-				Print(L.ImportPopup_CreatedNewScale, scaleName)
+			if not cfg.importingCanUpdate then -- No updating for you, get collision free name
+				scaleName = _checkForNameCollisions(scaleName, false, classID, specID)
 			end
+
+			if stringVersion < importVersion then -- String version is old
+				Print(L.ImportPopup_Error_OldStringVersion)
+			elseif type(classID) ~= "number" or classID < 1 or type(specID) ~= "number" or specID < 1 then -- No class or no spec, this really shouldn't happen ever
+				Print(L.ImportPopup_Error_MalformedString)
+			else -- Everything seems to be OK
+				local result = insertCustomScalesData(scaleName, classID, specID, powerWeights, 2) -- Set scaleMode 2 for Imported
+
+				-- Rebuild Tree
+				n.treeGroup.tree = _buildTree(n.treeGroup.tree)
+				n.treeGroup:SelectByValue("C/"..classID.."/"..specID.."/"..scaleName)
+				n.treeGroup:RefreshTree(true)
+
+				if result then -- Updated old scale
+					Print(L.ImportPopup_UpdatedScale, scaleName)
+				else -- Created new
+					Print(L.ImportPopup_CreatedNewScale, scaleName)
+				end
+			end
+
+			--Debug(">", stringVersion, classID, specID, scaleName, powerWeights)
 		end
 
-		--Debug(">", stringVersion, classID, specID, scaleName, powerWeights)
+		local input = widget:GetUserData("importString") or ""
+		--Debug(tostringall(strfind(input, template)))
+
+		if importMode then
+			Debug("Mass Import")
+			local t = { strsplit("\r\n", input) }
+			if #t > 0 then
+				for k, v in pairs(t) do
+					Debug(">", k, v)
+					if v then -- Let's make sure there is something
+						_saveString(v)
+					end
+				end
+			else
+				Print(L.ImportPopup_Error_MalformedString)
+			end
+
+		else
+			Debug("Single Import")
+			_saveString(input)
+		end
 
 		widget.frame:GetParent().obj:Hide()
 	end
 
 	--CreatePopUp(mode, titleText, descriptionText, editboxText, callbackFunction)
-	n.CreatePopUp("Import", L.ImportPopup_Title, format(L.ImportPopup_Desc, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE .. _G.ACCEPT .. FONT_COLOR_CODE_CLOSE), "", callbackFunction)
+	if importMode then -- Mass Import
+		n.CreatePopUp("MassImport", L.MassImportPopup_Title, format(L.MassImportPopup_Desc, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE .. _G.ACCEPT .. FONT_COLOR_CODE_CLOSE), "", callbackFunction)
+	else -- Import
+		n.CreatePopUp("Import", L.ImportPopup_Title, format(L.ImportPopup_Desc, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE .. _G.ACCEPT .. FONT_COLOR_CODE_CLOSE), "", callbackFunction)
+	end
+	Debug("Import", importMode)
 end
 
 local function _createScale() -- Show create popup and parse input
@@ -465,7 +499,7 @@ local function _createScale() -- Show create popup and parse input
 		local scaleName = _checkForNameCollisions(nameString, false, classID, specID)
 		Debug(">>", scaleName)
 		if scaleName then
-			local result = insertCustomScalesData(scaleName, classID, specID)
+			local result = insertCustomScalesData(scaleName, classID, specID, nil, 1) -- Set scaleMode 1 for Created
 
 			-- Rebuild Tree
 			n.treeGroup.tree = _buildTree(n.treeGroup.tree)
@@ -663,6 +697,15 @@ function n:CreateImportGroup(container)
 	end)
 	container:AddChild(importButton)
 
+	local massImportButton = AceGUI:Create("Button")
+	massImportButton:SetText(L.WeightEditor_MassImportText)
+	massImportButton:SetFullWidth(true)
+	massImportButton:SetCallback("OnClick", function()
+		-- Call _importScale
+		_importScale(true)
+	end)
+	container:AddChild(massImportButton)
+
 	local line = AceGUI:Create("Heading")
 	line:SetFullWidth(true)
 	container:AddChild(line)
@@ -670,7 +713,13 @@ function n:CreateImportGroup(container)
 	lastOpenScale = ADDON_NAME.."Import"
 end
 
-function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWeights, scaleKey, isCurrentScales, classID, specID)
+--function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWeights, scaleKey, isCurrentScales, classID, specID)
+function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, isCurrentScales, classID, specID)
+	local classDisplayName = GetClassInfo(dataSet[2])
+	local _, specName = GetSpecializationInfoForClassID(classID, dataSet[3])
+	local titleText = isCustomScale and dataSet[1] or ("%s - %s (%s)"):format(classDisplayName, specName, dataSet[1])
+	local powerWeights = dataSet[4]
+
 	container:ReleaseChildren()
 
 	local title = AceGUI:Create("Heading")
@@ -751,9 +800,30 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 	for _, v in ipairs(cfg.tooltipScales) do
 		if v.scaleID == scaleKey then
 			tooltipCheckbox:SetValue(true)
+			break -- No need to iterate more
 		end
 	end
 	-- Tooltip end
+
+	-- Timestamp start
+	local timestampText = AceGUI:Create("Label")
+	container:AddChild(timestampText)
+
+	local function _updateTimestamp()
+		-- dataSet[5] == timestamp
+		-- dataSet[6] = scaleMode: 0 = Default/Updated, 1 = Created, 2 = Imported
+		if dataSet[6] == 1 then
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Created, date("%Y.%m.%d", (dataSet[5] or 0))))
+		elseif dataSet[6] == 2 then
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Imported, date("%Y.%m.%d", (dataSet[5] or 0))))
+		else -- dataSet[6] 0, Default or Updated
+			--timestampText:SetText(format(L.WeightEditor_TimestampText_Created, date("%Y.%m.%d %H:%M", (dataSet[5] or 0)))) -- Debug
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Updated, date("%Y.%m.%d", (dataSet[5] or 0))))
+		end
+	end
+
+	_updateTimestamp()
+	-- Timestamp end
 
 	local spacer = AceGUI:Create("Label")
 	spacer:SetText(" \n ")
@@ -803,6 +873,11 @@ function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWei
 			scoreData[pointer] = value
 			delayedUpdate()
 		end
+
+		-- Update scaleMode and timestamp
+		dataSet[5] = time()
+		dataSet[6] = 0
+		_updateTimestamp()
 	end
 
 	-- Center Power
@@ -2019,6 +2094,7 @@ function f:CreateOptions()
 				inline = true,
 				order = 5,
 				args = {
+					--[[
 					scalesText = {
 						type = "description",
 						name = L.Config_Scales_Desc,
@@ -2027,10 +2103,20 @@ function f:CreateOptions()
 						width = "full",
 						order = 0,
 					},
+					]]--
 					onlyOwnClassDefaults = {
 						type = "toggle",
 						name = NORMAL_FONT_COLOR_CODE .. L.Config_Scales_OwnClassDefaultsOnly .. FONT_COLOR_CODE_CLOSE,
 						desc = L.Config_Scales_OwnClassDefaultsOnly_Desc,
+						descStyle = "inline",
+						width = "full",
+						--order = 1,
+						order = 0,
+					},
+					onlyOwnClassCustoms = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Scales_OwnClassCustomsOnly .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Scales_OwnClassCustomsOnly_Desc,
 						descStyle = "inline",
 						width = "full",
 						order = 1,
@@ -2250,6 +2336,45 @@ local SlashHandlers = {
 	["bang"] = function(...)
 		local number = tonumber(...)
 		Print("Bang:", number)
+	end,
+	["data"] = function()
+		Print("Data check start")
+		local numSpecs = {
+			[1] = 3+1, -- Warrior (+1 for TMI)
+			[2] = 3+1, -- Paladin (+1 for TMI)
+			[3]	= 3, -- Hunter
+			[4]	= 3, -- Rogue
+			[5]	= 3+1, -- Priest (+1 for Disc Off)
+			[6] = 3+1, -- Death Knight (+1 for TMI)
+			[7] = 3, -- Shaman
+			[8] = 3, -- Mage
+			[9] = 3, -- Warlock
+			[10] = 3+1, -- Monk (+1 for TMI)
+			[11] = 4+1, -- Druid (+1 for TMI)
+			[12] = 2+1, -- Demon Hunter (+1 for TMI)
+		}
+		for _, v in ipairs(n.defaultScalesData) do
+			numSpecs[v[2]] = numSpecs[v[2]] - 1
+		end
+		for k, v in ipairs(numSpecs) do
+			if v ~= 0 then
+				Print("!!!", k, v)
+			end
+		end
+		Print("Data check end")
+	end,
+	["test"] = function(...) -- To test new features
+		local tested = "onlyOwnClassCustoms"
+		local updateTreeAfterTest = true
+
+		cfg[tested] = not cfg[tested]
+		Print("Test:", cfg[tested])
+
+		if updateTreeAfterTest and n.treeGroup and n.treeGroup.tree then
+			n.treeGroup.tree = _buildTree(n.treeGroup.tree)
+			n.treeGroup:SelectByValue(ADDON_NAME.."Import")
+			n.treeGroup:RefreshTree(true)
+		end
 	end,
 }
 

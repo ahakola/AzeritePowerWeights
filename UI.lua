@@ -87,18 +87,30 @@ local function CreatePopUp(mode, titleText, descriptionText, editboxText, callba
 	topLine:SetFullWidth(true)
 	frame:AddChild(topLine)
 
-	local edit = AceGUI:Create("EditBox")
-	edit:SetFullWidth(true)
-	edit:DisableButton(true)
-	edit:SetText("")
-	edit:SetFocus()
-	edit:SetCallback("OnEnterPressed", callbackFunction or _closePopUp)
-	frame:AddChild(edit)
+	local edit, multiEdit
+	if mode == "MassImport" then
+		multiEdit = AceGUI:Create("MultiLineEditBox")
+		multiEdit:SetFullWidth(true)
+		multiEdit:DisableButton(true)
+		multiEdit:SetText("")
+		multiEdit:SetLabel("")
+		multiEdit:SetNumLines(4)
+		multiEdit:SetFocus()
+		multiEdit:SetCallback("OnEnterPressed", callbackFunction or _closePopUp)
+		frame:AddChild(multiEdit)
+	else
+		edit = AceGUI:Create("EditBox")
+		edit:SetFullWidth(true)
+		edit:DisableButton(true)
+		edit:SetText("")
+		edit:SetFocus()
+		edit:SetCallback("OnEnterPressed", callbackFunction or _closePopUp)
+		frame:AddChild(edit)
+	end
 
 	local bottomLine = AceGUI:Create("Heading")
 	bottomLine:SetFullWidth(true)
 	frame:AddChild(bottomLine)
-
 
 	if mode == "Import" then -- Import
 		local accept = AceGUI:Create("Button")
@@ -119,6 +131,27 @@ local function CreatePopUp(mode, titleText, descriptionText, editboxText, callba
 		end)
 		-- Make sure we get return even if the text doesn't change
 		edit:SetUserData("importString", editboxText)
+		accept:SetUserData("importString", editboxText)
+
+	elseif mode == "MassImport" then -- Mass Import
+		local accept = AceGUI:Create("Button")
+		accept:SetRelativeWidth(.5)
+		accept:SetText(_G.ACCEPT)
+		accept:SetCallback("OnClick", callbackFunction or _closePopUp)
+		frame:AddChild(accept)
+
+		local close = AceGUI:Create("Button")
+		close:SetRelativeWidth(.5)
+		close:SetText(_G.CANCEL)
+		close:SetCallback("OnClick", _closePopUp)
+		frame:AddChild(close)
+
+		multiEdit:SetCallback("OnTextChanged", function(widget, callback, text)
+			multiEdit:SetUserData("importString", text)
+			accept:SetUserData("importString", text)
+		end)
+		-- Make sure we get return even if the text doesn't change
+		multiEdit:SetUserData("importString", editboxText)
 		accept:SetUserData("importString", editboxText)
 
 	elseif mode == "Create" then -- Create

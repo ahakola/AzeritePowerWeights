@@ -40,6 +40,9 @@ do -- enUS / enGB
 	L.ImportPopup_UpdatedScale = "Updated existing scale \"%s\"" -- %s = scaleName
 	L.ImportPopup_CreatedNewScale = "Imported new scale \"%s\"" -- %s = scaleName
 
+	L.MassImportPopup_Title = "Mass Import Scales"
+	L.MassImportPopup_Desc = "Importing multiple scales at once from string\nPress %1$sCtrl+V%2$s to paste string to the editbox and press %3$s" -- %1$s and %2$s are color codes and %3$s = _G.ACCEPT
+
 	L.CreatePopup_Title = "Create Scale"
 	L.CreatePopup_Desc = "Creating new scale. Select class and specialization from dropdown and then enter name for the new scale and press %1$s" -- %s = _G.ACCEPT
 	L.CreatePopup_Error_UnknownError = "ERROR: Something went wrong creating new scale \"%s\"!" -- %s = scaleName
@@ -58,11 +61,15 @@ do -- enUS / enGB
 	L.WeightEditor_VersionText = "Version %s" -- %s = version
 	L.WeightEditor_CreateNewText = "Create New"
 	L.WeightEditor_ImportText = "Import"
+	L.WeightEditor_MassImportText = "Mass Import"
 	L.WeightEditor_EnableScaleText = "Use this Scale"
 	L.WeightEditor_ExportText = "Export"
 	L.WeightEditor_RenameText = "Rename"
 	L.WeightEditor_DeleteText = "Delete"
 	L.WeightEditor_TooltipText = "Show in Tooltips"
+	L.WeightEditor_TimestampText_Created = "Created %s"
+	L.WeightEditor_TimestampText_Imported = "Imported %s"
+	L.WeightEditor_TimestampText_Updated = "Updated %s"
 	L.WeightEditor_CurrentScale = "Current scale: %s" -- %s current scaleName
 
 	L.PowersTitles_Class = "Class Powers"
@@ -81,9 +88,11 @@ do -- enUS / enGB
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
 
 	L.Config_Scales_Title = "Scales list"
-	L.Config_Scales_Desc = "Following settings only affects the list of Default scales. All Custom scales will be always listed to every class."
+	--L.Config_Scales_Desc = "Following settings only affects the list of Default scales. All Custom scales will be always listed to every class."
 	L.Config_Scales_OwnClassDefaultsOnly = "List own class Default-scales only"
 	L.Config_Scales_OwnClassDefaultsOnly_Desc = "List Default-scales for your own class only, instead of listing all of them."
+	L.Config_Scales_OwnClassCustomsOnly = "List own class Custom-scales only"
+	L.Config_Scales_OwnClassCustomsOnly_Desc = "List Custom-scales for your own class only, instead of listing all of them."
 
 	L.Config_Importing_Title = "Importing"
 	L.Config_Importing_ImportingCanUpdate = "Importing can update existing scales"

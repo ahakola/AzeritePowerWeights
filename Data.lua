@@ -2464,2259 +2464,2327 @@ n.defaultNameTable = defaultNameTable
 local defaultScalesData = {}
 n.defaultScalesData = defaultScalesData
 
-local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales)
+local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, timestamp)
 	defaultScalesData[#defaultScalesData + 1] = {
 		scaleName,
 		classIndex,
 		specNum,
-		powerScales
+		powerScales,
+		timestamp
 	}
 end
 
 do
-	-- Warrior
-		-- Arms
-		insertDefaultScalesData(defaultName, 1, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 7497 - 10823 (avg 8002), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.08, -- Resounding Protection
-			[18] = 2.1, -- Blood Siphon
-			[20] = 2.28, -- Lifespeed
-			[21] = 2.42, -- Elemental Whirl
-			[22] = 3.12, -- Heed My Call
-			[30] = 4.26, -- Overwhelming Power
-			[31] = 3.34, -- Gutripper
-			[43] = 0.06, -- Winds of War
-			[82] = 7.29, -- Champion of Azeroth
-			[83] = 0.03, -- Impassive Visage
-			[85] = 0.12, -- Gemhide
-			[87] = 0.05, -- Self Reliance
-			[89] = 0.04, -- Azerite Veins
-			[98] = 0.15, -- Crystalline Carapace
-			[121] = 6.13, -- Striking the Anvil
-			[156] = 4.18, -- Ruinous Bolt
-			[157] = 7.11, -- Rezan's Fury
-			[174] = 7.02, -- Gathering Storm
-			[192] = 6.08, -- Meticulous Scheming
-			[193] = 8.2, -- Blightborne Infusion
-			[194] = 6.53, -- Filthy Transfusion
-			[195] = 5.42, -- Secrets of the Deep
-			[196] = 7.31, -- Swirling Sands
-			[226] = 10, -- Test of Might
-			[433] = 4.42, -- Seismic Wave
-			[434] = 9.62, -- Crushing Assault
-			[435] = 5.44, -- Lord of War
-			[459] = 2.86, -- Unstable Flames
-			[461] = 1.88, -- Earthlink
-			[462] = 1.94, -- Azerite Globules
-			[478] = 7.12, -- Tidal Surge
-			[479] = 7.05, -- Dagger in the Back
-			[480] = 4.81, -- Blood Rite
-			[481] = 5.12, -- Incite the Pack
-			[482] = 6.16, -- Thunderous Blast
-			[483] = 5.87, -- Archive of the Titans
-			[485] = 6.25, -- Laser Matrix
-			[492] = 4.85, -- Liberator's Might
-			[493] = 2.93, -- Last Gift
-			[494] = 7.09, -- Battlefield Precision
-			[495] = 5.21, -- Anduin's Dedication
-			[496] = 1.42, -- Stronger Together
-			[497] = 1.44, -- Stand As One
-			[498] = 4.66, -- Barrage Of Many Bombs
-			[499] = 2.77, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.6, -- Synaptic Spark Capacitor
-			[501] = 5.99, -- Relational Normalization Gizmo
-			[502] = 0.05, -- Personal Absorb-o-Tron
-			[503] = 0.02, -- Auto-Self-Cauterizer
-			[504] = 5.97, -- Unstable Catalyst
-			[505] = 5.63, -- Tradewinds
-			[521] = 4.74, -- Shadow of Elune
-			[522] = 7.09, -- Ancients' Bulwark
-			[523] = 5.53, -- Apothecary's Concoctions
-			[526] = 6.95, -- Endless Hunger
-			[541] = 0.02, -- Fight or Flight
-			[554] = 0.17, -- Intimidating Presence
-			[560] = 2.28, -- Bonded Souls
-			[561] = 4.78, -- Seductive Power
-			[562] = 8.47, -- Treacherous Covenant
-		})
-
-		-- Fury
-		insertDefaultScalesData(defaultName, 1, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 10660 - 14546 (avg 11345), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 2, -- Blood Siphon
-			[20] = 2.56, -- Lifespeed
-			[21] = 2.3, -- Elemental Whirl
-			[22] = 2.93, -- Heed My Call
-			[30] = 4.72, -- Overwhelming Power
-			[31] = 3.2, -- Gutripper
-			[82] = 6.97, -- Champion of Azeroth
-			[119] = 10, -- Unbridled Ferocity
-			[156] = 3.36, -- Ruinous Bolt
-			[157] = 6.58, -- Rezan's Fury
-			[176] = 6.14, -- Cold Steel, Hot Blood
-			[192] = 5.89, -- Meticulous Scheming
-			[193] = 6.28, -- Blightborne Infusion
-			[194] = 6.02, -- Filthy Transfusion
-			[195] = 4.48, -- Secrets of the Deep
-			[196] = 5.66, -- Swirling Sands
-			[229] = 5.47, -- Pulverizing Blows
-			[437] = 7.79, -- Simmering Rage
-			[438] = 7.57, -- Reckless Flurry
-			[451] = 5, -- Infinite Fury
-			[459] = 2.14, -- Unstable Flames
-			[461] = 1.51, -- Earthlink
-			[462] = 1.97, -- Azerite Globules
-			[476] = 0.04, -- Moment of Glory
-			[478] = 5.54, -- Tidal Surge
-			[479] = 5.92, -- Dagger in the Back
-			[480] = 4.41, -- Blood Rite
-			[481] = 4.97, -- Incite the Pack
-			[482] = 5.83, -- Thunderous Blast
-			[483] = 4.81, -- Archive of the Titans
-			[485] = 6, -- Laser Matrix
-			[492] = 4.07, -- Liberator's Might
-			[493] = 2.72, -- Last Gift
-			[494] = 6.75, -- Battlefield Precision
-			[495] = 4.4, -- Anduin's Dedication
-			[496] = 1.17, -- Stronger Together
-			[497] = 1.12, -- Stand As One
-			[498] = 4.38, -- Barrage Of Many Bombs
-			[499] = 2.51, -- Ricocheting Inflatable Pyrosaw
-			[500] = 2.96, -- Synaptic Spark Capacitor
-			[501] = 5.46, -- Relational Normalization Gizmo
-			[502] = 0.06, -- Personal Absorb-o-Tron
-			[504] = 5.09, -- Unstable Catalyst
-			[505] = 5.14, -- Tradewinds
-			[521] = 4.52, -- Shadow of Elune
-			[522] = 6.2, -- Ancients' Bulwark
-			[523] = 4.52, -- Apothecary's Concoctions
-			[526] = 6.16, -- Endless Hunger
-			[560] = 2.73, -- Bonded Souls
-			[561] = 4.22, -- Seductive Power
-			[562] = 6.92, -- Treacherous Covenant
-		})
-
-		-- Protection
-		insertDefaultScalesData(offensiveName, 1, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5795 - 8698 (avg 6350), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.03, -- Azerite Empowered
-			[14] = 0.03, -- Longstrider
-			[18] = 1.77, -- Blood Siphon
-			[20] = 1.97, -- Lifespeed
-			[21] = 2.27, -- Elemental Whirl
-			[22] = 4.44, -- Heed My Call
-			[30] = 4.21, -- Overwhelming Power
-			[31] = 4.74, -- Gutripper
-			[44] = 0.02, -- Vampiric Speed
-			[82] = 6.47, -- Champion of Azeroth
-			[84] = 0.1, -- Bulwark of the Masses
-			[87] = 0.13, -- Self Reliance
-			[89] = 0.04, -- Azerite Veins
-			[98] = 0.02, -- Crystalline Carapace
-			[118] = 7.97, -- Deafening Crash
-			[156] = 5.23, -- Ruinous Bolt
-			[157] = 10, -- Rezan's Fury
-			[192] = 5.46, -- Meticulous Scheming
-			[193] = 7.15, -- Blightborne Infusion
-			[194] = 9.1, -- Filthy Transfusion
-			[195] = 5.45, -- Secrets of the Deep
-			[196] = 6.3, -- Swirling Sands
-			[237] = 7.46, -- Bastion of Might
-			[440] = 2.06, -- Callous Reprisal
-			[441] = 4.24, -- Iron Fortress
-			[450] = 4.22, -- Brace for Impact
-			[459] = 2.58, -- Unstable Flames
-			[461] = 1.86, -- Earthlink
-			[462] = 3.02, -- Azerite Globules
-			[478] = 8.82, -- Tidal Surge
-			[479] = 6.42, -- Dagger in the Back
-			[480] = 4.17, -- Blood Rite
-			[481] = 4.5, -- Incite the Pack
-			[482] = 8.72, -- Thunderous Blast
-			[483] = 5.84, -- Archive of the Titans
-			[485] = 8.94, -- Laser Matrix
-			[492] = 4.24, -- Liberator's Might
-			[493] = 2.56, -- Last Gift
-			[494] = 9.04, -- Battlefield Precision
-			[495] = 5.14, -- Anduin's Dedication
-			[496] = 1.29, -- Stronger Together
-			[497] = 1.23, -- Stand As One
-			[498] = 6.48, -- Barrage Of Many Bombs
-			[499] = 4, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.78, -- Synaptic Spark Capacitor
-			[501] = 5.68, -- Relational Normalization Gizmo
-			[504] = 6.07, -- Unstable Catalyst
-			[505] = 4.76, -- Tradewinds
-			[521] = 4.19, -- Shadow of Elune
-			[522] = 6.81, -- Ancients' Bulwark
-			[523] = 7.06, -- Apothecary's Concoctions
-			[526] = 6.81, -- Endless Hunger
-			[560] = 2.19, -- Bonded Souls
-			[561] = 4.99, -- Seductive Power
-			[562] = 8.35, -- Treacherous Covenant
-		})
-		insertDefaultScalesData(defensiveName, 1, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5800 - 8547 (avg 6307), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 10, -- Resounding Protection
-			[18] = 3.93, -- Blood Siphon
-			[30] = 0.04, -- Overwhelming Power
-			[157] = 0.02, -- Rezan's Fury
-			[177] = 4.1, -- Bloodsport
-			[192] = 0.03, -- Meticulous Scheming
-			[193] = 0.06, -- Blightborne Infusion
-			[194] = 0.05, -- Filthy Transfusion
-			[195] = 0.01, -- Secrets of the Deep
-			[196] = 0.06, -- Swirling Sands
-			[237] = 0.96, -- Bastion of Might
-			[459] = 0.04, -- Unstable Flames
-			[479] = 0.03, -- Dagger in the Back
-			[480] = 0.02, -- Blood Rite
-			[483] = 0.03, -- Archive of the Titans
-			[492] = 0.03, -- Liberator's Might
-			[521] = 0.02, -- Shadow of Elune
-			[523] = 0.03, -- Apothecary's Concoctions
-		})
-
-	-- Paladin
-		-- Holy
-		insertDefaultScalesData(defaultName, 2, 1, {
-
-		})
-
-		-- Protection
-		insertDefaultScalesData(offensiveName, 2, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 13317 - 17389 (avg 14111), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.09, -- Azerite Empowered
-			[15] = 0.04, -- Resounding Protection
-			[18] = 1.44, -- Blood Siphon
-			[19] = 0.04, -- Woundbinder
-			[20] = 1.6, -- Lifespeed
-			[21] = 1.73, -- Elemental Whirl
-			[22] = 3.44, -- Heed My Call
-			[30] = 3.07, -- Overwhelming Power
-			[31] = 3.74, -- Gutripper
-			[38] = 1.41, -- On My Way
-			[44] = 0.04, -- Vampiric Speed
-			[82] = 5.03, -- Champion of Azeroth
-			[84] = 0.01, -- Bulwark of the Masses
-			[85] = 0.02, -- Gemhide
-			[87] = 0.04, -- Self Reliance
-			[89] = 0.14, -- Azerite Veins
-			[99] = 0.05, -- Ablative Shielding
-			[100] = 0.01, -- Strength in Numbers
-			[125] = 3.42, -- Avenger's Might
-			[143] = 0.02, -- Inspiring Beacon
-			[145] = 0.03, -- Fortifying Auras
-			[148] = 0.01, -- Righteous Flames
-			[150] = 1.53, -- Soaring Shield
-			[156] = 4.31, -- Ruinous Bolt
-			[157] = 7.72, -- Rezan's Fury
-			[192] = 4.28, -- Meticulous Scheming
-			[193] = 5.64, -- Blightborne Infusion
-			[194] = 6.69, -- Filthy Transfusion
-			[195] = 4.37, -- Secrets of the Deep
-			[196] = 5.13, -- Swirling Sands
-			[206] = 0.02, -- Stalwart Protector
-			[234] = 1.55, -- Inner Light
-			[235] = 3.75, -- Indomitable Justice
-			[393] = 0.08, -- Grace of the Justicar
-			[395] = 10, -- Inspiring Vanguard
-			[459] = 1.99, -- Unstable Flames
-			[461] = 1.46, -- Earthlink
-			[462] = 2.21, -- Azerite Globules
-			[478] = 7.42, -- Tidal Surge
-			[479] = 5.57, -- Dagger in the Back
-			[480] = 3.31, -- Blood Rite
-			[481] = 3.39, -- Incite the Pack
-			[482] = 6.56, -- Thunderous Blast
-			[483] = 4.64, -- Archive of the Titans
-			[485] = 6.95, -- Laser Matrix
-			[492] = 3.34, -- Liberator's Might
-			[493] = 1.98, -- Last Gift
-			[494] = 7.94, -- Battlefield Precision
-			[495] = 4.21, -- Anduin's Dedication
-			[496] = 0.98, -- Stronger Together
-			[497] = 1.19, -- Stand As One
-			[498] = 5.02, -- Barrage Of Many Bombs
-			[499] = 3.03, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.03, -- Synaptic Spark Capacitor
-			[501] = 4.58, -- Relational Normalization Gizmo
-			[504] = 4.89, -- Unstable Catalyst
-			[505] = 3.62, -- Tradewinds
-			[521] = 3.31, -- Shadow of Elune
-			[522] = 5.15, -- Ancients' Bulwark
-			[523] = 6.31, -- Apothecary's Concoctions
-			[526] = 5.22, -- Endless Hunger
-			[538] = 0.02, -- Empyreal Ward
-			[560] = 1.69, -- Bonded Souls
-			[561] = 3.8, -- Seductive Power
-			[562] = 6.8, -- Treacherous Covenant
-		})
-		insertDefaultScalesData(defensiveName, 2, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 13517 - 17173 (avg 14117), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 10, -- Resounding Protection
-			[18] = 2.96, -- Blood Siphon
-			[21] = 0.01, -- Elemental Whirl
-			[38] = 0.01, -- On My Way
-			[82] = 0.02, -- Champion of Azeroth
-			[125] = 0.02, -- Avenger's Might
-			[150] = 0.02, -- Soaring Shield
-			[192] = 0.01, -- Meticulous Scheming
-			[193] = 0.01, -- Blightborne Infusion
-			[196] = 0.01, -- Swirling Sands
-			[478] = 0.01, -- Tidal Surge
-			[480] = 0.01, -- Blood Rite
-			[481] = 0.03, -- Incite the Pack
-			[493] = 0.02, -- Last Gift
-			[496] = 0.01, -- Stronger Together
-			[497] = 0.01, -- Stand As One
-			[501] = 0.02, -- Relational Normalization Gizmo
-			[505] = 0.03, -- Tradewinds
-			[522] = 0.04, -- Ancients' Bulwark
-			[526] = 0.04, -- Endless Hunger
-			[561] = 0.05, -- Seductive Power
-			[562] = 0.01, -- Treacherous Covenant
-		})
-
-		-- Retribution
-		insertDefaultScalesData(defaultName, 2, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 11816 - 14221 (avg 12344), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.17, -- Azerite Empowered
-			[14] = 0.17, -- Longstrider
-			[15] = 0.14, -- Resounding Protection
-			[18] = 1.98, -- Blood Siphon
-			[19] = 0.27, -- Woundbinder
-			[20] = 2.67, -- Lifespeed
-			[21] = 2.22, -- Elemental Whirl
-			[22] = 2.8, -- Heed My Call
-			[30] = 3.93, -- Overwhelming Power
-			[31] = 3, -- Gutripper
-			[38] = 2.01, -- On My Way
-			[42] = 0.27, -- Savior
-			[43] = 0.18, -- Winds of War
-			[44] = 0.08, -- Vampiric Speed
-			[82] = 6.56, -- Champion of Azeroth
-			[83] = 0.21, -- Impassive Visage
-			[84] = 0.07, -- Bulwark of the Masses
-			[85] = 0.27, -- Gemhide
-			[86] = 0.29, -- Azerite Fortification
-			[87] = 0.3, -- Self Reliance
-			[89] = 0.21, -- Azerite Veins
-			[98] = 0.13, -- Crystalline Carapace
-			[99] = 0.34, -- Ablative Shielding
-			[100] = 0.15, -- Strength in Numbers
-			[101] = 0.13, -- Shimmering Haven
-			[103] = 0.04, -- Concentrated Mending
-			[104] = 0.11, -- Bracing Chill
-			[105] = 0.1, -- Ephemeral Recovery
-			[125] = 5.18, -- Avenger's Might
-			[143] = 0.08, -- Inspiring Beacon
-			[144] = 0.31, -- Rejuvenating Grace
-			[145] = 0.08, -- Fortifying Auras
-			[148] = 0.06, -- Righteous Flames
-			[149] = 0.12, -- Healing Hammer
-			[154] = 6.5, -- Relentless Inquisitor
-			[156] = 3.58, -- Ruinous Bolt
-			[157] = 6.24, -- Rezan's Fury
-			[187] = 5.01, -- Expurgation
-			[192] = 5.38, -- Meticulous Scheming
-			[193] = 6.4, -- Blightborne Infusion
-			[194] = 5.73, -- Filthy Transfusion
-			[195] = 5, -- Secrets of the Deep
-			[196] = 5.4, -- Swirling Sands
-			[206] = 0.26, -- Stalwart Protector
-			[235] = 5.17, -- Indomitable Justice
-			[393] = 0.14, -- Grace of the Justicar
-			[396] = 10, -- Light's Decree
-			[453] = 7.17, -- Empyrean Power
-			[454] = 0.1, -- Judicious Defense
-			[459] = 2.35, -- Unstable Flames
-			[461] = 1.86, -- Earthlink
-			[462] = 1.97, -- Azerite Globules
-			[463] = 0.08, -- Blessed Portents
-			[471] = 0.18, -- Gallant Steed
-			[478] = 5.8, -- Tidal Surge
-			[479] = 6.47, -- Dagger in the Back
-			[480] = 4.17, -- Blood Rite
-			[481] = 4.4, -- Incite the Pack
-			[482] = 5.34, -- Thunderous Blast
-			[483] = 5.55, -- Archive of the Titans
-			[485] = 5.37, -- Laser Matrix
-			[492] = 4.2, -- Liberator's Might
-			[493] = 2.74, -- Last Gift
-			[494] = 5.71, -- Battlefield Precision
-			[495] = 4.9, -- Anduin's Dedication
-			[496] = 1.44, -- Stronger Together
-			[497] = 1.39, -- Stand As One
-			[498] = 3.94, -- Barrage Of Many Bombs
-			[499] = 2.41, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.39, -- Synaptic Spark Capacitor
-			[501] = 5.43, -- Relational Normalization Gizmo
-			[502] = 0.11, -- Personal Absorb-o-Tron
-			[503] = 0.1, -- Auto-Self-Cauterizer
-			[504] = 5.23, -- Unstable Catalyst
-			[505] = 4.77, -- Tradewinds
-			[521] = 4.16, -- Shadow of Elune
-			[522] = 6.5, -- Ancients' Bulwark
-			[523] = 4.9, -- Apothecary's Concoctions
-			[526] = 6.59, -- Endless Hunger
-			[538] = 0.15, -- Empyreal Ward
-			[541] = 0.21, -- Fight or Flight
-			[560] = 2.29, -- Bonded Souls
-			[561] = 4.6, -- Seductive Power
-			[562] = 7.72, -- Treacherous Covenant
-		})
-
-	-- Hunter
-		-- Beast Mastery
-		insertDefaultScalesData(defaultName, 3, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 7001 - 10040 (avg 7977), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 2.27, -- Blood Siphon
-			[21] = 2.62, -- Elemental Whirl
-			[22] = 3.11, -- Heed My Call
-			[30] = 3.97, -- Overwhelming Power
-			[31] = 3.41, -- Gutripper
-			[82] = 7.38, -- Champion of Azeroth
-			[86] = 0.01, -- Azerite Fortification
-			[87] = 0.04, -- Self Reliance
-			[107] = 5.09, -- Serrated Jaws
-			[156] = 4.34, -- Ruinous Bolt
-			[157] = 7.2, -- Rezan's Fury
-			[161] = 7.18, -- Haze of Rage
-			[192] = 5.59, -- Meticulous Scheming
-			[193] = 7.77, -- Blightborne Infusion
-			[194] = 6.25, -- Filthy Transfusion
-			[195] = 6.13, -- Secrets of the Deep
-			[196] = 6.47, -- Swirling Sands
-			[211] = 5.38, -- Dance of Death
-			[365] = 6.64, -- Dire Consequences
-			[366] = 10, -- Primal Instincts
-			[367] = 8.01, -- Feeding Frenzy
-			[459] = 2.82, -- Unstable Flames
-			[461] = 2.04, -- Earthlink
-			[462] = 1.89, -- Azerite Globules
-			[478] = 7.14, -- Tidal Surge
-			[479] = 7.43, -- Dagger in the Back
-			[480] = 4.2, -- Blood Rite
-			[481] = 5.56, -- Incite the Pack
-			[482] = 5.97, -- Thunderous Blast
-			[483] = 6.69, -- Archive of the Titans
-			[485] = 6.29, -- Laser Matrix
-			[492] = 4.72, -- Liberator's Might
-			[493] = 3.3, -- Last Gift
-			[494] = 7.03, -- Battlefield Precision
-			[495] = 5.94, -- Anduin's Dedication
-			[496] = 1.45, -- Stronger Together
-			[497] = 1.55, -- Stand As One
-			[498] = 4.45, -- Barrage Of Many Bombs
-			[499] = 2.76, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.81, -- Synaptic Spark Capacitor
-			[501] = 6.28, -- Relational Normalization Gizmo
-			[504] = 7.04, -- Unstable Catalyst
-			[505] = 6.18, -- Tradewinds
-			[521] = 4.26, -- Shadow of Elune
-			[522] = 7.32, -- Ancients' Bulwark
-			[523] = 5.62, -- Apothecary's Concoctions
-			[526] = 7.38, -- Endless Hunger
-			[560] = 2.16, -- Bonded Souls
-			[561] = 5.32, -- Seductive Power
-			[562] = 9.61, -- Treacherous Covenant
-		})
-
-		-- Marksmanship
-		insertDefaultScalesData(defaultName, 3, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 11020 - 13955 (avg 11947), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.21, -- Azerite Empowered
-			[14] = 0.11, -- Longstrider
-			[15] = 0.15, -- Resounding Protection
-			[18] = 2.27, -- Blood Siphon
-			[21] = 2.4, -- Elemental Whirl
-			[22] = 2.79, -- Heed My Call
-			[30] = 4.02, -- Overwhelming Power
-			[31] = 2.97, -- Gutripper
-			[36] = 10, -- In The Rhythm
-			[44] = 0.13, -- Vampiric Speed
-			[82] = 6.34, -- Champion of Azeroth
-			[83] = 0.08, -- Impassive Visage
-			[84] = 0.2, -- Bulwark of the Masses
-			[85] = 0.17, -- Gemhide
-			[86] = 0.04, -- Azerite Fortification
-			[87] = 0.21, -- Self Reliance
-			[156] = 4.02, -- Ruinous Bolt
-			[157] = 6.49, -- Rezan's Fury
-			[162] = 6.95, -- Surging Shots
-			[192] = 6.02, -- Meticulous Scheming
-			[193] = 7.16, -- Blightborne Infusion
-			[194] = 5.89, -- Filthy Transfusion
-			[195] = 5.18, -- Secrets of the Deep
-			[196] = 6.27, -- Swirling Sands
-			[203] = 0.14, -- Shellshock
-			[212] = 8.36, -- Unerring Vision
-			[368] = 3.91, -- Steady Aim
-			[369] = 0.11, -- Rapid Reload
-			[370] = 9, -- Focused Fire
-			[459] = 2.41, -- Unstable Flames
-			[461] = 1.96, -- Earthlink
-			[462] = 1.82, -- Azerite Globules
-			[469] = 0.05, -- Duck and Cover
-			[478] = 6.57, -- Tidal Surge
-			[479] = 6.56, -- Dagger in the Back
-			[480] = 4.82, -- Blood Rite
-			[481] = 5.22, -- Incite the Pack
-			[482] = 5.39, -- Thunderous Blast
-			[483] = 5.52, -- Archive of the Titans
-			[485] = 5.55, -- Laser Matrix
-			[492] = 4.06, -- Liberator's Might
-			[493] = 3.27, -- Last Gift
-			[494] = 6.2, -- Battlefield Precision
-			[495] = 5.15, -- Anduin's Dedication
-			[496] = 1.3, -- Stronger Together
-			[497] = 1.52, -- Stand As One
-			[498] = 4.12, -- Barrage Of Many Bombs
-			[499] = 2.5, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.69, -- Synaptic Spark Capacitor
-			[501] = 6.12, -- Relational Normalization Gizmo
-			[502] = 0.04, -- Personal Absorb-o-Tron
-			[503] = 0.1, -- Auto-Self-Cauterizer
-			[504] = 5.73, -- Unstable Catalyst
-			[505] = 5.77, -- Tradewinds
-			[521] = 4.76, -- Shadow of Elune
-			[522] = 7.16, -- Ancients' Bulwark
-			[523] = 5.27, -- Apothecary's Concoctions
-			[526] = 7.06, -- Endless Hunger
-			[541] = 0.12, -- Fight or Flight
-			[543] = 0.15, -- Nature's Salve
-			[560] = 1.87, -- Bonded Souls
-			[561] = 4.45, -- Seductive Power
-			[562] = 8.16, -- Treacherous Covenant
-		})
-
-		-- Survival
-		insertDefaultScalesData(defaultName, 3, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 6903 - 10100 (avg 8399), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.03, -- Resounding Protection
-			[18] = 1.5, -- Blood Siphon
-			[21] = 2.09, -- Elemental Whirl
-			[22] = 2.6, -- Heed My Call
-			[30] = 4.31, -- Overwhelming Power
-			[31] = 2.91, -- Gutripper
-			[82] = 5.91, -- Champion of Azeroth
-			[83] = 0.04, -- Impassive Visage
-			[86] = 0.01, -- Azerite Fortification
-			[107] = 3.89, -- Serrated Jaws
-			[110] = 2.58, -- Wildfire Cluster
-			[156] = 3.52, -- Ruinous Bolt
-			[157] = 6.01, -- Rezan's Fury
-			[163] = 7.78, -- Latent Poison
-			[192] = 5.16, -- Meticulous Scheming
-			[193] = 6.04, -- Blightborne Infusion
-			[194] = 5.27, -- Filthy Transfusion
-			[195] = 4.95, -- Secrets of the Deep
-			[196] = 5.39, -- Swirling Sands
-			[203] = 0.03, -- Shellshock
-			[213] = 4.8, -- Venomous Fangs
-			[365] = 2.58, -- Dire Consequences
-			[371] = 8.39, -- Blur of Talons
-			[372] = 10, -- Wilderness Survival
-			[373] = 7.16, -- Primeval Intuition
-			[459] = 2.15, -- Unstable Flames
-			[461] = 1.69, -- Earthlink
-			[462] = 1.78, -- Azerite Globules
-			[478] = 5.77, -- Tidal Surge
-			[479] = 6.23, -- Dagger in the Back
-			[480] = 4.61, -- Blood Rite
-			[481] = 3.55, -- Incite the Pack
-			[482] = 4.97, -- Thunderous Blast
-			[483] = 5.33, -- Archive of the Titans
-			[485] = 5.23, -- Laser Matrix
-			[492] = 3.99, -- Liberator's Might
-			[493] = 2.04, -- Last Gift
-			[494] = 5.87, -- Battlefield Precision
-			[495] = 4.79, -- Anduin's Dedication
-			[496] = 1.18, -- Stronger Together
-			[497] = 1.27, -- Stand As One
-			[498] = 3.93, -- Barrage Of Many Bombs
-			[499] = 2.36, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.07, -- Synaptic Spark Capacitor
-			[501] = 5.78, -- Relational Normalization Gizmo
-			[502] = 0.04, -- Personal Absorb-o-Tron
-			[504] = 5.64, -- Unstable Catalyst
-			[505] = 3.82, -- Tradewinds
-			[521] = 4.64, -- Shadow of Elune
-			[522] = 6.24, -- Ancients' Bulwark
-			[523] = 4.83, -- Apothecary's Concoctions
-			[526] = 6.21, -- Endless Hunger
-			[541] = 0.09, -- Fight or Flight
-			[543] = 0.03, -- Nature's Salve
-			[560] = 2.26, -- Bonded Souls
-			[561] = 4.24, -- Seductive Power
-			[562] = 7.8, -- Treacherous Covenant
-		})
-
-	-- Rogue
-		-- Assassination
-		insertDefaultScalesData(defaultName, 4, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 8649 - 11850 (avg 9407), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.03, -- Azerite Empowered
-			[14] = 0.01, -- Longstrider
-			[18] = 2.22, -- Blood Siphon
-			[21] = 2.7, -- Elemental Whirl
-			[22] = 3.09, -- Heed My Call
-			[30] = 5, -- Overwhelming Power
-			[31] = 3.61, -- Gutripper
-			[82] = 8.1, -- Champion of Azeroth
-			[84] = 0.04, -- Bulwark of the Masses
-			[136] = 10, -- Double Dose
-			[156] = 4.47, -- Ruinous Bolt
-			[157] = 7.39, -- Rezan's Fury
-			[181] = 7.52, -- Twist the Knife
-			[192] = 5.08, -- Meticulous Scheming
-			[193] = 8.84, -- Blightborne Infusion
-			[194] = 6.22, -- Filthy Transfusion
-			[195] = 6.14, -- Secrets of the Deep
-			[196] = 7.97, -- Swirling Sands
-			[249] = 9.52, -- Nothing Personal
-			[406] = 4.35, -- Scent of Blood
-			[408] = 1.46, -- Shrouded Suffocation
-			[459] = 3.11, -- Unstable Flames
-			[461] = 2.07, -- Earthlink
-			[462] = 2.1, -- Azerite Globules
-			[478] = 7.39, -- Tidal Surge
-			[479] = 7.7, -- Dagger in the Back
-			[480] = 5.69, -- Blood Rite
-			[481] = 5.42, -- Incite the Pack
-			[482] = 6.22, -- Thunderous Blast
-			[483] = 6.55, -- Archive of the Titans
-			[485] = 6.57, -- Laser Matrix
-			[492] = 5.35, -- Liberator's Might
-			[493] = 3.29, -- Last Gift
-			[494] = 7.57, -- Battlefield Precision
-			[495] = 6.17, -- Anduin's Dedication
-			[496] = 1.47, -- Stronger Together
-			[497] = 1.51, -- Stand As One
-			[498] = 4.66, -- Barrage Of Many Bombs
-			[499] = 2.64, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.9, -- Synaptic Spark Capacitor
-			[501] = 7.1, -- Relational Normalization Gizmo
+		insertDefaultScalesData(defaultName, 12, 1, { -- Havoc Demon Hunter
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 3167 - 5584 (avg 4028), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[483] = 6.8, -- Archive of the Titans
+			[156] = 4.62, -- Ruinous Bolt
+			[526] = 7.92, -- Endless Hunger
+			[494] = 8.77, -- Battlefield Precision
+			[21] = 2.31, -- Elemental Whirl
+			[498] = 5.56, -- Barrage Of Many Bombs
 			[502] = 0.01, -- Personal Absorb-o-Tron
-			[504] = 7.02, -- Unstable Catalyst
-			[505] = 5.96, -- Tradewinds
-			[521] = 5.66, -- Shadow of Elune
-			[522] = 7.92, -- Ancients' Bulwark
-			[523] = 6.13, -- Apothecary's Concoctions
-			[526] = 8.14, -- Endless Hunger
-			[548] = 0.02, -- Lying In Wait
-			[560] = 2.77, -- Bonded Souls
-			[561] = 5.09, -- Seductive Power
-			[562] = 9.7, -- Treacherous Covenant
-		})
+			[84] = 0.01, -- Bulwark of the Masses
+			[523] = 6.86, -- Apothecary's Concoctions
+			[461] = 2.17, -- Earthlink
+			[193] = 7.31, -- Blightborne Infusion
+			[352] = 9.33, -- Thirsting Blades
+			[462] = 2.58, -- Azerite Globules
+			[31] = 4.2, -- Gutripper
+			[495] = 6.1, -- Anduin's Dedication
+			[157] = 8.48, -- Rezan's Fury
+			[500] = 4.25, -- Synaptic Spark Capacitor
+			[562] = 10, -- Treacherous Covenant
+			[501] = 6.45, -- Relational Normalization Gizmo
+			[82] = 6.57, -- Champion of Azeroth
+			[20] = 1.99, -- Lifespeed
+			[560] = 2.56, -- Bonded Souls
+			[479] = 8.82, -- Dagger in the Back
+			[499] = 3, -- Ricocheting Inflatable Pyrosaw
+			[14] = 0.06, -- Longstrider
+			[353] = 4.93, -- Eyes of Rage
+			[493] = 2.48, -- Last Gift
+			[87] = 0.01, -- Self Reliance
+			[521] = 4.48, -- Shadow of Elune
+			[43] = 0.01, -- Winds of War
+			[194] = 7.27, -- Filthy Transfusion
+			[522] = 7.75, -- Ancients' Bulwark
+			[485] = 7.67, -- Laser Matrix
+			[480] = 4.52, -- Blood Rite
+			[159] = 9.9, -- Furious Gaze
+			[478] = 7.72, -- Tidal Surge
+			[505] = 4.36, -- Tradewinds
+			[496] = 1.44, -- Stronger Together
+			[15] = 0.01, -- Resounding Protection
+			[459] = 2.57, -- Unstable Flames
+			[18] = 1.51, -- Blood Siphon
+			[503] = 0.02, -- Auto-Self-Cauterizer
+			[504] = 7.3, -- Unstable Catalyst
+			[497] = 1.64, -- Stand As One
+			[245] = 6.94, -- Seething Power
+			[561] = 5.79, -- Seductive Power
+			[482] = 7.18, -- Thunderous Blast
+			[195] = 6.49, -- Secrets of the Deep
+			[492] = 4.39, -- Liberator's Might
+			[22] = 3.79, -- Heed My Call
+			[192] = 3.49, -- Meticulous Scheming
+			[481] = 4.03, -- Incite the Pack
+			[196] = 6.54, -- Swirling Sands
+			[220] = 7.25, -- Chaotic Transformation
+			[126] = 8.05, -- Revolving Blades
+			[30] = 4.64, -- Overwhelming Power
+			[541] = 2.31, -- Fight or Flight
+		}, 1552989600)
 
-		-- Outlaw
-		insertDefaultScalesData(defaultName, 4, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 32162 - 47753 (avg 36159), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+		insertDefaultScalesData(offensiveName, 12, 2, { -- Vengeance Demon Hunter
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 4899 - 7949 (avg 5398), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[482] = 8.29, -- Thunderous Blast
+			[502] = 0.09, -- Personal Absorb-o-Tron
+			[354] = 0.16, -- Cycle of Binding
+			[195] = 5.32, -- Secrets of the Deep
+			[478] = 10, -- Tidal Surge
+			[495] = 5.11, -- Anduin's Dedication
+			[156] = 5.98, -- Ruinous Bolt
+			[196] = 6.66, -- Swirling Sands
+			[497] = 1.49, -- Stand As One
+			[134] = 0.06, -- Revel in Pain
+			[157] = 9.93, -- Rezan's Fury
+			[466] = 0.08, -- Burning Soul
+			[221] = 0.08, -- Rigid Carapace
+			[561] = 4.46, -- Seductive Power
+			[100] = 0.08, -- Strength in Numbers
+			[492] = 3.9, -- Liberator's Might
+			[483] = 5.89, -- Archive of the Titans
+			[193] = 7.35, -- Blightborne Infusion
+			[30] = 3.11, -- Overwhelming Power
+			[493] = 2.6, -- Last Gift
+			[15] = 0.05, -- Resounding Protection
+			[521] = 3.76, -- Shadow of Elune
+			[461] = 1.78, -- Earthlink
+			[459] = 2.71, -- Unstable Flames
+			[560] = 1.51, -- Bonded Souls
+			[500] = 7.76, -- Synaptic Spark Capacitor
+			[98] = 0.01, -- Crystalline Carapace
 			[14] = 0.02, -- Longstrider
-			[18] = 1.64, -- Blood Siphon
-			[21] = 2.53, -- Elemental Whirl
-			[22] = 3.57, -- Heed My Call
-			[30] = 4.87, -- Overwhelming Power
-			[31] = 4.02, -- Gutripper
-			[44] = 0.07, -- Vampiric Speed
-			[82] = 7.35, -- Champion of Azeroth
-			[86] = 0.06, -- Azerite Fortification
-			[129] = 8.37, -- Deadshot
-			[156] = 5.2, -- Ruinous Bolt
-			[157] = 8.47, -- Rezan's Fury
-			[180] = 5.87, -- Keep Your Wits About You
-			[192] = 6.79, -- Meticulous Scheming
-			[193] = 7.26, -- Blightborne Infusion
-			[194] = 6.84, -- Filthy Transfusion
-			[195] = 6.08, -- Secrets of the Deep
-			[196] = 6.67, -- Swirling Sands
-			[239] = 5.23, -- Snake Eyes
-			[410] = 5.34, -- Paradise Lost
-			[411] = 7.79, -- Ace Up Your Sleeve
-			[446] = 10, -- Brigand's Blitz
-			[459] = 2.49, -- Unstable Flames
-			[461] = 2.14, -- Earthlink
-			[462] = 2.31, -- Azerite Globules
-			[478] = 8.58, -- Tidal Surge
-			[479] = 8.97, -- Dagger in the Back
-			[480] = 5.59, -- Blood Rite
-			[481] = 4.41, -- Incite the Pack
-			[482] = 6.82, -- Thunderous Blast
-			[483] = 6.77, -- Archive of the Titans
-			[485] = 7.55, -- Laser Matrix
-			[492] = 4.79, -- Liberator's Might
-			[493] = 2.4, -- Last Gift
-			[494] = 8.43, -- Battlefield Precision
-			[495] = 5.96, -- Anduin's Dedication
-			[496] = 1.41, -- Stronger Together
-			[497] = 1.68, -- Stand As One
-			[498] = 5.36, -- Barrage Of Many Bombs
-			[499] = 3.24, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.69, -- Synaptic Spark Capacitor
-			[501] = 7, -- Relational Normalization Gizmo
-			[502] = 0.04, -- Personal Absorb-o-Tron
-			[504] = 6.8, -- Unstable Catalyst
-			[505] = 4.71, -- Tradewinds
-			[521] = 5.5, -- Shadow of Elune
-			[522] = 7.51, -- Ancients' Bulwark
-			[523] = 6.99, -- Apothecary's Concoctions
-			[526] = 7.49, -- Endless Hunger
-			[560] = 2.58, -- Bonded Souls
-			[561] = 5.14, -- Seductive Power
-			[562] = 9.54, -- Treacherous Covenant
-		})
+			[501] = 5.45, -- Relational Normalization Gizmo
+			[20] = 1.48, -- Lifespeed
+			[564] = 0.02, -- Thrive in Chaos
+			[43] = 0.13, -- Winds of War
+			[21] = 2.11, -- Elemental Whirl
+			[85] = 0.15, -- Gemhide
+			[355] = 0.15, -- Essence Sever
+			[82] = 6.1, -- Champion of Azeroth
+			[481] = 4.37, -- Incite the Pack
+			[485] = 8.64, -- Laser Matrix
+			[505] = 4.68, -- Tradewinds
+			[499] = 3.8, -- Ricocheting Inflatable Pyrosaw
+			[99] = 0.02, -- Ablative Shielding
+			[18] = 1.84, -- Blood Siphon
+			[22] = 4.22, -- Heed My Call
+			[479] = 7.13, -- Dagger in the Back
+			[494] = 9.88, -- Battlefield Precision
+			[86] = 0.09, -- Azerite Fortification
+			[101] = 0.02, -- Shimmering Haven
+			[522] = 6.25, -- Ancients' Bulwark
+			[526] = 6.23, -- Endless Hunger
+			[562] = 8.3, -- Treacherous Covenant
+			[480] = 3.61, -- Blood Rite
+			[194] = 9.02, -- Filthy Transfusion
+			[541] = 2.01, -- Fight or Flight
+			[87] = 0.24, -- Self Reliance
+			[498] = 6.23, -- Barrage Of Many Bombs
+			[31] = 4.61, -- Gutripper
+			[160] = 0.05, -- Infernal Armor
+			[462] = 2.8, -- Azerite Globules
+			[503] = 0.03, -- Auto-Self-Cauterizer
+			[84] = 0.07, -- Bulwark of the Masses
+			[496] = 1.23, -- Stronger Together
+			[89] = 0.06, -- Azerite Veins
+			[192] = 4.91, -- Meticulous Scheming
+			[504] = 6.23, -- Unstable Catalyst
+			[523] = 6.5, -- Apothecary's Concoctions
+		}, 1552989600)
 
-		-- Subtley
-		insertDefaultScalesData(defaultName, 4, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 12457 - 17109 (avg 15131), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.02, -- Azerite Empowered
-			[18] = 0.85, -- Blood Siphon
-			[21] = 1.03, -- Elemental Whirl
-			[22] = 1.42, -- Heed My Call
-			[30] = 1.83, -- Overwhelming Power
-			[31] = 1.49, -- Gutripper
-			[82] = 3.17, -- Champion of Azeroth
-			[86] = 0.02, -- Azerite Fortification
-			[124] = 1.56, -- Replicating Shadows
-			[156] = 2.16, -- Ruinous Bolt
-			[157] = 3.29, -- Rezan's Fury
-			[175] = 2.94, -- Night's Vengeance
-			[192] = 2.03, -- Meticulous Scheming
-			[193] = 3.24, -- Blightborne Infusion
-			[194] = 2.71, -- Filthy Transfusion
-			[195] = 2.6, -- Secrets of the Deep
-			[196] = 2.94, -- Swirling Sands
-			[240] = 4.29, -- Blade In The Shadows
-			[413] = 10, -- The First Dance
-			[414] = 5.03, -- Inevitability
-			[445] = 1.49, -- Perforate
-			[459] = 1.08, -- Unstable Flames
-			[461] = 0.91, -- Earthlink
-			[462] = 0.9, -- Azerite Globules
-			[478] = 3.56, -- Tidal Surge
-			[479] = 3.38, -- Dagger in the Back
-			[480] = 2.13, -- Blood Rite
-			[481] = 2.1, -- Incite the Pack
-			[482] = 2.68, -- Thunderous Blast
-			[483] = 2.82, -- Archive of the Titans
-			[485] = 2.85, -- Laser Matrix
-			[492] = 2.07, -- Liberator's Might
-			[493] = 1.18, -- Last Gift
-			[494] = 3.26, -- Battlefield Precision
-			[495] = 2.59, -- Anduin's Dedication
-			[496] = 0.63, -- Stronger Together
-			[497] = 0.69, -- Stand As One
-			[498] = 2.02, -- Barrage Of Many Bombs
-			[499] = 1.23, -- Ricocheting Inflatable Pyrosaw
-			[500] = 1.89, -- Synaptic Spark Capacitor
-			[501] = 2.86, -- Relational Normalization Gizmo
-			[504] = 2.9, -- Unstable Catalyst
-			[505] = 2.22, -- Tradewinds
-			[521] = 2.26, -- Shadow of Elune
-			[522] = 3.15, -- Ancients' Bulwark
-			[523] = 2.66, -- Apothecary's Concoctions
-			[526] = 3.16, -- Endless Hunger
-			[560] = 0.98, -- Bonded Souls
-			[561] = 2.02, -- Seductive Power
-			[562] = 4.13, -- Treacherous Covenant
-		})
+		insertDefaultScalesData(offensiveName, 6, 1, { -- Blood Death Knight
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 7264 - 10240 (avg 7849), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[504] = 5.9, -- Unstable Catalyst
+			[461] = 1.94, -- Earthlink
+			[82] = 6.09, -- Champion of Azeroth
+			[498] = 6.48, -- Barrage Of Many Bombs
+			[497] = 1.38, -- Stand As One
+			[349] = 0.43, -- Bones of the Damned
+			[496] = 1.29, -- Stronger Together
+			[192] = 4.6, -- Meticulous Scheming
+			[348] = 4.87, -- Eternal Rune Weapon
+			[21] = 2.14, -- Elemental Whirl
+			[100] = 0.08, -- Strength in Numbers
+			[99] = 0.13, -- Ablative Shielding
+			[20] = 1.51, -- Lifespeed
+			[85] = 0.1, -- Gemhide
+			[89] = 0.01, -- Azerite Veins
+			[499] = 3.95, -- Ricocheting Inflatable Pyrosaw
+			[541] = 1.94, -- Fight or Flight
+			[140] = 1.11, -- Bone Spike Graveyard
+			[194] = 9.29, -- Filthy Transfusion
+			[481] = 4.28, -- Incite the Pack
+			[492] = 3.86, -- Liberator's Might
+			[30] = 3.22, -- Overwhelming Power
+			[502] = 0.07, -- Personal Absorb-o-Tron
+			[482] = 8.76, -- Thunderous Blast
+			[243] = 4.02, -- Bloody Runeblade
+			[156] = 5.59, -- Ruinous Bolt
+			[22] = 4.44, -- Heed My Call
+			[15] = 0.05, -- Resounding Protection
+			[521] = 3.52, -- Shadow of Elune
+			[44] = 0.23, -- Vampiric Speed
+			[560] = 1.65, -- Bonded Souls
+			[494] = 10, -- Battlefield Precision
+			[500] = 5.16, -- Synaptic Spark Capacitor
+			[485] = 8.8, -- Laser Matrix
+			[526] = 6.7, -- Endless Hunger
+			[18] = 1.83, -- Blood Siphon
+			[14] = 0.15, -- Longstrider
+			[197] = 0.01, -- Marrowblood
+			[523] = 8.16, -- Apothecary's Concoctions
+			[86] = 0.08, -- Azerite Fortification
+			[193] = 7.28, -- Blightborne Infusion
+			[480] = 3.56, -- Blood Rite
+			[101] = 0.16, -- Shimmering Haven
+			[562] = 8.02, -- Treacherous Covenant
+			[13] = 0.11, -- Azerite Empowered
+			[462] = 2.97, -- Azerite Globules
+			[43] = 0.2, -- Winds of War
+			[522] = 6.73, -- Ancients' Bulwark
+			[459] = 2.58, -- Unstable Flames
+			[98] = 0.08, -- Crystalline Carapace
+			[479] = 7.43, -- Dagger in the Back
+			[31] = 5, -- Gutripper
+			[465] = 0.06, -- March of the Damned
+			[493] = 2.53, -- Last Gift
+			[157] = 10, -- Rezan's Fury
+			[505] = 4.59, -- Tradewinds
+			[196] = 6.55, -- Swirling Sands
+			[84] = 0.12, -- Bulwark of the Masses
+			[106] = 2.84, -- Deep Cuts
+			[478] = 9.18, -- Tidal Surge
+			[503] = 0.12, -- Auto-Self-Cauterizer
+			[483] = 5.69, -- Archive of the Titans
+			[495] = 4.99, -- Anduin's Dedication
+			[561] = 4.82, -- Seductive Power
+			[549] = 0.05, -- Cold Hearted
+			[501] = 5.17, -- Relational Normalization Gizmo
+			[195] = 5.28, -- Secrets of the Deep
+		}, 1552989600)
 
-	-- Priest
-		-- Discipline
-		insertDefaultScalesData(defaultName, 5, 1, {
-
-		})
-		insertDefaultScalesData(offensiveName, 5, 1, {
-			--[[
-			-- 8.0 scales
-			[20] = 1.11, -- Lifespeed
-			[21] = 1.11, -- Elemental Whirl
-			[22] = 3.72, -- Heed My Call
-			[30] = 2.25, -- Overwhelming Power
+		insertDefaultScalesData(defaultName, 6, 2, { -- Frost Death Knight
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 15382 - 19563 (avg 16546), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[459] = 3.2, -- Unstable Flames
+			[85] = 0.04, -- Gemhide
+			[560] = 2.16, -- Bonded Souls
+			[523] = 5.93, -- Apothecary's Concoctions
+			[198] = 5.15, -- Frostwhelp's Indignation
+			[485] = 6.44, -- Laser Matrix
+			[242] = 4.72, -- Echoing Howl
+			[195] = 6.59, -- Secrets of the Deep
+			[493] = 3.74, -- Last Gift
+			[526] = 8.37, -- Endless Hunger
+			[522] = 8.51, -- Ancients' Bulwark
+			[462] = 2.26, -- Azerite Globules
+			[495] = 6.6, -- Anduin's Dedication
+			[498] = 4.62, -- Barrage Of Many Bombs
+			[89] = 0.1, -- Azerite Veins
+			[496] = 1.65, -- Stronger Together
+			[13] = 0.05, -- Azerite Empowered
+			[30] = 4.05, -- Overwhelming Power
+			[156] = 4.59, -- Ruinous Bolt
+			[193] = 8.85, -- Blightborne Infusion
+			[492] = 5.26, -- Liberator's Might
+			[347] = 5.94, -- Frozen Tempest
+			[84] = 0.02, -- Bulwark of the Masses
+			[346] = 4.8, -- Killer Frost
+			[562] = 10, -- Treacherous Covenant
+			[20] = 2.19, -- Lifespeed
 			[31] = 3.48, -- Gutripper
-			[38] = 1.26, -- On My Way
-			[82] = 3.45, -- Champion of Azeroth
-			[156] = 5.15, -- Ruinous Bolt
-			[157] = 8.6, -- Rezan's Fury
-			[192] = 1.5, -- Meticulous Scheming
-			[193] = 4.5, -- Blightborne Infusion
-			[194] = 7.52, -- Filthy Transfusion
-			[195] = 3.99, -- Secrets of the Deep
-			[196] = 3.84, -- Swirling Sands
-			[402] = 0.06, -- Sacred Flame
-			[459] = 1.5, -- Unstable Flames
-			[462] = 2.43, -- Azerite Globules
-			[478] = 8.78, -- Tidal Surge
-			[479] = 10, -- Dagger in the Back
-			[480] = 2.67, -- Blood Rite
-			[482] = 7.19, -- Thunderous Blast
-			[483] = 4.35, -- Archive of the Titans
-			[485] = 7.58, -- Laser Matrix
-			[504] = 4.5, -- Unstable Catalyst
-			]]--
-		})
+			[494] = 7.06, -- Battlefield Precision
+			[480] = 4.56, -- Blood Rite
+			[497] = 1.69, -- Stand As One
+			[141] = 5.7, -- Latent Chill
+			[499] = 2.89, -- Ricocheting Inflatable Pyrosaw
+			[481] = 6.32, -- Incite the Pack
+			[18] = 2.62, -- Blood Siphon
+			[502] = 0.01, -- Personal Absorb-o-Tron
+			[101] = 0.07, -- Shimmering Haven
+			[461] = 2.26, -- Earthlink
+			[99] = 0.03, -- Ablative Shielding
+			[478] = 7.71, -- Tidal Surge
+			[157] = 7.33, -- Rezan's Fury
+			[521] = 4.58, -- Shadow of Elune
+			[479] = 7.65, -- Dagger in the Back
+			[22] = 3.21, -- Heed My Call
+			[504] = 7.54, -- Unstable Catalyst
+			[501] = 6.69, -- Relational Normalization Gizmo
+			[505] = 6.75, -- Tradewinds
+			[108] = 5.44, -- Icy Citadel
+			[500] = 4.1, -- Synaptic Spark Capacitor
+			[192] = 4.54, -- Meticulous Scheming
+			[82] = 7.91, -- Champion of Azeroth
+			[549] = 0.07, -- Cold Hearted
+			[21] = 2.76, -- Elemental Whirl
+			[541] = 2.39, -- Fight or Flight
+			[482] = 6.32, -- Thunderous Blast
+			[98] = 0.05, -- Crystalline Carapace
+			[196] = 8, -- Swirling Sands
+			[561] = 5.4, -- Seductive Power
+			[14] = 0.08, -- Longstrider
+			[483] = 7.01, -- Archive of the Titans
+			[194] = 6.69, -- Filthy Transfusion
+		}, 1552989600)
 
-		-- Holy
-		insertDefaultScalesData(defaultName, 5, 2, {
+		insertDefaultScalesData(defaultName, 6, 3, { -- Unholy Death Knight
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 8433 - 11676 (avg 9130), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[31] = 3.29, -- Gutripper
+			[13] = 0.07, -- Azerite Empowered
+			[522] = 7.45, -- Ancients' Bulwark
+			[140] = 0.01, -- Bone Spike Graveyard
+			[504] = 6.44, -- Unstable Catalyst
+			[560] = 2.21, -- Bonded Souls
+			[87] = 0.05, -- Self Reliance
+			[497] = 1.51, -- Stand As One
+			[82] = 6.78, -- Champion of Azeroth
+			[498] = 4.66, -- Barrage Of Many Bombs
+			[501] = 5.87, -- Relational Normalization Gizmo
+			[494] = 7.08, -- Battlefield Precision
+			[101] = 0.04, -- Shimmering Haven
+			[478] = 7.18, -- Tidal Surge
+			[499] = 2.77, -- Ricocheting Inflatable Pyrosaw
+			[156] = 4.29, -- Ruinous Bolt
+			[495] = 5.62, -- Anduin's Dedication
+			[496] = 1.25, -- Stronger Together
+			[20] = 2.05, -- Lifespeed
+			[521] = 4.41, -- Shadow of Elune
+			[351] = 3.62, -- Last Surprise
+			[483] = 5.8, -- Archive of the Titans
+			[22] = 3, -- Heed My Call
+			[562] = 8.94, -- Treacherous Covenant
+			[201] = 0.07, -- Runic Barrier
+			[561] = 4.62, -- Seductive Power
+			[485] = 6.34, -- Laser Matrix
+			[505] = 4.84, -- Tradewinds
+			[196] = 6.83, -- Swirling Sands
+			[482] = 6.08, -- Thunderous Blast
+			[193] = 7.62, -- Blightborne Infusion
+			[461] = 1.97, -- Earthlink
+			[480] = 4.25, -- Blood Rite
+			[492] = 4.56, -- Liberator's Might
+			[109] = 8.6, -- Magus of the Dead
+			[30] = 4.11, -- Overwhelming Power
+			[523] = 5.9, -- Apothecary's Concoctions
+			[541] = 1.99, -- Fight or Flight
+			[18] = 1.82, -- Blood Siphon
+			[142] = 6.47, -- Helchains
+			[500] = 3.9, -- Synaptic Spark Capacitor
+			[199] = 10, -- Festermight
+			[481] = 4.46, -- Incite the Pack
+			[462] = 2.05, -- Azerite Globules
+			[195] = 5.59, -- Secrets of the Deep
+			[14] = 0.04, -- Longstrider
+			[192] = 5.02, -- Meticulous Scheming
+			[85] = 0.05, -- Gemhide
+			[21] = 2.46, -- Elemental Whirl
+			[157] = 7.3, -- Rezan's Fury
+			[350] = 4.34, -- Cankerous Wounds
+			[479] = 7.52, -- Dagger in the Back
+			[244] = 6.35, -- Harrowing Decay
+			[99] = 0.04, -- Ablative Shielding
+			[194] = 6.49, -- Filthy Transfusion
+			[526] = 7.37, -- Endless Hunger
+			[493] = 2.69, -- Last Gift
+			[459] = 2.64, -- Unstable Flames
+		}, 1552989600)
 
-		})
-		insertDefaultScalesData(offensiveName, 5, 2, {
-			--[[
-			[13] = 0.04, -- Azerite Empowered
-			[18] = 0.15, -- Blood Siphon
-			[19] = 0.09, -- Woundbinder
-			[21] = 2.03, -- Elemental Whirl
-			[22] = 3.86, -- Heed My Call
-			[30] = 4.88, -- Overwhelming Power
-			[31] = 4.11, -- Gutripper
-			[38] = 1.84, -- On My Way
-			[42] = 0.06, -- Savior
-			[82] = 6.76, -- Champion of Azeroth
-			[84] = 0.05, -- Bulwark of the Masses
+		insertDefaultScalesData(defaultName, 11, 1, { -- Balance Druid
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10050 - 13013 (avg 10949), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[494] = 3.94, -- Battlefield Precision
+			[38] = 1.2, -- On My Way
+			[499] = 1.44, -- Ricocheting Inflatable Pyrosaw
+			[356] = 1.7, -- High Noon
+			[122] = 3.69, -- Streaking Stars
+			[562] = 5.41, -- Treacherous Covenant
+			[492] = 2.68, -- Liberator's Might
+			[560] = 1.48, -- Bonded Souls
+			[31] = 1.8, -- Gutripper
+			[20] = 1.25, -- Lifespeed
+			[495] = 3.4, -- Anduin's Dedication
+			[462] = 1.07, -- Azerite Globules
+			[196] = 3.85, -- Swirling Sands
+			[459] = 1.47, -- Unstable Flames
+			[364] = 2.57, -- Lively Spirit
+			[496] = 0.82, -- Stronger Together
+			[541] = 1.19, -- Fight or Flight
+			[157] = 3.79, -- Rezan's Fury
+			[523] = 3.22, -- Apothecary's Concoctions
+			[193] = 4.37, -- Blightborne Infusion
+			[493] = 2.15, -- Last Gift
+			[195] = 3.55, -- Secrets of the Deep
+			[505] = 4.02, -- Tradewinds
+			[250] = 3.58, -- Dawning Sun
+			[21] = 1.53, -- Elemental Whirl
+			[82] = 4.5, -- Champion of Azeroth
+			[497] = 0.79, -- Stand As One
+			[483] = 3.73, -- Archive of the Titans
+			[482] = 3.38, -- Thunderous Blast
+			[479] = 3.97, -- Dagger in the Back
+			[194] = 3.48, -- Filthy Transfusion
+			[480] = 2.77, -- Blood Rite
+			[500] = 1.92, -- Synaptic Spark Capacitor
+			[485] = 3.45, -- Laser Matrix
+			[501] = 3.67, -- Relational Normalization Gizmo
+			[521] = 2.72, -- Shadow of Elune
+			[526] = 4.34, -- Endless Hunger
+			[478] = 3.6, -- Tidal Surge
+			[18] = 1.47, -- Blood Siphon
+			[522] = 4.29, -- Ancients' Bulwark
+			[561] = 3.07, -- Seductive Power
+			[200] = 10, -- Arcanic Pulsar
+			[173] = 2.24, -- Power of the Moon
+			[156] = 2.11, -- Ruinous Bolt
+			[481] = 3.74, -- Incite the Pack
+			[30] = 2.68, -- Overwhelming Power
+			[192] = 3.61, -- Meticulous Scheming
+			[461] = 1.1, -- Earthlink
+			[504] = 4.02, -- Unstable Catalyst
+			[22] = 1.7, -- Heed My Call
+			[498] = 2.42, -- Barrage Of Many Bombs
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 11, 2, { -- Feral Druid
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 15079 - 18488 (avg 15934), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[38] = 1.96, -- On My Way
+			[85] = 0.06, -- Gemhide
+			[494] = 6.2, -- Battlefield Precision
+			[171] = 0.03, -- Masterful Instincts
+			[15] = 0.05, -- Resounding Protection
+			[196] = 7.28, -- Swirling Sands
+			[493] = 3.15, -- Last Gift
+			[43] = 0.04, -- Winds of War
+			[192] = 4.84, -- Meticulous Scheming
+			[498] = 3.86, -- Barrage Of Many Bombs
+			[247] = 1.4, -- Iron Jaws
+			[19] = 0.15, -- Woundbinder
+			[18] = 2.14, -- Blood Siphon
+			[241] = 0.01, -- Twisted Claws
+			[500] = 3.6, -- Synaptic Spark Capacitor
+			[501] = 5.64, -- Relational Normalization Gizmo
+			[480] = 4.26, -- Blood Rite
+			[482] = 5, -- Thunderous Blast
+			[82] = 7.06, -- Champion of Azeroth
+			[502] = 0.07, -- Personal Absorb-o-Tron
+			[13] = 0.01, -- Azerite Empowered
+			[505] = 5.73, -- Tradewinds
+			[467] = 0.09, -- Ursoc's Endurance
+			[20] = 2.01, -- Lifespeed
+			[492] = 4.66, -- Liberator's Might
+			[101] = 0.02, -- Shimmering Haven
+			[99] = 0.02, -- Ablative Shielding
+			[44] = 0.05, -- Vampiric Speed
+			[194] = 5.05, -- Filthy Transfusion
+			[562] = 8.15, -- Treacherous Covenant
+			[156] = 4.01, -- Ruinous Bolt
+			[526] = 6.73, -- Endless Hunger
+			[89] = 0.04, -- Azerite Veins
+			[193] = 8.17, -- Blightborne Infusion
+			[497] = 1.47, -- Stand As One
+			[496] = 1.33, -- Stronger Together
+			[504] = 5.79, -- Unstable Catalyst
+			[521] = 4.3, -- Shadow of Elune
+			[499] = 2.31, -- Ricocheting Inflatable Pyrosaw
+			[21] = 2.45, -- Elemental Whirl
+			[169] = 3.23, -- Untamed Ferocity
+			[523] = 4.96, -- Apothecary's Concoctions
+			[358] = 6.22, -- Gushing Lacerations
+			[14] = 0.07, -- Longstrider
+			[478] = 6.65, -- Tidal Surge
+			[541] = 1.89, -- Fight or Flight
+			[173] = 0.04, -- Power of the Moon
+			[522] = 6.68, -- Ancients' Bulwark
+			[459] = 2.63, -- Unstable Flames
+			[495] = 5.17, -- Anduin's Dedication
+			[30] = 3.41, -- Overwhelming Power
+			[209] = 10, -- Jungle Fury
+			[485] = 5.33, -- Laser Matrix
+			[560] = 2.02, -- Bonded Souls
+			[111] = 6.07, -- Blood Mist
+			[84] = 0.07, -- Bulwark of the Masses
+			[157] = 6.18, -- Rezan's Fury
 			[86] = 0.04, -- Azerite Fortification
-			[102] = 0.11, -- Synergistic Growth
+			[483] = 5.7, -- Archive of the Titans
 			[104] = 0.01, -- Bracing Chill
-			[105] = 0.01, -- Ephemeral Recovery
-			[156] = 5.63, -- Ruinous Bolt
-			[157] = 8.68, -- Rezan's Fury
-			[192] = 4.15, -- Meticulous Scheming
-			[193] = 6.48, -- Blightborne Infusion
-			[194] = 7.71, -- Filthy Transfusion
-			[195] = 5.67, -- Secrets of the Deep
-			[196] = 5.99, -- Swirling Sands
-			[401] = 0.01, -- Word of Mending
-			[459] = 2.06, -- Unstable Flames
-			[461] = 1.79, -- Earthlink
-			[462] = 2.59, -- Azerite Globules
-			[463] = 0.04, -- Blessed Portents
-			[478] = 9.28, -- Tidal Surge
-			[479] = 10.00, -- Dagger in the Back
-			[480] = 5.41, -- Blood Rite
-			[482] = 7.27, -- Thunderous Blast
-			[483] = 6.08, -- Archive of the Titans
-			[485] = 7.93, -- Laser Matrix
-			[492] = 5.04, -- Liberator's Might
-			[494] = 8.69, -- Battlefield Precision
-			[495] = 5.55, -- Anduin's Dedication
-			[496] = 1.15, -- Stronger Together
-			[497] = 1.48, -- Stand As One
-			[498] = 5.67, -- Barrage Of Many Bombs
-			[499] = 3.34, -- Ricocheting Inflatable Pyrosaw
-			[500] = 5.08, -- Synaptic Spark Capacitor
-			[501] = 6.78, -- Relational Normalization Gizmo
-			[502] = 0.04, -- Personal Absorb-o-Tron
-			[504] = 6.43, -- Unstable Catalyst
-			[505] = 0.14, -- Tradewinds
-			[534] = 0.18, -- Promise of Deliverance
-			[541] = 0.05, -- Fight or Flight
-			[560] = 0.09, -- Bonded Souls
-			[561] = 0.03, -- Seductive Power
-			]]--
-		})
+			[31] = 2.85, -- Gutripper
+			[22] = 2.75, -- Heed My Call
+			[479] = 6.27, -- Dagger in the Back
+			[359] = 6.72, -- Wild Fleshrending
+			[103] = 0.11, -- Concentrated Mending
+			[463] = 0.01, -- Blessed Portents
+			[195] = 5.24, -- Secrets of the Deep
+			[461] = 1.96, -- Earthlink
+			[462] = 1.73, -- Azerite Globules
+			[219] = 0.1, -- Reawakening
+			[481] = 5.27, -- Incite the Pack
+			[561] = 4.12, -- Seductive Power
+		}, 1552989600)
 
-		-- Shadow
-		insertDefaultScalesData(defaultName, 5, 3, {
+		insertDefaultScalesData(offensiveName, 11, 3, { -- Guardian Druid
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5681 - 8286 (avg 6196), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[481] = 4.23, -- Incite the Pack
+			[478] = 10, -- Tidal Surge
+			[156] = 5.97, -- Ruinous Bolt
+			[361] = 4.94, -- Guardian's Wrath
+			[541] = 1.81, -- Fight or Flight
+			[521] = 4.51, -- Shadow of Elune
+			[483] = 5.46, -- Archive of the Titans
+			[479] = 6.99, -- Dagger in the Back
+			[21] = 2.19, -- Elemental Whirl
+			[192] = 5.9, -- Meticulous Scheming
+			[105] = 0.08, -- Ephemeral Recovery
+			[461] = 1.55, -- Earthlink
+			[485] = 8.69, -- Laser Matrix
+			[523] = 8.01, -- Apothecary's Concoctions
+			[493] = 2.44, -- Last Gift
+			[38] = 1.88, -- On My Way
+			[241] = 6.09, -- Twisted Claws
+			[462] = 2.94, -- Azerite Globules
+			[499] = 3.74, -- Ricocheting Inflatable Pyrosaw
+			[195] = 5.23, -- Secrets of the Deep
+			[560] = 2.09, -- Bonded Souls
+			[494] = 9.8, -- Battlefield Precision
+			[504] = 5.77, -- Unstable Catalyst
+			[522] = 6.87, -- Ancients' Bulwark
+			[562] = 8.03, -- Treacherous Covenant
+			[193] = 6.85, -- Blightborne Infusion
+			[101] = 0.02, -- Shimmering Haven
+			[459] = 2.37, -- Unstable Flames
+			[496] = 1.21, -- Stronger Together
+			[561] = 4.29, -- Seductive Power
+			[196] = 6.1, -- Swirling Sands
+			[20] = 2.07, -- Lifespeed
+			[480] = 4.46, -- Blood Rite
+			[492] = 4.22, -- Liberator's Might
+			[526] = 6.78, -- Endless Hunger
+			[251] = 5.44, -- Burst of Savagery
+			[157] = 9.71, -- Rezan's Fury
+			[82] = 6.47, -- Champion of Azeroth
+			[505] = 4.75, -- Tradewinds
+			[500] = 5.34, -- Synaptic Spark Capacitor
+			[359] = 1.95, -- Wild Fleshrending
+			[497] = 1.22, -- Stand As One
+			[501] = 5.8, -- Relational Normalization Gizmo
+			[22] = 4.2, -- Heed My Call
+			[30] = 3.78, -- Overwhelming Power
+			[31] = 4.65, -- Gutripper
+			[18] = 1.79, -- Blood Siphon
+			[495] = 4.92, -- Anduin's Dedication
+			[498] = 6.29, -- Barrage Of Many Bombs
+			[482] = 8.18, -- Thunderous Blast
+			[194] = 8.57, -- Filthy Transfusion
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 3, 1, { -- Beast Mastery Hunter
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 8292 - 10691 (avg 9007), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[365] = 6.99, -- Dire Consequences
+			[521] = 4.93, -- Shadow of Elune
+			[480] = 4.83, -- Blood Rite
+			[496] = 1.45, -- Stronger Together
+			[495] = 5.61, -- Anduin's Dedication
+			[482] = 5.38, -- Thunderous Blast
+			[562] = 8.89, -- Treacherous Covenant
+			[83] = 0.01, -- Impassive Visage
+			[367] = 7.73, -- Feeding Frenzy
+			[526] = 6.64, -- Endless Hunger
+			[192] = 6.43, -- Meticulous Scheming
+			[31] = 3.07, -- Gutripper
+			[461] = 1.9, -- Earthlink
+			[498] = 4.14, -- Barrage Of Many Bombs
+			[21] = 2.45, -- Elemental Whirl
+			[84] = 0.03, -- Bulwark of the Masses
+			[523] = 5.22, -- Apothecary's Concoctions
+			[499] = 2.46, -- Ricocheting Inflatable Pyrosaw
+			[492] = 4.21, -- Liberator's Might
+			[195] = 5.66, -- Secrets of the Deep
+			[459] = 2.4, -- Unstable Flames
+			[22] = 3.04, -- Heed My Call
+			[481] = 5.07, -- Incite the Pack
+			[504] = 6.4, -- Unstable Catalyst
+			[157] = 6.62, -- Rezan's Fury
+			[87] = 0.07, -- Self Reliance
+			[483] = 6.29, -- Archive of the Titans
+			[522] = 6.7, -- Ancients' Bulwark
+			[107] = 4.49, -- Serrated Jaws
+			[211] = 6.04, -- Dance of Death
+			[366] = 10, -- Primal Instincts
+			[194] = 5.48, -- Filthy Transfusion
+			[497] = 1.52, -- Stand As One
+			[193] = 6.99, -- Blightborne Infusion
+			[82] = 6.78, -- Champion of Azeroth
+			[561] = 4.62, -- Seductive Power
+			[505] = 5.62, -- Tradewinds
+			[485] = 5.68, -- Laser Matrix
+			[500] = 3.82, -- Synaptic Spark Capacitor
+			[494] = 6.31, -- Battlefield Precision
+			[14] = 0.09, -- Longstrider
+			[462] = 1.86, -- Azerite Globules
+			[493] = 3.03, -- Last Gift
+			[156] = 3.95, -- Ruinous Bolt
+			[203] = 0.07, -- Shellshock
+			[85] = 0.06, -- Gemhide
+			[479] = 6.7, -- Dagger in the Back
+			[503] = 0.14, -- Auto-Self-Cauterizer
+			[501] = 6.14, -- Relational Normalization Gizmo
+			[478] = 6.92, -- Tidal Surge
+			[541] = 2.19, -- Fight or Flight
+			[30] = 3.73, -- Overwhelming Power
+			[560] = 2.15, -- Bonded Souls
+			[161] = 6.68, -- Haze of Rage
+			[18] = 2.06, -- Blood Siphon
+			[196] = 5.81, -- Swirling Sands
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 3, 2, { -- Marksmanship Hunter
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 11154 - 14194 (avg 11967), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[459] = 2.43, -- Unstable Flames
+			[36] = 10, -- In The Rhythm
+			[482] = 5.13, -- Thunderous Blast
+			[495] = 4.77, -- Anduin's Dedication
+			[526] = 6.87, -- Endless Hunger
+			[370] = 9.69, -- Focused Fire
+			[22] = 2.7, -- Heed My Call
+			[481] = 5.04, -- Incite the Pack
+			[497] = 1.23, -- Stand As One
+			[478] = 6.34, -- Tidal Surge
+			[500] = 3.57, -- Synaptic Spark Capacitor
+			[493] = 3.02, -- Last Gift
+			[462] = 1.7, -- Azerite Globules
+			[522] = 7.02, -- Ancients' Bulwark
+			[562] = 7.87, -- Treacherous Covenant
+			[31] = 2.9, -- Gutripper
+			[162] = 7.68, -- Surging Shots
+			[195] = 5.06, -- Secrets of the Deep
+			[156] = 3.91, -- Ruinous Bolt
+			[192] = 6.09, -- Meticulous Scheming
+			[479] = 6.37, -- Dagger in the Back
+			[196] = 6.22, -- Swirling Sands
+			[501] = 5.79, -- Relational Normalization Gizmo
+			[502] = 0.08, -- Personal Absorb-o-Tron
+			[157] = 6.23, -- Rezan's Fury
+			[21] = 2.33, -- Elemental Whirl
+			[498] = 3.79, -- Barrage Of Many Bombs
+			[212] = 7.56, -- Unerring Vision
+			[561] = 4.01, -- Seductive Power
+			[18] = 2.34, -- Blood Siphon
+			[194] = 5.48, -- Filthy Transfusion
+			[492] = 4.24, -- Liberator's Might
+			[560] = 2.06, -- Bonded Souls
+			[505] = 5.49, -- Tradewinds
+			[496] = 1.36, -- Stronger Together
+			[13] = 0.11, -- Azerite Empowered
+			[480] = 4.89, -- Blood Rite
+			[193] = 6.86, -- Blightborne Infusion
+			[521] = 4.76, -- Shadow of Elune
+			[485] = 5.36, -- Laser Matrix
+			[483] = 5.41, -- Archive of the Titans
+			[30] = 4.07, -- Overwhelming Power
+			[504] = 5.38, -- Unstable Catalyst
+			[523] = 4.9, -- Apothecary's Concoctions
+			[499] = 2.22, -- Ricocheting Inflatable Pyrosaw
+			[368] = 3.64, -- Steady Aim
+			[494] = 5.92, -- Battlefield Precision
+			[44] = 0.13, -- Vampiric Speed
+			[461] = 1.72, -- Earthlink
+			[82] = 6.72, -- Champion of Azeroth
+			[541] = 1.85, -- Fight or Flight
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 3, 3, { -- Survival Hunter
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 7037 - 10183 (avg 8457), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[522] = 6.4, -- Ancients' Bulwark
+			[372] = 10, -- Wilderness Survival
+			[500] = 3.27, -- Synaptic Spark Capacitor
+			[31] = 2.83, -- Gutripper
+			[485] = 5.39, -- Laser Matrix
+			[493] = 2.06, -- Last Gift
+			[82] = 5.95, -- Champion of Azeroth
+			[110] = 2.63, -- Wildfire Cluster
+			[480] = 4.75, -- Blood Rite
+			[497] = 1.32, -- Stand As One
+			[192] = 5.32, -- Meticulous Scheming
+			[21] = 1.96, -- Elemental Whirl
+			[87] = 0.02, -- Self Reliance
+			[459] = 2.21, -- Unstable Flames
+			[492] = 4.11, -- Liberator's Might
+			[196] = 5.57, -- Swirling Sands
+			[523] = 4.97, -- Apothecary's Concoctions
+			[371] = 8.63, -- Blur of Talons
+			[462] = 1.76, -- Azerite Globules
+			[156] = 3.52, -- Ruinous Bolt
+			[373] = 6.92, -- Primeval Intuition
+			[481] = 3.61, -- Incite the Pack
+			[505] = 3.9, -- Tradewinds
+			[469] = 0.02, -- Duck and Cover
+			[541] = 1.76, -- Fight or Flight
+			[107] = 3.91, -- Serrated Jaws
+			[499] = 2.33, -- Ricocheting Inflatable Pyrosaw
+			[498] = 3.94, -- Barrage Of Many Bombs
+			[30] = 4.44, -- Overwhelming Power
+			[561] = 4.39, -- Seductive Power
+			[478] = 5.9, -- Tidal Surge
+			[193] = 6.2, -- Blightborne Infusion
+			[213] = 4.97, -- Venomous Fangs
+			[483] = 5.36, -- Archive of the Titans
+			[163] = 7.88, -- Latent Poison
+			[195] = 5.13, -- Secrets of the Deep
+			[495] = 5, -- Anduin's Dedication
+			[521] = 4.8, -- Shadow of Elune
+			[560] = 2.34, -- Bonded Souls
+			[461] = 1.85, -- Earthlink
+			[496] = 1.23, -- Stronger Together
+			[494] = 6.07, -- Battlefield Precision
+			[85] = 0.04, -- Gemhide
+			[501] = 5.87, -- Relational Normalization Gizmo
+			[22] = 2.65, -- Heed My Call
+			[562] = 7.91, -- Treacherous Covenant
+			[365] = 7.56, -- Dire Consequences
+			[479] = 6.29, -- Dagger in the Back
+			[504] = 5.72, -- Unstable Catalyst
+			[482] = 5.12, -- Thunderous Blast
+			[18] = 1.51, -- Blood Siphon
+			[157] = 6.1, -- Rezan's Fury
+			[194] = 5.33, -- Filthy Transfusion
+			[526] = 6.43, -- Endless Hunger
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 8, 1, { -- Arcane Mage
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 19778 - 23362 (avg 20926), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[498] = 3.61, -- Barrage Of Many Bombs
+			[492] = 3.4, -- Liberator's Might
+			[497] = 1.28, -- Stand As One
+			[462] = 1.55, -- Azerite Globules
+			[482] = 4.63, -- Thunderous Blast
+			[481] = 4.06, -- Incite the Pack
+			[523] = 4.6, -- Apothecary's Concoctions
+			[205] = 0.04, -- Eldritch Warding
+			[157] = 5.64, -- Rezan's Fury
+			[485] = 4.88, -- Laser Matrix
+			[22] = 2.57, -- Heed My Call
+			[493] = 2.3, -- Last Gift
+			[195] = 5.02, -- Secrets of the Deep
+			[468] = 0.02, -- Cauterizing Blink
+			[500] = 3.44, -- Synaptic Spark Capacitor
+			[501] = 4.88, -- Relational Normalization Gizmo
+			[30] = 2.49, -- Overwhelming Power
+			[494] = 4.78, -- Battlefield Precision
+			[495] = 5, -- Anduin's Dedication
+			[82] = 5.14, -- Champion of Azeroth
+			[562] = 7.98, -- Treacherous Covenant
+			[496] = 1.13, -- Stronger Together
+			[196] = 4.91, -- Swirling Sands
+			[167] = 3.17, -- Brain Storm
+			[31] = 2.65, -- Gutripper
+			[522] = 6.21, -- Ancients' Bulwark
+			[483] = 5.45, -- Archive of the Titans
+			[480] = 3.33, -- Blood Rite
+			[88] = 6.22, -- Arcane Pummeling
+			[546] = 0.04, -- Quick Thinking
+			[14] = 0.05, -- Longstrider
+			[499] = 2.11, -- Ricocheting Inflatable Pyrosaw
+			[84] = 0.06, -- Bulwark of the Masses
+			[192] = 2.29, -- Meticulous Scheming
+			[478] = 6.04, -- Tidal Surge
+			[13] = 0.04, -- Azerite Empowered
+			[560] = 1.21, -- Bonded Souls
+			[561] = 4.03, -- Seductive Power
+			[127] = 10, -- Equipoise
+			[18] = 1.71, -- Blood Siphon
+			[374] = 6.71, -- Galvanizing Spark
+			[479] = 5.79, -- Dagger in the Back
+			[21] = 1.87, -- Elemental Whirl
+			[156] = 3.64, -- Ruinous Bolt
+			[526] = 6.22, -- Endless Hunger
+			[505] = 4.6, -- Tradewinds
+			[85] = 0.02, -- Gemhide
+			[214] = 2.59, -- Arcane Pressure
+			[459] = 2.14, -- Unstable Flames
+			[194] = 5.14, -- Filthy Transfusion
+			[504] = 5.5, -- Unstable Catalyst
+			[541] = 1.67, -- Fight or Flight
+			[193] = 6.21, -- Blightborne Infusion
+			[461] = 1.75, -- Earthlink
+			[521] = 3.43, -- Shadow of Elune
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 8, 2, { -- Fire Mage
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 27586 - 32675 (avg 29835), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[496] = 1.23, -- Stronger Together
+			[498] = 4.57, -- Barrage Of Many Bombs
+			[196] = 5.97, -- Swirling Sands
+			[44] = 0.02, -- Vampiric Speed
+			[215] = 1.61, -- Blaster Master
+			[468] = 0.12, -- Cauterizing Blink
+			[521] = 3.12, -- Shadow of Elune
+			[85] = 0.09, -- Gemhide
+			[86] = 0.12, -- Azerite Fortification
+			[561] = 4.51, -- Seductive Power
+			[87] = 0.04, -- Self Reliance
+			[522] = 6.59, -- Ancients' Bulwark
+			[31] = 3.38, -- Gutripper
+			[128] = 2.71, -- Flames of Alacrity
+			[168] = 10, -- Wildfire
+			[494] = 6.95, -- Battlefield Precision
+			[560] = 1.55, -- Bonded Souls
+			[30] = 2.52, -- Overwhelming Power
+			[503] = 0.12, -- Auto-Self-Cauterizer
+			[378] = 6.79, -- Firemind
+			[499] = 2.71, -- Ricocheting Inflatable Pyrosaw
+			[481] = 4.65, -- Incite the Pack
+			[459] = 2.24, -- Unstable Flames
+			[377] = 6.67, -- Duplicative Incineration
+			[523] = 5.8, -- Apothecary's Concoctions
+			[562] = 8.35, -- Treacherous Covenant
+			[376] = 4.38, -- Trailing Embers
+			[14] = 0.19, -- Longstrider
+			[195] = 5.23, -- Secrets of the Deep
+			[82] = 5.82, -- Champion of Azeroth
+			[495] = 5.27, -- Anduin's Dedication
+			[500] = 4.08, -- Synaptic Spark Capacitor
+			[485] = 6.23, -- Laser Matrix
+			[482] = 5.89, -- Thunderous Blast
+			[497] = 1.34, -- Stand As One
+			[505] = 5, -- Tradewinds
+			[22] = 3.19, -- Heed My Call
+			[483] = 5.74, -- Archive of the Titans
+			[546] = 0.13, -- Quick Thinking
+			[501] = 4.75, -- Relational Normalization Gizmo
+			[18] = 2.03, -- Blood Siphon
+			[526] = 6.66, -- Endless Hunger
+			[492] = 3.45, -- Liberator's Might
+			[192] = 3.17, -- Meticulous Scheming
+			[21] = 2.06, -- Elemental Whirl
+			[480] = 3.21, -- Blood Rite
+			[157] = 7.09, -- Rezan's Fury
+			[15] = 0.01, -- Resounding Protection
+			[479] = 7.15, -- Dagger in the Back
+			[205] = 0.09, -- Eldritch Warding
+			[504] = 5.92, -- Unstable Catalyst
+			[462] = 2.04, -- Azerite Globules
+			[13] = 0.12, -- Azerite Empowered
+			[478] = 7.27, -- Tidal Surge
+			[493] = 2.77, -- Last Gift
+			[461] = 1.85, -- Earthlink
+			[84] = 0.07, -- Bulwark of the Masses
+			[541] = 2.04, -- Fight or Flight
+			[83] = 0.1, -- Impassive Visage
+			[194] = 5.65, -- Filthy Transfusion
+			[193] = 6.86, -- Blightborne Infusion
+			[156] = 4.37, -- Ruinous Bolt
+			[502] = 0.02, -- Personal Absorb-o-Tron
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 8, 3, { -- Frost Mage
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 17352 - 20973 (avg 19293), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[18] = 1.39, -- Blood Siphon
+			[14] = 0.02, -- Longstrider
+			[192] = 3.49, -- Meticulous Scheming
+			[500] = 3.07, -- Synaptic Spark Capacitor
+			[82] = 5.34, -- Champion of Azeroth
+			[561] = 4.06, -- Seductive Power
+			[498] = 3.49, -- Barrage Of Many Bombs
+			[497] = 1.31, -- Stand As One
+			[560] = 1.69, -- Bonded Souls
+			[170] = 10, -- Flash Freeze
+			[381] = 4.62, -- Frigid Grasp
+			[483] = 5.12, -- Archive of the Titans
+			[492] = 3.74, -- Liberator's Might
+			[462] = 1.61, -- Azerite Globules
+			[481] = 3.65, -- Incite the Pack
+			[31] = 2.49, -- Gutripper
+			[157] = 5.53, -- Rezan's Fury
+			[156] = 3.34, -- Ruinous Bolt
+			[193] = 5.69, -- Blightborne Infusion
+			[493] = 2.28, -- Last Gift
+			[482] = 4.7, -- Thunderous Blast
+			[461] = 1.68, -- Earthlink
+			[523] = 4.5, -- Apothecary's Concoctions
+			[132] = 4.67, -- Packed Ice
+			[479] = 5.72, -- Dagger in the Back
+			[380] = 5.03, -- Whiteout
+			[480] = 3.51, -- Blood Rite
+			[459] = 2.21, -- Unstable Flames
+			[478] = 5.58, -- Tidal Surge
+			[501] = 4.87, -- Relational Normalization Gizmo
+			[379] = 5.24, -- Tunnel of Ice
+			[195] = 4.95, -- Secrets of the Deep
+			[194] = 5.17, -- Filthy Transfusion
+			[494] = 5.15, -- Battlefield Precision
+			[196] = 5.52, -- Swirling Sands
+			[30] = 3.15, -- Overwhelming Power
+			[562] = 7.39, -- Treacherous Covenant
+			[503] = 0.03, -- Auto-Self-Cauterizer
+			[22] = 2.41, -- Heed My Call
+			[496] = 1.07, -- Stronger Together
+			[521] = 3.48, -- Shadow of Elune
+			[505] = 4.06, -- Tradewinds
+			[21] = 1.98, -- Elemental Whirl
+			[499] = 2.08, -- Ricocheting Inflatable Pyrosaw
+			[495] = 4.95, -- Anduin's Dedication
+			[541] = 1.83, -- Fight or Flight
+			[504] = 5.69, -- Unstable Catalyst
+			[485] = 4.96, -- Laser Matrix
+			[225] = 5.05, -- Glacial Assault
+			[522] = 5.67, -- Ancients' Bulwark
+			[526] = 5.59, -- Endless Hunger
+		}, 1552989600)
+
+		insertDefaultScalesData(offensiveName, 10, 1, { -- Brewmaster Monk
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5466 - 11494 (avg 6340), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[31] = 4.89, -- Gutripper
+			[566] = 0.09, -- Exit Strategy
+			[384] = 4.85, -- Elusive Footwork
+			[500] = 5.37, -- Synaptic Spark Capacitor
+			[505] = 4.16, -- Tradewinds
+			[470] = 0.07, -- Sweep the Leg
+			[383] = 2.27, -- Training of Niuzao
+			[560] = 1.16, -- Bonded Souls
+			[483] = 4.71, -- Archive of the Titans
+			[13] = 0.03, -- Azerite Empowered
+			[100] = 0.14, -- Strength in Numbers
+			[238] = 0.08, -- Fit to Burst
+			[101] = 0.18, -- Shimmering Haven
+			[479] = 7.11, -- Dagger in the Back
+			[19] = 0.09, -- Woundbinder
+			[84] = 0.03, -- Bulwark of the Masses
+			[459] = 1.95, -- Unstable Flames
+			[522] = 5.67, -- Ancients' Bulwark
+			[463] = 0.18, -- Blessed Portents
+			[38] = 1.66, -- On My Way
+			[195] = 4.25, -- Secrets of the Deep
+			[382] = 0.16, -- Straight, No Chaser
+			[85] = 0.07, -- Gemhide
+			[82] = 4.53, -- Champion of Azeroth
+			[30] = 2.33, -- Overwhelming Power
+			[498] = 6.27, -- Barrage Of Many Bombs
+			[89] = 0.08, -- Azerite Veins
+			[495] = 4.17, -- Anduin's Dedication
+			[541] = 1.73, -- Fight or Flight
+			[42] = 0.19, -- Savior
+			[478] = 9.7, -- Tidal Surge
+			[526] = 5.63, -- Endless Hunger
+			[22] = 4.2, -- Heed My Call
+			[218] = 0.13, -- Strength of Spirit
+			[481] = 3.83, -- Incite the Pack
+			[43] = 0.13, -- Winds of War
+			[103] = 0.03, -- Concentrated Mending
+			[499] = 3.75, -- Ricocheting Inflatable Pyrosaw
+			[493] = 2.19, -- Last Gift
+			[116] = 1.83, -- Boiling Brew
+			[86] = 0.08, -- Azerite Fortification
+			[482] = 8.2, -- Thunderous Blast
+			[44] = 0.05, -- Vampiric Speed
+			[562] = 6.43, -- Treacherous Covenant
+			[99] = 0.12, -- Ablative Shielding
+			[523] = 7.85, -- Apothecary's Concoctions
+			[492] = 2.87, -- Liberator's Might
+			[87] = 0.05, -- Self Reliance
+			[504] = 4.81, -- Unstable Catalyst
+			[194] = 8.23, -- Filthy Transfusion
+			[192] = 3.68, -- Meticulous Scheming
+			[494] = 10, -- Battlefield Precision
+			[496] = 1.04, -- Stronger Together
+			[461] = 1.6, -- Earthlink
+			[561] = 3.77, -- Seductive Power
+			[501] = 3.92, -- Relational Normalization Gizmo
+			[502] = 0.03, -- Personal Absorb-o-Tron
+			[480] = 2.84, -- Blood Rite
+			[21] = 1.61, -- Elemental Whirl
+			[497] = 1.19, -- Stand As One
+			[196] = 5.04, -- Swirling Sands
+			[18] = 1.65, -- Blood Siphon
+			[14] = 0.08, -- Longstrider
+			[15] = 0.02, -- Resounding Protection
+			[462] = 2.99, -- Azerite Globules
+			[20] = 1.29, -- Lifespeed
+			[156] = 5.89, -- Ruinous Bolt
+			[193] = 5.63, -- Blightborne Infusion
+			[104] = 0.07, -- Bracing Chill
+			[83] = 0.02, -- Impassive Visage
+			[98] = 0.13, -- Crystalline Carapace
+			[105] = 0.12, -- Ephemeral Recovery
+			[485] = 8.55, -- Laser Matrix
+			[521] = 2.88, -- Shadow of Elune
+			[157] = 9.8, -- Rezan's Fury
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 10, 3, { -- Windwalker Monk
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 9984 - 14530 (avg 10778), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[505] = 3.6, -- Tradewinds
+			[193] = 4.8, -- Blightborne Infusion
+			[500] = 0.42, -- Synaptic Spark Capacitor
+			[481] = 3.36, -- Incite the Pack
+			[389] = 7.35, -- Open Palm Strikes
+			[496] = 0.84, -- Stronger Together
+			[521] = 3.14, -- Shadow of Elune
+			[42] = 0.06, -- Savior
+			[492] = 2.93, -- Liberator's Might
+			[504] = 4.55, -- Unstable Catalyst
+			[478] = 5.9, -- Tidal Surge
+			[30] = 2.56, -- Overwhelming Power
+			[87] = 0.02, -- Self Reliance
+			[459] = 1.76, -- Unstable Flames
+			[541] = 1.37, -- Fight or Flight
+			[479] = 5.43, -- Dagger in the Back
+			[526] = 5.46, -- Endless Hunger
+			[480] = 3.12, -- Blood Rite
+			[20] = 1.4, -- Lifespeed
+			[501] = 4.45, -- Relational Normalization Gizmo
+			[18] = 1.36, -- Blood Siphon
+			[19] = 0.08, -- Woundbinder
+			[105] = 0.01, -- Ephemeral Recovery
+			[523] = 1, -- Apothecary's Concoctions
+			[562] = 6.17, -- Treacherous Covenant
+			[157] = 5.15, -- Rezan's Fury
+			[390] = 5.73, -- Pressure Point
+			[560] = 1.35, -- Bonded Souls
+			[498] = 3.32, -- Barrage Of Many Bombs
+			[485] = 4.59, -- Laser Matrix
+			[461] = 1.37, -- Earthlink
+			[561] = 3.3, -- Seductive Power
+			[493] = 2.01, -- Last Gift
+			[388] = 7.46, -- Glory of the Dawn
+			[192] = 3.45, -- Meticulous Scheming
+			[522] = 5.3, -- Ancients' Bulwark
+			[195] = 3.95, -- Secrets of the Deep
+			[22] = 2.33, -- Heed My Call
+			[184] = 4.73, -- Sunrise Technique
+			[156] = 3.48, -- Ruinous Bolt
+			[196] = 4.42, -- Swirling Sands
+			[495] = 3.82, -- Anduin's Dedication
+			[117] = 10, -- Fury of Xuen
+			[482] = 4.31, -- Thunderous Blast
+			[494] = 5.12, -- Battlefield Precision
+			[14] = 0.13, -- Longstrider
+			[38] = 1.51, -- On My Way
+			[44] = 0.01, -- Vampiric Speed
+			[194] = 4.37, -- Filthy Transfusion
+			[391] = 5.71, -- Dance of Chi-Ji
+			[13] = 0.08, -- Azerite Empowered
+			[499] = 2.1, -- Ricocheting Inflatable Pyrosaw
+			[497] = 1.09, -- Stand As One
+			[86] = 0.02, -- Azerite Fortification
+			[82] = 4.64, -- Champion of Azeroth
+			[462] = 1.53, -- Azerite Globules
+			[85] = 0.01, -- Gemhide
+			[21] = 1.7, -- Elemental Whirl
+			[31] = 2.43, -- Gutripper
+			[98] = 0.05, -- Crystalline Carapace
+			[483] = 4.21, -- Archive of the Titans
+		}, 1552989600)
+
+		insertDefaultScalesData(offensiveName, 2, 2, { -- Protection Paladin
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 11642 - 14095 (avg 12363), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[82] = 6.05, -- Champion of Azeroth
+			[562] = 7.75, -- Treacherous Covenant
+			[100] = 0.01, -- Strength in Numbers
+			[495] = 4.9, -- Anduin's Dedication
+			[541] = 1.72, -- Fight or Flight
+			[234] = 1.93, -- Inner Light
+			[461] = 1.66, -- Earthlink
+			[393] = 0.09, -- Grace of the Justicar
+			[195] = 4.98, -- Secrets of the Deep
+			[194] = 7.93, -- Filthy Transfusion
+			[21] = 2.06, -- Elemental Whirl
+			[193] = 7.01, -- Blightborne Infusion
+			[485] = 8.08, -- Laser Matrix
+			[30] = 3.88, -- Overwhelming Power
+			[478] = 8.75, -- Tidal Surge
+			[22] = 3.96, -- Heed My Call
+			[20] = 2.21, -- Lifespeed
+			[14] = 0.03, -- Longstrider
+			[105] = 0.02, -- Ephemeral Recovery
+			[500] = 4.65, -- Synaptic Spark Capacitor
+			[86] = 0.02, -- Azerite Fortification
+			[494] = 9.31, -- Battlefield Precision
+			[235] = 4.35, -- Indomitable Justice
+			[192] = 5.4, -- Meticulous Scheming
+			[498] = 5.94, -- Barrage Of Many Bombs
+			[125] = 3.7, -- Avenger's Might
+			[395] = 10, -- Inspiring Vanguard
+			[462] = 2.56, -- Azerite Globules
+			[101] = 0.01, -- Shimmering Haven
+			[483] = 5.32, -- Archive of the Titans
+			[560] = 2.19, -- Bonded Souls
+			[523] = 7.41, -- Apothecary's Concoctions
+			[493] = 2.27, -- Last Gift
+			[479] = 6.65, -- Dagger in the Back
+			[501] = 5.55, -- Relational Normalization Gizmo
+			[492] = 4.21, -- Liberator's Might
+			[156] = 5.33, -- Ruinous Bolt
+			[98] = 0.07, -- Crystalline Carapace
+			[505] = 4.3, -- Tradewinds
+			[18] = 1.62, -- Blood Siphon
+			[157] = 9.13, -- Rezan's Fury
+			[504] = 5.66, -- Unstable Catalyst
+			[83] = 0.01, -- Impassive Visage
+			[144] = 0.09, -- Rejuvenating Grace
+			[38] = 1.77, -- On My Way
+			[497] = 1.38, -- Stand As One
+			[149] = 0.07, -- Healing Hammer
+			[459] = 2.42, -- Unstable Flames
+			[499] = 3.45, -- Ricocheting Inflatable Pyrosaw
+			[522] = 6.46, -- Ancients' Bulwark
+			[526] = 6.58, -- Endless Hunger
+			[481] = 3.87, -- Incite the Pack
+			[561] = 4.24, -- Seductive Power
+			[503] = 0.01, -- Auto-Self-Cauterizer
+			[31] = 4.42, -- Gutripper
+			[150] = 1.52, -- Soaring Shield
+			[196] = 6.17, -- Swirling Sands
+			[85] = 0.01, -- Gemhide
+			[480] = 4.29, -- Blood Rite
+			[496] = 1.28, -- Stronger Together
+			[42] = 0.02, -- Savior
+			[482] = 7.75, -- Thunderous Blast
+			[521] = 4.3, -- Shadow of Elune
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 2, 3, { -- Retribution Paladin
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10819 - 13539 (avg 11492), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[192] = 5.68, -- Meticulous Scheming
+			[143] = 0.04, -- Inspiring Beacon
+			[156] = 3.6, -- Ruinous Bolt
+			[492] = 4.12, -- Liberator's Might
+			[43] = 0.13, -- Winds of War
+			[148] = 0.18, -- Righteous Flames
+			[453] = 7.47, -- Empyrean Power
+			[560] = 2.16, -- Bonded Souls
+			[526] = 7.1, -- Endless Hunger
+			[30] = 4.11, -- Overwhelming Power
+			[393] = 0.15, -- Grace of the Justicar
+			[493] = 2.84, -- Last Gift
+			[18] = 2.06, -- Blood Siphon
+			[85] = 0.04, -- Gemhide
+			[87] = 0.14, -- Self Reliance
+			[505] = 5.02, -- Tradewinds
+			[235] = 5.48, -- Indomitable Justice
+			[480] = 4.36, -- Blood Rite
+			[89] = 0.11, -- Azerite Veins
+			[99] = 0.03, -- Ablative Shielding
+			[485] = 5.82, -- Laser Matrix
+			[522] = 6.94, -- Ancients' Bulwark
+			[502] = 0.08, -- Personal Absorb-o-Tron
+			[20] = 2.16, -- Lifespeed
+			[501] = 5.7, -- Relational Normalization Gizmo
+			[101] = 0.16, -- Shimmering Haven
+			[22] = 2.97, -- Heed My Call
+			[149] = 0.12, -- Healing Hammer
+			[44] = 0.24, -- Vampiric Speed
+			[31] = 3.1, -- Gutripper
+			[15] = 0.1, -- Resounding Protection
+			[461] = 1.89, -- Earthlink
+			[482] = 5.49, -- Thunderous Blast
+			[84] = 0.12, -- Bulwark of the Masses
+			[494] = 6.06, -- Battlefield Precision
+			[206] = 0.12, -- Stalwart Protector
+			[144] = 0.07, -- Rejuvenating Grace
+			[194] = 5.96, -- Filthy Transfusion
+			[562] = 8.3, -- Treacherous Covenant
+			[193] = 6.65, -- Blightborne Infusion
+			[561] = 4.9, -- Seductive Power
+			[498] = 4.21, -- Barrage Of Many Bombs
+			[495] = 5.22, -- Anduin's Dedication
+			[483] = 5.75, -- Archive of the Titans
+			[98] = 0.18, -- Crystalline Carapace
+			[478] = 6.06, -- Tidal Surge
+			[145] = 0.14, -- Fortifying Auras
+			[83] = 0.12, -- Impassive Visage
+			[82] = 6.43, -- Champion of Azeroth
+			[195] = 5.39, -- Secrets of the Deep
+			[462] = 1.92, -- Azerite Globules
+			[503] = 0.17, -- Auto-Self-Cauterizer
+			[463] = 0.22, -- Blessed Portents
+			[454] = 0.23, -- Judicious Defense
+			[538] = 0.22, -- Empyreal Ward
+			[471] = 0.1, -- Gallant Steed
+			[523] = 5.32, -- Apothecary's Concoctions
+			[157] = 6.43, -- Rezan's Fury
+			[496] = 1.36, -- Stronger Together
+			[105] = 0.1, -- Ephemeral Recovery
+			[196] = 5.52, -- Swirling Sands
+			[396] = 10, -- Light's Decree
+			[13] = 0.17, -- Azerite Empowered
+			[125] = 5.74, -- Avenger's Might
+			[154] = 6.82, -- Relentless Inquisitor
+			[103] = 0.13, -- Concentrated Mending
+			[100] = 0.14, -- Strength in Numbers
+			[459] = 2.49, -- Unstable Flames
+			[42] = 0.2, -- Savior
+			[479] = 6.66, -- Dagger in the Back
+			[86] = 0.18, -- Azerite Fortification
+			[504] = 5.63, -- Unstable Catalyst
+			[19] = 0.09, -- Woundbinder
+			[500] = 3.4, -- Synaptic Spark Capacitor
+			[104] = 0.02, -- Bracing Chill
+			[499] = 2.7, -- Ricocheting Inflatable Pyrosaw
+			[497] = 1.46, -- Stand As One
+			[14] = 0.11, -- Longstrider
+			[21] = 2.19, -- Elemental Whirl
+			[541] = 1.75, -- Fight or Flight
+			[521] = 4.44, -- Shadow of Elune
+			[187] = 4.87, -- Expurgation
+			[481] = 4.64, -- Incite the Pack
+			[38] = 2.25, -- On My Way
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 4, 1, { -- Assassination Rogue
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10549 - 13587 (avg 11229), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[192] = 4.05, -- Meticulous Scheming
+			[22] = 2.68, -- Heed My Call
+			[498] = 3.8, -- Barrage Of Many Bombs
+			[459] = 2.4, -- Unstable Flames
+			[181] = 5.97, -- Twist the Knife
+			[14] = 0.13, -- Longstrider
+			[156] = 3.61, -- Ruinous Bolt
+			[504] = 5.59, -- Unstable Catalyst
+			[194] = 5.08, -- Filthy Transfusion
+			[13] = 0.02, -- Azerite Empowered
+			[21] = 2.19, -- Elemental Whirl
+			[136] = 8.05, -- Double Dose
+			[87] = 0.01, -- Self Reliance
+			[31] = 2.71, -- Gutripper
+			[494] = 5.99, -- Battlefield Precision
+			[495] = 4.81, -- Anduin's Dedication
+			[560] = 2.04, -- Bonded Souls
+			[499] = 2.29, -- Ricocheting Inflatable Pyrosaw
+			[492] = 4.13, -- Liberator's Might
+			[500] = 3.24, -- Synaptic Spark Capacitor
+			[501] = 5.74, -- Relational Normalization Gizmo
+			[157] = 6.06, -- Rezan's Fury
+			[522] = 6.07, -- Ancients' Bulwark
+			[83] = 0.03, -- Impassive Visage
+			[44] = 0.09, -- Vampiric Speed
+			[483] = 5.42, -- Archive of the Titans
+			[407] = 0.06, -- Echoing Blades
+			[478] = 5.91, -- Tidal Surge
+			[18] = 1.78, -- Blood Siphon
+			[485] = 5.16, -- Laser Matrix
+			[193] = 6.88, -- Blightborne Infusion
+			[526] = 5.99, -- Endless Hunger
+			[481] = 4.43, -- Incite the Pack
+			[408] = 0.93, -- Shrouded Suffocation
+			[30] = 3.69, -- Overwhelming Power
+			[479] = 5.95, -- Dagger in the Back
+			[196] = 6.09, -- Swirling Sands
+			[497] = 1.28, -- Stand As One
+			[461] = 1.86, -- Earthlink
+			[496] = 1.34, -- Stronger Together
+			[562] = 7.89, -- Treacherous Covenant
+			[561] = 4.24, -- Seductive Power
+			[82] = 6.21, -- Champion of Azeroth
+			[195] = 5.11, -- Secrets of the Deep
+			[482] = 4.78, -- Thunderous Blast
+			[473] = 0.03, -- Shrouded Mantle
+			[505] = 4.8, -- Tradewinds
+			[523] = 4.73, -- Apothecary's Concoctions
+			[541] = 1.8, -- Fight or Flight
+			[521] = 4.35, -- Shadow of Elune
+			[493] = 2.65, -- Last Gift
+			[406] = 3.53, -- Scent of Blood
+			[480] = 4.28, -- Blood Rite
+			[249] = 10, -- Nothing Personal
+			[462] = 1.61, -- Azerite Globules
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 4, 2, { -- Outlaw Rogue
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 30518 - 44867 (avg 33753), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[459] = 2.56, -- Unstable Flames
+			[31] = 4.19, -- Gutripper
+			[485] = 7.74, -- Laser Matrix
+			[239] = 5.29, -- Snake Eyes
+			[446] = 9.53, -- Brigand's Blitz
+			[493] = 2.66, -- Last Gift
+			[481] = 4.55, -- Incite the Pack
+			[180] = 5.97, -- Keep Your Wits About You
+			[496] = 1.25, -- Stronger Together
+			[562] = 10, -- Treacherous Covenant
+			[541] = 2.29, -- Fight or Flight
+			[461] = 2.31, -- Earthlink
+			[411] = 7.61, -- Ace Up Your Sleeve
+			[410] = 5.53, -- Paradise Lost
+			[193] = 8, -- Blightborne Infusion
+			[522] = 8.05, -- Ancients' Bulwark
+			[21] = 2.62, -- Elemental Whirl
+			[18] = 1.65, -- Blood Siphon
+			[82] = 7.67, -- Champion of Azeroth
+			[483] = 7.1, -- Archive of the Titans
+			[498] = 5.73, -- Barrage Of Many Bombs
+			[523] = 7.45, -- Apothecary's Concoctions
+			[156] = 5.22, -- Ruinous Bolt
+			[194] = 7.26, -- Filthy Transfusion
+			[30] = 4.89, -- Overwhelming Power
+			[494] = 9.04, -- Battlefield Precision
+			[462] = 2.61, -- Azerite Globules
+			[497] = 1.61, -- Stand As One
+			[478] = 8.7, -- Tidal Surge
+			[129] = 8.52, -- Deadshot
+			[504] = 6.94, -- Unstable Catalyst
+			[500] = 4.76, -- Synaptic Spark Capacitor
+			[482] = 7.31, -- Thunderous Blast
+			[492] = 4.91, -- Liberator's Might
+			[195] = 6.32, -- Secrets of the Deep
+			[501] = 7.1, -- Relational Normalization Gizmo
+			[22] = 3.87, -- Heed My Call
+			[526] = 7.93, -- Endless Hunger
+			[561] = 5.54, -- Seductive Power
+			[560] = 2.52, -- Bonded Souls
+			[192] = 6.76, -- Meticulous Scheming
+			[196] = 7.18, -- Swirling Sands
+			[479] = 9.38, -- Dagger in the Back
+			[157] = 8.91, -- Rezan's Fury
+			[521] = 5.39, -- Shadow of Elune
+			[495] = 6.38, -- Anduin's Dedication
+			[505] = 5.01, -- Tradewinds
+			[499] = 3.28, -- Ricocheting Inflatable Pyrosaw
+			[480] = 5.48, -- Blood Rite
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 4, 3, { -- Subtlety Rogue
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 11134 - 15845 (avg 13861), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[485] = 3.06, -- Laser Matrix
+			[459] = 1.11, -- Unstable Flames
+			[495] = 2.67, -- Anduin's Dedication
+			[414] = 5.31, -- Inevitability
+			[192] = 2.15, -- Meticulous Scheming
+			[493] = 1.32, -- Last Gift
+			[175] = 3.11, -- Night's Vengeance
+			[492] = 2.04, -- Liberator's Might
+			[240] = 4.33, -- Blade In The Shadows
+			[560] = 1.04, -- Bonded Souls
+			[526] = 3.28, -- Endless Hunger
+			[22] = 1.52, -- Heed My Call
+			[30] = 1.83, -- Overwhelming Power
+			[157] = 3.53, -- Rezan's Fury
+			[462] = 0.98, -- Azerite Globules
+			[479] = 3.67, -- Dagger in the Back
+			[522] = 3.2, -- Ancients' Bulwark
+			[482] = 2.91, -- Thunderous Blast
+			[501] = 3.02, -- Relational Normalization Gizmo
+			[562] = 4.29, -- Treacherous Covenant
+			[483] = 2.97, -- Archive of the Titans
+			[498] = 2.25, -- Barrage Of Many Bombs
+			[496] = 0.62, -- Stronger Together
+			[445] = 1.89, -- Perforate
+			[196] = 3.1, -- Swirling Sands
+			[500] = 1.99, -- Synaptic Spark Capacitor
+			[461] = 1, -- Earthlink
+			[31] = 1.73, -- Gutripper
+			[504] = 3.02, -- Unstable Catalyst
+			[18] = 0.87, -- Blood Siphon
+			[193] = 3.37, -- Blightborne Infusion
+			[521] = 2.25, -- Shadow of Elune
+			[497] = 0.63, -- Stand As One
+			[499] = 1.32, -- Ricocheting Inflatable Pyrosaw
+			[195] = 2.84, -- Secrets of the Deep
+			[503] = 0.03, -- Auto-Self-Cauterizer
+			[523] = 2.84, -- Apothecary's Concoctions
+			[494] = 3.57, -- Battlefield Precision
+			[478] = 3.89, -- Tidal Surge
+			[561] = 2.15, -- Seductive Power
+			[84] = 0.02, -- Bulwark of the Masses
+			[124] = 1.76, -- Replicating Shadows
+			[413] = 10, -- The First Dance
+			[505] = 2.36, -- Tradewinds
+			[481] = 2.26, -- Incite the Pack
+			[194] = 2.96, -- Filthy Transfusion
+			[82] = 3.2, -- Champion of Azeroth
+			[541] = 0.94, -- Fight or Flight
+			[480] = 2.26, -- Blood Rite
+			[21] = 1.09, -- Elemental Whirl
+			[83] = 0.01, -- Impassive Visage
+			[156] = 2.35, -- Ruinous Bolt
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 7, 1, { -- Elemental Shaman
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 15567 - 18672 (avg 16507), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[457] = 10, -- Igneous Potential
+			[562] = 5.66, -- Treacherous Covenant
+			[482] = 3.45, -- Thunderous Blast
+			[31] = 1.96, -- Gutripper
+			[21] = 1.33, -- Elemental Whirl
+			[30] = 2.15, -- Overwhelming Power
+			[156] = 2.56, -- Ruinous Bolt
+			[499] = 1.62, -- Ricocheting Inflatable Pyrosaw
+			[38] = 1.29, -- On My Way
+			[497] = 0.93, -- Stand As One
+			[521] = 2.48, -- Shadow of Elune
+			[502] = 0.08, -- Personal Absorb-o-Tron
+			[207] = 0.04, -- Serene Spirit
+			[478] = 4.22, -- Tidal Surge
+			[494] = 3.74, -- Battlefield Precision
+			[448] = 3.29, -- Synapse Shock
+			[14] = 0.04, -- Longstrider
+			[461] = 1.34, -- Earthlink
+			[13] = 0.06, -- Azerite Empowered
+			[193] = 4.67, -- Blightborne Infusion
+			[498] = 2.65, -- Barrage Of Many Bombs
+			[447] = 3.34, -- Ancestral Resonance
+			[462] = 1.3, -- Azerite Globules
+			[192] = 3.01, -- Meticulous Scheming
+			[417] = 0.07, -- Tectonic Thunder
+			[22] = 1.71, -- Heed My Call
+			[105] = 0.02, -- Ephemeral Recovery
+			[86] = 0.02, -- Azerite Fortification
+			[104] = 0.1, -- Bracing Chill
+			[83] = 0.12, -- Impassive Visage
+			[474] = 0.04, -- Pack Spirit
+			[504] = 4.09, -- Unstable Catalyst
+			[480] = 2.53, -- Blood Rite
+			[495] = 3.54, -- Anduin's Dedication
+			[479] = 4.26, -- Dagger in the Back
+			[493] = 1.19, -- Last Gift
+			[416] = 4.77, -- Natural Harmony
+			[157] = 4.13, -- Rezan's Fury
+			[561] = 3.08, -- Seductive Power
+			[178] = 3.55, -- Lava Shock
+			[195] = 3.68, -- Secrets of the Deep
+			[85] = 0.05, -- Gemhide
+			[481] = 1.89, -- Incite the Pack
+			[196] = 4.19, -- Swirling Sands
+			[522] = 4.38, -- Ancients' Bulwark
+			[501] = 3.62, -- Relational Normalization Gizmo
+			[42] = 0.06, -- Savior
+			[82] = 3.78, -- Champion of Azeroth
+			[539] = 0.05, -- Ancient Ankh Talisman
+			[496] = 0.82, -- Stronger Together
+			[560] = 1.21, -- Bonded Souls
+			[222] = 2.52, -- Echo of the Elementals
+			[459] = 1.66, -- Unstable Flames
+			[483] = 3.94, -- Archive of the Titans
+			[485] = 3.65, -- Laser Matrix
+			[500] = 2.3, -- Synaptic Spark Capacitor
+			[541] = 1.23, -- Fight or Flight
+			[505] = 2.07, -- Tradewinds
+			[523] = 3.31, -- Apothecary's Concoctions
+			[18] = 0.81, -- Blood Siphon
+			[103] = 0.09, -- Concentrated Mending
+			[526] = 4.31, -- Endless Hunger
+			[194] = 3.58, -- Filthy Transfusion
+			[87] = 0.1, -- Self Reliance
+			[44] = 0.08, -- Vampiric Speed
+			[492] = 2.74, -- Liberator's Might
+			[84] = 0.1, -- Bulwark of the Masses
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 7, 2, { -- Enhancement Shaman
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 15583 - 20249 (avg 17652), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[192] = 5.29, -- Meticulous Scheming
+			[498] = 4.21, -- Barrage Of Many Bombs
+			[503] = 0.05, -- Auto-Self-Cauterizer
+			[496] = 1.4, -- Stronger Together
+			[522] = 6.73, -- Ancients' Bulwark
+			[483] = 6.08, -- Archive of the Titans
+			[44] = 0.05, -- Vampiric Speed
+			[38] = 1.93, -- On My Way
+			[104] = 0.01, -- Bracing Chill
+			[492] = 4.25, -- Liberator's Might
+			[497] = 1.49, -- Stand As One
+			[207] = 0.03, -- Serene Spirit
+			[493] = 2.84, -- Last Gift
+			[157] = 6.12, -- Rezan's Fury
+			[459] = 2.42, -- Unstable Flames
+			[15] = 0.08, -- Resounding Protection
+			[485] = 5.51, -- Laser Matrix
+			[474] = 0.08, -- Pack Spirit
+			[505] = 5, -- Tradewinds
+			[137] = 9.45, -- Primal Primer
+			[19] = 0.13, -- Woundbinder
+			[223] = 3.58, -- Lightning Conduit
+			[499] = 2.5, -- Ricocheting Inflatable Pyrosaw
+			[82] = 6.46, -- Champion of Azeroth
+			[31] = 3.03, -- Gutripper
+			[561] = 4.74, -- Seductive Power
+			[482] = 5.23, -- Thunderous Blast
+			[83] = 0.1, -- Impassive Visage
+			[478] = 6.15, -- Tidal Surge
+			[463] = 0.05, -- Blessed Portents
+			[103] = 0.03, -- Concentrated Mending
+			[530] = 5.63, -- Thunderaan's Fury
+			[13] = 0.15, -- Azerite Empowered
+			[541] = 2.02, -- Fight or Flight
+			[501] = 5.89, -- Relational Normalization Gizmo
+			[18] = 1.9, -- Blood Siphon
+			[86] = 0.02, -- Azerite Fortification
+			[462] = 1.86, -- Azerite Globules
+			[526] = 6.67, -- Endless Hunger
+			[156] = 3.66, -- Ruinous Bolt
+			[479] = 6.37, -- Dagger in the Back
+			[179] = 5.92, -- Strength of Earth
+			[494] = 6.11, -- Battlefield Precision
+			[22] = 2.72, -- Heed My Call
+			[481] = 4.64, -- Incite the Pack
+			[495] = 5.41, -- Anduin's Dedication
+			[84] = 0.06, -- Bulwark of the Masses
+			[194] = 5.56, -- Filthy Transfusion
+			[480] = 4.35, -- Blood Rite
+			[447] = 7.74, -- Ancestral Resonance
+			[42] = 0.05, -- Savior
+			[196] = 6.27, -- Swirling Sands
+			[193] = 6.87, -- Blightborne Infusion
+			[560] = 2.15, -- Bonded Souls
+			[21] = 2.27, -- Elemental Whirl
+			[195] = 5.56, -- Secrets of the Deep
+			[521] = 4.2, -- Shadow of Elune
+			[562] = 8.5, -- Treacherous Covenant
+			[416] = 8.95, -- Natural Harmony
+			[504] = 6.33, -- Unstable Catalyst
+			[523] = 5, -- Apothecary's Concoctions
+			[461] = 1.98, -- Earthlink
+			[500] = 3.37, -- Synaptic Spark Capacitor
+			[420] = 10, -- Roiling Storm
+			[30] = 3.84, -- Overwhelming Power
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 9, 1, { -- Affliction Warlock
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10611 - 14036 (avg 11625), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[425] = 7.51, -- Sudden Onset
+			[194] = 7.71, -- Filthy Transfusion
+			[521] = 5.54, -- Shadow of Elune
+			[498] = 5.6, -- Barrage Of Many Bombs
+			[485] = 7.69, -- Laser Matrix
+			[482] = 7.4, -- Thunderous Blast
+			[560] = 2.88, -- Bonded Souls
+			[483] = 6.71, -- Archive of the Titans
+			[561] = 5.66, -- Seductive Power
+			[495] = 6.46, -- Anduin's Dedication
+			[193] = 8.13, -- Blightborne Infusion
+			[501] = 7.2, -- Relational Normalization Gizmo
+			[82] = 7.78, -- Champion of Azeroth
+			[481] = 6.79, -- Incite the Pack
+			[30] = 5.25, -- Overwhelming Power
+			[31] = 4.14, -- Gutripper
+			[21] = 2.89, -- Elemental Whirl
+			[83] = 0.01, -- Impassive Visage
+			[87] = 0.06, -- Self Reliance
+			[156] = 5.24, -- Ruinous Bolt
+			[526] = 8.16, -- Endless Hunger
+			[84] = 0.06, -- Bulwark of the Masses
+			[459] = 2.67, -- Unstable Flames
+			[22] = 3.89, -- Heed My Call
+			[480] = 5.55, -- Blood Rite
+			[18] = 2.82, -- Blood Siphon
+			[522] = 8.4, -- Ancients' Bulwark
+			[541] = 2.41, -- Fight or Flight
+			[479] = 8.84, -- Dagger in the Back
+			[497] = 1.73, -- Stand As One
+			[494] = 9, -- Battlefield Precision
+			[461] = 2.45, -- Earthlink
+			[426] = 5.53, -- Dreadful Calling
+			[183] = 8.55, -- Inevitable Demise
+			[195] = 6.59, -- Secrets of the Deep
+			[562] = 10, -- Treacherous Covenant
+			[442] = 8.48, -- Pandemic Invocation
+			[192] = 6.32, -- Meticulous Scheming
+			[504] = 7.4, -- Unstable Catalyst
+			[492] = 5.02, -- Liberator's Might
+			[505] = 7.23, -- Tradewinds
+			[157] = 8.66, -- Rezan's Fury
+			[478] = 8.55, -- Tidal Surge
+			[123] = 8.88, -- Wracking Brilliance
+			[499] = 3.4, -- Ricocheting Inflatable Pyrosaw
+			[196] = 7.03, -- Swirling Sands
+			[475] = 0.06, -- Desperate Power
+			[523] = 6.9, -- Apothecary's Concoctions
+			[44] = 0.09, -- Vampiric Speed
+			[85] = 0.12, -- Gemhide
+			[462] = 2.55, -- Azerite Globules
+			[493] = 3.96, -- Last Gift
+			[208] = 0.01, -- Lifeblood
+			[500] = 4.65, -- Synaptic Spark Capacitor
+			[13] = 0.21, -- Azerite Empowered
+			[503] = 0.14, -- Auto-Self-Cauterizer
+			[496] = 1.59, -- Stronger Together
+			[230] = 7.22, -- Cascading Calamity
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 9, 2, { -- Demonology Warlock
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10005 - 12889 (avg 10918), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[479] = 4.38, -- Dagger in the Back
+			[157] = 4.29, -- Rezan's Fury
+			[541] = 1.46, -- Fight or Flight
+			[192] = 4.09, -- Meticulous Scheming
+			[429] = 10, -- Baleful Invocation
+			[196] = 3.61, -- Swirling Sands
+			[521] = 3.99, -- Shadow of Elune
+			[195] = 4.03, -- Secrets of the Deep
+			[462] = 1.14, -- Azerite Globules
+			[531] = 0.03, -- Terror of the Mind
+			[495] = 3.91, -- Anduin's Dedication
+			[482] = 3.47, -- Thunderous Blast
+			[22] = 1.88, -- Heed My Call
+			[130] = 3.1, -- Shadow's Bite
+			[194] = 3.76, -- Filthy Transfusion
+			[504] = 4.45, -- Unstable Catalyst
+			[523] = 3.38, -- Apothecary's Concoctions
+			[459] = 1.75, -- Unstable Flames
+			[500] = 2.43, -- Synaptic Spark Capacitor
+			[496] = 1.03, -- Stronger Together
+			[480] = 4.05, -- Blood Rite
+			[461] = 1.4, -- Earthlink
+			[44] = 0.09, -- Vampiric Speed
+			[497] = 1.05, -- Stand As One
+			[481] = 3.29, -- Incite the Pack
+			[485] = 3.68, -- Laser Matrix
+			[501] = 5.1, -- Relational Normalization Gizmo
+			[483] = 4.4, -- Archive of the Titans
+			[494] = 2.92, -- Battlefield Precision
+			[193] = 4.94, -- Blightborne Infusion
+			[87] = 0.05, -- Self Reliance
+			[231] = 7.09, -- Explosive Potential
+			[31] = 1.86, -- Gutripper
+			[560] = 2.35, -- Bonded Souls
+			[561] = 3.19, -- Seductive Power
+			[522] = 5.09, -- Ancients' Bulwark
+			[505] = 3.61, -- Tradewinds
+			[493] = 2.07, -- Last Gift
+			[21] = 1.99, -- Elemental Whirl
+			[83] = 0.01, -- Impassive Visage
+			[190] = 3.05, -- Umbral Blaze
+			[498] = 2.68, -- Barrage Of Many Bombs
+			[30] = 3.63, -- Overwhelming Power
+			[499] = 1.58, -- Ricocheting Inflatable Pyrosaw
+			[84] = 0.02, -- Bulwark of the Masses
+			[82] = 5.59, -- Champion of Azeroth
+			[562] = 6.38, -- Treacherous Covenant
+			[428] = 4.08, -- Demonic Meteor
+			[156] = 2.58, -- Ruinous Bolt
+			[492] = 3.79, -- Liberator's Might
+			[18] = 1.34, -- Blood Siphon
+			[458] = 3.37, -- Supreme Commander
+			[526] = 5.14, -- Endless Hunger
+			[478] = 4.21, -- Tidal Surge
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 9, 3, { -- Destruction Warlock
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 12521 - 15934 (avg 13699), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[501] = 7.09, -- Relational Normalization Gizmo
+			[562] = 10, -- Treacherous Covenant
+			[432] = 7.63, -- Chaotic Inferno
+			[503] = 0.34, -- Auto-Self-Cauterizer
+			[193] = 8.26, -- Blightborne Infusion
+			[482] = 6.06, -- Thunderous Blast
+			[444] = 9.21, -- Crashing Chaos
+			[505] = 6.48, -- Tradewinds
+			[504] = 7.09, -- Unstable Catalyst
+			[479] = 7.39, -- Dagger in the Back
+			[526] = 8.93, -- Endless Hunger
+			[502] = 0.13, -- Personal Absorb-o-Tron
+			[431] = 0.34, -- Rolling Havoc
+			[131] = 7.87, -- Chaos Shards
+			[208] = 0.31, -- Lifeblood
+			[498] = 4.69, -- Barrage Of Many Bombs
+			[499] = 2.89, -- Ricocheting Inflatable Pyrosaw
+			[18] = 2.6, -- Blood Siphon
+			[156] = 4.25, -- Ruinous Bolt
+			[86] = 0.35, -- Azerite Fortification
+			[475] = 0.23, -- Desperate Power
+			[15] = 0.28, -- Resounding Protection
+			[500] = 4.2, -- Synaptic Spark Capacitor
+			[485] = 6.44, -- Laser Matrix
+			[561] = 5.34, -- Seductive Power
+			[541] = 2.42, -- Fight or Flight
+			[30] = 4.95, -- Overwhelming Power
+			[21] = 3.32, -- Elemental Whirl
+			[157] = 7.33, -- Rezan's Fury
+			[460] = 6.54, -- Bursting Flare
+			[194] = 6.21, -- Filthy Transfusion
+			[44] = 0.07, -- Vampiric Speed
+			[497] = 1.78, -- Stand As One
+			[495] = 6.05, -- Anduin's Dedication
+			[496] = 1.9, -- Stronger Together
+			[531] = 0.18, -- Terror of the Mind
+			[232] = 5.05, -- Flashpoint
+			[560] = 3.06, -- Bonded Souls
+			[14] = 0.24, -- Longstrider
+			[84] = 0.14, -- Bulwark of the Masses
+			[483] = 6.85, -- Archive of the Titans
+			[494] = 6.75, -- Battlefield Precision
+			[523] = 6.01, -- Apothecary's Concoctions
+			[481] = 6.11, -- Incite the Pack
+			[196] = 7.14, -- Swirling Sands
+			[87] = 0.31, -- Self Reliance
+			[195] = 6.5, -- Secrets of the Deep
+			[462] = 2.25, -- Azerite Globules
+			[493] = 3.88, -- Last Gift
+			[492] = 5.41, -- Liberator's Might
+			[31] = 3.55, -- Gutripper
+			[13] = 0.3, -- Azerite Empowered
+			[22] = 3.47, -- Heed My Call
+			[478] = 7.38, -- Tidal Surge
+			[480] = 5.41, -- Blood Rite
+			[192] = 5.34, -- Meticulous Scheming
+			[83] = 0.2, -- Impassive Visage
+			[85] = 0.28, -- Gemhide
+			[82] = 8.08, -- Champion of Azeroth
+			[522] = 8.92, -- Ancients' Bulwark
+			[521] = 5.31, -- Shadow of Elune
+			[459] = 2.93, -- Unstable Flames
+			[461] = 2.42, -- Earthlink
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 1, 1, { -- Arms Warrior
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 7329 - 10625 (avg 7980), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[89] = 0.13, -- Azerite Veins
+			[86] = 0.12, -- Azerite Fortification
+			[434] = 9.56, -- Crushing Assault
+			[485] = 6.09, -- Laser Matrix
+			[18] = 2.05, -- Blood Siphon
+			[500] = 3.7, -- Synaptic Spark Capacitor
+			[503] = 0.11, -- Auto-Self-Cauterizer
+			[85] = 0.12, -- Gemhide
+			[479] = 7.01, -- Dagger in the Back
+			[481] = 5.08, -- Incite the Pack
+			[497] = 1.4, -- Stand As One
+			[20] = 2.28, -- Lifespeed
+			[495] = 5.23, -- Anduin's Dedication
+			[31] = 3.32, -- Gutripper
+			[501] = 6.01, -- Relational Normalization Gizmo
+			[44] = 0.07, -- Vampiric Speed
+			[499] = 2.66, -- Ricocheting Inflatable Pyrosaw
+			[494] = 6.94, -- Battlefield Precision
+			[496] = 1.44, -- Stronger Together
+			[521] = 4.72, -- Shadow of Elune
+			[560] = 2.43, -- Bonded Souls
+			[502] = 0.06, -- Personal Absorb-o-Tron
+			[480] = 4.77, -- Blood Rite
+			[498] = 4.51, -- Barrage Of Many Bombs
+			[195] = 5.41, -- Secrets of the Deep
+			[483] = 5.84, -- Archive of the Titans
+			[478] = 6.96, -- Tidal Surge
+			[561] = 4.69, -- Seductive Power
+			[482] = 5.94, -- Thunderous Blast
+			[526] = 6.97, -- Endless Hunger
+			[462] = 2.09, -- Azerite Globules
+			[30] = 4.24, -- Overwhelming Power
+			[477] = 0.07, -- Bury the Hatchet
+			[121] = 6.31, -- Striking the Anvil
+			[192] = 5.99, -- Meticulous Scheming
+			[492] = 4.96, -- Liberator's Might
+			[156] = 4.23, -- Ruinous Bolt
+			[226] = 10, -- Test of Might
+			[554] = 0.03, -- Intimidating Presence
+			[13] = 0.03, -- Azerite Empowered
+			[193] = 8.07, -- Blightborne Infusion
+			[174] = 6.79, -- Gathering Storm
+			[196] = 7.25, -- Swirling Sands
+			[22] = 3.16, -- Heed My Call
+			[435] = 5.37, -- Lord of War
+			[523] = 5.54, -- Apothecary's Concoctions
+			[562] = 8.38, -- Treacherous Covenant
+			[541] = 2.07, -- Fight or Flight
+			[100] = 0.14, -- Strength in Numbers
+			[82] = 7.28, -- Champion of Azeroth
+			[21] = 2.54, -- Elemental Whirl
+			[461] = 1.79, -- Earthlink
+			[433] = 4.31, -- Seismic Wave
+			[84] = 0.05, -- Bulwark of the Masses
+			[98] = 0.03, -- Crystalline Carapace
+			[476] = 0.06, -- Moment of Glory
+			[43] = 0.03, -- Winds of War
+			[522] = 6.93, -- Ancients' Bulwark
+			[493] = 2.86, -- Last Gift
+			[157] = 7.02, -- Rezan's Fury
+			[459] = 2.8, -- Unstable Flames
+			[194] = 6.52, -- Filthy Transfusion
+			[504] = 5.95, -- Unstable Catalyst
+			[505] = 5.45, -- Tradewinds
+			[14] = 0.15, -- Longstrider
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 1, 2, { -- Fury Warrior
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 10116 - 14175 (avg 10883), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[481] = 5.11, -- Incite the Pack
+			[84] = 0.1, -- Bulwark of the Masses
+			[21] = 2.41, -- Elemental Whirl
+			[462] = 2.09, -- Azerite Globules
+			[192] = 6.25, -- Meticulous Scheming
+			[100] = 0.14, -- Strength in Numbers
+			[14] = 0.12, -- Longstrider
+			[482] = 5.83, -- Thunderous Blast
+			[43] = 0.11, -- Winds of War
+			[31] = 3.34, -- Gutripper
+			[485] = 6.1, -- Laser Matrix
+			[505] = 5.43, -- Tradewinds
+			[194] = 6.3, -- Filthy Transfusion
+			[89] = 0.1, -- Azerite Veins
+			[476] = 0.15, -- Moment of Glory
+			[497] = 1.36, -- Stand As One
+			[461] = 1.68, -- Earthlink
+			[30] = 4.9, -- Overwhelming Power
+			[502] = 0.16, -- Personal Absorb-o-Tron
+			[495] = 4.5, -- Anduin's Dedication
+			[85] = 0.24, -- Gemhide
+			[119] = 10, -- Unbridled Ferocity
+			[526] = 6.4, -- Endless Hunger
+			[500] = 3.22, -- Synaptic Spark Capacitor
+			[554] = 0.07, -- Intimidating Presence
+			[437] = 7.9, -- Simmering Rage
+			[493] = 3.07, -- Last Gift
+			[22] = 3.21, -- Heed My Call
+			[87] = 0.12, -- Self Reliance
+			[492] = 4.31, -- Liberator's Might
+			[522] = 6.4, -- Ancients' Bulwark
+			[438] = 7.76, -- Reckless Flurry
+			[478] = 5.83, -- Tidal Surge
+			[504] = 5.41, -- Unstable Catalyst
+			[83] = 0.17, -- Impassive Visage
+			[13] = 0.07, -- Azerite Empowered
+			[503] = 0.15, -- Auto-Self-Cauterizer
+			[176] = 6.23, -- Cold Steel, Hot Blood
+			[496] = 1.46, -- Stronger Together
+			[498] = 4.44, -- Barrage Of Many Bombs
+			[193] = 6.56, -- Blightborne Infusion
+			[157] = 6.85, -- Rezan's Fury
+			[562] = 7.12, -- Treacherous Covenant
+			[82] = 7.09, -- Champion of Azeroth
+			[521] = 4.7, -- Shadow of Elune
+			[477] = 0.2, -- Bury the Hatchet
+			[499] = 2.86, -- Ricocheting Inflatable Pyrosaw
+			[156] = 3.45, -- Ruinous Bolt
+			[101] = 0.13, -- Shimmering Haven
+			[480] = 4.78, -- Blood Rite
+			[196] = 6, -- Swirling Sands
+			[195] = 4.61, -- Secrets of the Deep
+			[20] = 2.7, -- Lifespeed
+			[44] = 0.11, -- Vampiric Speed
+			[459] = 2.44, -- Unstable Flames
+			[541] = 2.04, -- Fight or Flight
+			[174] = 0.07, -- Gathering Storm
+			[229] = 5.76, -- Pulverizing Blows
+			[99] = 0.16, -- Ablative Shielding
+			[560] = 2.96, -- Bonded Souls
+			[494] = 6.98, -- Battlefield Precision
+			[501] = 5.67, -- Relational Normalization Gizmo
+			[18] = 2.24, -- Blood Siphon
+			[561] = 4.65, -- Seductive Power
+			[451] = 5.37, -- Infinite Fury
+			[523] = 4.72, -- Apothecary's Concoctions
+			[86] = 0.18, -- Azerite Fortification
+			[15] = 0.22, -- Resounding Protection
+			[98] = 0.16, -- Crystalline Carapace
+			[483] = 5.13, -- Archive of the Titans
+			[479] = 6.05, -- Dagger in the Back
+		}, 1552989600)
+
+		insertDefaultScalesData(offensiveName, 1, 3, { -- Protection Warrior
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5711 - 8319 (avg 6240), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[450] = 3.46, -- Brace for Impact
+			[459] = 2.15, -- Unstable Flames
+			[498] = 5.52, -- Barrage Of Many Bombs
+			[483] = 4.92, -- Archive of the Titans
+			[89] = 0.06, -- Azerite Veins
+			[441] = 3.53, -- Iron Fortress
+			[118] = 10, -- Deafening Crash
+			[541] = 1.65, -- Fight or Flight
+			[98] = 0.03, -- Crystalline Carapace
+			[21] = 1.92, -- Elemental Whirl
+			[43] = 0.05, -- Winds of War
+			[480] = 3.84, -- Blood Rite
+			[20] = 1.89, -- Lifespeed
+			[501] = 5.02, -- Relational Normalization Gizmo
+			[497] = 1.11, -- Stand As One
+			[30] = 3.85, -- Overwhelming Power
+			[462] = 2.35, -- Azerite Globules
+			[477] = 0.06, -- Bury the Hatchet
+			[523] = 5.58, -- Apothecary's Concoctions
+			[505] = 4.13, -- Tradewinds
+			[157] = 8.01, -- Rezan's Fury
+			[85] = 0.04, -- Gemhide
+			[192] = 4.94, -- Meticulous Scheming
+			[86] = 0.07, -- Azerite Fortification
+			[492] = 3.53, -- Liberator's Might
+			[478] = 7.09, -- Tidal Surge
+			[522] = 5.92, -- Ancients' Bulwark
+			[496] = 1.11, -- Stronger Together
+			[561] = 4.31, -- Seductive Power
+			[562] = 7.11, -- Treacherous Covenant
+			[560] = 2.12, -- Bonded Souls
+			[101] = 0.03, -- Shimmering Haven
+			[503] = 0.09, -- Auto-Self-Cauterizer
+			[31] = 3.75, -- Gutripper
+			[521] = 3.76, -- Shadow of Elune
+			[196] = 5.34, -- Swirling Sands
+			[526] = 5.76, -- Endless Hunger
+			[82] = 5.42, -- Champion of Azeroth
+			[485] = 7.31, -- Laser Matrix
+			[14] = 0.04, -- Longstrider
+			[22] = 3.68, -- Heed My Call
+			[495] = 4.42, -- Anduin's Dedication
+			[87] = 0.02, -- Self Reliance
+			[493] = 2.26, -- Last Gift
+			[18] = 1.62, -- Blood Siphon
+			[554] = 0.06, -- Intimidating Presence
+			[494] = 5.66, -- Battlefield Precision
+			[500] = 3.96, -- Synaptic Spark Capacitor
+			[482] = 6.95, -- Thunderous Blast
+			[195] = 4.55, -- Secrets of the Deep
+			[194] = 7.19, -- Filthy Transfusion
+			[481] = 3.86, -- Incite the Pack
+			[504] = 5.18, -- Unstable Catalyst
+			[156] = 4.27, -- Ruinous Bolt
+			[499] = 3.43, -- Ricocheting Inflatable Pyrosaw
+			[83] = 0.1, -- Impassive Visage
+			[479] = 4.99, -- Dagger in the Back
+			[237] = 6.24, -- Bastion of Might
+			[440] = 1.73, -- Callous Reprisal
+			[461] = 1.6, -- Earthlink
+			[177] = 0.06, -- Bloodsport
+			[44] = 0.07, -- Vampiric Speed
+			[193] = 5.98, -- Blightborne Infusion
+			[502] = 0.01, -- Personal Absorb-o-Tron
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 12, 2, { -- Vengeance Demon Hunter (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 4803 - 7957 (avg 5406), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[87] = 0.1, -- Self Reliance
+			[496] = 0.51, -- Stronger Together
+			[85] = 0.13, -- Gemhide
+			[194] = 0.11, -- Filthy Transfusion
+			[560] = 1.19, -- Bonded Souls
+			[479] = 0.02, -- Dagger in the Back
+			[497] = 0.38, -- Stand As One
+			[462] = 0.11, -- Azerite Globules
+			[196] = 1.84, -- Swirling Sands
+			[193] = 2.1, -- Blightborne Infusion
+			[494] = 0.07, -- Battlefield Precision
+			[541] = 0.69, -- Fight or Flight
+			[562] = 2.7, -- Treacherous Covenant
+			[44] = 0.06, -- Vampiric Speed
+			[156] = 0.06, -- Ruinous Bolt
+			[561] = 0.25, -- Seductive Power
+			[31] = 0.08, -- Gutripper
+			[100] = 0.08, -- Strength in Numbers
+			[482] = 0.12, -- Thunderous Blast
+			[98] = 0.03, -- Crystalline Carapace
+			[82] = 2.61, -- Champion of Azeroth
+			[22] = 0.09, -- Heed My Call
+			[495] = 1.75, -- Anduin's Dedication
+			[221] = 0.08, -- Rigid Carapace
+			[481] = 1.45, -- Incite the Pack
+			[157] = 0.08, -- Rezan's Fury
+			[521] = 2.6, -- Shadow of Elune
+			[84] = 0.05, -- Bulwark of the Masses
+			[492] = 1.8, -- Liberator's Might
+			[202] = 0.07, -- Soulmonger
+			[504] = 1.98, -- Unstable Catalyst
+			[99] = 0.08, -- Ablative Shielding
+			[466] = 0.15, -- Burning Soul
+			[86] = 0.11, -- Azerite Fortification
+			[89] = 0.1, -- Azerite Veins
+			[30] = 2.28, -- Overwhelming Power
+			[502] = 0.07, -- Personal Absorb-o-Tron
+			[459] = 0.79, -- Unstable Flames
+			[14] = 0.11, -- Longstrider
+			[564] = 0.02, -- Thrive in Chaos
+			[354] = 0.06, -- Cycle of Binding
+			[522] = 2, -- Ancients' Bulwark
+			[493] = 0.82, -- Last Gift
+			[18] = 3.05, -- Blood Siphon
+			[483] = 1.86, -- Archive of the Titans
+			[20] = 1.34, -- Lifespeed
+			[526] = 2, -- Endless Hunger
+			[21] = 0.97, -- Elemental Whirl
+			[498] = 0.09, -- Barrage Of Many Bombs
+			[160] = 0.1, -- Infernal Armor
+			[505] = 1.63, -- Tradewinds
+			[461] = 0.64, -- Earthlink
+			[134] = 0.04, -- Revel in Pain
+			[480] = 2.67, -- Blood Rite
+			[195] = 1.76, -- Secrets of the Deep
+			[499] = 0.01, -- Ricocheting Inflatable Pyrosaw
+			[101] = 0.08, -- Shimmering Haven
+			[43] = 0.06, -- Winds of War
+			[503] = 0.05, -- Auto-Self-Cauterizer
+			[355] = 0.06, -- Essence Sever
+			[478] = 0.05, -- Tidal Surge
+			[13] = 0.12, -- Azerite Empowered
+			[246] = 0.01, -- Hour of Reaping
+			[485] = 0.08, -- Laser Matrix
+			[83] = 0.03, -- Impassive Visage
+			[192] = 3.58, -- Meticulous Scheming
+			[501] = 2.39, -- Relational Normalization Gizmo
+			[15] = 10, -- Resounding Protection
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 6, 1, { -- Blood Death Knight (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 7296 - 10277 (avg 7842), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[348] = 0.84, -- Eternal Rune Weapon
+			[480] = 2.45, -- Blood Rite
+			[106] = 2.86, -- Deep Cuts
+			[243] = 5.15, -- Bloody Runeblade
+			[15] = 10, -- Resounding Protection
+			[140] = 1.99, -- Bone Spike Graveyard
+			[501] = 2.08, -- Relational Normalization Gizmo
+			[98] = 0.02, -- Crystalline Carapace
+			[503] = 0.06, -- Auto-Self-Cauterizer
+			[523] = 0.02, -- Apothecary's Concoctions
+			[560] = 1.3, -- Bonded Souls
+			[478] = 0.14, -- Tidal Surge
+			[44] = 0.05, -- Vampiric Speed
+			[13] = 0.06, -- Azerite Empowered
+			[82] = 1.47, -- Champion of Azeroth
+			[100] = 0.05, -- Strength in Numbers
+			[505] = 0.55, -- Tradewinds
+			[157] = 0.09, -- Rezan's Fury
+			[526] = 0.79, -- Endless Hunger
+			[497] = 0.06, -- Stand As One
+			[481] = 0.49, -- Incite the Pack
+			[18] = 2.06, -- Blood Siphon
+			[20] = 1.3, -- Lifespeed
+			[549] = 0.07, -- Cold Hearted
+			[349] = 0.65, -- Bones of the Damned
+			[541] = 0.25, -- Fight or Flight
+			[521] = 2.33, -- Shadow of Elune
+			[195] = 0.61, -- Secrets of the Deep
+			[459] = 0.27, -- Unstable Flames
+			[21] = 0.6, -- Elemental Whirl
+			[465] = 0.02, -- March of the Damned
+			[14] = 0.05, -- Longstrider
+			[522] = 0.72, -- Ancients' Bulwark
+			[461] = 0.3, -- Earthlink
+			[495] = 0.61, -- Anduin's Dedication
+			[101] = 0.05, -- Shimmering Haven
+			[43] = 0.08, -- Winds of War
+			[502] = 0.08, -- Personal Absorb-o-Tron
+			[85] = 0.04, -- Gemhide
+			[192] = 3.2, -- Meticulous Scheming
+			[193] = 0.85, -- Blightborne Infusion
+			[89] = 0.08, -- Azerite Veins
+			[500] = 0.07, -- Synaptic Spark Capacitor
+			[561] = 0.22, -- Seductive Power
+			[496] = 0.41, -- Stronger Together
+			[197] = 4.38, -- Marrowblood
+			[196] = 0.84, -- Swirling Sands
+			[492] = 1.27, -- Liberator's Might
+			[562] = 1, -- Treacherous Covenant
+			[30] = 2.31, -- Overwhelming Power
+			[498] = 0.18, -- Barrage Of Many Bombs
+			[485] = 0.2, -- Laser Matrix
+			[483] = 0.56, -- Archive of the Titans
+			[493] = 0.37, -- Last Gift
+			[86] = 0.07, -- Azerite Fortification
+			[194] = 0.01, -- Filthy Transfusion
+			[494] = 0.17, -- Battlefield Precision
+			[462] = 0.11, -- Azerite Globules
+			[479] = 0.05, -- Dagger in the Back
+			[504] = 0.64, -- Unstable Catalyst
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 11, 3, { -- Guardian Druid (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5594 - 8184 (avg 6163), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[463] = 0.03, -- Blessed Portents
+			[44] = 0.01, -- Vampiric Speed
+			[20] = 0.02, -- Lifespeed
+			[461] = 0.03, -- Earthlink
+			[103] = 0.02, -- Concentrated Mending
+			[541] = 0.02, -- Fight or Flight
+			[18] = 10, -- Blood Siphon
+			[89] = 0.01, -- Azerite Veins
+			[43] = 0.01, -- Winds of War
+			[478] = 0.01, -- Tidal Surge
+			[19] = 0.01, -- Woundbinder
+			[192] = 0.01, -- Meticulous Scheming
+			[219] = 0.01, -- Reawakening
+			[100] = 0.01, -- Strength in Numbers
+			[15] = 0.01, -- Resounding Protection
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 10, 1, { -- Brewmaster Monk (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5336 - 11375 (avg 6338), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[196] = 0.33, -- Swirling Sands
+			[461] = 0.07, -- Earthlink
+			[15] = 6.13, -- Resounding Protection
+			[101] = 0.01, -- Shimmering Haven
+			[192] = 0.02, -- Meticulous Scheming
+			[499] = 0.01, -- Ricocheting Inflatable Pyrosaw
+			[38] = 0.09, -- On My Way
+			[496] = 0.05, -- Stronger Together
+			[21] = 0.08, -- Elemental Whirl
+			[566] = 0.01, -- Exit Strategy
+			[478] = 0.01, -- Tidal Surge
+			[560] = 0.01, -- Bonded Souls
+			[541] = 0.08, -- Fight or Flight
+			[238] = 0.01, -- Fit to Burst
+			[19] = 0.01, -- Woundbinder
+			[562] = 0.33, -- Treacherous Covenant
+			[481] = 0.22, -- Incite the Pack
+			[493] = 0.13, -- Last Gift
+			[85] = 0.02, -- Gemhide
+			[18] = 1.82, -- Blood Siphon
+			[195] = 0.22, -- Secrets of the Deep
+			[384] = 0.01, -- Elusive Footwork
+			[492] = 0.15, -- Liberator's Might
+			[31] = 0.01, -- Gutripper
+			[30] = 0.01, -- Overwhelming Power
+			[193] = 0.38, -- Blightborne Infusion
+			[504] = 0.25, -- Unstable Catalyst
+			[480] = 0.02, -- Blood Rite
+			[483] = 0.24, -- Archive of the Titans
+			[89] = 0.01, -- Azerite Veins
+			[521] = 0.02, -- Shadow of Elune
+			[44] = 0.01, -- Vampiric Speed
+			[82] = 0.24, -- Champion of Azeroth
+			[98] = 0.01, -- Crystalline Carapace
+			[526] = 0.28, -- Endless Hunger
+			[470] = 0.01, -- Sweep the Leg
+			[459] = 0.13, -- Unstable Flames
+			[503] = 0.01, -- Auto-Self-Cauterizer
+			[505] = 0.25, -- Tradewinds
+			[494] = 0.01, -- Battlefield Precision
+			[186] = 0.29, -- Staggering Strikes
+			[116] = 10, -- Boiling Brew
+			[100] = 0.01, -- Strength in Numbers
+			[522] = 0.29, -- Ancients' Bulwark
+			[485] = 0.01, -- Laser Matrix
+			[523] = 0.01, -- Apothecary's Concoctions
+			[99] = 0.01, -- Ablative Shielding
+			[561] = 0.14, -- Seductive Power
+			[383] = 0.13, -- Training of Niuzao
+			[382] = 0.01, -- Straight, No Chaser
+			[42] = 0.02, -- Savior
+			[495] = 0.22, -- Anduin's Dedication
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 2, 2, { -- Protection Paladin (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 11487 - 14346 (avg 12353), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[196] = 0.01, -- Swirling Sands
+			[526] = 0.04, -- Endless Hunger
+			[150] = 0.01, -- Soaring Shield
+			[522] = 0.04, -- Ancients' Bulwark
+			[18] = 3.06, -- Blood Siphon
+			[501] = 0.02, -- Relational Normalization Gizmo
+			[82] = 0.02, -- Champion of Azeroth
+			[15] = 10, -- Resounding Protection
+			[38] = 0.01, -- On My Way
+			[125] = 0.02, -- Avenger's Might
+			[193] = 0.01, -- Blightborne Infusion
+			[561] = 0.05, -- Seductive Power
+			[521] = 0.01, -- Shadow of Elune
+			[493] = 0.02, -- Last Gift
+			[481] = 0.03, -- Incite the Pack
+			[505] = 0.03, -- Tradewinds
+			[497] = 0.01, -- Stand As One
+		}, 1552989600)
+
+		insertDefaultScalesData(defensiveName, 1, 3, { -- Protection Warrior (TMI)
+			-- SimulationCraft 815-01 for World of Warcraft 8.1.5 Live (wow build 29683)
+			-- Iterations: 5612 - 8421 (avg 6263), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 19.03.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
+			[156] = 0.03, -- Ruinous Bolt
+			[18] = 3.91, -- Blood Siphon
+			[493] = 0.03, -- Last Gift
+			[504] = 0.02, -- Unstable Catalyst
+			[477] = 0.02, -- Bury the Hatchet
+			[82] = 0.02, -- Champion of Azeroth
+			[44] = 0.01, -- Vampiric Speed
+			[523] = 0.2, -- Apothecary's Concoctions
+			[196] = 0.13, -- Swirling Sands
+			[101] = 0.02, -- Shimmering Haven
+			[505] = 0.02, -- Tradewinds
+			[483] = 0.03, -- Archive of the Titans
+			[15] = 10, -- Resounding Protection
+			[13] = 0.02, -- Azerite Empowered
+			[237] = 0.72, -- Bastion of Might
+			[85] = 0.02, -- Gemhide
+			[502] = 0.02, -- Personal Absorb-o-Tron
+			[84] = 0.02, -- Bulwark of the Masses
+			[157] = 0.32, -- Rezan's Fury
+			[83] = 0.02, -- Impassive Visage
+			[476] = 0.01, -- Moment of Glory
+			[541] = 0.01, -- Fight or Flight
+			[562] = 0.04, -- Treacherous Covenant
+			[86] = 0.01, -- Azerite Fortification
+			[481] = 0.03, -- Incite the Pack
+			[459] = 0.06, -- Unstable Flames
+			[480] = 0.01, -- Blood Rite
+			[177] = 3.74, -- Bloodsport
+			[195] = 0.05, -- Secrets of the Deep
+			[193] = 0.12, -- Blightborne Infusion
+			[554] = 0.01, -- Intimidating Presence
+			[21] = 0.02, -- Elemental Whirl
+			[14] = 0.02, -- Longstrider
+			[440] = 0.08, -- Callous Reprisal
+			[521] = 0.01, -- Shadow of Elune
+			[479] = 0.29, -- Dagger in the Back
+			[99] = 0.03, -- Ablative Shielding
+			[100] = 0.01, -- Strength in Numbers
+			[503] = 0.03, -- Auto-Self-Cauterizer
+			[89] = 0.01, -- Azerite Veins
+			[461] = 0.03, -- Earthlink
+			[98] = 0.01, -- Crystalline Carapace
+			[87] = 0.01, -- Self Reliance
+			[441] = 0.03, -- Iron Fortress
+			[194] = 0.59, -- Filthy Transfusion
+			[496] = 0.03, -- Stronger Together
+			[495] = 0.05, -- Anduin's Dedication
+			[497] = 0.01, -- Stand As One
+			[492] = 0.05, -- Liberator's Might
+		}, 1552989600)
+
+		insertDefaultScalesData(defaultName, 5, 3, { -- Shadow Priest
 			-- Shadow Priest by WarcraftPriests (https://warcraftpriests.com/)
 			-- https://github.com/WarcraftPriests/bfa-shadow-priest/blob/master/azerite-traits/AzeritePowerWeights_DA.md
-			-- First Imported: 03.09.2018, Updated: 31.01.2019
-			[405] = 4.67,
-			[193] = 4.39,
+			-- First Imported: 03.09.2018, Updated: 19.03.2019
+			[405] = 4.6,
+			[193] = 4.43,
+			[236] = 4.34,
 			[562] = 4.33,
-			[196] = 3.92,
+			[196] = 3.97,
 			[82] = 3.91,
 			[479] = 3.7,
-			[488] = 3.61,
-			[522] = 3.57,
-			[157] = 3.53,
-			[526] = 3.51,
+			[488] = 3.66,
+			[157] = 3.57,
+			[522] = 3.54,
+			[526] = 3.54,
 			[501] = 3.44,
-			[192] = 3.35,
-			[236] = 3.17,
-			[485] = 3.17,
-			[504] = 3.16,
-			[478] = 3.15,
-			[194] = 3.14,
+			[192] = 3.32,
+			[194] = 3.21,
+			[478] = 3.21,
+			[485] = 3.2,
+			[504] = 3.19,
 			[483] = 3.13,
-			[403] = 3.03,
-			[482] = 3.02,
-			[523] = 2.9,
-			[195] = 2.88,
-			[404] = 2.85,
-			[505] = 2.76,
-			[489] = 2.73,
+			[482] = 3.11,
+			[403] = 3.06,
+			[523] = 2.94,
+			[195] = 2.87,
+			[404] = 2.84,
+			[505] = 2.78,
+			[489] = 2.74,
 			[30] = 2.69,
-			[521] = 2.66,
-			[480] = 2.64,
+			[480] = 2.66,
+			[521] = 2.64,
 			[561] = 2.61,
-			[486] = 2.6,
 			[481] = 2.59,
-			[498] = 2.29,
-			[156] = 1.89,
-			[31] = 1.71,
-			[500] = 1.7,
-			[22] = 1.58,
+			[486] = 2.58,
+			[498] = 2.33,
+			[156] = 1.92,
+			[31] = 1.74,
+			[500] = 1.73,
+			[22] = 1.59,
 			[459] = 1.53,
-			[487] = 1.47,
+			[487] = 1.48,
+			[499] = 1.42,
 			[560] = 1.38,
-			[499] = 1.37,
 			[21] = 1.31,
 			[166] = 1.24,
-			[491] = 1.08,
-			[18] = 1.02,
-			[462] = 1.02,
-			[38] = 1.01,
-			[461] = 0.94,
-			[490] = 0.8,
+			[491] = 1.05,
+			[462] = 1.04,
+			[18] = 1.03,
+			[38] = 1.03,
+			[461] = 0.96,
+			[490] = 0.79,
 			[13] = 0.44,
-			[541] = 0.01,
-		})
+			[115] = 0.01,
+			[541] = 0,
+		}, 1552989600)
 
-	-- Death Knight
-		-- Blood
-		insertDefaultScalesData(offensiveName, 6, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 7168 - 10368 (avg 7834), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 1.68, -- Blood Siphon
-			[20] = 1.5, -- Lifespeed
-			[21] = 2.02, -- Elemental Whirl
-			[22] = 4.43, -- Heed My Call
-			[30] = 3.36, -- Overwhelming Power
-			[31] = 4.82, -- Gutripper
-			[82] = 6.1, -- Champion of Azeroth
-			[84] = 0.03, -- Bulwark of the Masses
-			[87] = 0.01, -- Self Reliance
-			[98] = 0.1, -- Crystalline Carapace
-			[100] = 0.11, -- Strength in Numbers
-			[101] = 0.07, -- Shimmering Haven
-			[106] = 2.79, -- Deep Cuts
-			[140] = 1.13, -- Bone Spike Graveyard
-			[156] = 5.44, -- Ruinous Bolt
-			[157] = 9.99, -- Rezan's Fury
-			[192] = 4.46, -- Meticulous Scheming
-			[193] = 7.26, -- Blightborne Infusion
-			[194] = 9.22, -- Filthy Transfusion
-			[195] = 5.12, -- Secrets of the Deep
-			[196] = 6.35, -- Swirling Sands
-			[197] = 0.05, -- Marrowblood
-			[243] = 4.14, -- Bloody Runeblade
-			[348] = 4.94, -- Eternal Rune Weapon
-			[349] = 0.26, -- Bones of the Damned
-			[459] = 2.56, -- Unstable Flames
-			[461] = 1.73, -- Earthlink
-			[462] = 2.97, -- Azerite Globules
-			[465] = 0.01, -- March of the Damned
-			[478] = 9.24, -- Tidal Surge
-			[479] = 7.25, -- Dagger in the Back
-			[480] = 3.64, -- Blood Rite
-			[481] = 4.26, -- Incite the Pack
-			[482] = 8.69, -- Thunderous Blast
-			[483] = 5.52, -- Archive of the Titans
-			[485] = 8.85, -- Laser Matrix
-			[492] = 3.89, -- Liberator's Might
-			[493] = 2.52, -- Last Gift
-			[494] = 10, -- Battlefield Precision
-			[495] = 4.99, -- Anduin's Dedication
-			[496] = 1.16, -- Stronger Together
-			[497] = 1.34, -- Stand As One
-			[498] = 6.47, -- Barrage Of Many Bombs
-			[499] = 3.85, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.93, -- Synaptic Spark Capacitor
-			[501] = 5.1, -- Relational Normalization Gizmo
-			[502] = 0.02, -- Personal Absorb-o-Tron
-			[503] = 0.06, -- Auto-Self-Cauterizer
-			[504] = 5.69, -- Unstable Catalyst
-			[505] = 4.51, -- Tradewinds
-			[521] = 3.53, -- Shadow of Elune
-			[522] = 6.66, -- Ancients' Bulwark
-			[523] = 8.2, -- Apothecary's Concoctions
-			[526] = 6.7, -- Endless Hunger
-			[560] = 1.63, -- Bonded Souls
-			[561] = 4.73, -- Seductive Power
-			[562] = 7.95, -- Treacherous Covenant
-		})
-		insertDefaultScalesData(defensiveName, 6, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 7301 - 10209 (avg 7857), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 10, -- Resounding Protection
-			[18] = 1.87, -- Blood Siphon
-			[20] = 1.42, -- Lifespeed
-			[21] = 0.52, -- Elemental Whirl
-			[30] = 2.26, -- Overwhelming Power
-			[31] = 0.01, -- Gutripper
-			[43] = 0.03, -- Winds of War
-			[82] = 1.35, -- Champion of Azeroth
-			[106] = 2.8, -- Deep Cuts
-			[140] = 2, -- Bone Spike Graveyard
-			[156] = 0.01, -- Ruinous Bolt
-			[192] = 3.05, -- Meticulous Scheming
-			[193] = 0.86, -- Blightborne Infusion
-			[194] = 0.01, -- Filthy Transfusion
-			[195] = 0.53, -- Secrets of the Deep
-			[196] = 0.7, -- Swirling Sands
-			[197] = 4.17, -- Marrowblood
-			[243] = 5.46, -- Bloody Runeblade
-			[348] = 0.68, -- Eternal Rune Weapon
-			[349] = 0.59, -- Bones of the Damned
-			[459] = 0.25, -- Unstable Flames
-			[461] = 0.12, -- Earthlink
-			[478] = 0.02, -- Tidal Surge
-			[480] = 2.56, -- Blood Rite
-			[481] = 0.38, -- Incite the Pack
-			[482] = 0.02, -- Thunderous Blast
-			[483] = 0.61, -- Archive of the Titans
-			[485] = 0.01, -- Laser Matrix
-			[492] = 1.18, -- Liberator's Might
-			[493] = 0.26, -- Last Gift
-			[495] = 0.38, -- Anduin's Dedication
-			[496] = 0.18, -- Stronger Together
-			[499] = 0.06, -- Ricocheting Inflatable Pyrosaw
-			[501] = 2.05, -- Relational Normalization Gizmo
-			[503] = 0.05, -- Auto-Self-Cauterizer
-			[504] = 0.66, -- Unstable Catalyst
-			[505] = 0.49, -- Tradewinds
-			[521] = 2.36, -- Shadow of Elune
-			[522] = 0.68, -- Ancients' Bulwark
-			[526] = 0.62, -- Endless Hunger
-			[560] = 1.2, -- Bonded Souls
-			[561] = 0.02, -- Seductive Power
-			[562] = 0.85, -- Treacherous Covenant
-		})
-
-		-- Frost
-		insertDefaultScalesData(defaultName, 6, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 15501 - 19432 (avg 16331), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.06, -- Resounding Protection
-			[18] = 2.34, -- Blood Siphon
-			[20] = 2.13, -- Lifespeed
-			[21] = 2.63, -- Elemental Whirl
-			[22] = 3.12, -- Heed My Call
-			[30] = 3.75, -- Overwhelming Power
-			[31] = 3.4, -- Gutripper
-			[44] = 0.01, -- Vampiric Speed
-			[82] = 7.49, -- Champion of Azeroth
-			[83] = 0.04, -- Impassive Visage
-			[84] = 0.02, -- Bulwark of the Masses
-			[89] = 0.12, -- Azerite Veins
-			[98] = 0.07, -- Crystalline Carapace
-			[101] = 0.05, -- Shimmering Haven
-			[108] = 5.64, -- Icy Citadel
-			[141] = 5.05, -- Latent Chill
-			[156] = 4.34, -- Ruinous Bolt
-			[157] = 7.02, -- Rezan's Fury
-			[192] = 4.19, -- Meticulous Scheming
-			[193] = 8.69, -- Blightborne Infusion
-			[194] = 6.44, -- Filthy Transfusion
-			[195] = 6.39, -- Secrets of the Deep
-			[196] = 7.77, -- Swirling Sands
-			[198] = 3.61, -- Frostwhelp's Indignation
-			[242] = 4.55, -- Echoing Howl
-			[346] = 4.17, -- Killer Frost
-			[347] = 5.65, -- Frozen Tempest
-			[459] = 3.14, -- Unstable Flames
-			[461] = 2.22, -- Earthlink
-			[462] = 2.03, -- Azerite Globules
-			[478] = 8.46, -- Tidal Surge
-			[479] = 7.38, -- Dagger in the Back
-			[480] = 4.4, -- Blood Rite
-			[481] = 6.07, -- Incite the Pack
-			[482] = 6.09, -- Thunderous Blast
-			[483] = 6.71, -- Archive of the Titans
-			[485] = 6.1, -- Laser Matrix
-			[492] = 4.89, -- Liberator's Might
-			[493] = 3.56, -- Last Gift
-			[494] = 6.98, -- Battlefield Precision
-			[495] = 6.38, -- Anduin's Dedication
-			[496] = 1.46, -- Stronger Together
-			[497] = 1.76, -- Stand As One
-			[498] = 4.46, -- Barrage Of Many Bombs
-			[499] = 2.69, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.01, -- Synaptic Spark Capacitor
-			[501] = 6.3, -- Relational Normalization Gizmo
-			[502] = 0.1, -- Personal Absorb-o-Tron
-			[504] = 7.4, -- Unstable Catalyst
-			[505] = 6.85, -- Tradewinds
-			[521] = 4.4, -- Shadow of Elune
-			[522] = 8.17, -- Ancients' Bulwark
-			[523] = 5.82, -- Apothecary's Concoctions
-			[526] = 8.27, -- Endless Hunger
-			[541] = 0.03, -- Fight or Flight
-			[560] = 1.96, -- Bonded Souls
-			[561] = 5.24, -- Seductive Power
-			[562] = 10, -- Treacherous Covenant
-		})
-
-		-- Unholy
-		insertDefaultScalesData(defaultName, 6, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 8508 - 11722 (avg 9087), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.02, -- Resounding Protection
-			[18] = 1.86, -- Blood Siphon
-			[20] = 1.9, -- Lifespeed
-			[21] = 2.18, -- Elemental Whirl
-			[22] = 3.23, -- Heed My Call
-			[30] = 3.77, -- Overwhelming Power
-			[31] = 3.42, -- Gutripper
-			[43] = 0.2, -- Winds of War
-			[82] = 6.51, -- Champion of Azeroth
-			[83] = 0.12, -- Impassive Visage
-			[87] = 0.08, -- Self Reliance
-			[109] = 5.46, -- Magus of the Dead
-			[140] = 0.06, -- Bone Spike Graveyard
-			[142] = 6.52, -- Helchains
-			[156] = 4.34, -- Ruinous Bolt
-			[157] = 7.39, -- Rezan's Fury
-			[192] = 4.98, -- Meticulous Scheming
-			[193] = 7.85, -- Blightborne Infusion
-			[194] = 6.84, -- Filthy Transfusion
-			[195] = 5.67, -- Secrets of the Deep
-			[196] = 6.84, -- Swirling Sands
-			[199] = 10, -- Festermight
-			[201] = 0.01, -- Runic Barrier
-			[244] = 6.09, -- Harrowing Decay
-			[350] = 4.24, -- Cankerous Wounds
-			[351] = 3.75, -- Last Surprise
-			[459] = 2.84, -- Unstable Flames
-			[461] = 2.03, -- Earthlink
-			[462] = 2.09, -- Azerite Globules
-			[478] = 7.3, -- Tidal Surge
-			[479] = 7.47, -- Dagger in the Back
-			[480] = 4.45, -- Blood Rite
-			[481] = 4.58, -- Incite the Pack
-			[482] = 6.11, -- Thunderous Blast
-			[483] = 5.95, -- Archive of the Titans
-			[485] = 6.44, -- Laser Matrix
-			[492] = 4.52, -- Liberator's Might
-			[493] = 2.6, -- Last Gift
-			[494] = 7.39, -- Battlefield Precision
-			[495] = 5.64, -- Anduin's Dedication
-			[496] = 1.32, -- Stronger Together
-			[497] = 1.45, -- Stand As One
-			[498] = 4.66, -- Barrage Of Many Bombs
-			[499] = 2.87, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.88, -- Synaptic Spark Capacitor
-			[501] = 6.08, -- Relational Normalization Gizmo
-			[503] = 0.06, -- Auto-Self-Cauterizer
-			[504] = 6.47, -- Unstable Catalyst
-			[505] = 5.13, -- Tradewinds
-			[521] = 4.44, -- Shadow of Elune
-			[522] = 7.45, -- Ancients' Bulwark
-			[523] = 5.84, -- Apothecary's Concoctions
-			[526] = 7.6, -- Endless Hunger
-			[541] = 0.04, -- Fight or Flight
-			[560] = 1.86, -- Bonded Souls
-			[561] = 4.62, -- Seductive Power
-			[562] = 9.11, -- Treacherous Covenant
-		})
-
-	-- Shaman
-		-- Elemental
-		insertDefaultScalesData(defaultName, 7, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 14962 - 17962 (avg 15639), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.01, -- Resounding Protection
-			[18] = 0.77, -- Blood Siphon
-			[21] = 1.31, -- Elemental Whirl
-			[22] = 1.91, -- Heed My Call
-			[30] = 2.26, -- Overwhelming Power
-			[31] = 1.91, -- Gutripper
-			[38] = 1.24, -- On My Way
-			[82] = 3.65, -- Champion of Azeroth
-			[156] = 2.51, -- Ruinous Bolt
-			[157] = 4.19, -- Rezan's Fury
-			[178] = 3.58, -- Lava Shock
-			[192] = 3.11, -- Meticulous Scheming
-			[193] = 4.72, -- Blightborne Infusion
-			[194] = 3.63, -- Filthy Transfusion
-			[195] = 3.7, -- Secrets of the Deep
-			[196] = 4.17, -- Swirling Sands
-			[222] = 2.48, -- Echo of the Elementals
-			[416] = 4.57, -- Natural Harmony
-			[447] = 3.37, -- Ancestral Resonance
-			[448] = 3.36, -- Synapse Shock
-			[457] = 10, -- Igneous Potential
-			[459] = 1.63, -- Unstable Flames
-			[461] = 1.27, -- Earthlink
-			[462] = 1.21, -- Azerite Globules
-			[478] = 4.31, -- Tidal Surge
-			[479] = 4.34, -- Dagger in the Back
-			[480] = 2.5, -- Blood Rite
-			[481] = 1.97, -- Incite the Pack
-			[482] = 3.45, -- Thunderous Blast
-			[483] = 3.96, -- Archive of the Titans
-			[485] = 3.65, -- Laser Matrix
-			[492] = 2.55, -- Liberator's Might
-			[493] = 1.06, -- Last Gift
-			[494] = 3.93, -- Battlefield Precision
-			[495] = 3.68, -- Anduin's Dedication
-			[496] = 0.73, -- Stronger Together
-			[497] = 0.95, -- Stand As One
-			[498] = 2.66, -- Barrage Of Many Bombs
-			[499] = 1.57, -- Ricocheting Inflatable Pyrosaw
-			[500] = 2.34, -- Synaptic Spark Capacitor
-			[501] = 3.58, -- Relational Normalization Gizmo
-			[502] = 0.06, -- Personal Absorb-o-Tron
-			[504] = 4.25, -- Unstable Catalyst
-			[505] = 2.09, -- Tradewinds
-			[521] = 2.56, -- Shadow of Elune
-			[522] = 4.32, -- Ancients' Bulwark
-			[523] = 3.4, -- Apothecary's Concoctions
-			[526] = 4.42, -- Endless Hunger
-			[560] = 1.17, -- Bonded Souls
-			[561] = 3.08, -- Seductive Power
-			[562] = 5.85, -- Treacherous Covenant
-		})
-
-		-- Enhancement
-		insertDefaultScalesData(defaultName, 7, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 15095 - 20210 (avg 17653), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.03, -- Azerite Empowered
-			[14] = 0.02, -- Longstrider
-			[15] = 0.04, -- Resounding Protection
-			[18] = 1.96, -- Blood Siphon
-			[21] = 2.35, -- Elemental Whirl
-			[22] = 2.96, -- Heed My Call
-			[30] = 3.87, -- Overwhelming Power
-			[31] = 3.15, -- Gutripper
-			[38] = 1.96, -- On My Way
-			[44] = 0.02, -- Vampiric Speed
-			[82] = 6.9, -- Champion of Azeroth
-			[84] = 0.07, -- Bulwark of the Masses
-			[85] = 0.05, -- Gemhide
-			[103] = 0.12, -- Concentrated Mending
-			[105] = 0.05, -- Ephemeral Recovery
-			[137] = 10, -- Primal Primer
-			[156] = 3.8, -- Ruinous Bolt
-			[157] = 6.65, -- Rezan's Fury
-			[179] = 6.33, -- Strength of Earth
-			[192] = 5.44, -- Meticulous Scheming
-			[193] = 7.33, -- Blightborne Infusion
-			[194] = 5.85, -- Filthy Transfusion
-			[195] = 5.82, -- Secrets of the Deep
-			[196] = 6.46, -- Swirling Sands
-			[223] = 3.62, -- Lightning Conduit
-			[416] = 9.39, -- Natural Harmony
-			[420] = 8.37, -- Roiling Storm
-			[447] = 8.12, -- Ancestral Resonance
-			[459] = 2.5, -- Unstable Flames
-			[461] = 2.07, -- Earthlink
-			[462] = 1.94, -- Azerite Globules
-			[463] = 0.09, -- Blessed Portents
-			[474] = 0.06, -- Pack Spirit
-			[478] = 6.43, -- Tidal Surge
-			[479] = 6.85, -- Dagger in the Back
-			[480] = 4.49, -- Blood Rite
-			[481] = 4.9, -- Incite the Pack
-			[482] = 5.58, -- Thunderous Blast
-			[483] = 6.45, -- Archive of the Titans
-			[485] = 5.77, -- Laser Matrix
-			[492] = 4.64, -- Liberator's Might
-			[493] = 2.87, -- Last Gift
-			[494] = 6.39, -- Battlefield Precision
-			[495] = 5.81, -- Anduin's Dedication
-			[496] = 1.34, -- Stronger Together
-			[497] = 1.48, -- Stand As One
-			[498] = 4.46, -- Barrage Of Many Bombs
-			[499] = 2.74, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.54, -- Synaptic Spark Capacitor
-			[501] = 6.16, -- Relational Normalization Gizmo
-			[502] = 0.04, -- Personal Absorb-o-Tron
-			[503] = 0.1, -- Auto-Self-Cauterizer
-			[504] = 6.78, -- Unstable Catalyst
-			[505] = 5.35, -- Tradewinds
-			[521] = 4.63, -- Shadow of Elune
-			[522] = 7.12, -- Ancients' Bulwark
-			[523] = 5.33, -- Apothecary's Concoctions
-			[526] = 7.15, -- Endless Hunger
-			[530] = 5.83, -- Thunderaan's Fury
-			[539] = 0.01, -- Ancient Ankh Talisman
-			[560] = 2.31, -- Bonded Souls
-			[561] = 4.91, -- Seductive Power
-			[562] = 9.09, -- Treacherous Covenant
-		})
-
-		-- Restoration
-		insertDefaultScalesData(defaultName, 7, 3, {
+		insertDefaultScalesData(defaultName, 2, 1, { -- Holy Paladin
 
 		})
 
-	-- Mage
-		-- Arcane
-		insertDefaultScalesData(defaultName, 8, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 19714 - 23805 (avg 20927), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 1.6, -- Blood Siphon
-			[21] = 1.79, -- Elemental Whirl
-			[22] = 2.41, -- Heed My Call
-			[30] = 2.47, -- Overwhelming Power
-			[31] = 2.6, -- Gutripper
-			[82] = 5.19, -- Champion of Azeroth
-			[87] = 0.01, -- Self Reliance
-			[88] = 6.18, -- Arcane Pummeling
-			[127] = 10, -- Equipoise
-			[156] = 3.69, -- Ruinous Bolt
-			[157] = 5.6, -- Rezan's Fury
-			[167] = 3.3, -- Brain Storm
-			[192] = 2.11, -- Meticulous Scheming
-			[193] = 6.25, -- Blightborne Infusion
-			[194] = 4.9, -- Filthy Transfusion
-			[195] = 4.89, -- Secrets of the Deep
-			[196] = 4.79, -- Swirling Sands
-			[214] = 2.54, -- Arcane Pressure
-			[374] = 6.72, -- Galvanizing Spark
-			[459] = 2.06, -- Unstable Flames
-			[461] = 1.64, -- Earthlink
-			[462] = 1.5, -- Azerite Globules
-			[468] = 0.01, -- Cauterizing Blink
-			[478] = 6.07, -- Tidal Surge
-			[479] = 5.77, -- Dagger in the Back
-			[480] = 3.46, -- Blood Rite
-			[481] = 4.16, -- Incite the Pack
-			[482] = 4.66, -- Thunderous Blast
-			[483] = 5.43, -- Archive of the Titans
-			[485] = 4.92, -- Laser Matrix
-			[492] = 3.52, -- Liberator's Might
-			[493] = 2.39, -- Last Gift
-			[494] = 4.92, -- Battlefield Precision
-			[495] = 4.9, -- Anduin's Dedication
-			[496] = 1.14, -- Stronger Together
-			[497] = 1.15, -- Stand As One
-			[498] = 3.61, -- Barrage Of Many Bombs
-			[499] = 2.17, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.43, -- Synaptic Spark Capacitor
-			[501] = 4.98, -- Relational Normalization Gizmo
-			[504] = 5.39, -- Unstable Catalyst
-			[505] = 4.41, -- Tradewinds
-			[521] = 3.38, -- Shadow of Elune
-			[522] = 6.27, -- Ancients' Bulwark
-			[523] = 4.53, -- Apothecary's Concoctions
-			[526] = 6.14, -- Endless Hunger
-			[560] = 1.21, -- Bonded Souls
-			[561] = 4.05, -- Seductive Power
-			[562] = 7.82, -- Treacherous Covenant
-		})
+		insertDefaultScalesData(defaultName, 5, 1, { -- Discipline Priest
 
-		-- Fire
-		insertDefaultScalesData(defaultName, 8, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 27756 - 32373 (avg 29898), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.03, -- Azerite Empowered
-			[15] = 0.05, -- Resounding Protection
-			[18] = 2.03, -- Blood Siphon
-			[21] = 1.93, -- Elemental Whirl
-			[22] = 3.17, -- Heed My Call
-			[30] = 2.46, -- Overwhelming Power
-			[31] = 3.4, -- Gutripper
-			[82] = 5.76, -- Champion of Azeroth
-			[84] = 0.09, -- Bulwark of the Masses
-			[87] = 0.03, -- Self Reliance
-			[128] = 2.66, -- Flames of Alacrity
-			[156] = 4.35, -- Ruinous Bolt
-			[157] = 7.02, -- Rezan's Fury
-			[168] = 10, -- Wildfire
-			[192] = 3.09, -- Meticulous Scheming
-			[193] = 6.93, -- Blightborne Infusion
-			[194] = 5.54, -- Filthy Transfusion
-			[195] = 5.29, -- Secrets of the Deep
-			[196] = 5.8, -- Swirling Sands
-			[215] = 1.43, -- Blaster Master
-			[376] = 4.3, -- Trailing Embers
-			[377] = 6.51, -- Duplicative Incineration
-			[378] = 6.79, -- Firemind
-			[459] = 2.3, -- Unstable Flames
-			[461] = 1.95, -- Earthlink
-			[462] = 2.02, -- Azerite Globules
-			[478] = 7.24, -- Tidal Surge
-			[479] = 7.12, -- Dagger in the Back
-			[480] = 3.15, -- Blood Rite
-			[481] = 4.57, -- Incite the Pack
-			[482] = 5.82, -- Thunderous Blast
-			[483] = 5.56, -- Archive of the Titans
-			[485] = 6.23, -- Laser Matrix
-			[492] = 3.42, -- Liberator's Might
-			[493] = 2.66, -- Last Gift
-			[494] = 7.03, -- Battlefield Precision
-			[495] = 5.19, -- Anduin's Dedication
-			[496] = 1.3, -- Stronger Together
-			[497] = 1.42, -- Stand As One
-			[498] = 4.43, -- Barrage Of Many Bombs
-			[499] = 2.74, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.95, -- Synaptic Spark Capacitor
-			[501] = 4.85, -- Relational Normalization Gizmo
-			[504] = 5.9, -- Unstable Catalyst
-			[505] = 4.93, -- Tradewinds
-			[521] = 3.07, -- Shadow of Elune
-			[522] = 6.65, -- Ancients' Bulwark
-			[523] = 5.81, -- Apothecary's Concoctions
-			[526] = 6.65, -- Endless Hunger
-			[541] = 0.1, -- Fight or Flight
-			[546] = 0.03, -- Quick Thinking
-			[560] = 1.4, -- Bonded Souls
-			[561] = 4.43, -- Seductive Power
-			[562] = 8.31, -- Treacherous Covenant
 		})
-
-		-- Frost
-		insertDefaultScalesData(defaultName, 8, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 17711 - 21149 (avg 19388), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 1.38, -- Blood Siphon
-			[21] = 1.92, -- Elemental Whirl
-			[22] = 2.4, -- Heed My Call
-			[30] = 3.13, -- Overwhelming Power
-			[31] = 2.59, -- Gutripper
-			[82] = 5.37, -- Champion of Azeroth
-			[132] = 4.63, -- Packed Ice
-			[156] = 3.37, -- Ruinous Bolt
-			[157] = 5.6, -- Rezan's Fury
-			[170] = 10, -- Flash Freeze
-			[192] = 3.45, -- Meticulous Scheming
-			[193] = 5.79, -- Blightborne Infusion
-			[194] = 5.04, -- Filthy Transfusion
-			[195] = 4.92, -- Secrets of the Deep
-			[196] = 5.42, -- Swirling Sands
-			[225] = 5.03, -- Glacial Assault
-			[379] = 5.27, -- Tunnel of Ice
-			[380] = 4.9, -- Whiteout
-			[381] = 4.7, -- Frigid Grasp
-			[459] = 2.21, -- Unstable Flames
-			[461] = 1.67, -- Earthlink
-			[462] = 1.51, -- Azerite Globules
-			[478] = 5.5, -- Tidal Surge
-			[479] = 5.72, -- Dagger in the Back
-			[480] = 3.48, -- Blood Rite
-			[481] = 3.71, -- Incite the Pack
-			[482] = 4.76, -- Thunderous Blast
-			[483] = 5.21, -- Archive of the Titans
-			[485] = 4.93, -- Laser Matrix
-			[492] = 3.66, -- Liberator's Might
-			[493] = 2.12, -- Last Gift
-			[494] = 5.18, -- Battlefield Precision
-			[495] = 4.84, -- Anduin's Dedication
-			[496] = 1.03, -- Stronger Together
-			[497] = 1.11, -- Stand As One
-			[498] = 3.51, -- Barrage Of Many Bombs
-			[499] = 2.14, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.09, -- Synaptic Spark Capacitor
-			[501] = 4.95, -- Relational Normalization Gizmo
-			[504] = 5.71, -- Unstable Catalyst
-			[505] = 3.9, -- Tradewinds
-			[521] = 3.43, -- Shadow of Elune
-			[522] = 5.55, -- Ancients' Bulwark
-			[523] = 4.58, -- Apothecary's Concoctions
-			[526] = 5.82, -- Endless Hunger
-			[560] = 1.64, -- Bonded Souls
-			[561] = 4.08, -- Seductive Power
-			[562] = 7.44, -- Treacherous Covenant
-		})
-
-	-- Warlock
-		-- Affliction
-		insertDefaultScalesData(defaultName, 9, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 10762 - 14194 (avg 11824), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.13, -- Azerite Empowered
-			[14] = 0.04, -- Longstrider
-			[15] = 0.12, -- Resounding Protection
-			[18] = 2.74, -- Blood Siphon
-			[21] = 2.97, -- Elemental Whirl
-			[22] = 3.85, -- Heed My Call
-			[30] = 5.14, -- Overwhelming Power
-			[31] = 4.24, -- Gutripper
-			[44] = 0.06, -- Vampiric Speed
-			[82] = 7.83, -- Champion of Azeroth
-			[83] = 0.13, -- Impassive Visage
-			[84] = 0.27, -- Bulwark of the Masses
-			[85] = 0.1, -- Gemhide
-			[86] = 0.06, -- Azerite Fortification
-			[87] = 0.09, -- Self Reliance
-			[123] = 8.92, -- Wracking Brilliance
-			[156] = 5.11, -- Ruinous Bolt
-			[157] = 8.73, -- Rezan's Fury
-			[183] = 8.51, -- Inevitable Demise
-			[192] = 6.24, -- Meticulous Scheming
-			[193] = 7.9, -- Blightborne Infusion
-			[194] = 7.82, -- Filthy Transfusion
-			[195] = 6.51, -- Secrets of the Deep
-			[196] = 7.08, -- Swirling Sands
-			[208] = 0.05, -- Lifeblood
-			[230] = 7.29, -- Cascading Calamity
-			[425] = 7.33, -- Sudden Onset
-			[426] = 5.54, -- Dreadful Calling
-			[442] = 8.36, -- Pandemic Invocation
-			[459] = 2.71, -- Unstable Flames
-			[461] = 2.48, -- Earthlink
-			[462] = 2.82, -- Azerite Globules
-			[475] = 0.16, -- Desperate Power
-			[478] = 8.53, -- Tidal Surge
-			[479] = 8.81, -- Dagger in the Back
-			[480] = 5.41, -- Blood Rite
-			[481] = 6.52, -- Incite the Pack
-			[482] = 7.43, -- Thunderous Blast
-			[483] = 6.77, -- Archive of the Titans
-			[485] = 7.67, -- Laser Matrix
-			[492] = 5.11, -- Liberator's Might
-			[493] = 3.82, -- Last Gift
-			[494] = 8.83, -- Battlefield Precision
-			[495] = 6.34, -- Anduin's Dedication
-			[496] = 1.68, -- Stronger Together
-			[497] = 1.78, -- Stand As One
-			[498] = 5.73, -- Barrage Of Many Bombs
-			[499] = 3.25, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.64, -- Synaptic Spark Capacitor
-			[501] = 7.22, -- Relational Normalization Gizmo
-			[502] = 0.11, -- Personal Absorb-o-Tron
-			[503] = 0.07, -- Auto-Self-Cauterizer
-			[504] = 7.33, -- Unstable Catalyst
-			[505] = 7.38, -- Tradewinds
-			[521] = 5.37, -- Shadow of Elune
-			[522] = 8.23, -- Ancients' Bulwark
-			[523] = 6.78, -- Apothecary's Concoctions
-			[526] = 8.35, -- Endless Hunger
-			[531] = 0.06, -- Terror of the Mind
-			[541] = 0.03, -- Fight or Flight
-			[560] = 2.83, -- Bonded Souls
-			[561] = 5.46, -- Seductive Power
-			[562] = 10, -- Treacherous Covenant
-		})
-
-		-- Demonology
-		insertDefaultScalesData(defaultName, 9, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 11720 - 14834 (avg 12548), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[14] = 0.03, -- Longstrider
-			[15] = 0.08, -- Resounding Protection
-			[18] = 2.08, -- Blood Siphon
-			[21] = 2.33, -- Elemental Whirl
-			[22] = 2.57, -- Heed My Call
-			[30] = 3.8, -- Overwhelming Power
-			[31] = 2.86, -- Gutripper
-			[44] = 0.08, -- Vampiric Speed
-			[82] = 6.36, -- Champion of Azeroth
-			[83] = 0.09, -- Impassive Visage
-			[84] = 0.08, -- Bulwark of the Masses
-			[85] = 0.09, -- Gemhide
-			[86] = 0.22, -- Azerite Fortification
-			[130] = 3.79, -- Shadow's Bite
-			[156] = 3.37, -- Ruinous Bolt
-			[157] = 6.06, -- Rezan's Fury
-			[190] = 4.43, -- Umbral Blaze
-			[192] = 4.79, -- Meticulous Scheming
-			[193] = 7.26, -- Blightborne Infusion
-			[194] = 5.42, -- Filthy Transfusion
-			[195] = 5.83, -- Secrets of the Deep
-			[196] = 5.18, -- Swirling Sands
-			[208] = 0.01, -- Lifeblood
-			[231] = 0.1, -- Explosive Potential
-			[428] = 4.65, -- Demonic Meteor
-			[429] = 10, -- Baleful Invocation
-			[458] = 6.07, -- Supreme Commander
-			[459] = 2.7, -- Unstable Flames
-			[461] = 2.06, -- Earthlink
-			[462] = 1.73, -- Azerite Globules
-			[475] = 0.15, -- Desperate Power
-			[478] = 5.72, -- Tidal Surge
-			[479] = 6.22, -- Dagger in the Back
-			[480] = 4.31, -- Blood Rite
-			[481] = 5.2, -- Incite the Pack
-			[482] = 5.02, -- Thunderous Blast
-			[483] = 6.14, -- Archive of the Titans
-			[485] = 5.22, -- Laser Matrix
-			[492] = 4.41, -- Liberator's Might
-			[493] = 3.12, -- Last Gift
-			[494] = 4.41, -- Battlefield Precision
-			[495] = 5.73, -- Anduin's Dedication
-			[496] = 1.26, -- Stronger Together
-			[497] = 1.54, -- Stand As One
-			[498] = 3.69, -- Barrage Of Many Bombs
-			[499] = 2.28, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.18, -- Synaptic Spark Capacitor
-			[501] = 6.05, -- Relational Normalization Gizmo
-			[502] = 0.03, -- Personal Absorb-o-Tron
-			[503] = 0.15, -- Auto-Self-Cauterizer
-			[504] = 6.52, -- Unstable Catalyst
-			[505] = 5.67, -- Tradewinds
-			[521] = 4.44, -- Shadow of Elune
-			[522] = 7.12, -- Ancients' Bulwark
-			[523] = 4.74, -- Apothecary's Concoctions
-			[526] = 7.26, -- Endless Hunger
-			[531] = 0.12, -- Terror of the Mind
-			[541] = 0.09, -- Fight or Flight
-			[560] = 2.16, -- Bonded Souls
-			[561] = 4.78, -- Seductive Power
-			[562] = 8.86, -- Treacherous Covenant
-		})
-
-		-- Destruction
-		insertDefaultScalesData(defaultName, 9, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 10567 - 13711 (avg 11888), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.15, -- Azerite Empowered
-			[15] = 0.02, -- Resounding Protection
-			[18] = 2.55, -- Blood Siphon
-			[21] = 3.06, -- Elemental Whirl
-			[22] = 3.06, -- Heed My Call
-			[30] = 4.78, -- Overwhelming Power
-			[31] = 3.47, -- Gutripper
-			[44] = 0.1, -- Vampiric Speed
-			[82] = 7.86, -- Champion of Azeroth
-			[84] = 0.08, -- Bulwark of the Masses
-			[85] = 0.14, -- Gemhide
-			[86] = 0.08, -- Azerite Fortification
-			[131] = 7.73, -- Chaos Shards
-			[156] = 4.43, -- Ruinous Bolt
-			[157] = 7.21, -- Rezan's Fury
-			[192] = 5.64, -- Meticulous Scheming
-			[193] = 8.03, -- Blightborne Infusion
-			[194] = 6.29, -- Filthy Transfusion
-			[195] = 6.35, -- Secrets of the Deep
-			[196] = 6.93, -- Swirling Sands
-			[232] = 5.89, -- Flashpoint
-			[431] = 0.18, -- Rolling Havoc
-			[432] = 7.71, -- Chaotic Inferno
-			[444] = 9.16, -- Crashing Chaos
-			[459] = 3.12, -- Unstable Flames
-			[460] = 6.73, -- Bursting Flare
-			[461] = 2.37, -- Earthlink
-			[462] = 2.17, -- Azerite Globules
-			[478] = 7.14, -- Tidal Surge
-			[479] = 7.53, -- Dagger in the Back
-			[480] = 5.42, -- Blood Rite
-			[481] = 5.81, -- Incite the Pack
-			[482] = 6.09, -- Thunderous Blast
-			[483] = 6.64, -- Archive of the Titans
-			[485] = 6.11, -- Laser Matrix
-			[492] = 5.29, -- Liberator's Might
-			[493] = 3.49, -- Last Gift
-			[494] = 6.8, -- Battlefield Precision
-			[495] = 6.23, -- Anduin's Dedication
-			[496] = 1.79, -- Stronger Together
-			[497] = 1.63, -- Stand As One
-			[498] = 4.65, -- Barrage Of Many Bombs
-			[499] = 2.53, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.82, -- Synaptic Spark Capacitor
-			[501] = 7.05, -- Relational Normalization Gizmo
-			[503] = 0.05, -- Auto-Self-Cauterizer
-			[504] = 7.06, -- Unstable Catalyst
-			[505] = 6.35, -- Tradewinds
-			[521] = 5.44, -- Shadow of Elune
-			[522] = 8.76, -- Ancients' Bulwark
-			[523] = 6.1, -- Apothecary's Concoctions
-			[526] = 8.88, -- Endless Hunger
-			[531] = 0.08, -- Terror of the Mind
-			[541] = 0.05, -- Fight or Flight
-			[560] = 2.76, -- Bonded Souls
-			[561] = 5.13, -- Seductive Power
-			[562] = 10, -- Treacherous Covenant
-		})
-
-	-- Monk
-		-- Brewmaster
-		insertDefaultScalesData(offensiveName, 10, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5053 - 8963 (avg 5602), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 1.57, -- Blood Siphon
-			[19] = 0.11, -- Woundbinder
-			[20] = 1.17, -- Lifespeed
-			[21] = 1.67, -- Elemental Whirl
-			[22] = 4.31, -- Heed My Call
-			[30] = 2.03, -- Overwhelming Power
-			[31] = 4.71, -- Gutripper
-			[38] = 1.7, -- On My Way
-			[42] = 0.06, -- Savior
-			[43] = 0.05, -- Winds of War
-			[44] = 0.05, -- Vampiric Speed
-			[82] = 5.21, -- Champion of Azeroth
-			[89] = 0.05, -- Azerite Veins
-			[98] = 0.03, -- Crystalline Carapace
-			[99] = 0.09, -- Ablative Shielding
-			[100] = 0.12, -- Strength in Numbers
-			[103] = 0.06, -- Concentrated Mending
-			[105] = 0.02, -- Ephemeral Recovery
-			[116] = 1.61, -- Boiling Brew
-			[156] = 5.32, -- Ruinous Bolt
-			[157] = 9.63, -- Rezan's Fury
-			[192] = 2.76, -- Meticulous Scheming
-			[193] = 5.63, -- Blightborne Infusion
-			[194] = 8.46, -- Filthy Transfusion
-			[195] = 4.27, -- Secrets of the Deep
-			[196] = 5.09, -- Swirling Sands
-			[238] = 0.04, -- Fit to Burst
-			[383] = 2.11, -- Training of Niuzao
-			[384] = 4.59, -- Elusive Footwork
-			[459] = 2.09, -- Unstable Flames
-			[461] = 1.55, -- Earthlink
-			[462] = 2.84, -- Azerite Globules
-			[478] = 9.11, -- Tidal Surge
-			[479] = 6.97, -- Dagger in the Back
-			[480] = 2.05, -- Blood Rite
-			[481] = 3.83, -- Incite the Pack
-			[482] = 8.18, -- Thunderous Blast
-			[483] = 4.66, -- Archive of the Titans
-			[485] = 8.58, -- Laser Matrix
-			[492] = 2.91, -- Liberator's Might
-			[493] = 2.17, -- Last Gift
-			[494] = 10, -- Battlefield Precision
-			[495] = 4.08, -- Anduin's Dedication
-			[496] = 0.99, -- Stronger Together
-			[497] = 1.15, -- Stand As One
-			[498] = 6.33, -- Barrage Of Many Bombs
-			[499] = 3.79, -- Ricocheting Inflatable Pyrosaw
-			[500] = 5, -- Synaptic Spark Capacitor
-			[501] = 3.54, -- Relational Normalization Gizmo
-			[503] = 0.03, -- Auto-Self-Cauterizer
-			[504] = 4.64, -- Unstable Catalyst
-			[505] = 4.04, -- Tradewinds
-			[521] = 2.04, -- Shadow of Elune
-			[522] = 5.74, -- Ancients' Bulwark
-			[523] = 7.85, -- Apothecary's Concoctions
-			[526] = 5.7, -- Endless Hunger
-			[560] = 1.24, -- Bonded Souls
-			[561] = 3.91, -- Seductive Power
-			[562] = 6.42, -- Treacherous Covenant
-			[566] = 0.01, -- Exit Strategy
-		})
-		insertDefaultScalesData(defensiveName, 10, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5033 - 8757 (avg 5605), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 6.49, -- Resounding Protection
-			[18] = 1.78, -- Blood Siphon
-			[21] = 0.07, -- Elemental Whirl
-			[38] = 0.08, -- On My Way
-			[82] = 0.23, -- Champion of Azeroth
-			[86] = 0.01, -- Azerite Fortification
-			[116] = 10, -- Boiling Brew
-			[186] = 0.29, -- Staggering Strikes
-			[193] = 0.37, -- Blightborne Infusion
-			[195] = 0.21, -- Secrets of the Deep
-			[196] = 0.32, -- Swirling Sands
-			[383] = 0.11, -- Training of Niuzao
-			[459] = 0.13, -- Unstable Flames
-			[461] = 0.07, -- Earthlink
-			[481] = 0.2, -- Incite the Pack
-			[483] = 0.23, -- Archive of the Titans
-			[492] = 0.14, -- Liberator's Might
-			[493] = 0.12, -- Last Gift
-			[495] = 0.2, -- Anduin's Dedication
-			[496] = 0.05, -- Stronger Together
-			[504] = 0.23, -- Unstable Catalyst
-			[505] = 0.22, -- Tradewinds
-			[522] = 0.28, -- Ancients' Bulwark
-			[526] = 0.28, -- Endless Hunger
-			[561] = 0.11, -- Seductive Power
-			[562] = 0.32, -- Treacherous Covenant
-		})
-
-		-- Mistweaver
-		insertDefaultScalesData(defaultName, 10, 2, {
+		insertDefaultScalesData(offensiveName, 5, 1, { -- Discipline Priest
 
 		})
 
-		-- Windwalker
-		insertDefaultScalesData(defaultName, 10, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 10010 - 14077 (avg 10780), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.18, -- Azerite Empowered
-			[15] = 0.04, -- Resounding Protection
-			[18] = 1.4, -- Blood Siphon
-			[20] = 1.4, -- Lifespeed
-			[21] = 1.67, -- Elemental Whirl
-			[22] = 2.27, -- Heed My Call
-			[30] = 2.61, -- Overwhelming Power
-			[31] = 2.52, -- Gutripper
-			[38] = 1.51, -- On My Way
-			[43] = 0.02, -- Winds of War
-			[44] = 0.03, -- Vampiric Speed
-			[82] = 4.85, -- Champion of Azeroth
-			[83] = 0.01, -- Impassive Visage
-			[85] = 0.05, -- Gemhide
-			[98] = 0.08, -- Crystalline Carapace
-			[101] = 0.04, -- Shimmering Haven
-			[103] = 0.08, -- Concentrated Mending
-			[104] = 0.1, -- Bracing Chill
-			[105] = 0.1, -- Ephemeral Recovery
-			[117] = 10, -- Fury of Xuen
-			[156] = 3.56, -- Ruinous Bolt
-			[157] = 5.37, -- Rezan's Fury
-			[184] = 4.79, -- Sunrise Technique
-			[192] = 3.59, -- Meticulous Scheming
-			[193] = 4.95, -- Blightborne Infusion
-			[194] = 4.41, -- Filthy Transfusion
-			[195] = 3.94, -- Secrets of the Deep
-			[196] = 4.51, -- Swirling Sands
-			[388] = 7.7, -- Glory of the Dawn
-			[389] = 7.37, -- Open Palm Strikes
-			[390] = 5.78, -- Pressure Point
-			[391] = 5.85, -- Dance of Chi-Ji
-			[459] = 1.77, -- Unstable Flames
-			[461] = 1.37, -- Earthlink
-			[462] = 1.55, -- Azerite Globules
-			[470] = 0.05, -- Sweep the Leg
-			[478] = 5.9, -- Tidal Surge
-			[479] = 5.53, -- Dagger in the Back
-			[480] = 3.21, -- Blood Rite
-			[481] = 3.48, -- Incite the Pack
-			[482] = 4.36, -- Thunderous Blast
-			[483] = 4.2, -- Archive of the Titans
-			[485] = 4.58, -- Laser Matrix
-			[492] = 3.04, -- Liberator's Might
-			[493] = 1.99, -- Last Gift
-			[494] = 5.3, -- Battlefield Precision
-			[495] = 4.01, -- Anduin's Dedication
-			[496] = 1.01, -- Stronger Together
-			[497] = 1.17, -- Stand As One
-			[498] = 3.39, -- Barrage Of Many Bombs
-			[499] = 2.08, -- Ricocheting Inflatable Pyrosaw
-			[500] = 0.48, -- Synaptic Spark Capacitor
-			[501] = 4.43, -- Relational Normalization Gizmo
-			[502] = 0.11, -- Personal Absorb-o-Tron
-			[503] = 0.11, -- Auto-Self-Cauterizer
-			[504] = 4.55, -- Unstable Catalyst
-			[505] = 3.62, -- Tradewinds
-			[521] = 3.21, -- Shadow of Elune
-			[522] = 5.5, -- Ancients' Bulwark
-			[523] = 1, -- Apothecary's Concoctions
-			[526] = 5.46, -- Endless Hunger
-			[541] = 0.04, -- Fight or Flight
-			[560] = 1.53, -- Bonded Souls
-			[561] = 3.44, -- Seductive Power
-			[562] = 6.36, -- Treacherous Covenant
-		})
-
-	-- Druid
-		-- Balance
-		insertDefaultScalesData(defaultName, 11, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 9967 - 12617 (avg 10717), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[18] = 1.7, -- Blood Siphon
-			[20] = 1.65, -- Lifespeed
-			[21] = 1.97, -- Elemental Whirl
-			[22] = 2.1, -- Heed My Call
-			[30] = 3.19, -- Overwhelming Power
-			[31] = 2.29, -- Gutripper
-			[38] = 1.55, -- On My Way
-			[82] = 5.45, -- Champion of Azeroth
-			[99] = 0.03, -- Ablative Shielding
-			[101] = 0.03, -- Shimmering Haven
-			[122] = 4.38, -- Streaking Stars
-			[156] = 2.74, -- Ruinous Bolt
-			[157] = 4.77, -- Rezan's Fury
-			[173] = 3.18, -- Power of the Moon
-			[192] = 4.45, -- Meticulous Scheming
-			[193] = 5.5, -- Blightborne Infusion
-			[194] = 4.47, -- Filthy Transfusion
-			[195] = 4.35, -- Secrets of the Deep
-			[196] = 4.76, -- Swirling Sands
-			[200] = 10, -- Arcanic Pulsar
-			[250] = 4.61, -- Dawning Sun
-			[356] = 2.13, -- High Noon
-			[364] = 3.08, -- Lively Spirit
-			[459] = 1.82, -- Unstable Flames
-			[461] = 1.48, -- Earthlink
-			[462] = 1.42, -- Azerite Globules
-			[478] = 4.51, -- Tidal Surge
-			[479] = 4.98, -- Dagger in the Back
-			[480] = 3.55, -- Blood Rite
-			[481] = 4.62, -- Incite the Pack
-			[482] = 4.19, -- Thunderous Blast
-			[483] = 4.59, -- Archive of the Titans
-			[485] = 4.38, -- Laser Matrix
-			[492] = 3.36, -- Liberator's Might
-			[493] = 2.71, -- Last Gift
-			[494] = 4.97, -- Battlefield Precision
-			[495] = 4.25, -- Anduin's Dedication
-			[496] = 1.08, -- Stronger Together
-			[497] = 1.08, -- Stand As One
-			[498] = 3.16, -- Barrage Of Many Bombs
-			[499] = 1.87, -- Ricocheting Inflatable Pyrosaw
-			[500] = 2.44, -- Synaptic Spark Capacitor
-			[501] = 4.71, -- Relational Normalization Gizmo
-			[502] = 0.05, -- Personal Absorb-o-Tron
-			[504] = 4.87, -- Unstable Catalyst
-			[505] = 4.94, -- Tradewinds
-			[521] = 3.43, -- Shadow of Elune
-			[522] = 5.41, -- Ancients' Bulwark
-			[523] = 3.93, -- Apothecary's Concoctions
-			[526] = 5.32, -- Endless Hunger
-			[560] = 1.82, -- Bonded Souls
-			[561] = 3.83, -- Seductive Power
-			[562] = 6.7, -- Treacherous Covenant
-		})
-
-		-- Feral
-		insertDefaultScalesData(defaultName, 11, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 14815 - 18601 (avg 15962), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.04, -- Resounding Protection
-			[18] = 2.13, -- Blood Siphon
-			[20] = 1.93, -- Lifespeed
-			[21] = 2.25, -- Elemental Whirl
-			[22] = 2.48, -- Heed My Call
-			[30] = 3.31, -- Overwhelming Power
-			[31] = 2.76, -- Gutripper
-			[38] = 1.87, -- On My Way
-			[43] = 0.07, -- Winds of War
-			[82] = 7.14, -- Champion of Azeroth
-			[111] = 6.06, -- Blood Mist
-			[156] = 3.97, -- Ruinous Bolt
-			[157] = 6.11, -- Rezan's Fury
-			[169] = 3.28, -- Untamed Ferocity
-			[171] = 0.01, -- Masterful Instincts
-			[192] = 5.04, -- Meticulous Scheming
-			[193] = 8.29, -- Blightborne Infusion
-			[194] = 5.1, -- Filthy Transfusion
-			[195] = 5.27, -- Secrets of the Deep
-			[196] = 7.28, -- Swirling Sands
-			[209] = 10, -- Jungle Fury
-			[241] = 0.01, -- Twisted Claws
-			[247] = 1.35, -- Iron Jaws
-			[358] = 6.2, -- Gushing Lacerations
-			[359] = 6.82, -- Wild Fleshrending
-			[459] = 2.68, -- Unstable Flames
-			[461] = 1.68, -- Earthlink
-			[462] = 1.6, -- Azerite Globules
-			[478] = 6.6, -- Tidal Surge
-			[479] = 6.32, -- Dagger in the Back
-			[480] = 4.19, -- Blood Rite
-			[481] = 5.29, -- Incite the Pack
-			[482] = 5.04, -- Thunderous Blast
-			[483] = 5.67, -- Archive of the Titans
-			[485] = 5.33, -- Laser Matrix
-			[492] = 4.65, -- Liberator's Might
-			[493] = 3.08, -- Last Gift
-			[494] = 6.17, -- Battlefield Precision
-			[495] = 5.14, -- Anduin's Dedication
-			[496] = 1.32, -- Stronger Together
-			[497] = 1.33, -- Stand As One
-			[498] = 3.85, -- Barrage Of Many Bombs
-			[499] = 2.23, -- Ricocheting Inflatable Pyrosaw
-			[500] = 3.52, -- Synaptic Spark Capacitor
-			[501] = 5.6, -- Relational Normalization Gizmo
-			[504] = 5.81, -- Unstable Catalyst
-			[505] = 5.84, -- Tradewinds
-			[521] = 4.25, -- Shadow of Elune
-			[522] = 6.67, -- Ancients' Bulwark
-			[523] = 4.85, -- Apothecary's Concoctions
-			[526] = 6.65, -- Endless Hunger
-			[560] = 1.86, -- Bonded Souls
-			[561] = 4.18, -- Seductive Power
-			[562] = 8.23, -- Treacherous Covenant
-		})
-
-		-- Guardian
-		insertDefaultScalesData(offensiveName, 11, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5677 - 10400 (avg 6250), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[15] = 0.01, -- Resounding Protection
-			[18] = 1.75, -- Blood Siphon
-			[20] = 2.14, -- Lifespeed
-			[21] = 2.11, -- Elemental Whirl
-			[22] = 4.22, -- Heed My Call
-			[30] = 3.85, -- Overwhelming Power
-			[31] = 4.54, -- Gutripper
-			[38] = 1.96, -- On My Way
-			[42] = 0.05, -- Savior
-			[82] = 6.62, -- Champion of Azeroth
-			[86] = 0.05, -- Azerite Fortification
-			[101] = 0.06, -- Shimmering Haven
-			[112] = 0.02, -- Layered Mane
-			[156] = 6.08, -- Ruinous Bolt
-			[157] = 9.9, -- Rezan's Fury
-			[171] = 0.02, -- Masterful Instincts
-			[192] = 5.88, -- Meticulous Scheming
-			[193] = 7.08, -- Blightborne Infusion
-			[194] = 8.61, -- Filthy Transfusion
-			[195] = 5.18, -- Secrets of the Deep
-			[196] = 6.03, -- Swirling Sands
-			[241] = 6.18, -- Twisted Claws
-			[251] = 5.53, -- Burst of Savagery
-			[359] = 1.96, -- Wild Fleshrending
-			[361] = 4.88, -- Guardian's Wrath
-			[459] = 2.32, -- Unstable Flames
-			[461] = 1.72, -- Earthlink
-			[462] = 2.75, -- Azerite Globules
-			[478] = 10, -- Tidal Surge
-			[479] = 6.97, -- Dagger in the Back
-			[480] = 4.55, -- Blood Rite
-			[481] = 4.46, -- Incite the Pack
-			[482] = 8.32, -- Thunderous Blast
-			[483] = 5.64, -- Archive of the Titans
-			[485] = 8.62, -- Laser Matrix
-			[492] = 4.27, -- Liberator's Might
-			[493] = 2.4, -- Last Gift
-			[494] = 9.87, -- Battlefield Precision
-			[495] = 5.02, -- Anduin's Dedication
-			[496] = 1.26, -- Stronger Together
-			[497] = 1.2, -- Stand As One
-			[498] = 6.15, -- Barrage Of Many Bombs
-			[499] = 3.68, -- Ricocheting Inflatable Pyrosaw
-			[500] = 5.44, -- Synaptic Spark Capacitor
-			[501] = 5.8, -- Relational Normalization Gizmo
-			[504] = 5.83, -- Unstable Catalyst
-			[505] = 4.7, -- Tradewinds
-			[521] = 4.55, -- Shadow of Elune
-			[522] = 6.78, -- Ancients' Bulwark
-			[523] = 7.88, -- Apothecary's Concoctions
-			[526] = 6.9, -- Endless Hunger
-			[560] = 2.13, -- Bonded Souls
-			[561] = 4.33, -- Seductive Power
-			[562] = 7.9, -- Treacherous Covenant
-		})
-		-- Guardian
-		insertDefaultScalesData(defensiveName, 11, 3, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 5682 - 8163 (avg 6177), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.04, -- Azerite Empowered
-			[15] = 0.02, -- Resounding Protection
-			[18] = 10, -- Blood Siphon
-			[42] = 0.03, -- Savior
-			[85] = 0.02, -- Gemhide
-			[99] = 0.01, -- Ablative Shielding
-			[105] = 0.03, -- Ephemeral Recovery
-			[157] = 0.02, -- Rezan's Fury
-			[171] = 0.02, -- Masterful Instincts
-			[219] = 0.03, -- Reawakening
-			[361] = 0.01, -- Guardian's Wrath
-			[459] = 0.02, -- Unstable Flames
-			[462] = 0.01, -- Azerite Globules
-			[480] = 0.02, -- Blood Rite
-			[482] = 0.02, -- Thunderous Blast
-			[495] = 0.01, -- Anduin's Dedication
-			[503] = 0.01, -- Auto-Self-Cauterizer
-			[521] = 0.01, -- Shadow of Elune
-			[560] = 0.01, -- Bonded Souls
-		})
-
-		-- Restoration
-		insertDefaultScalesData(defaultName, 11, 4, {
+		insertDefaultScalesData(defaultName, 5, 2, { -- Holy Priest
 
 		})
 
-	-- Demon Hunter
-		-- Havoc
-		insertDefaultScalesData(defaultName, 12, 1, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 3129 - 6942 (avg 4088), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[13] = 0.28, -- Azerite Empowered
-			[14] = 0.19, -- Longstrider
-			[15] = 0.18, -- Resounding Protection
-			[18] = 1.66, -- Blood Siphon
-			[20] = 2.21, -- Lifespeed
-			[21] = 2.42, -- Elemental Whirl
-			[22] = 4.01, -- Heed My Call
-			[30] = 4.46, -- Overwhelming Power
-			[31] = 4.15, -- Gutripper
-			[43] = 0.21, -- Winds of War
-			[44] = 0.22, -- Vampiric Speed
-			[82] = 6.64, -- Champion of Azeroth
-			[83] = 0.13, -- Impassive Visage
-			[84] = 0.18, -- Bulwark of the Masses
-			[85] = 0.04, -- Gemhide
-			[86] = 0.11, -- Azerite Fortification
-			[87] = 0.26, -- Self Reliance
-			[89] = 0.2, -- Azerite Veins
-			[98] = 0.19, -- Crystalline Carapace
-			[99] = 0.35, -- Ablative Shielding
-			[100] = 0.31, -- Strength in Numbers
-			[101] = 0.23, -- Shimmering Haven
-			[126] = 8.32, -- Revolving Blades
-			[156] = 4.84, -- Ruinous Bolt
-			[157] = 8.54, -- Rezan's Fury
-			[159] = 9.99, -- Furious Gaze
-			[160] = 0.28, -- Infernal Armor
-			[192] = 3.68, -- Meticulous Scheming
-			[193] = 7.25, -- Blightborne Infusion
-			[194] = 7.27, -- Filthy Transfusion
-			[195] = 6.56, -- Secrets of the Deep
-			[196] = 6.56, -- Swirling Sands
-			[220] = 7.47, -- Chaotic Transformation
-			[245] = 6.93, -- Seething Power
-			[352] = 9.4, -- Thirsting Blades
-			[353] = 5.08, -- Eyes of Rage
-			[459] = 2.68, -- Unstable Flames
-			[461] = 2.29, -- Earthlink
-			[462] = 2.75, -- Azerite Globules
-			[466] = 0.13, -- Burning Soul
-			[478] = 7.93, -- Tidal Surge
-			[479] = 8.84, -- Dagger in the Back
-			[480] = 4.65, -- Blood Rite
-			[481] = 4.12, -- Incite the Pack
-			[482] = 7.38, -- Thunderous Blast
-			[483] = 6.97, -- Archive of the Titans
-			[485] = 7.6, -- Laser Matrix
-			[492] = 4.5, -- Liberator's Might
-			[493] = 2.49, -- Last Gift
-			[494] = 8.89, -- Battlefield Precision
-			[495] = 6.27, -- Anduin's Dedication
-			[496] = 1.53, -- Stronger Together
-			[497] = 1.7, -- Stand As One
-			[498] = 5.38, -- Barrage Of Many Bombs
-			[499] = 3.37, -- Ricocheting Inflatable Pyrosaw
-			[500] = 4.33, -- Synaptic Spark Capacitor
-			[501] = 6.3, -- Relational Normalization Gizmo
-			[502] = 0.26, -- Personal Absorb-o-Tron
-			[503] = 0.22, -- Auto-Self-Cauterizer
-			[504] = 7.39, -- Unstable Catalyst
-			[505] = 4.36, -- Tradewinds
-			[521] = 4.6, -- Shadow of Elune
-			[522] = 7.9, -- Ancients' Bulwark
-			[523] = 6.97, -- Apothecary's Concoctions
-			[526] = 7.96, -- Endless Hunger
-			[541] = 0.18, -- Fight or Flight
-			[560] = 2.88, -- Bonded Souls
-			[561] = 5.83, -- Seductive Power
-			[562] = 10, -- Treacherous Covenant
-			[564] = 0.18, -- Thrive in Chaos
+		insertDefaultScalesData(defaultName, 7, 3, { -- Restoration Shaman
+
 		})
 
-		-- Vengeance
-		insertDefaultScalesData(offensiveName, 12, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 4802 - 7881 (avg 5406), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
-			[14] = 0.09, -- Longstrider
-			[18] = 1.65, -- Blood Siphon
-			[20] = 1.4, -- Lifespeed
-			[21] = 1.88, -- Elemental Whirl
-			[22] = 4.22, -- Heed My Call
-			[30] = 3.01, -- Overwhelming Power
-			[31] = 4.66, -- Gutripper
-			[44] = 0.04, -- Vampiric Speed
-			[82] = 6.12, -- Champion of Azeroth
-			[83] = 0.02, -- Impassive Visage
-			[86] = 0.03, -- Azerite Fortification
-			[87] = 0.03, -- Self Reliance
-			[89] = 0.01, -- Azerite Veins
-			[156] = 5.91, -- Ruinous Bolt
-			[157] = 9.78, -- Rezan's Fury
-			[192] = 4.69, -- Meticulous Scheming
-			[193] = 7.32, -- Blightborne Infusion
-			[194] = 8.9, -- Filthy Transfusion
-			[195] = 5.48, -- Secrets of the Deep
-			[196] = 6.49, -- Swirling Sands
-			[221] = 0.02, -- Rigid Carapace
-			[354] = 0.01, -- Cycle of Binding
-			[355] = 0.01, -- Essence Sever
-			[459] = 2.56, -- Unstable Flames
-			[461] = 1.73, -- Earthlink
-			[462] = 2.87, -- Azerite Globules
-			[478] = 10, -- Tidal Surge
-			[479] = 6.95, -- Dagger in the Back
-			[480] = 3.6, -- Blood Rite
-			[481] = 4.41, -- Incite the Pack
-			[482] = 8.27, -- Thunderous Blast
-			[483] = 5.76, -- Archive of the Titans
-			[485] = 8.51, -- Laser Matrix
-			[492] = 3.83, -- Liberator's Might
-			[493] = 2.41, -- Last Gift
-			[494] = 9.69, -- Battlefield Precision
-			[495] = 5.17, -- Anduin's Dedication
-			[496] = 1.15, -- Stronger Together
-			[497] = 1.35, -- Stand As One
-			[498] = 6.04, -- Barrage Of Many Bombs
-			[499] = 3.65, -- Ricocheting Inflatable Pyrosaw
-			[500] = 7.6, -- Synaptic Spark Capacitor
-			[501] = 5.16, -- Relational Normalization Gizmo
-			[504] = 5.94, -- Unstable Catalyst
-			[505] = 4.63, -- Tradewinds
-			[521] = 3.54, -- Shadow of Elune
-			[522] = 6.12, -- Ancients' Bulwark
-			[523] = 6.47, -- Apothecary's Concoctions
-			[526] = 6.14, -- Endless Hunger
-			[560] = 1.42, -- Bonded Souls
-			[561] = 4.47, -- Seductive Power
-			[562] = 8.31, -- Treacherous Covenant
+		insertDefaultScalesData(defaultName, 10, 2, { -- Mistweaver Monk
+
 		})
-		insertDefaultScalesData(defensiveName, 12, 2, {
-			-- SimulationCraft 810-02 for World of Warcraft 8.1.0 Live (wow build 29088)
-			-- Iterations: 4828 - 8092 (avg 5417), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
-			-- Updated: 31.01.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[14] = 0.01, -- Longstrider
-			[15] = 10, -- Resounding Protection
-			[18] = 3.01, -- Blood Siphon
-			[20] = 1.3, -- Lifespeed
-			[21] = 0.76, -- Elemental Whirl
-			[30] = 2.11, -- Overwhelming Power
-			[31] = 0.03, -- Gutripper
-			[82] = 2.58, -- Champion of Azeroth
-			[157] = 0.03, -- Rezan's Fury
-			[192] = 3.46, -- Meticulous Scheming
-			[193] = 2.01, -- Blightborne Infusion
-			[195] = 1.61, -- Secrets of the Deep
-			[196] = 1.78, -- Swirling Sands
-			[246] = 0.06, -- Hour of Reaping
-			[354] = 0.04, -- Cycle of Binding
-			[355] = 0.02, -- Essence Sever
-			[459] = 0.68, -- Unstable Flames
-			[461] = 0.57, -- Earthlink
-			[480] = 2.6, -- Blood Rite
-			[481] = 1.4, -- Incite the Pack
-			[483] = 1.85, -- Archive of the Titans
-			[492] = 1.64, -- Liberator's Might
-			[493] = 0.8, -- Last Gift
-			[494] = 0.07, -- Battlefield Precision
-			[495] = 1.58, -- Anduin's Dedication
-			[496] = 0.43, -- Stronger Together
-			[497] = 0.17, -- Stand As One
-			[499] = 0.05, -- Ricocheting Inflatable Pyrosaw
-			[501] = 2.26, -- Relational Normalization Gizmo
-			[504] = 1.96, -- Unstable Catalyst
-			[505] = 1.46, -- Tradewinds
-			[521] = 2.64, -- Shadow of Elune
-			[522] = 1.9, -- Ancients' Bulwark
-			[526] = 1.94, -- Endless Hunger
-			[560] = 1.21, -- Bonded Souls
-			[561] = 0.16, -- Seductive Power
-			[562] = 2.63, -- Treacherous Covenant
+
+		insertDefaultScalesData(defaultName, 11, 4, { -- Restoration Druid
+
 		})
 end
 
