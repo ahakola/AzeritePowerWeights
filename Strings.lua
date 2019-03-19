@@ -67,9 +67,9 @@ do -- enUS / enGB
 	L.WeightEditor_RenameText = "Rename"
 	L.WeightEditor_DeleteText = "Delete"
 	L.WeightEditor_TooltipText = "Show in Tooltips"
-	L.WeightEditor_TimestampText_Created = "Created %s"
-	L.WeightEditor_TimestampText_Imported = "Imported %s"
-	L.WeightEditor_TimestampText_Updated = "Updated %s"
+	L.WeightEditor_TimestampText_Created = "Created %s" -- %s DD.MM.YYYY
+	L.WeightEditor_TimestampText_Imported = "Imported %s" -- %s DD.MM.YYYY
+	L.WeightEditor_TimestampText_Updated = "Updated %s" -- %s DD.MM.YYYY
 	L.WeightEditor_CurrentScale = "Current scale: %s" -- %s current scaleName
 
 	L.PowersTitles_Class = "Class Powers"
@@ -156,7 +156,7 @@ elseif LOCALE == "koKR" then -- Killberos (53)
 elseif LOCALE == "ptBR" then -- mariogusman (74)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (71), Hubbotu (12), rtim0905 (0), Wolfeg (1), lorientalas (2)
+elseif LOCALE == "ruRU" then -- dartraiden (71), Hubbotu (17), rtim0905 (0), Wolfeg (1), lorientalas (2)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (34)
