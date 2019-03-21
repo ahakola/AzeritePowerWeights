@@ -1,3 +1,7 @@
+### 8.1.13
+
+- Update German (Aurielqt), Russian (dartraiden) and Traditional Chinese (BNSSNB) translations
+
 ### 8.1.12
 
 - Update Default-scales to 8.1.5

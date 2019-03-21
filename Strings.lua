@@ -135,7 +135,7 @@ do -- enUS / enGB
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
 end
 
-if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (6), Vivan (2), pas06 (2), Cytoph (2), imna1975 (17)
+if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (5), Vivan (2), pas06 (2), Cytoph (1), imna1975 (17), Aurielqt (6)
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then -- isaracho (4)
@@ -150,19 +150,19 @@ elseif LOCALE == "frFR" then -- tthegarde (19), Marechoux (9), follower4jas (1)
 elseif LOCALE == "itIT" then
 --@localization(locale="itIT", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "koKR" then -- Killberos (53)
+elseif LOCALE == "koKR" then -- Killberos (52)
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ptBR" then -- mariogusman (74)
+elseif LOCALE == "ptBR" then -- mariogusman (73)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (71), Hubbotu (17), rtim0905 (0), Wolfeg (1), lorientalas (2)
+elseif LOCALE == "ruRU" then -- dartraiden (78), Hubbotu (17), rtim0905 (0), Wolfeg (1), lorientalas (1)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (34)
+elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (33)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (89), Sinusquell (1)
+elseif LOCALE == "zhTW" then -- BNSSNB (95), Sinusquell (1)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end

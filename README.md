@@ -65,7 +65,7 @@ If you don't get any errors but the addon is clearly not working, make sure you 
 ---
 
 ### Translations
-- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975**
+- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975, Aurielqt**
 - esES (Spanish): **isaracho**
 - esMX (Latin American Spanish):
 - frFR (French): **tthegarde, Marechoux, follower4jas**
