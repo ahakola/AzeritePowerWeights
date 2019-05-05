@@ -1,3 +1,9 @@
+### 8.1.14
+
+- Fixed the calculations missing rings from World Quest reward tooltips [Ticket #25](https://wow.curseforge.com/projects/azeritepowerweights/issues/25)
+- Added also small tool to help me find the errors in calculations in the future. This adds one new line for translators to be translated.
+   - If you want to contribute, go to [Curseforge Localization tool](https://wow.curseforge.com/projects/azeritepowerweights/localization) and help translate, review and/or correct the translations.
+
 ### 8.1.13
 
 - Update German (Aurielqt), Russian (dartraiden) and Traditional Chinese (BNSSNB) translations

@@ -1532,7 +1532,7 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 	end
 
 	local itemLink = GetInventoryItemLink("player", itemEquipLoc)
-	
+
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
 		local equipLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLoc)
 		local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
@@ -1586,6 +1586,7 @@ local function _getGearScore(dataPointer, itemEquipLoc)
 	return 0, 0, 0, itemLink, 0
 end
 
+local tooltipTable = {}
 local function _updateTooltip(tooltip, itemLink)
 	local currentLevel, maxLevel = 0, 0
 	local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
@@ -1593,7 +1594,20 @@ local function _updateTooltip(tooltip, itemLink)
 		currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
 	end
 
+	--if not tooltipTable.itemLink or tooltipTable.itemLink ~= itemLink then
+		wipe(tooltipTable)
+		tooltipTable.itemLink = itemLink
+		tooltipTable.currentLevel = currentLevel
+		tooltipTable.scores = {}
+	--end
+
 	local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
+
+--[[
+C_AzeriteEmpoweredItem.GetAllTierInfo
+C_AzeriteEmpoweredItem.GetAllTierInfoByItemID
+C_Cursor.GetCursorItem
+]]
 
 	local currentScore, currentPotential, maxScore, scaleInfo, midTrait = {}, {}, {}, {}, {}
 	for i, tooltipScale in ipairs(cfg.tooltipScales) do
@@ -1602,6 +1616,9 @@ local function _updateTooltip(tooltip, itemLink)
 		maxScore[i] = 0
 		scaleInfo[i] = {}
 		midTrait[i] = 0
+
+		tooltipTable[i] = tooltipTable[i] or {}
+		tooltipTable[i].tooltipScale = tooltipScale.scaleID
 
 		local dataPointer
 		local groupSet, classID, specNum, scaleName = strsplit("/", tooltipScale.scaleID)
@@ -1628,6 +1645,10 @@ local function _updateTooltip(tooltip, itemLink)
 
 		if dataPointer then
 			for tierIndex, tierInfo in ipairs(allTierInfo) do
+
+				tooltipTable[i][tierIndex] = tooltipTable[i][tierIndex] or {}
+				tooltipTable[i][tierIndex].unlockLevel = tooltipTable[i][tierIndex].unlockLevel or tierInfo.unlockLevel
+
 				local maximum, tierMaximum = 0, 0
 				for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
 					local score = 0
@@ -1635,9 +1656,13 @@ local function _updateTooltip(tooltip, itemLink)
 					if powerInfo then
 						score = dataPointer[powerInfo.azeritePowerID] or dataPointer[powerInfo.spellID] or 0
 
+						tooltipTable[i][tierIndex][powerInfo.azeritePowerID] = score
+
 						if azeriteEmpoweredItemLocation:HasAnyLocation() and C_AzeriteEmpoweredItem.IsPowerSelected(azeriteEmpoweredItemLocation, powerInfo.azeritePowerID) then
 							currentScore[i] = currentScore[i] + score
 							--Debug("+++", powerInfo.azeritePowerID, GetSpellInfo(powerInfo.spellID), score)
+
+							tooltipTable[i][tierIndex][powerInfo.azeritePowerID] = ">" .. score .. "<"
 
 							if powerInfo.azeritePowerID == 13 then -- Middle
 								midTrait[i] = midTrait[i] + 1
@@ -1674,6 +1699,11 @@ local function _updateTooltip(tooltip, itemLink)
 			Debug("_updateTooltip Middle is locked")
 		end
 
+		tooltipTable.scores[i] = tooltipTable.scores[i] or {}
+		tooltipTable.scores[i].traitScore = currentScore[i]
+		tooltipTable.scores[i].traitPotential = currentPotential[i]
+		tooltipTable.scores[i].traitMax = maxScore[i]
+
 		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 		local effectiveILvl = GetDetailedItemLevelInfo(itemLink)
 		if cfg.addILvlToScore and effectiveILvl then
@@ -1688,7 +1718,15 @@ local function _updateTooltip(tooltip, itemLink)
 			currentPotential[i] = currentPotential[i] + effectiveILvl + middleTraitValue
 			maxScore[i] = maxScore[i] + effectiveILvl + (midTrait[i] == 2 and 0 or middleTraitValue)
 			Debug("ilvl:", currentScore[i], currentPotential[i], maxScore[i], effectiveILvl, midTrait[i], middleTraitValue)
+
+			tooltipTable.scores[i].midTrait = midTrait[i]
+			tooltipTable.scores[i].middleTraitValue = middleTraitValue
+			tooltipTable.scores[i].ilvlScore = currentScore[i]
+			tooltipTable.scores[i].ilvlPotential = currentPotential[i]
+			tooltipTable.scores[i].ilvlMax = maxScore[i]
 		end
+
+		tooltipTable.scores.effectiveILvl = effectiveILvl
 
 		local stats = GetItemStats(itemLink)
 		if cfg.addPrimaryStatToScore and stats then
@@ -1697,12 +1735,24 @@ local function _updateTooltip(tooltip, itemLink)
 			currentScore[i] = currentScore[i] + statScore
 			currentPotential[i] = currentPotential[i] + statScore
 			maxScore[i] = maxScore[i] + statScore
+
+			tooltipTable.scores[i].statAmount = statScore
+			tooltipTable.scores[i].statScore = currentScore[i]
+			tooltipTable.scores[i].statPotential = currentPotential[i]
+			tooltipTable.scores[i].statMax = maxScore[i]
 		end
 
 		if cfg.relativeScore and dataPointer then
 			local equippedScore, equippedPotential, equippedMax, equippedItemLink, equippedMidTrait = _getGearScore(dataPointer, itemEquipLocToSlot[itemEquipLoc])
 
 			local equippedEffectiveILvl = GetDetailedItemLevelInfo(equippedItemLink)
+
+			tooltipTable.equippedItemLink = equippedItemLink
+			tooltipTable.equippedEffectiveILvl = equippedEffectiveILvl
+			tooltipTable.scores[i].relTraitScore = equippedScore
+			tooltipTable.scores[i].relTraitPotential = equippedPotential
+			tooltipTable.scores[i].relTraitMax = equippedMax
+
 			if cfg.addILvlToScore and equippedEffectiveILvl then
 				local middleTraitValue = equippedMidTrait == 1 and 5 or 0
 				if cfg.scaleByAzeriteEmpowered then
@@ -1715,6 +1765,12 @@ local function _updateTooltip(tooltip, itemLink)
 				equippedPotential = equippedPotential + equippedEffectiveILvl + middleTraitValue
 				equippedMax = equippedMax + equippedEffectiveILvl + (equippedMidTrait == 2 and 0 or middleTraitValue)
 				Debug("ilvl:", equippedScore, equippedPotential, equippedMax, equippedEffectiveILvl, equippedMidTrait, middleTraitValue)
+
+				tooltipTable.scores[i].relMidTrait = equippedMidTrait
+				tooltipTable.scores[i].relMiddleTraitValue = middleTraitValue
+				tooltipTable.scores[i].relIlvlScore = equippedScore
+				tooltipTable.scores[i].relIlvlPotential = equippedPotential
+				tooltipTable.scores[i].relIlvlMax = equippedMax
 			end
 
 			local equippedStats = GetItemStats(equippedItemLink)
@@ -1723,6 +1779,11 @@ local function _updateTooltip(tooltip, itemLink)
 				equippedScore = equippedScore + statScore
 				equippedPotential = equippedPotential + statScore
 				equippedMax = equippedMax + statScore
+
+				tooltipTable.scores[i].relStatAmount = statScore
+				tooltipTable.scores[i].relStatScore = equippedScore
+				tooltipTable.scores[i].relStatPotential = equippedPotential
+				tooltipTable.scores[i].relStatMax = equippedMax
 			end
 
 			currentScore[i] = equippedScore == 0 and 0 or floor((currentScore[i] / equippedScore - 1) * 100 + .5)
@@ -1837,7 +1898,7 @@ hooksecurefunc(GameTooltip, "SetMerchantItem", function(self, ...) -- ... = merc
 	if not itemName then return end
 
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
-		azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+		--azeriteEmpoweredItemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot) -- WTH have I been thinking or have I just been copy&pasting?
 
 		_updateTooltip(self, itemLink)
 	end
@@ -1887,11 +1948,21 @@ hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self, questL
 	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
 	local iName, itemTexture, quantity, quality, isUsable, itemID = GetQuestLogRewardInfo(questLogIndex, questID)
-	if not itemID or type(itemID) ~= "number" then return end
+	--[[if not itemID or type(itemID) ~= "number" then return end
 	local itemName, itemLink = GetItemInfo(itemID)
+	if not itemName then return end]]
+
+	-- Fix for GetItemInfo(itemID) returning the base item instead of the properly upgraded item for better geared characters.
+	-- This also fixes the missing rings (3 rings vs 5 rings) from calculations for those items.
+	if not (iName and itemTexture) then return end
+	itemName, itemLink = self.Tooltip:GetItem()
 	if not itemName then return end
 
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+		--[[local item = Item:CreateFromItemLink(itemLink) -- Try to cache the item for real itemlevel
+		item:ContinueOnItemLoad(function()
+			_updateTooltip(self.Tooltip, itemLink)
+		end)]]
 		_updateTooltip(self.Tooltip, itemLink)
 	end
 end)
@@ -2331,7 +2402,96 @@ local SlashHandlers = {
 		--ReloadUI()
 	end,
 	["scale"] = function()
-		Print("> '%s' - '%s'", cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+		Print("> Ver. %s: '%s' - '%s'", GetAddOnMetadata(ADDON_NAME, "Version"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+	end,
+	["tt"] = function(...) -- Get tooltip stuff
+		local text = string.format("> START\n- - - - - - - - - -\nVer. %s\nClass/Spec: %s / %s\nScale: %s (%s)\n- - - - - - - - - -\n", GetAddOnMetadata(ADDON_NAME, "Version"), playerClassID, playerSpecID, cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+
+		text = text .. string.format("Score settings:\naddILvlToScore: %s\nscaleByAzeriteEmpowered: %s\naddPrimaryStatToScore: %s\nrelativeScore: %s\nshowOnlyUpgrades: %s\nshowTooltipLegend: %s\n- - - - - - - - - -\n", tostring(cfg.addILvlToScore), tostring(cfg.scaleByAzeriteEmpowered), tostring(cfg.addPrimaryStatToScore), tostring(cfg.relativeScore), tostring(cfg.showOnlyUpgrades), tostring(cfg.showTooltipLegend))
+
+		if tooltipTable.itemLink then
+			local _, id = strsplit(":", tooltipTable.itemLink)
+			local itemID = tonumber(id) or -1
+
+			text = text .. string.format("HoA level: %s\n\nTooltip:\nItem: %s (%s)\nItemlink: %s\nEffective ilvl: %d\nTraits and scores:\n", tooltipTable.currentLevel or "", tooltipTable.itemLink or "", itemID, string.gsub(tooltipTable.itemLink or "", "\124", "\124\124"), tooltipTable.scores and tooltipTable.scores.effectiveILvl or -1)
+
+			for i, v in ipairs(tooltipTable) do
+				text = text .. string.format("> Scale %d: %s\n", i, v.tooltipScale)
+
+				for tierIndex, w in ipairs(v) do
+					text = text .. string.format("   T%d (%d):\n     ", tierIndex, w.unlockLevel or -1)
+
+					for azeritePowerID, score in pairs(w) do
+						if type(azeritePowerID) == "number" then -- skip "unlockLevel"
+							text = text .. string.format(" %d = %s ", azeritePowerID, tostring(score or -1))
+						end
+					end
+
+					text = text .. "\n"
+				end
+
+				if tooltipTable.scores then
+					text = text .. string.format("\nTrait Score: %s / %s / %s\n\n" , tostring(tooltipTable.scores[i].traitScore or ""), tostring(tooltipTable.scores[i].traitPotential or ""), tostring(tooltipTable.scores[i].traitMax or ""))
+
+					if cfg.addILvlToScore then
+						text = text .. string.format("Ilvl Score: %s / %s / %s\nMiddle Trait: %s (%d)\n\n" , tostring(tooltipTable.scores[i].ilvlScore or ""), tostring(tooltipTable.scores[i].ilvlPotential or ""), tostring(tooltipTable.scores[i].ilvlMax or ""), tostring(tooltipTable.scores[i].middleTraitValue or ""), tooltipTable.scores[i].midTrait or -1)
+					end
+
+					if cfg.addPrimaryStatToScore then
+						text = text .. string.format("Stat Score: %s / %s / %s\nStat value: %d\n\n" , tostring(tooltipTable.scores[i].statScore or ""), tostring(tooltipTable.scores[i].statPotential or ""), tostring(tooltipTable.scores[i].statMax or ""), tooltipTable.scores[i].statAmount or -1)
+					end
+				end
+			end
+			text = text .. "- - - - - - - - - -\n"
+		end
+
+		if tooltipTable.equippedItemLink then
+			if tooltipTable.itemLink and tooltipTable.itemLink ~= tooltipTable.equippedItemLink then
+				local _, eid = strsplit(":", tooltipTable.equippedItemLink)
+				local eItemID = tonumber(eid) or -1
+
+				text = text .. string.format("Equipped for relative scores:\nItem: %s (%s)\nItemlink: %s\nEffective ilvl: %d\nTraits and scores:\n", tooltipTable.equippedItemLink or "", eItemID, string.gsub(tooltipTable.equippedItemLink or "", "\124", "\124\124"), tooltipTable.equippedEffectiveILvl or -1)
+
+				for i, v in ipairs(tooltipTable) do
+					text = text .. string.format("> Scale %d: %s\n", i, v.tooltipScale)
+
+					if tooltipTable.scores then
+						text = text .. string.format("Trait Score: %s / %s / %s\n\n" , tostring(tooltipTable.scores[i].relTraitScore or ""), tostring(tooltipTable.scores[i].relTraitPotential or ""), tostring(tooltipTable.scores[i].relTraitMax or ""))
+
+						if cfg.addILvlToScore then
+							text = text .. string.format("Ilvl Score: %s / %s / %s\nMiddle Trait: %s (%d)\n\n" , tostring(tooltipTable.scores[i].relIlvlScore or ""), tostring(tooltipTable.scores[i].relIlvlPotential or ""), tostring(tooltipTable.scores[i].relIlvlMax or ""), tostring(tooltipTable.scores[i].relMiddleTraitValue or ""), tooltipTable.scores[i].relMidTrait or -1)
+						end
+
+						if cfg.addPrimaryStatToScore then
+							text = text .. string.format("Stat Score: %s / %s / %s\nStat value: %d\n\n" , tostring(tooltipTable.scores[i].relStatScore or ""), tostring(tooltipTable.scores[i].relStatPotential or ""), tostring(tooltipTable.scores[i].relStatMax or ""), tooltipTable.scores[i].relStatAmount or -1)
+						end
+					end
+				end
+			elseif not tooltipTable.itemLink then
+				text = text .. "Equipped for relative scores:\nItem: Not found!\n"
+			else
+				text = text .. "Equipped for relative scores:\nItem: Same as in tooltip!\n"
+			end
+
+			text = text .. "- - - - - - - - - -\n"
+		end
+
+		text = text .. "> END"
+
+		local frame = AceGUI:Create("Frame")
+		frame:SetTitle(ADDON_NAME)
+		frame:SetStatusText(L.Debug_CopyToBugReport)
+		frame:SetCallback("OnClose", function(widget) AceGUI:Release(widget) end)
+		frame:SetLayout("Fill")
+
+		local editbox = AceGUI:Create("MultiLineEditBox")
+		editbox:SetLabel("")
+		editbox:DisableButton(true)
+		editbox:SetText(text)
+		editbox:SetFocus()
+		editbox:HighlightText(0, strlen(text))
+
+		frame:AddChild(editbox)
 	end,
 	["bang"] = function(...)
 		local number = tonumber(...)
@@ -2364,17 +2524,7 @@ local SlashHandlers = {
 		Print("Data check end")
 	end,
 	["test"] = function(...) -- To test new features
-		local tested = "onlyOwnClassCustoms"
-		local updateTreeAfterTest = true
-
-		cfg[tested] = not cfg[tested]
-		Print("Test:", cfg[tested])
-
-		if updateTreeAfterTest and n.treeGroup and n.treeGroup.tree then
-			n.treeGroup.tree = _buildTree(n.treeGroup.tree)
-			n.treeGroup:SelectByValue(ADDON_NAME.."Import")
-			n.treeGroup:RefreshTree(true)
-		end
+		Print("TEST")
 	end,
 }
 

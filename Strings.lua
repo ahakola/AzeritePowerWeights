@@ -133,6 +133,8 @@ do -- enUS / enGB
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME
 	L.Slash_Error_Unkown = "ERROR: Something went wrong!"
+
+	L.Debug_CopyToBugReport = "COPY & PASTE the text above to your bug report if you think it is relevant."
 end
 
 if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (5), Vivan (2), pas06 (2), Cytoph (1), imna1975 (17), Aurielqt (6)
