@@ -158,13 +158,13 @@ elseif LOCALE == "koKR" then -- Killberos (52)
 elseif LOCALE == "ptBR" then -- mariogusman (73)
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "ruRU" then -- dartraiden (78), Hubbotu (17), rtim0905 (0), Wolfeg (1), lorientalas (1)
+elseif LOCALE == "ruRU" then -- dartraiden (78), Hubbotu (18), rtim0905 (0), Wolfeg (1), lorientalas (1)
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (33)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "zhTW" then -- BNSSNB (95), Sinusquell (1)
+elseif LOCALE == "zhTW" then -- BNSSNB (96), Sinusquell (1)
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end

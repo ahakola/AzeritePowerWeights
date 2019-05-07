@@ -1,3 +1,8 @@
+### 8.1.15
+
+- Update Default-scales (SimulationCraft 815-02)
+- Update Russian (Hubbotu) and Traditional Chinese (BNSSNB) translations
+
 ### 8.1.14
 
 - Fixed the calculations missing rings from World Quest reward tooltips [Ticket #25](https://wow.curseforge.com/projects/azeritepowerweights/issues/25)
