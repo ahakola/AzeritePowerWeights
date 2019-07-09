@@ -35,6 +35,7 @@ do -- enUS / enGB
 
 	L.ImportPopup_Title = "Import Scale"
 	L.ImportPopup_Desc = "Importing scale from string\nPress %1$sCtrl+V%2$s to paste string to the editbox and press %3$s" -- %1$s and %2$s are color codes and %3$s = _G.ACCEPT
+	L.ImportPopup_Error_OldStringRetry = "ERROR: Old or malformed \"Import string\" -version is used, trying to import it anyway as a new scale!"
 	L.ImportPopup_Error_OldStringVersion = "ERROR: \"Import string\" -version is too old or malformed import string!"
 	L.ImportPopup_Error_MalformedString = "ERROR: Malformed import string!"
 	L.ImportPopup_UpdatedScale = "Updated existing scale \"%s\"" -- %s = scaleName
@@ -71,6 +72,8 @@ do -- enUS / enGB
 	L.WeightEditor_TimestampText_Imported = "Imported %s" -- %s DD.MM.YYYY
 	L.WeightEditor_TimestampText_Updated = "Updated %s" -- %s DD.MM.YYYY
 	L.WeightEditor_CurrentScale = "Current scale: %s" -- %s current scaleName
+	L.WeightEditor_Major = "Major"
+	L.WeightEditor_Minor = "Minor"
 
 	L.PowersTitles_Class = "Class Powers"
 	L.PowersTitles_Defensive = "Defensive Powers"
@@ -129,6 +132,8 @@ do -- enUS / enGB
 	L.Config_Score_ShowOnlyUpgrades_Desc = "Show scales values in tooltips only if it is an upgrade compared to currently equipped item. This works only with relative values enabled."
 	L.Config_Score_ShowTooltipLegend = "Show legend in tooltips"
 	L.Config_Score_ShowTooltipLegend_Desc = "Show reminder for \"Current score / Current potential / Maximum score\" in tooltips."
+	L.Config_Score_OutlineScores = "Outline Scores"
+	L.Config_Score_OutlineScores_Desc = "Draw small outline around the score-numbers on Azerite traits/essences to make it easier to read the numbers on light trait/essence icons."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME

@@ -2440,6 +2440,123 @@ local sourceData = {
 	},
 }
 n.sourceData = sourceData
+-- 8.2 Azerite Essences
+local essenceData = {
+	["common"] = {
+		{
+			["essenceID"] = 4,
+			["name"] = "Worldvein Resonance",
+			["icon"] = 1830317,
+		}, -- [1]
+		{
+			["essenceID"] = 12,
+			["name"] = "The Crucible of Flame",
+			["icon"] = 3015740,
+		}, -- [2]
+		{
+			["essenceID"] = 15,
+			["name"] = "Ripple in Space",
+			["icon"] = 2967109,
+		}, -- [3]
+		{
+			["essenceID"] = 22,
+			["name"] = "Vision of Perfection",
+			["icon"] = 3015743,
+		}, -- [4]
+		{
+			["essenceID"] = 27,
+			["name"] = "Memory of Lucid Dreams",
+			["icon"] = 2967104,
+		}, -- [5]
+		{
+			["essenceID"] = 32,
+			["name"] = "Conflict and Strife",
+			["icon"] = 3015742,
+		}, -- [6]
+	},
+	["tank"] = {
+		{
+			["essenceID"] = 2,
+			["name"] = "Azeroth's Undying Gift",
+			["icon"] = 2967107,
+		}, -- [1]
+		{
+			["essenceID"] = 3,
+			["name"] = "Sphere of Suppression",
+			["icon"] = 2065602,
+		}, -- [2]
+		{
+			["essenceID"] = 7,
+			["name"] = "Anima of Life and Death",
+			["icon"] = 2967105,
+		}, -- [3]
+		{
+			["essenceID"] = 13,
+			["name"] = "Nullification Dynamo",
+			["icon"] = 3015741,
+		}, -- [4]
+		{
+			["essenceID"] = 25,
+			["name"] = "Aegis of the Deep",
+			["icon"] = 2967110,
+		}, -- [5]
+	},
+	["healer"] = {
+		{
+			["essenceID"] = 17,
+			["name"] = "The Ever-Rising Tide",
+			["icon"] = 2967108,
+		}, -- [1]
+		{
+			["essenceID"] = 18,
+			["name"] = "Artifice of Time",
+			["icon"] = 2967112,
+		}, -- [2]
+		{
+			["essenceID"] = 19,
+			["name"] = "The Well of Existence",
+			["icon"] = 516796,
+		}, -- [3]
+		{
+			["essenceID"] = 20,
+			["name"] = "Life-Binder's Invocation",
+			["icon"] = 2967106,
+		}, -- [4]
+		{
+			["essenceID"] = 21,
+			["name"] = "Vitality Conduit",
+			["icon"] = 2967100,
+		}, -- [5]
+	},
+	["damager"] = {
+		{
+			["essenceID"] = 5,
+			["name"] = "Essence of the Focusing Iris",
+			["icon"] = 2967111,
+		}, -- [1]
+		{
+			["essenceID"] = 6,
+			["name"] = "Purification Protocol",
+			["icon"] = 2967103,
+		}, -- [2]
+		{
+			["essenceID"] = 14,
+			["name"] = "Condensed Life-Force",
+			["icon"] = 2967113,
+		}, -- [3]
+		{
+			["essenceID"] = 23,
+			["name"] = "Blood of the Enemy",
+			["icon"] = 2032580,
+		}, -- [4]
+		{
+			["essenceID"] = 28,
+			["name"] = "The Unbound Force",
+			["icon"] = 2967102,
+		}, -- [5]
+	},
+}
+n.essenceData = essenceData
 
 -- Default Scales Data
 --[[
@@ -2464,12 +2581,13 @@ n.defaultNameTable = defaultNameTable
 local defaultScalesData = {}
 n.defaultScalesData = defaultScalesData
 
-local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, timestamp)
+local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, essenceScales, timestamp)
 	defaultScalesData[#defaultScalesData + 1] = {
 		scaleName,
 		classIndex,
 		specNum,
 		powerScales,
+		essenceScales,
 		timestamp
 	}
 end
@@ -2543,7 +2661,7 @@ do
 			[459] = 2.65, -- Unstable Flames
 			[523] = 6.84, -- Apothecary's Concoctions
 			[461] = 2.38, -- Earthlink
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 12, 2, { -- Vengeance Demon Hunter
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2603,7 +2721,7 @@ do
 			[479] = 7.02, -- Dagger in the Back
 			[87] = 0.01, -- Self Reliance
 			[495] = 5.27, -- Anduin's Dedication
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 6, 1, { -- Blood Death Knight
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2669,7 +2787,7 @@ do
 			[522] = 6.63, -- Ancients' Bulwark
 			[157] = 10, -- Rezan's Fury
 			[194] = 9.21, -- Filthy Transfusion
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 6, 2, { -- Frost Death Knight
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2744,7 +2862,7 @@ do
 			[20] = 2.31, -- Lifespeed
 			[194] = 6.62, -- Filthy Transfusion
 			[562] = 10, -- Treacherous Covenant
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 6, 3, { -- Unholy Death Knight
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2806,7 +2924,7 @@ do
 			[84] = 0.05, -- Bulwark of the Masses
 			[109] = 7.82, -- Magus of the Dead
 			[482] = 6.13, -- Thunderous Blast
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 11, 1, { -- Balance Druid
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2866,7 +2984,7 @@ do
 			[356] = 1.66, -- High Noon
 			[461] = 1.15, -- Earthlink
 			[494] = 3.78, -- Battlefield Precision
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 11, 2, { -- Feral Druid
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -2952,7 +3070,7 @@ do
 			[496] = 1.45, -- Stronger Together
 			[541] = 1.95, -- Fight or Flight
 			[82] = 6.98, -- Champion of Azeroth
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 11, 3, { -- Guardian Druid
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3019,7 +3137,7 @@ do
 			[500] = 5.39, -- Synaptic Spark Capacitor
 			[562] = 8.61, -- Treacherous Covenant
 			[104] = 0.01, -- Bracing Chill
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 3, 1, { -- Beast Mastery Hunter
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3076,7 +3194,7 @@ do
 			[369] = 0.11, -- Rapid Reload
 			[481] = 4.59, -- Incite the Pack
 			[482] = 4.97, -- Thunderous Blast
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 3, 2, { -- Marksmanship Hunter
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3132,7 +3250,7 @@ do
 			[494] = 5.93, -- Battlefield Precision
 			[561] = 4.08, -- Seductive Power
 			[459] = 2.36, -- Unstable Flames
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 3, 3, { -- Survival Hunter
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3190,7 +3308,7 @@ do
 			[459] = 2.08, -- Unstable Flames
 			[480] = 4.8, -- Blood Rite
 			[562] = 7.9, -- Treacherous Covenant
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 8, 1, { -- Arcane Mage
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3244,7 +3362,7 @@ do
 			[31] = 2.58, -- Gutripper
 			[522] = 6.3, -- Ancients' Bulwark
 			[374] = 6.8, -- Galvanizing Spark
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 8, 2, { -- Fire Mage
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3304,7 +3422,7 @@ do
 			[523] = 5.73, -- Apothecary's Concoctions
 			[505] = 4.98, -- Tradewinds
 			[522] = 6.55, -- Ancients' Bulwark
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 8, 3, { -- Frost Mage
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3361,7 +3479,7 @@ do
 			[497] = 1.29, -- Stand As One
 			[18] = 1.33, -- Blood Siphon
 			[462] = 1.51, -- Azerite Globules
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 10, 1, { -- Brewmaster Monk
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3440,7 +3558,7 @@ do
 			[38] = 1.65, -- On My Way
 			[196] = 5.16, -- Swirling Sands
 			[42] = 0.04, -- Savior
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 10, 3, { -- Windwalker Monk
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3511,7 +3629,7 @@ do
 			[483] = 4.73, -- Archive of the Titans
 			[505] = 4.2, -- Tradewinds
 			[498] = 3.79, -- Barrage Of Many Bombs
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 2, 2, { -- Protection Paladin
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3567,7 +3685,7 @@ do
 			[156] = 4.93, -- Ruinous Bolt
 			[480] = 3.94, -- Blood Rite
 			[192] = 5.1, -- Meticulous Scheming
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 2, 3, { -- Retribution Paladin
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3633,7 +3751,7 @@ do
 			[493] = 2.59, -- Last Gift
 			[502] = 0.08, -- Personal Absorb-o-Tron
 			[459] = 2.45, -- Unstable Flames
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 4, 1, { -- Assassination Rogue
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3699,7 +3817,7 @@ do
 			[483] = 5.23, -- Archive of the Titans
 			[505] = 4.87, -- Tradewinds
 			[560] = 2.07, -- Bonded Souls
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 4, 2, { -- Outlaw Rogue
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3765,7 +3883,7 @@ do
 			[157] = 8.99, -- Rezan's Fury
 			[560] = 2.61, -- Bonded Souls
 			[503] = 0.1, -- Auto-Self-Cauterizer
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 4, 3, { -- Subtlety Rogue
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3821,7 +3939,7 @@ do
 			[493] = 1.27, -- Last Gift
 			[541] = 0.94, -- Fight or Flight
 			[30] = 1.77, -- Overwhelming Power
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 7, 1, { -- Elemental Shaman
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3898,7 +4016,7 @@ do
 			[22] = 1.87, -- Heed My Call
 			[84] = 0.07, -- Bulwark of the Masses
 			[498] = 2.66, -- Barrage Of Many Bombs
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 7, 2, { -- Enhancement Shaman
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -3967,7 +4085,7 @@ do
 			[14] = 0.09, -- Longstrider
 			[539] = 0.01, -- Ancient Ankh Talisman
 			[523] = 3.86, -- Apothecary's Concoctions
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 9, 1, { -- Affliction Warlock
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4022,7 +4140,7 @@ do
 			[541] = 2.19, -- Fight or Flight
 			[21] = 2.89, -- Elemental Whirl
 			[82] = 7.73, -- Champion of Azeroth
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 9, 2, { -- Demonology Warlock
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4083,7 +4201,7 @@ do
 			[496] = 0.93, -- Stronger Together
 			[499] = 1.5, -- Ricocheting Inflatable Pyrosaw
 			[156] = 2.33, -- Ruinous Bolt
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 9, 3, { -- Destruction Warlock
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4139,7 +4257,7 @@ do
 			[500] = 3.76, -- Synaptic Spark Capacitor
 			[44] = 0.1, -- Vampiric Speed
 			[192] = 5.33, -- Meticulous Scheming
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 1, 1, { -- Arms Warrior
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4215,7 +4333,7 @@ do
 			[121] = 6.42, -- Striking the Anvil
 			[503] = 0.09, -- Auto-Self-Cauterizer
 			[82] = 7.19, -- Champion of Azeroth
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 1, 2, { -- Fury Warrior
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4274,7 +4392,7 @@ do
 			[459] = 2.22, -- Unstable Flames
 			[437] = 7.69, -- Simmering Rage
 			[485] = 5.94, -- Laser Matrix
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(offensiveName, 1, 3, { -- Protection Warrior
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4342,7 +4460,7 @@ do
 			[481] = 3.71, -- Incite the Pack
 			[461] = 1.59, -- Earthlink
 			[22] = 3.55, -- Heed My Call
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 12, 2, { -- Vengeance Demon Hunter (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4400,7 +4518,7 @@ do
 			[192] = 1.49, -- Meticulous Scheming
 			[494] = 0.1, -- Battlefield Precision
 			[89] = 0.08, -- Azerite Veins
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 6, 1, { -- Blood Death Knight (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4446,7 +4564,7 @@ do
 			[15] = 10, -- Resounding Protection
 			[480] = 3.89, -- Blood Rite
 			[493] = 3.44, -- Last Gift
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 11, 3, { -- Guardian Druid (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4497,7 +4615,7 @@ do
 			[495] = 0.32, -- Anduin's Dedication
 			[501] = 0.75, -- Relational Normalization Gizmo
 			[38] = 0.37, -- On My Way
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 10, 1, { -- Brewmaster Monk (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4562,7 +4680,7 @@ do
 			[100] = 0.02, -- Strength in Numbers
 			[541] = 0.11, -- Fight or Flight
 			[196] = 0.21, -- Swirling Sands
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 2, 2, { -- Protection Paladin (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4616,7 +4734,7 @@ do
 			[86] = 0.01, -- Azerite Fortification
 			[30] = 0.65, -- Overwhelming Power
 			[395] = 0.98, -- Inspiring Vanguard
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defensiveName, 1, 3, { -- Protection Warrior (TMI)
 			-- SimulationCraft 815-02 for World of Warcraft 8.1.5 Live (wow build 29683)
@@ -4664,7 +4782,7 @@ do
 			[481] = 0.12, -- Incite the Pack
 			[562] = 0.13, -- Treacherous Covenant
 			[193] = 0.21, -- Blightborne Infusion
-		}, 1557133200)
+		}, {}, 1557133200)
 
 		insertDefaultScalesData(defaultName, 5, 3, { -- Shadow Priest
 			-- Shadow Priest by WarcraftPriests (https://warcraftpriests.com/)
@@ -4721,36 +4839,36 @@ do
 			[490] = 0.76,
 			[13] = 0.39,
 			[115] = 0.03,
-		}, 1557133200)
+		}, {}, 1557133200)
 
 
 		insertDefaultScalesData(offensiveName, 5, 1, { -- Discipline Priest
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 11, 4, { -- Restoration Druid
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 2, 1, { -- Holy Paladin
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 5, 1, { -- Discipline Priest
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 5, 2, { -- Holy Priest
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 7, 3, { -- Restoration Shaman
 
-		})
+		}, {})
 
 		insertDefaultScalesData(defaultName, 10, 2, { -- Mistweaver Monk
 
-		})
+		}, {})
 
 end
 

@@ -1,3 +1,15 @@
+### 8.2.0
+
+- TOC update
+- Added support for Azerite Essences, but there isn't any weights for them since I didn't have time to update my tools yet.
+- Also Default-scales are old, I'll push out update when the sims are done (I have really slow CPU).
+- 5 new strings for translators to translate at [Curseforge Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization)
+- New version of Import-strings supports Azerite Essences, but the old strings should still import
+   - If you import old version string, it will create a new copy instead of updating the existing one even if `Importing can update existing scales` is turned on.
+- Added outline around the score numbers in Azerite Trait and Azerite Essence UIs to make it easier to read the numbers if they are on top of a light icon.
+   - This can be turned off from the config if you don't like the new look.
+- Fixed one or two leaking globals.
+
 ### 8.1.15
 
 - Update Default-scales (SimulationCraft 815-02)

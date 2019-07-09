@@ -40,6 +40,7 @@ local charDefaults = {
 	relativeScore = false,
 	showOnlyUpgrades = false,
 	showTooltipLegend = true,
+	outlineScores = true,
 	specScales = {},
 	tooltipScales = {}
 }
@@ -52,12 +53,19 @@ local azeriteSlots = {
 }
 
 -- Weight Editor
-local importVersion = 1
+--[[
+	Version history:
+	1 - 8.0 -> 8.1.5: Initial release version of the ImportStrings
+	2 - 8.2 -> x.x: Added support for Azerite Essences to the ImportStrings
+]]--
+local importVersion = 2
 
 -- Score Strings
 local reallyBigNumber = 2^31 - 1 -- 2147483647, go over this and errors are thrown
 local activeStrings = {} -- Pointers of score strings in use are save in this table
 local scoreData = {} -- Current active scales are saved to this table
+-- 8.2 Azerite Essences
+local essenceScoreData = {}
 
 -- Pointers and Eventframe
 local customScales, cfg
@@ -105,6 +113,58 @@ local function initDB(db, defaults) -- This function copies values from one tabl
 	return db
 end
 
+local function _isInteger(number)
+	return number == floor(number)
+end
+
+local function _getDecimals(number)
+	local num, decimals = strsplit(".", tostring(number))
+	return decimals and strlen(decimals) or 0
+end
+
+local function _activeSpec() -- Get current active spec for scoreData population etc.
+	local currentSpec = GetSpecialization()
+	if currentSpec then
+		local specID = GetSpecializationInfo(currentSpec)
+		if specID then
+			playerSpecID = specID
+		end
+	end
+end
+
+local function _populateWeights() -- Populate scoreData with active spec's scale
+	if not playerSpecID then return end -- No playerSpecID yet, return
+	local scaleKey = cfg.specScales[playerSpecID].scaleID
+	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
+	if groupSet and classID and specNum and scaleName then
+		classID = tonumber(classID)
+		specNum = tonumber(specNum)
+		for _, dataSet in ipairs(groupSet == "C" and customScales or n.defaultScalesData) do
+			if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
+				wipe(scoreData)
+				for k, v in pairs(dataSet[4]) do
+					scoreData[k] = v
+				end
+				-- 8.2 Azerite Essences
+				wipe(essenceScoreData)
+				for k, v in pairs(dataSet[5]) do
+					essenceScoreData[k] = v
+				end
+				if n.guiContainer then
+					--n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
+					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName))
+				end
+
+				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
+				return
+			end
+		end
+		Debug("Couldn't populate scoreData", 2, groupSet, classID, specNum, scaleName)
+	else
+		Debug("Couldn't populate scoreData", 1, groupSet, classID, specNum, scaleName)
+	end
+end
+
 local AcquireString, ReleaseString
 do
 	local string_cache = {}
@@ -116,6 +176,13 @@ do
 			string = tremove(string_cache)
 		else
 			string = f:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+		end
+
+		local fontName, fontHeight, fontFlags = string:GetFont()
+		if cfg.outlineScores then
+			string:SetFont(fontName, fontHeight, "OUTLINE")
+		else
+			string:SetFont(fontName, fontHeight, "")
 		end
 
 		string:Show()
@@ -184,8 +251,8 @@ local pvpPairs = { -- Used for Exporting/Importing. These powers have same effec
 	[496] = -6,
 	[497] = -6
 }
-local function insertCustomScalesData(scaleName, classIndex, specID, powerData, scaleMode) -- Insert into table
-	local t = {}
+local function insertCustomScalesData(scaleName, classIndex, specID, powerData, essenceData, scaleMode) -- Insert into table
+	local t, e = {}, {}
 	if powerData and powerData ~= "" then -- String to table
 		for _, weight in pairs({ strsplit(",", powerData) }) do
 			local azeritePowerID, value = strsplit("=", strtrim(weight))
@@ -202,13 +269,36 @@ local function insertCustomScalesData(scaleName, classIndex, specID, powerData, 
 		end
 	end
 
+	-- 8.2 Azerite Essences
+	if essenceData and essenceData ~= "" then -- String to table
+		for _, weight in pairs({ strsplit(",", essenceData) }) do
+			local essenceID, valuePair = strsplit("=", strtrim(weight))
+			if essenceID and valuePair then
+				local majorValue, minorValue = strsplit("/", strtrim(valuePair))
+				essenceID = tonumber(essenceID) or nil
+				majorValue = tonumber(majorValue) or nil
+				minorValue = tonumber(minorValue) or nil
+
+				if essenceID and (majorValue or minorValue) and (majorValue > 0 or minorValue > 0) then
+					majorValue = majorValue and (majorValue > reallyBigNumber and reallyBigNumber or majorValue) or 0
+					minorValue = minorValue and (minorValue > reallyBigNumber and reallyBigNumber or minorValue) or 0
+					e[essenceID] = { majorValue, minorValue }
+				end
+			end
+		end
+	end
+
 	local updated = false
 	-- Check if we have scale with same name already and update it
 	for key, dataSet in ipairs(customScales) do
 		if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classIndex and dataSet[3] == specID then
 			dataSet[4] = t
-			dataSet[5] = time() -- Timestamp
-			dataSet[6] = 2 -- Set scaleMode to 2 (Only Imports should update scales)
+			-- 8.2 Azerite Essences
+			--dataSet[5] = time() -- Timestamp
+			--dataSet[6] = 2 -- Set scaleMode to 2 (Only Imports should update scales)
+			dataSet[5] = e
+			dataSet[6] = time() -- Timestamp
+			dataSet[7] = 2 -- Set scaleMode to 2 (Only Imports should update scales)
 			updated = true
 			break
 		end
@@ -221,6 +311,7 @@ local function insertCustomScalesData(scaleName, classIndex, specID, powerData, 
 			classIndex,
 			specID,
 			t,
+			e,
 			time(), -- Timestamp
 			scaleMode -- Set scaleMode either 1 (Created) or 2 (Imported)
 		}
@@ -265,7 +356,7 @@ local function _buildTree(t)
 	end
 
 	sort(t[1].children, _customSort)
-	tinsert(t[1].children,	1, { -- Make sure Create New/Import is the first item on the list
+	tinsert(t[1].children, 1, { -- Make sure Create New/Import is the first item on the list
 		value = ADDON_NAME.."Import",
 		text = L.ScalesList_CreateImportText,
 		icon = 134400
@@ -342,11 +433,16 @@ local function _SelectGroup(widget, callback, group)
 	delayedUpdate()
 end
 
-local function _enableScale(powerWeights, scaleKey)
+local function _enableScale(powerWeights, essenceWeights, scaleKey)
 	Debug("Enable Scale:", scaleKey)
 	wipe(scoreData)
 	for k, v in pairs(powerWeights) do
 		scoreData[k] = v
+	end
+	-- 8.2 Azerite Essences
+	wipe(essenceScoreData)
+	for k, v in pairs(essenceWeights) do
+		essenceScoreData[k] = v
 	end
 
 	local groupSet, _, _, scaleName = strsplit("/", scaleKey)
@@ -384,9 +480,9 @@ local function _checkForNameCollisions(nameString, previousName, classID, specID
 	return testName
 end
 
-local function _exportScale(powerWeights, scaleName, classID, specID) -- Create export string and show export popup
-	local template = "( %s:%d:\"%s\":%d:%d:%s )"
-	local t = {}
+local function _exportScale(powerWeights, essenceWeights, scaleName, classID, specID) -- Create export string and show export popup
+	local template = "( %s:%d:\"%s\":%d:%d:%s:%s )"
+	local t, e = {}, {}
 	local isHorde = UnitFactionGroup("player") == "Horde"
 	for k, v in pairs(powerWeights) do
 		if type(tonumber(v)) == "number" and tonumber(v) > 0 then
@@ -402,8 +498,11 @@ local function _exportScale(powerWeights, scaleName, classID, specID) -- Create 
 		end
 	end
 	sort(t)
+	for k, v in pairs(essenceWeights) do
+		e[#e + 1] = k.."="..(v[1] or 0).."/"..(v[2] or 0)
+	end
 
-	local exportString = format(template, ADDON_NAME, importVersion, scaleName, classID, specID, #t > 0 and " "..strjoin(", ", unpack(t)) or "")
+	local exportString = format(template, ADDON_NAME, importVersion, scaleName, classID, specID, #t > 0 and " "..strjoin(", ", unpack(t)) or "", #e > 0 and " "..strjoin(", ", unpack(e)) or "")
 	--Debug("%d - %s", #t, s)
 
 	--CreatePopUp(mode, titleText, descriptionText, editboxText, callbackFunction)
@@ -411,26 +510,40 @@ local function _exportScale(powerWeights, scaleName, classID, specID) -- Create 
 end
 
 local function _importScale(importMode) -- Show import popup and parse input
-	local template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*%)%s*$"
+	local template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*:%s*(.+)%s*%)%s*$"
+
 	local callbackFunction = function(widget, callback, ...)
-		local function _saveString(importString)
-			local startPos, endPos, stringVersion, scaleName, classID, specID, powerWeights = strfind(importString, template)
+		local function _saveString(importString, version)
+			if version and version == 1 then
+				template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*%)%s*$"
+			end
+			local startPos, endPos, stringVersion, scaleName, classID, specID, powerWeights, essenceWeights = strfind(importString, template)
+
 			stringVersion = tonumber(stringVersion) or 0
 			scaleName = scaleName or L.ScaleName_Unnamed
 			powerWeights = powerWeights or ""
+			essenceWeights = essenceWeights or ""
 			classID = tonumber(classID) or nil
 			specID = tonumber(specID) or nil
 
-			if not cfg.importingCanUpdate then -- No updating for you, get collision free name
+			if (not cfg.importingCanUpdate) or (version and version > 0) then -- No updating for you, get collision free name
 				scaleName = _checkForNameCollisions(scaleName, false, classID, specID)
 			end
 
-			if stringVersion < importVersion then -- String version is old
-				Print(L.ImportPopup_Error_OldStringVersion)
+			if (version and stringVersion < version) or (not version and stringVersion < importVersion) then -- String version is old and not supported
+				Debug("Version:", tostring(stringVersion), tostring(importVersion), tostring(version))
+				if not version then
+					Print(L.ImportPopup_Error_OldStringRetry)
+					_saveString(importString, (importVersion - 1))
+				elseif version > 1 then
+					_saveString(importString, (version - 1))
+				else
+					Print(L.ImportPopup_Error_OldStringVersion)
+				end
 			elseif type(classID) ~= "number" or classID < 1 or type(specID) ~= "number" or specID < 1 then -- No class or no spec, this really shouldn't happen ever
 				Print(L.ImportPopup_Error_MalformedString)
 			else -- Everything seems to be OK
-				local result = insertCustomScalesData(scaleName, classID, specID, powerWeights, 2) -- Set scaleMode 2 for Imported
+				local result = insertCustomScalesData(scaleName, classID, specID, powerWeights, essenceWeights, 2) -- Set scaleMode 2 for Imported
 
 				-- Rebuild Tree
 				n.treeGroup.tree = _buildTree(n.treeGroup.tree)
@@ -439,12 +552,15 @@ local function _importScale(importMode) -- Show import popup and parse input
 
 				if result then -- Updated old scale
 					Print(L.ImportPopup_UpdatedScale, scaleName)
+					-- Update the scores just incase if it is the scale actively in use
+					_populateWeights()
+					delayedUpdate()
 				else -- Created new
 					Print(L.ImportPopup_CreatedNewScale, scaleName)
 				end
 			end
 
-			--Debug(">", stringVersion, classID, specID, scaleName, powerWeights)
+			Debug(">", stringVersion, classID, specID, scaleName, "-", powerWeights, "-", essenceWeights)
 		end
 
 		local input = widget:GetUserData("importString") or ""
@@ -499,7 +615,7 @@ local function _createScale() -- Show create popup and parse input
 		local scaleName = _checkForNameCollisions(nameString, false, classID, specID)
 		Debug(">>", scaleName)
 		if scaleName then
-			local result = insertCustomScalesData(scaleName, classID, specID, nil, 1) -- Set scaleMode 1 for Created
+			local result = insertCustomScalesData(scaleName, classID, specID, nil, nil, 1) -- Set scaleMode 1 for Created
 
 			-- Rebuild Tree
 			n.treeGroup.tree = _buildTree(n.treeGroup.tree)
@@ -533,12 +649,14 @@ local function _renameScale(scaleName, classID, specID, isCurrentScales) -- Show
 		if renameString ~= scaleName then -- Check if name actually changed
 			local finalName = _checkForNameCollisions(renameString, scaleName, classID, specID)
 
-			local scaleWeights
+			local scaleWeights, essenceWeights
 			for key, dataSet in ipairs(customScales) do
 				if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specID then
 					Debug("> Renamed:", scaleName, "to", finalName)
 					dataSet[1] = finalName
 					scaleWeights = dataSet[4]
+					-- 8.2 Azerite Essences
+					essenceWeights = dataSet[5]
 
 					break
 				end
@@ -552,7 +670,7 @@ local function _renameScale(scaleName, classID, specID, isCurrentScales) -- Show
 
 			if isCurrentScales and scaleWeights then
 				Debug("> New Key: C/%d/%d/%s", classID, specID, finalName)
-				_enableScale(scaleWeights, "C/"..classID.."/"..specID.."/"..finalName)
+				_enableScale(scaleWeights, essenceWeights, "C/"..classID.."/"..specID.."/"..finalName)
 			end
 
 			-- Check if we have to rename scaleKeys for other tooltips
@@ -622,7 +740,7 @@ local function _deleteScale(scaleName, classID, specID, isCurrentScales) -- Show
 			for _, dataSet in ipairs(n.defaultScalesData) do
 				if (dataSet) and dataSet[1] == defaultScaleName and dataSet[2] == playerClassID and dataSet[3] == specNum then
 					Debug("Reverting to", scaleKey)
-					_enableScale(dataSet[4], scaleKey)
+					_enableScale(dataSet[4], dataSet[5], scaleKey)
 
 					break
 				end
@@ -719,6 +837,8 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	local _, specName = GetSpecializationInfoForClassID(classID, dataSet[3])
 	local titleText = isCustomScale and dataSet[1] or ("%s - %s (%s)"):format(classDisplayName, specName, dataSet[1])
 	local powerWeights = dataSet[4]
+	-- 8.2 Azerite Essences
+	local essenceWeights = dataSet[5]
 
 	container:ReleaseChildren()
 
@@ -737,7 +857,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	useButton:SetDisabled(isCurrentScales)
 	useButton:SetCallback("OnClick", function()
 		-- Call _enableScale
-		_enableScale(powerWeights, scaleKey)
+		_enableScale(powerWeights, essenceWeights, scaleKey)
 	end)
 	container:AddChild(useButton)
 
@@ -746,7 +866,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	exportButton:SetRelativeWidth(.5)
 	exportButton:SetCallback("OnClick", function()
 		-- Call _exportScale
-		_exportScale(powerWeights, titleText, classID, specID)
+		_exportScale(powerWeights, essenceWeights, titleText, classID, specID)
 	end)
 	container:AddChild(exportButton)
 
@@ -812,13 +932,15 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	local function _updateTimestamp()
 		-- dataSet[5] == timestamp
 		-- dataSet[6] = scaleMode: 0 = Default/Updated, 1 = Created, 2 = Imported
-		if dataSet[6] == 1 then
-			timestampText:SetText(format(L.WeightEditor_TimestampText_Created, date("%Y.%m.%d", (dataSet[5] or 0))))
-		elseif dataSet[6] == 2 then
-			timestampText:SetText(format(L.WeightEditor_TimestampText_Imported, date("%Y.%m.%d", (dataSet[5] or 0))))
+		-- 8.2 Azerite Essences
+		-- timestamp 5->6, scaleMode 6->7
+		if dataSet[7] == 1 then
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Created, date("%Y.%m.%d", (dataSet[6] or 0))))
+		elseif dataSet[7] == 2 then
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Imported, date("%Y.%m.%d", (dataSet[6] or 0))))
 		else -- dataSet[6] 0, Default or Updated
 			--timestampText:SetText(format(L.WeightEditor_TimestampText_Created, date("%Y.%m.%d %H:%M", (dataSet[5] or 0)))) -- Debug
-			timestampText:SetText(format(L.WeightEditor_TimestampText_Updated, date("%Y.%m.%d", (dataSet[5] or 0))))
+			timestampText:SetText(format(L.WeightEditor_TimestampText_Updated, date("%Y.%m.%d", (dataSet[6] or 0))))
 		end
 	end
 
@@ -829,11 +951,6 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	spacer:SetText(" \n ")
 	spacer:SetFullWidth(true)
 	container:AddChild(spacer)
-
-	local classTitle = AceGUI:Create("Heading")
-	classTitle:SetText(L.PowersTitles_Class)
-	classTitle:SetFullWidth(true)
-	container:AddChild(classTitle)
 
 	local isHorde = UnitFactionGroup("player") == "Horde"
 	local roleBits = 0x0
@@ -875,98 +992,78 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 		end
 
 		-- Update scaleMode and timestamp
-		dataSet[5] = time()
-		dataSet[6] = 0
+		-- 8.2 Azerite Essences
+		--dataSet[5] = time()
+		--dataSet[6] = 0
+		dataSet[6] = time()
+		dataSet[7] = 0
 		_updateTimestamp()
 	end
 
-	-- Center Power
-	local cname = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(n.sourceData.center.azeritePowerID).spellID)
-	e[c] = AceGUI:Create("EditBox")
-	e[c]:SetLabel(format("  |T%d:18|t %s", n.sourceData.center.icon, cname or n.sourceData.center.name))
-	e[c]:SetText(powerWeights[n.sourceData.center.azeritePowerID] or "")
-	e[c]:SetRelativeWidth(.5)
-	if isCustomScale then
-		e[c]:SetUserData("dataPointer", n.sourceData.center.azeritePowerID)
-		e[c]:SetCallback("OnEnterPressed", _saveValue)
-	else
-		e[c]:SetDisabled(true)
-	end
-	container:AddChild(e[c])
-	c = c + 1
+	local function _saveEssenceValue(widget, callback, text)
+		local value = tonumber(text) or 0
+		value = value > reallyBigNumber and reallyBigNumber or value
+		local pointer = widget:GetUserData("essencePointer")
+		local major = widget:GetUserData("essenceMajor")
+		--Debug("Major:", tostring(major))
+		-- Save to DB
+		essenceWeights[pointer] = essenceWeights[pointer] or {}
+		if major then
+			essenceWeights[pointer][1] = value
+		else
+			essenceWeights[pointer][2] = value
+		end
+		widget:SetText(text == "" and "" or (value and value or ""))
+		AceGUI:ClearFocus()
 
-	-- Class Powers
-	for i, powerData in ipairs(n.sourceData.class[classID][specID]) do
-		local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+		if isCurrentScales then
+			-- Update visible numbers
+			essenceScoreData[pointer] = essenceScoreData[pointer] or {}
+			if major then
+				essenceScoreData[pointer][1] = value
+			else
+				essenceScoreData[pointer][2] = value
+			end
+			delayedUpdate()
+		end
+
+		-- Update scaleMode and timestamp
+		dataSet[6] = time()
+		dataSet[7] = 0
+		_updateTimestamp()
+	end
+
+	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+		-- Class Powers title
+		local classTitle = AceGUI:Create("Heading")
+		classTitle:SetText(L.PowersTitles_Class)
+		classTitle:SetFullWidth(true)
+		container:AddChild(classTitle)
+
+		-- Center Power
+		local cname = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(n.sourceData.center.azeritePowerID).spellID)
 		e[c] = AceGUI:Create("EditBox")
-		e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-		e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+		e[c]:SetLabel(format("  |T%d:18|t %s", n.sourceData.center.icon, cname or n.sourceData.center.name))
+		e[c]:SetText(powerWeights[n.sourceData.center.azeritePowerID] or "")
 		e[c]:SetRelativeWidth(.5)
 		if isCustomScale then
-			e[c]:SetUserData("dataPointer", n.sourceData.class[classID][specID][i].azeritePowerID)
+			e[c]:SetUserData("dataPointer", n.sourceData.center.azeritePowerID)
 			e[c]:SetCallback("OnEnterPressed", _saveValue)
 		else
 			e[c]:SetDisabled(true)
 		end
 		container:AddChild(e[c])
 		c = c + 1
-	end
 
-	if cfg.defensivePowers then
-		local defTitle = AceGUI:Create("Heading")
-		defTitle:SetText(L.PowersTitles_Defensive)
-		defTitle:SetFullWidth(true)
-		container:AddChild(defTitle)
-
-		-- Defensive Powers
-		for i, powerData in ipairs(n.sourceData.defensive[classID]) do
+		-- Class Powers
+		for i, powerData in ipairs(n.sourceData.class[classID][specID]) do
 			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 			e[c] = AceGUI:Create("EditBox")
 			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
 			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 			e[c]:SetRelativeWidth(.5)
 			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.defensive[classID][i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-		for i, powerData in ipairs(n.sourceData.defensive.common) do
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.defensive.common[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-	end
-
-	if cfg.rolePowers then
-		local roleTitle = AceGUI:Create("Heading")
-		roleTitle:SetText(L.PowersTitles_Role)
-		roleTitle:SetFullWidth(true)
-		container:AddChild(roleTitle)
-
-		-- Role Powers
-		for i, powerData in ipairs(n.sourceData.role.common) do
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:3:::64:16:16:64:0:16|t" -- Tank, DPS & Healer
-			e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.role.common[i].azeritePowerID)
+				e[c]:SetUserData("dataPointer", n.sourceData.class[classID][specID][i].azeritePowerID)
 				e[c]:SetCallback("OnEnterPressed", _saveValue)
 			else
 				e[c]:SetDisabled(true)
@@ -975,17 +1072,36 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 			c = c + 1
 		end
 
-		-- Non-Healer Powers
-		if bit.band(roleBits, bit.bor(BIT_DAMAGER, BIT_TANK)) ~= 0 then
-			for i, powerData in ipairs(n.sourceData.role.nonhealer) do
+		if cfg.defensivePowers then
+			local defTitle = AceGUI:Create("Heading")
+			defTitle:SetText(L.PowersTitles_Defensive)
+			defTitle:SetFullWidth(true)
+			container:AddChild(defTitle)
+
+			-- Defensive Powers
+			for i, powerData in ipairs(n.sourceData.defensive[classID]) do
 				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 				e[c] = AceGUI:Create("EditBox")
-				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:2:::64:16:16:48:0:16|t" -- Tank & DPS
-				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
 				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 				e[c]:SetRelativeWidth(.5)
 				if isCustomScale then
-					e[c]:SetUserData("dataPointer", n.sourceData.role.nonhealer[i].azeritePowerID)
+					e[c]:SetUserData("dataPointer", n.sourceData.defensive[classID][i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+			for i, powerData in ipairs(n.sourceData.defensive.common) do
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.defensive.common[i].azeritePowerID)
 					e[c]:SetCallback("OnEnterPressed", _saveValue)
 				else
 					e[c]:SetDisabled(true)
@@ -994,18 +1110,294 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 				c = c + 1
 			end
 		end
-		-- Tank Powers
-		if bit.band(roleBits, BIT_TANK) ~= 0 then
-			for i, powerData in ipairs(n.sourceData.role.tank) do
+
+		if cfg.rolePowers then
+			local roleTitle = AceGUI:Create("Heading")
+			roleTitle:SetText(L.PowersTitles_Role)
+			roleTitle:SetFullWidth(true)
+			container:AddChild(roleTitle)
+
+			-- Role Powers
+			for i, powerData in ipairs(n.sourceData.role.common) do
 				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
 				e[c] = AceGUI:Create("EditBox")
-				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:32:48:0:16|t" -- Tank
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:3:::64:16:16:64:0:16|t" -- Tank, DPS & Healer
 				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
 				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
 				e[c]:SetRelativeWidth(.5)
 				if isCustomScale then
-					e[c]:SetUserData("dataPointer", n.sourceData.role.tank[i].azeritePowerID)
+					e[c]:SetUserData("dataPointer", n.sourceData.role.common[i].azeritePowerID)
 					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+
+			-- Non-Healer Powers
+			if bit.band(roleBits, bit.bor(BIT_DAMAGER, BIT_TANK)) ~= 0 then
+				for i, powerData in ipairs(n.sourceData.role.nonhealer) do
+					local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+					e[c] = AceGUI:Create("EditBox")
+					local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:2:::64:16:16:48:0:16|t" -- Tank & DPS
+					e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
+					e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+					e[c]:SetRelativeWidth(.5)
+					if isCustomScale then
+						e[c]:SetUserData("dataPointer", n.sourceData.role.nonhealer[i].azeritePowerID)
+						e[c]:SetCallback("OnEnterPressed", _saveValue)
+					else
+						e[c]:SetDisabled(true)
+					end
+					container:AddChild(e[c])
+					c = c + 1
+				end
+			end
+			-- Tank Powers
+			if bit.band(roleBits, BIT_TANK) ~= 0 then
+				for i, powerData in ipairs(n.sourceData.role.tank) do
+					local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+					e[c] = AceGUI:Create("EditBox")
+					local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:32:48:0:16|t" -- Tank
+					e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
+					e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+					e[c]:SetRelativeWidth(.5)
+					if isCustomScale then
+						e[c]:SetUserData("dataPointer", n.sourceData.role.tank[i].azeritePowerID)
+						e[c]:SetCallback("OnEnterPressed", _saveValue)
+					else
+						e[c]:SetDisabled(true)
+					end
+					container:AddChild(e[c])
+					c = c + 1
+				end
+			end
+			-- Healer Powers
+			if bit.band(roleBits, BIT_HEALER) ~= 0 then
+				for i, powerData in ipairs(n.sourceData.role.healer) do
+					local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+					e[c] = AceGUI:Create("EditBox")
+					local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:48:64:0:16|t" -- Healer
+					e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
+					e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+					e[c]:SetRelativeWidth(.5)
+					if isCustomScale then
+						e[c]:SetUserData("dataPointer", n.sourceData.role.healer[i].azeritePowerID)
+						e[c]:SetCallback("OnEnterPressed", _saveValue)
+					else
+						e[c]:SetDisabled(true)
+					end
+					container:AddChild(e[c])
+					c = c + 1
+				end
+			end
+		end
+
+		if cfg.zonePowers then
+			local zoneTitle = AceGUI:Create("Heading")
+			zoneTitle:SetText(L.PowersTitles_Zone)
+			zoneTitle:SetFullWidth(true)
+			container:AddChild(zoneTitle)
+
+			-- Raid Powers
+			for i, powerData in ipairs(n.sourceData.raid) do
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t*%s*", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.raid[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+			-- Zone Powers
+			-- 8.0:
+			local startPoint = 1
+			local endPoint = 15
+			for i = startPoint, endPoint do
+				local powerData = n.sourceData.zone[i]
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+			-- Different Zone traits for Alliance and Horde in 8.1
+			local tidesStart = isHorde and 18 or 16
+			local tidesEnd = isHorde and 19 or 17
+			for i = tidesStart, tidesEnd do
+				local powerData = n.sourceData.zone[i]
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+		end
+
+		if cfg.professionPowers then
+			local professionTitle = AceGUI:Create("Heading")
+			professionTitle:SetText(L.PowersTitles_Profession)
+			professionTitle:SetFullWidth(true)
+			container:AddChild(professionTitle)
+
+			-- Profession Powers
+			for i, powerData in ipairs(n.sourceData.profession) do
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.profession[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+		end
+
+		if cfg.pvpPowers then
+			local pvpTitle = AceGUI:Create("Heading")
+			pvpTitle:SetText(L.PowersTitles_PvP)
+			pvpTitle:SetFullWidth(true)
+			container:AddChild(pvpTitle)
+
+			-- PvP Powers
+			-- 8.0:
+			local startPoint = isHorde and 1 or 7
+			local endPoint = isHorde and 6 or 12
+			for i = startPoint, endPoint do
+				local powerData = n.sourceData.pvp[i]
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
+					e[c]:SetUserData("pairPointer", n.sourceData.pvp[i].pair)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+			-- 8.1:
+			for i = 13, #n.sourceData.pvp do
+				local powerData = n.sourceData.pvp[i]
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
+		end
+	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+		local topLine = AceGUI:Create("Heading")
+		topLine:SetFullWidth(true)
+		container:AddChild(topLine)
+
+		for i, essenceData in ipairs(n.essenceData.common) do
+			local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0:3:::64:16:16:64:0:16|t" -- Tank, DPS & Healer
+			local essenceTitle = AceGUI:Create("Heading")
+			essenceTitle:SetText(format("|T%d:18|t %s", essenceData.icon, essenceData.name))
+			essenceTitle:SetRelativeWidth(.5)
+			container:AddChild(essenceTitle)
+
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Major))
+			e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][1] or "")
+			e[c]:SetRelativeWidth(.25)
+			if isCustomScale then
+				e[c]:SetUserData("essencePointer", n.essenceData.common[i].essenceID)
+				e[c]:SetUserData("essenceMajor", true)
+				e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+
+			e[c] = AceGUI:Create("EditBox")
+			e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Minor))
+			e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][2] or "")
+			e[c]:SetRelativeWidth(.25)
+			if isCustomScale then
+				e[c]:SetUserData("essencePointer", n.essenceData.common[i].essenceID)
+				e[c]:SetUserData("essenceMajor", false)
+				e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+			else
+				e[c]:SetDisabled(true)
+			end
+			container:AddChild(e[c])
+			c = c + 1
+		end
+
+		-- Tank Powers
+		if bit.band(roleBits, BIT_TANK) ~= 0 then
+			for i, essenceData in ipairs(n.essenceData.tank) do
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:32:48:0:16|t" -- Tank
+				local essenceTitle = AceGUI:Create("Heading")
+				essenceTitle:SetText(format("|T%d:18|t %s", essenceData.icon, essenceData.name))
+				essenceTitle:SetRelativeWidth(.5)
+				container:AddChild(essenceTitle)
+
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Major))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][1] or "")
+				e[c]:SetRelativeWidth(.25)
+				if isCustomScale then
+					e[c]:SetUserData("essencePointer", n.essenceData.tank[i].essenceID)
+					e[c]:SetUserData("essenceMajor", true)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Minor))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][2] or "")
+				e[c]:SetRelativeWidth(.25)
+				if isCustomScale then
+					e[c]:SetUserData("essencePointer", n.essenceData.tank[i].essenceID)
+					e[c]:SetUserData("essenceMajor", false)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
 				else
 					e[c]:SetDisabled(true)
 				end
@@ -1015,16 +1407,35 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 		end
 		-- Healer Powers
 		if bit.band(roleBits, BIT_HEALER) ~= 0 then
-			for i, powerData in ipairs(n.sourceData.role.healer) do
-				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-				e[c] = AceGUI:Create("EditBox")
+			for i, essenceData in ipairs(n.essenceData.healer) do
 				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:48:64:0:16|t" -- Healer
-				e[c]:SetLabel(format("  %s |T%d:18|t %s", roleIcon, powerData.icon, name or powerData.name))
-				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-				e[c]:SetRelativeWidth(.5)
+				local essenceTitle = AceGUI:Create("Heading")
+				essenceTitle:SetText(format("|T%d:18|t %s", essenceData.icon, essenceData.name))
+				essenceTitle:SetRelativeWidth(.5)
+				container:AddChild(essenceTitle)
+
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Major))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][1] or "")
+				e[c]:SetRelativeWidth(.25)
 				if isCustomScale then
-					e[c]:SetUserData("dataPointer", n.sourceData.role.healer[i].azeritePowerID)
-					e[c]:SetCallback("OnEnterPressed", _saveValue)
+					e[c]:SetUserData("essencePointer", n.essenceData.healer[i].essenceID)
+					e[c]:SetUserData("essenceMajor", true)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Minor))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][2] or "")
+				e[c]:SetRelativeWidth(.25)
+				if isCustomScale then
+					e[c]:SetUserData("essencePointer", n.essenceData.healer[i].essenceID)
+					e[c]:SetUserData("essenceMajor", false)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
 				else
 					e[c]:SetDisabled(true)
 				end
@@ -1032,138 +1443,43 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 				c = c + 1
 			end
 		end
-	end
+		-- DPS Powers
+		if bit.band(roleBits, BIT_DAMAGER) ~= 0 then
+			for i, essenceData in ipairs(n.essenceData.damager) do
+				local roleIcon = "|TInterface\\LFGFrame\\LFGRole:0::::64:16:16:32:0:16|t" -- Damager
+				local essenceTitle = AceGUI:Create("Heading")
+				essenceTitle:SetText(format("|T%d:18|t %s", essenceData.icon, essenceData.name))
+				essenceTitle:SetRelativeWidth(.5)
+				container:AddChild(essenceTitle)
 
-	if cfg.zonePowers then
-		local zoneTitle = AceGUI:Create("Heading")
-		zoneTitle:SetText(L.PowersTitles_Zone)
-		zoneTitle:SetFullWidth(true)
-		container:AddChild(zoneTitle)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Major))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][1] or "")
+				e[c]:SetRelativeWidth(.25)
+				if isCustomScale then
+					e[c]:SetUserData("essencePointer", n.essenceData.damager[i].essenceID)
+					e[c]:SetUserData("essenceMajor", true)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
 
-		-- Raid Powers
-		for i, powerData in ipairs(n.sourceData.raid) do
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t*%s*", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.raid[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  %s %s", roleIcon, L.WeightEditor_Minor))
+				e[c]:SetText(essenceWeights[essenceData.essenceID] and essenceWeights[essenceData.essenceID][2] or "")
+				e[c]:SetRelativeWidth(.25)
+				if isCustomScale then
+					e[c]:SetUserData("essencePointer", n.essenceData.damager[i].essenceID)
+					e[c]:SetUserData("essenceMajor", false)
+					e[c]:SetCallback("OnEnterPressed", _saveEssenceValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
 			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-		-- Zone Powers
-		-- 8.0:
-		local startPoint = 1
-		local endPoint = 15
-		for i = startPoint, endPoint do
-			local powerData = n.sourceData.zone[i]
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-		-- Different Zone traits for Alliance and Horde in 8.1
-		local tidesStart = isHorde and 18 or 16
-		local tidesEnd = isHorde and 19 or 17
-		for i = tidesStart, tidesEnd do
-			local powerData = n.sourceData.zone[i]
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-	end
-
-	if cfg.professionPowers then
-		local professionTitle = AceGUI:Create("Heading")
-		professionTitle:SetText(L.PowersTitles_Profession)
-		professionTitle:SetFullWidth(true)
-		container:AddChild(professionTitle)
-
-		-- Profession Powers
-		for i, powerData in ipairs(n.sourceData.profession) do
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.profession[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-	end
-
-	if cfg.pvpPowers then
-		local pvpTitle = AceGUI:Create("Heading")
-		pvpTitle:SetText(L.PowersTitles_PvP)
-		pvpTitle:SetFullWidth(true)
-		container:AddChild(pvpTitle)
-
-		-- PvP Powers
-		-- 8.0:
-		local startPoint = isHorde and 1 or 7
-		local endPoint = isHorde and 6 or 12
-		for i = startPoint, endPoint do
-			local powerData = n.sourceData.pvp[i]
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
-				e[c]:SetUserData("pairPointer", n.sourceData.pvp[i].pair)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
-		end
-		-- 8.1:
-		for i = 13, #n.sourceData.pvp do
-			local powerData = n.sourceData.pvp[i]
-			local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
-			e[c] = AceGUI:Create("EditBox")
-			e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
-			e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
-			e[c]:SetRelativeWidth(.5)
-			if isCustomScale then
-				e[c]:SetUserData("dataPointer", n.sourceData.pvp[i].azeritePowerID)
-				e[c]:SetCallback("OnEnterPressed", _saveValue)
-			else
-				e[c]:SetDisabled(true)
-			end
-			container:AddChild(e[c])
-			c = c + 1
 		end
 	end
 
@@ -1180,9 +1496,12 @@ local function _toggleEditorUI()
 	if not n.guiContainer then return end
 
 	n.guiContainer:ClearAllPoints()
-	if _G.AzeriteEmpoweredItemUI:IsShown() then
+	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
 		n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI, "TOPRIGHT", 10, 0)
 		n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMRIGHT", 10, 0)
+	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+		n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEssenceUI, "TOPRIGHT", 10, 0)
+		n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEssenceUI, "BOTTOMRIGHT", 10, 0)
 	else
 		n.guiContainer:SetPoint("CENTER", _G.UIParent)
 	end
@@ -1195,92 +1514,106 @@ local function _toggleEditorUI()
 end
 
 -- Hook and Init functions
-local function _isInteger(number)
-	return number == floor(number)
-end
+local function _setupStringAndEnableButton() -- Move string and enableButton between AzeriteEmpoweredItemUI and AzeriteEssenceUI
+	C_Timer.After(0, function() -- Fire on next frame instead of current frame
+		if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+			n.frame:SetParent(_G.AzeriteEmpoweredItemUI)
 
-local function _getDecimals(number)
-	local num, decimals = strsplit(".", tostring(number))
-	return decimals and strlen(decimals) or 0
-end
-
-local function _activeSpec() -- Get current active spec for scoreData population etc.
-	local currentSpec = GetSpecialization()
-	if currentSpec then
-		local specID = GetSpecializationInfo(currentSpec)
-		if specID then
-			playerSpecID = specID
-		end
-	end
-end
-
-local function _populateWeights() -- Populate scoreData with active spec's scale
-	if not playerSpecID then return end -- No playerSpecID yet, return
-	local scaleKey = cfg.specScales[playerSpecID].scaleID
-	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
-	if groupSet and classID and specNum and scaleName then
-		classID = tonumber(classID)
-		specNum = tonumber(specNum)
-		for _, dataSet in ipairs(groupSet == "C" and customScales or n.defaultScalesData) do
-			if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
-				wipe(scoreData)
-				for k, v in pairs(dataSet[4]) do
-					scoreData[k] = v
-				end
-				if n.guiContainer then
-					--n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, scaleName))
-					n.guiContainer:SetStatusText(format(L.WeightEditor_CurrentScale, groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName))
-				end
-
-				Debug("Populated scoreData", groupSet, classID, specNum, scaleName)
-				return
+			if _G.AzeriteEmpoweredItemUIPortrait:IsShown() then -- Default UI etc. who show Portrait
+				n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
+			else -- ElvUI etc. who hides Portrait
+				n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
 			end
+
+			n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
+			n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
+		elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+			n.frame:SetParent(_G.AzeriteEssenceUI)
+
+			if ElvUI and ElvUI[3] and ElvUI[3].skins and ElvUI[3].skins.blizzard and ElvUI[3].skins.blizzard.AzeriteEssence then -- ElvUI etc. who hides Portrait
+				n.string:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -10)
+			else -- Default UI etc. who show Portrait
+				n.string:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -50)
+			end
+
+			n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEssenceUI, "BOTTOMLEFT", 10, 10)
+			n.enableButton.frame:SetParent(_G.AzeriteEssenceUI.LeftInset)
+		else
+			Debug("!!! string and enableButton ???")
+			n.frame:Hide()
+			n.enableButton.frame:Hide()
+
+			return
 		end
-		Debug("Couldn't populate scoreData", 2, groupSet, classID, specNum, scaleName)
-	else
-		Debug("Couldn't populate scoreData", 1, groupSet, classID, specNum, scaleName)
-	end
+		n.frame:Show()
+		n.enableButton.frame:Show()
+	end)
 end
 
 function f:HookAzeriteUI() -- Set Parents and Anchors
 	if not playerSpecID then return end -- No playerSpecID yet, return
-	Debug("HOOK UI")
+	Debug("HOOK Azerite UI")
 	self:InitUI()
 
-	n.frame:SetParent(_G.AzeriteEmpoweredItemUI)
-	n.frame:Show()
 	--[[
-	-- Tooltip
-	n.frame:SetAllPoints(n.string)
-	]]
-
 	if _G.AzeriteEmpoweredItemUIPortrait:IsShown() then -- Default UI etc. who show Portrait
 		n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
 	else -- ElvUI etc. who hides Portrait
 		n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
 	end
+	n.frame:Show()
 
+	n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
 	n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
 	n.enableButton.frame:Show()
+	]]
+	_setupStringAndEnableButton()
 
 	_G.AzeriteEmpoweredItemUI:HookScript("OnHide", function() -- Hide strings on frame hide
-		Debug("== HIDING ==", #activeStrings)
+		Debug("== HIDING 1 ==", #activeStrings)
 		while #activeStrings > 0 do
 			local s = tremove(activeStrings)
 			ReleaseString(s)
 		end
 
 		if n.guiContainer then
+			n.scalesScroll:ReleaseChildren()
+			Debug("Releasing children")
+			lastOpenScale = nil
+			f:RefreshConfig()
+
 			n.guiContainer:Hide()
 		end
-		Debug("== HIDDEN ==", #activeStrings)
+		Debug("== HIDDEN 1 ==", #activeStrings)
 	end)
 end
 
---[[
--- Tooltip
-local baseScore = ""
-]]
+function f:HookAzeriteEssenceUI() -- Set Parents and Anchors for the 8.2 AzeriteEssenceUI
+	if not playerSpecID then return end -- No playerSpecID yet, return
+	Debug("HOOK Essence UI")
+	self:InitUI()
+
+	_setupStringAndEnableButton()
+
+	_G.AzeriteEssenceUI:HookScript("OnHide", function() -- Hide strings on frame hide
+		Debug("== HIDING 2 ==", #activeStrings)
+		while #activeStrings > 0 do
+			local s = tremove(activeStrings)
+			ReleaseString(s)
+		end
+
+		if n.guiContainer then
+			n.scalesScroll:ReleaseChildren()
+			Debug("Releasing children")
+			lastOpenScale = nil
+			f:RefreshConfig()
+
+			n.guiContainer:Hide()
+		end
+		Debug("== HIDDEN 2 ==", #activeStrings)
+	end)
+end
+
 local initDone
 function f:InitUI() -- Build UI and set up some initial data
 	if initDone then return end
@@ -1289,27 +1622,18 @@ function f:InitUI() -- Build UI and set up some initial data
 	Debug("INIT UI")
 
 	local frame = CreateFrame("Frame")
-	--[[
-	-- Tooltip
-	frame:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-		GameTooltip:SetText(format("%s\n%s", HIGHLIGHT_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
-	end)
-	frame:SetScript("OnLeave", GameTooltip_Hide)
-	]]
 	frame:Hide()
+	n.frame = frame
 
 	local string = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 	string:SetJustifyH("LEFT")
 	string:SetJustifyV("TOP")
 	string:SetText("")
-
-	n.frame = frame
 	n.string = string
 
 	-- Enable Button
 	local enableButton = AceGUI:Create("Button")
-	enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
+	--enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
 	enableButton:SetText(ADDON_NAME)
 	enableButton:SetAutoWidth(true)
 	enableButton:SetCallback("OnClick", _toggleEditorUI)
@@ -1317,8 +1641,8 @@ function f:InitUI() -- Build UI and set up some initial data
 
 	-- Editor GUI
 	n.guiContainer = n.CreateUI()
-	n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI, "TOPRIGHT", 10, 0)
-	n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMRIGHT", 10, 0)
+	--n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI, "TOPRIGHT", 10, 0)
+	--n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMRIGHT", 10, 0)
 
 	-- TreeGroup Hacks for QoL
 	n.treeGroup:SetCallback("OnGroupSelected", _SelectGroup)
@@ -1347,171 +1671,415 @@ end
 
 function f:UpdateValues() -- Update scores
 	lock = nil
-	if not _G.AzeriteEmpoweredItemUI or not _G.AzeriteEmpoweredItemUI:IsShown() then return end
+	if not (_G.AzeriteEmpoweredItemUI or _G.AzeriteEssenceUI) then return end
 	Debug("UPDATE VALUES")
 
-	local currentScore, currentPotential, maxScore, currentLevel, maxLevel, midTrait = 0, 0, 0, 0, 0, 0
-	local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
-	if azeriteItemLocation then
-		currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
-	end
+	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+		local currentScore, currentPotential, maxScore, currentLevel, maxLevel, midTrait = 0, 0, 0, 0, 0, 0
+		local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
+		if azeriteItemLocation then
+			currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
+		end
 
-	-- Update score strings and calculate current score
-	while #activeStrings > 0 do
-		local s = tremove(activeStrings)
-		ReleaseString(s)
-	end
+		-- Update score strings and calculate current score
+		while #activeStrings > 0 do
+			local s = tremove(activeStrings)
+			ReleaseString(s)
+		end
 
-	local container = _G.AzeriteEmpoweredItemUI.ClipFrame.PowerContainerFrame
-	local children = { container:GetChildren() }
-	local frameTmp = "> Frames:"
-	for _, frame in ipairs(children) do
-		if frame and frame:IsShown() then
-			--Debug(">" frame.azeritePowerID, frame.spellID, frame.unlockLevel)
-			--Debug(">>", frame.isSelected)
+		local container = _G.AzeriteEmpoweredItemUI.ClipFrame.PowerContainerFrame
+		local children = { container:GetChildren() }
+		local frameTmp = "> Frames:"
+		for _, frame in ipairs(children) do
+			if frame and frame:IsShown() then
+				--Debug(">" frame.azeritePowerID, frame.spellID, frame.unlockLevel)
+				--Debug(">>", frame.isSelected)
 
-			local score = 0
-			local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(frame.azeritePowerID)
-			if powerInfo then
-				score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
-			end
-
-			if frame.isSelected == true then
-				currentScore = currentScore + score
-
-				if powerInfo.azeritePowerID == 13 then -- Middle
-					midTrait = midTrait + 1
-					Debug("UpdateValues Middle is selected")
+				local score = 0
+				local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(frame.azeritePowerID)
+				if powerInfo then
+					score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
 				end
-			end
 
-			if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
-				score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
+				if frame.isSelected == true then
+					currentScore = currentScore + score
+
+					if powerInfo.azeritePowerID == 13 then -- Middle
+						midTrait = midTrait + 1
+						Debug("UpdateValues Middle is selected")
+					end
+				end
+
+				if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
+					score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
+				end
+				frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
+				--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
+				local s = AcquireString(frame, score)
+				activeStrings[#activeStrings + 1] = s
 			end
-			frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
-			--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
-			local s = AcquireString(frame, score)
-			activeStrings[#activeStrings + 1] = s
 		end
-	end
-	Debug(frameTmp)
+		Debug(frameTmp)
 
-	-- Calculate maxScore for the item
-	local allTierInfo = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetAllTierInfo()
-	if not allTierInfo then
-		local itemID = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemID()
-		if not itemID then return end
-		allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemID)
-	end
+		-- Calculate maxScore for the item
+		local allTierInfo = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetAllTierInfo()
+		if not allTierInfo then
+			local itemID = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemID()
+			if not itemID then return end
+			allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemID)
+		end
 
-	--[[
-		Dump: value=C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(158041)
-		[1]={
+		--[[
+			Dump: value=C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(158041)
 			[1]={
-				azeritePowerIDs={
-					[1]=195,
-					[2]=186,
-					[3]=385,
-					[4]=184
+				[1]={
+					azeritePowerIDs={
+						[1]=195,
+						[2]=186,
+						[3]=385,
+						[4]=184
+					},
+					unlockLevel=10
 				},
-				unlockLevel=10
-			},
-			[2]={
-				azeritePowerIDs={
-					[1]=218,
-					[2]=83
+				[2]={
+					azeritePowerIDs={
+						[1]=218,
+						[2]=83
+					},
+					unlockLevel=15
 				},
-				unlockLevel=15
-			},
-			[3]={
-				azeritePowerIDs={
-					[1]=13
-				},
-				unlockLevel=20
+				[3]={
+					azeritePowerIDs={
+						[1]=13
+					},
+					unlockLevel=20
+				}
 			}
-		}
-	]]
+		]]
 
-	for tierIndex, tierInfo in ipairs(allTierInfo) do
-		local maximum, tierMaximum = 0, 0
-		local scoreTmp = "> Tier " .. tierIndex .. ":"
-		for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
+		for tierIndex, tierInfo in ipairs(allTierInfo) do
+			local maximum, tierMaximum = 0, 0
+			local scoreTmp = "> Tier " .. tierIndex .. ":"
+			for _, azeritePowerID in ipairs(tierInfo.azeritePowerIDs) do
+				local score = 0
+				local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID)
+				if powerInfo then
+					score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
+				end
+
+				if maximum < score then
+					maximum = score
+				end
+				if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
+					tierMaximum = score
+				end
+				scoreTmp = scoreTmp .. " " .. (azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[azeritePowerID] or "!")
+				--Debug("> Tier:", tierIndex, "Trait:", powerInfo.azeritePowerID, "Score:", score)
+			end
+
+			Debug(scoreTmp)
+			--Debug(tierIndex, maximum)
+			maxScore = maxScore + maximum
+			currentPotential = currentPotential + tierMaximum
+			if maxLevel < tierInfo.unlockLevel then
+				maxLevel = tierInfo.unlockLevel
+			end
+		end
+
+		if currentLevel >= maxLevel then
+			midTrait = midTrait + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
+			if midTrait == 1 then
+				Debug("UpdateValues Middle is open")
+			end
+		else
+			Debug("UpdateValues Middle is locked")
+		end
+
+		local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
+		if cfg.addILvlToScore and effectiveILvl then
+			local middleTraitValue = midTrait == 1 and 5 or 0
+			if cfg.scaleByAzeriteEmpowered then
+				local azeriteEmpoweredWeight = scoreData and scoreData[13] or 0
+				effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
+				middleTraitValue = middleTraitValue / 5 * azeriteEmpoweredWeight
+			end
+
+			currentScore = currentScore + effectiveILvl + middleTraitValue
+			currentPotential = currentPotential + effectiveILvl + middleTraitValue
+			maxScore = maxScore + effectiveILvl + (midTrait == 2 and 0 or middleTraitValue)
+		end
+
+		local stats = GetItemStats(_G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemLink())
+		if cfg.addPrimaryStatToScore and stats then
+			local statScore = stats["ITEM_MOD_AGILITY_SHORT"] or stats["ITEM_MOD_INTELLECT_SHORT"] or stats["ITEM_MOD_STRENGTH_SHORT"] or 0
+
+			currentScore = currentScore + statScore
+			currentPotential = currentPotential + statScore
+			maxScore = maxScore + statScore
+		end
+
+		-- Integer or Float?
+		local cS, cP, mS
+		if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
+			cS, cP, mS = currentScore, currentPotential, maxScore
+		else
+			local decimals = max(_getDecimals(currentScore), _getDecimals(currentPotential), _getDecimals(maxScore))
+			cS = (currentScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentScore)
+			cP = (currentPotential == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentPotential)
+			mS = (maxScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(maxScore)
+		end
+
+		local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
+
+		local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
+
+		--n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+		n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+
+		--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
+	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then -- 8.2 Azerite Essences
+		local currentScore, currentPotential, maxScore = 0, 0, 0
+
+		-- Update score strings and calculate current score
+		while #activeStrings > 0 do
+			local s = tremove(activeStrings)
+			ReleaseString(s)
+		end
+
+		--[[
+			AzeriteEssenceInfo
+			Key			Type
+			-------------------
+			ID			number
+			name		string
+			rank		number
+			unlocked	bool
+			valid		bool
+			icon		number
+		]]--
+
+		-- Draw scores on the Essences inside the scroll-frame
+		local container = _G.AzeriteEssenceUI.EssenceList.ScrollChild
+		local children = { container:GetChildren() }
+		local tempMaxMajors, tempMaxMinors = {}, {}
+		local tempPotMajors, tempPotMinors = {}, {}
+		for _, frame in ipairs(children) do
+			if frame and frame:IsShown() then -- There are 13 buttons, but you can fit only 12 on the screen at any given time or you end up with numbers hovering under or over the frame
+				Debug(">", frame.essenceID, frame.rank)
+
+				if frame.essenceID then
+					local majorScore, minorScore = 0, 0
+
+					local essenceInfo = C_AzeriteEssence.GetEssenceInfo(frame.essenceID)
+					if essenceInfo then
+						Debug(">>", essenceInfo.ID, essenceInfo.name, essenceInfo.rank, essenceInfo.unlocked, essenceInfo.valid, essenceInfo.icon)
+
+						if essenceScoreData[essenceInfo.ID] then
+							majorScore = essenceScoreData[essenceInfo.ID][1] or 0
+							minorScore = essenceScoreData[essenceInfo.ID][2] or 0
+						end
+
+						if essenceInfo.valid then
+							tempMaxMajors[essenceInfo.ID] = majorScore
+							tempMaxMinors[essenceInfo.ID] = minorScore
+
+							if essenceInfo.unlocked then
+								tempPotMajors[essenceInfo.ID] = majorScore
+								tempPotMinors[essenceInfo.ID] = minorScore
+							end
+						end
+					end
+
+					if not frame.majorString then
+						frame.majorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.majorString:SetPoint("TOPRIGHT", -2, -5)
+					end
+					frame.majorString:SetText(majorScore)
+
+					if not frame.minorString then
+						frame.minorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.minorString:SetPoint("BOTTOMRIGHT", -2, 5)
+					end
+					frame.minorString:SetText(minorScore)
+
+					if essenceInfo and not essenceInfo.valid then
+						frame.majorString:SetText(RED_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						frame.minorString:SetText(RED_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+					elseif essenceInfo and not essenceInfo.unlocked then
+						frame.majorString:SetText(GRAY_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						frame.minorString:SetText(GRAY_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+					end
+				end
+
+			end
+		end
+
+		--[[
+			Major Slot
+			---------------------
+			milestoneID		115
+			requiredLevel	0
+			slot			0
+			swirlScale		1
+
+			canUnlock		false
+			isDraggable		true
+			isMajorSlot		true
+			unlocked		true
+
+			Minor Slot 1
+			---------------------
+			milestoneID		116
+			requiredLevel	55
+			slot			1
+			swirlScale		1
+
+			canUnlock		false
+			isDraggable		false
+			isMajorSlot		false
+			unlocked		false
+
+			Minor Slot 2
+			---------------------
+			milestoneID		117
+			requiredLevel	65
+			slot			2
+			swirlScale		1
+
+			canUnlock		false
+			isDraggable		false
+			isMajorSlot		false
+			unlocked		false
+		]]--
+
+		local milestones = C_AzeriteEssence.GetMilestones()
+		local slots = 0
+		for i = #milestones, 1, -1 do
+			if milestones[i].ID == 117 and milestones[i].unlocked == true then -- Major + 2 Minor
+				slots = 3
+				break
+			elseif milestones[i].ID == 116 and milestones[i].unlocked == true then -- Major + Minor
+				slots = 2
+				break
+			elseif milestones[i].ID == 115 and milestones[i].unlocked == true then -- Major
+				slots = 1
+				break
+			end
+		end
+
+		-- Find Maximum score
+		local tempMax, tempMaxID = 0, 0
+		local tempMiniMax = {}
+		for essenceID, majorScore in pairs(tempMaxMajors) do -- Find maximum Major/Minor-score -combination
+			local score = majorScore + tempMaxMinors[essenceID]
+			if tempMax < score then
+				tempMax = score
+				tempMaxID = essenceID
+			end
+		end
+		maxScore = maxScore + tempMax
+		Debug("maxScore:", maxScore, tempMax, tempMax-(tempMaxMinors[tempMaxID] or 0), tempMaxMinors[tempMaxID], tempMaxID)
+		tempMaxMinors[tempMaxID] = nil -- Remove the top Major score's minor score
+		-- Find top 2 maximum Minor scores from the rest by putting them into table and sorting them and picking first 2
+		for _, minorScore in pairs(tempMaxMinors) do
+			tempMiniMax[#tempMiniMax + 1] = minorScore
+		end
+		sort(tempMiniMax)
+		local firstMax = tremove(tempMiniMax) or 0
+		local secondMax = tremove(tempMiniMax) or 0
+		maxScore = maxScore + firstMax + secondMax
+		Debug("maxScore:", maxScore, firstMax, secondMax)
+
+		-- Find Potential score
+		local tempPot, tempPotID = 0, 0
+		local tempMiniPot = {}
+		for essenceID, majorScore in pairs(tempPotMajors) do -- Find maximum Major/Minor-score -combination
+			local score = majorScore + tempPotMinors[essenceID]
+			if tempPot < score then
+				tempPot = score
+				tempPotID = essenceID
+			end
+		end
+		currentPotential = currentPotential + tempPot
+		Debug("currentPotential:", currentPotential, tempPot, tempPot-(tempPotMinors[tempPotID] or 0), tempPotMinors[tempPotID], tempPotID)
+		tempPotMinors[tempPotID] = nil -- Remove the top Major score's minor score
+		-- Find top 2 maximum Minor scores from the rest by putting them into table and sorting them and picking first 2
+		for _, minorScore in pairs(tempPotMinors) do
+			tempMiniPot[#tempMiniPot + 1] = minorScore
+		end
+		sort(tempMiniPot)
+		local firstPot = tremove(tempMiniPot) or 0
+		local secondPot = tremove(tempMiniPot) or 0
+
+		if slots == 1 then
+			--currentPotential = currentPotential -- Previously set Major slot's score
+		elseif slots == 2 then
+			currentPotential = currentPotential + firstPot
+		elseif slots == 3 then
+			currentPotential = currentPotential + firstPot + secondPot
+		else -- Slots == 0
+			currentPotential = 0
+		end
+		Debug("currentPotential:", currentPotential, firstPot, secondPot, slots)
+
+		--[[
+			maxScore: 10.5 10.5 7 3.5 25
+			maxScore: 17.5 4 3
+			currentPotential: 9 9 5 4 27
+			currentPotential: 9 2 1 1
+			currentScore: 7 7
+		]]--
+
+		-- Draw scores for the Essences in the main view of the UI
+		local frameTmp = "> Frames:"
+		for _, slotFrame in ipairs(_G.AzeriteEssenceUI.Slots) do
 			local score = 0
-			local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID)
-			if powerInfo then
-				score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
+
+			local essenceID = C_AzeriteEssence.GetMilestoneEssence(slotFrame.milestoneID)
+			if essenceID then
+				if essenceScoreData[essenceID] then
+					if slotFrame.isMajorSlot then -- Major Slot
+						score = (essenceScoreData[essenceID][1] or 0) + (essenceScoreData[essenceID][2] or 0)
+					else -- Minor Slot
+						score = essenceScoreData[essenceID][2] or 0
+					end
+				end
+
+				currentScore = currentScore + score
+				Debug("currentScore:", currentScore, score)
 			end
 
-			if maximum < score then
-				maximum = score
+			frameTmp = frameTmp .. " " .. (slotFrame.milestoneID or "?") .. " " .. (slotFrame.requiredLevel or "?") .. " " .. (slotFrame.slot or "?") .. " " .. (slotFrame.swirlScale or "?") .. " " .. tostring(slotFrame.canUnlock) .. " " .. tostring(slotFrame.isDraggable) .. " " .. tostring(slotFrame.isMajorSlot) .. " " .. tostring(slotFrame.unlocked)
+
+			if slotFrame.unlocked then
+				local s = AcquireString(slotFrame, score)
+				activeStrings[#activeStrings + 1] = s
 			end
-			if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
-				tierMaximum = score
-			end
-			scoreTmp = scoreTmp .. " " .. (azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[azeritePowerID] or "!")
-			--Debug("> Tier:", tierIndex, "Trait:", powerInfo.azeritePowerID, "Score:", score)
+		end
+		Debug(frameTmp)
+
+		n.string:SetText("Cool")
+		local currentLevel = _G.AzeriteEssenceUI.powerLevel or 0
+		Debug("milestones:", type(milestones), #milestones, milestones[#milestones].requiredLevel)
+		local maxLevel = milestones[#milestones].requiredLevel or 0
+
+		-- Integer or Float?
+		local cS, cP, mS
+		if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
+			cS, cP, mS = currentScore, currentPotential, maxScore
+		else
+			local decimals = max(_getDecimals(currentScore), _getDecimals(currentPotential), _getDecimals(maxScore))
+			cS = (currentScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentScore)
+			cP = (currentPotential == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentPotential)
+			mS = (maxScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(maxScore)
 		end
 
-		Debug(scoreTmp)
-		--Debug(tierIndex, maximum)
-		maxScore = maxScore + maximum
-		currentPotential = currentPotential + tierMaximum
-		if maxLevel < tierInfo.unlockLevel then
-			maxLevel = tierInfo.unlockLevel
-		end
+		local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
+		local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
+
+		n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
 	end
 
-	if currentLevel >= maxLevel then
-		midTrait = midTrait + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
-		if midTrait == 1 then
-			Debug("UpdateValues Middle is open")
-		end
-	else
-		Debug("UpdateValues Middle is locked")
-	end
-
-	local effectiveILvl = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetCurrentItemLevel()
-	if cfg.addILvlToScore and effectiveILvl then
-		local middleTraitValue = midTrait == 1 and 5 or 0
-		if cfg.scaleByAzeriteEmpowered then
-			local azeriteEmpoweredWeight = scoreData and scoreData[13] or 0
-			effectiveILvl = effectiveILvl / 5 * azeriteEmpoweredWeight -- Azerite Empowered is +5ilvl
-			middleTraitValue = middleTraitValue / 5 * azeriteEmpoweredWeight
-		end
-
-		currentScore = currentScore + effectiveILvl + middleTraitValue
-		currentPotential = currentPotential + effectiveILvl + middleTraitValue
-		maxScore = maxScore + effectiveILvl + (midTrait == 2 and 0 or middleTraitValue)
-	end
-
-	local stats = GetItemStats(_G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetItem():GetItemLink())
-	if cfg.addPrimaryStatToScore and stats then
-		local statScore = stats["ITEM_MOD_AGILITY_SHORT"] or stats["ITEM_MOD_INTELLECT_SHORT"] or stats["ITEM_MOD_STRENGTH_SHORT"] or 0
-
-		currentScore = currentScore + statScore
-		currentPotential = currentPotential + statScore
-		maxScore = maxScore + statScore
-	end
-
-	-- Integer or Float?
-	local cS, cP, mS
-	if _isInteger(currentScore) and _isInteger(currentPotential) and _isInteger(maxScore) then
-		cS, cP, mS = currentScore, currentPotential, maxScore
-	else
-		local decimals = max(_getDecimals(currentScore), _getDecimals(currentPotential), _getDecimals(maxScore))
-		cS = (currentScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentScore)
-		cP = (currentPotential == 0 and "%d" or ("%%.%df"):format(decimals)):format(currentPotential)
-		mS = (maxScore == 0 and "%d" or ("%%.%df"):format(decimals)):format(maxScore)
-	end
-
-	local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
-
-	local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
-
-	--n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
-	n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
-
-	--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
 	Debug("Active Strings:", #activeStrings, f:GetFrameStrata())
 end
 
@@ -1603,11 +2171,11 @@ local function _updateTooltip(tooltip, itemLink)
 
 	local allTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID(itemLink)
 
---[[
-C_AzeriteEmpoweredItem.GetAllTierInfo
-C_AzeriteEmpoweredItem.GetAllTierInfoByItemID
-C_Cursor.GetCursorItem
-]]
+	--[[
+		C_AzeriteEmpoweredItem.GetAllTierInfo
+		C_AzeriteEmpoweredItem.GetAllTierInfoByItemID
+		C_Cursor.GetCursorItem
+	]]
 
 	local currentScore, currentPotential, maxScore, scaleInfo, midTrait = {}, {}, {}, {}, {}
 	for i, tooltipScale in ipairs(cfg.tooltipScales) do
@@ -1955,7 +2523,7 @@ hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self, questL
 	-- Fix for GetItemInfo(itemID) returning the base item instead of the properly upgraded item for better geared characters.
 	-- This also fixes the missing rings (3 rings vs 5 rings) from calculations for those items.
 	if not (iName and itemTexture) then return end
-	itemName, itemLink = self.Tooltip:GetItem()
+	local itemName, itemLink = self.Tooltip:GetItem()
 	if not itemName then return end
 
 	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
@@ -2002,6 +2570,15 @@ function f:ADDON_LOADED(event, addon)
 				end
 			end
 			db.dbVersion = 2
+		end
+
+		if db.dbVersion == 2 then -- Add Azerite Essences to the Custom-scales
+			for _, scale in pairs(db.customScales) do
+				if type(scale[5]) ~= "table" then -- Old scale, update it with inserting Essence-table and bumping everything else down a notch
+					tinsert(scale, 5, {})
+				end
+			end
+			db.dbVersion = 3
 		end
 
 		db.char[playerRealm] = db.char[playerRealm] or {}
@@ -2052,9 +2629,28 @@ function f:ADDON_LOADED(event, addon)
 		hooksecurefunc(_G.AzeriteEmpoweredItemUI, "OnItemSet", delayedUpdate)
 		C_Timer.After(0, function() -- Fire on next frame instead of current frame
 			delayedUpdate()
-			_G.AzeriteEmpoweredItemUI:HookScript("OnShow", delayedUpdate)
+			_G.AzeriteEmpoweredItemUI:HookScript("OnShow", function()
+				_setupStringAndEnableButton()
+				delayedUpdate()
+			end)
 		end)
 		self:HookAzeriteUI()
+
+	elseif addon == "Blizzard_AzeriteEssenceUI" then
+		-- Hook 'em & Cook 'em
+		hooksecurefunc(_G.AzeriteEssenceUI, "RefreshMilestones", delayedUpdate)
+		--hooksecurefunc(_G.AzeriteEssenceUI.EssenceList, "Update", delayedUpdate)
+		hooksecurefunc(_G.AzeriteEssenceUI.EssenceList, "Refresh", delayedUpdate)
+		--hooksecurefunc(_G.AzeriteEssenceUI.EssenceList, "CalculateScrollOffset", delayedUpdate)
+
+		C_Timer.After(0, function() -- Fire on next frame instead of current frame
+			delayedUpdate()
+			_G.AzeriteEssenceUI:HookScript("OnShow", function()
+				_setupStringAndEnableButton()
+				delayedUpdate()
+			end)
+		end)
+		self:HookAzeriteEssenceUI()
 	end
 end
 
@@ -2369,6 +2965,14 @@ function f:CreateOptions()
 						descStyle = "inline",
 						width = "full",
 						order = 5,
+					},
+					outlineScores = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_OutlineScores .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_OutlineScores_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 6,
 					},
 				},
 			},

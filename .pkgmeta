@@ -24,3 +24,4 @@ ignore:
     - LICENSE.md
     - README.md
     - LittleHelpForTranslators.md
+    - ImportStringHelp.md
