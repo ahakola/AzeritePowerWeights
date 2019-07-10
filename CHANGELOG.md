@@ -1,3 +1,10 @@
+### 8.2.1
+
+- Update Default-scales (SimulationCraft 820-01)
+- Update on translations
+   - The new Curseforge page makes it really hard to keep track on what languages has changed and who contributed, so sorry for I can't name you here like I have done in the past.
+- Raised the layer where the Azerite Essence scores were drawn on the scoll element on the right side of the UI since they disappeared from me after the weekly reset.
+
 ### 8.2.0
 
 - TOC update

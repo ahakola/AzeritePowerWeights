@@ -1891,13 +1891,15 @@ function f:UpdateValues() -- Update scores
 					end
 
 					if not frame.majorString then
-						frame.majorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						--frame.majorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.majorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 						frame.majorString:SetPoint("TOPRIGHT", -2, -5)
 					end
 					frame.majorString:SetText(majorScore)
 
 					if not frame.minorString then
-						frame.minorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						--frame.minorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.minorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 						frame.minorString:SetPoint("BOTTOMRIGHT", -2, 5)
 					end
 					frame.minorString:SetText(minorScore)
@@ -1909,6 +1911,8 @@ function f:UpdateValues() -- Update scores
 						frame.majorString:SetText(GRAY_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
 						frame.minorString:SetText(GRAY_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
 					end
+
+					Debug("Major:", majorScore, "Minor:", minorScore)
 				end
 
 			end
@@ -3110,7 +3114,7 @@ local SlashHandlers = {
 			[4] = 3, -- Rogue
 			[5] = 3+1, -- Priest (+1 for Disc Off)
 			[6] = 3+1, -- Death Knight (+1 for TMI)
-			[7] = 3, -- Shaman
+			[7] = 3+1, -- Shaman (+1 for Resto Off)
 			[8] = 3, -- Mage
 			[9] = 3, -- Warlock
 			[10] = 3+1, -- Monk (+1 for TMI)

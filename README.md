@@ -58,23 +58,23 @@ If you still can't find a trait and you are 100% sure you should be able to find
 
 If you run into errors or bugs or have request for new feature, **please check if someone has already made a ticket** for it. Going through same information posted across all the different pages and inboxes takes time away from actually fixing the problems.
 
-You can find all the tickets at the [Issue tracker on project site](https://wow.curseforge.com/projects/azeritepowerweights/issues?filter-tag=&filter-action=) and post your new findings to the existing tickets if the new information is still relevant. If you can't find existing ticket for the bug/feature request, then you can create a new one.
+You can find all the tickets at the [Curseforge's Issue tracker](https://www.curseforge.com/wow/addons/azeritepowerweights/issues) and post your new findings to the existing tickets if the new information is still relevant. If you can't find existing ticket for the bug/feature request, then you can create a new one.
 
 If you don't get any errors but the addon is clearly not working, make sure you have Lua-errors turned on (**/console scriptErrors 1**).
 
 ---
 
 ### Translations
-- deDE (German): **Sinusquell, Tiggi2702, Vivan, pas06, Cytoph, imna1975, Aurielqt**
-- esES (Spanish): **isaracho**
+- deDE (German): **Aurielli, Bullseiify, imna1975, StellariMi, tiggye, zhavvorsa, Zonk87**
+- esES (Spanish): **sinnkin**
 - esMX (Latin American Spanish):
-- frFR (French): **tthegarde, Marechoux, follower4jas**
+- frFR (French): **Marechoux, Matisk, tthegarde**
 - itIT (Italian):
-- koKR (Korean): **Killberos**
+- koKR (Korean): **killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**
-- ruRU (Russian): **dartraiden, Hubbotu, rtim0905, Wolfeg, lorientalas**
-- zhCN (Simplified Chinese): **riggzh, plok245, xlfd2008**
-- zhTW (Traditional Chinese): **BNSSNB**
+- ruRU (Russian): **dartraiden, Hubbotu, lorientalas, Wolfeg_xgm**
+- zhCN (Simplified Chinese): **plok245, riggzh, xlfd2008**
+- zhTW (Traditional Chinese): **BNS333, Zonk87**
 
 Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219&p=2263#p2263
 
@@ -84,5 +84,5 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 19.03.2019]
-- Default-scales for 8.1.5 [updated 19.03.2019]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 10.07.2019]
+- Default-scales for 8.2.0 [updated 10.07.2019]
