@@ -3070,6 +3070,11 @@ local SlashHandlers = {
 				end
 			end
 		end
+		if n.frame then
+			text = text .. ("\nFrame: %s, %s, %s/%s, %s/%s"):format(tostring(n.frame:GetParent():GetName()), tostring(n.frame:IsShown()), tostring(n.frame:GetFrameStrata()), tostring(n.frame:GetParent():GetFrameStrata()), tostring(n.frame:GetFrameLevel()), tostring(n.frame:GetParent():GetFrameLevel()))
+			text = text .. ("\nString: %s, %s"):format(tostring(n.string:GetParent():GetParent():GetName()), tostring(n.string:IsShown()))
+			text = text .. ("\nButton: %s, %s, %s/%s, %s/%s"):format(tostring(n.enableButton.frame:GetParent():GetParent():GetName() or n.enableButton.frame:GetParent():GetParent():GetParent():GetName()), tostring(n.enableButton.frame:IsShown()), tostring(n.enableButton.frame:GetFrameStrata()), tostring(n.enableButton.frame:GetParent():GetFrameStrata()), tostring(n.enableButton.frame:GetFrameLevel()), tostring(n.enableButton.frame:GetParent():GetFrameLevel()))
+		end
 
 		local frame = AceGUI:Create("Frame")
 		frame:SetTitle(ADDON_NAME)
