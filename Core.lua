@@ -509,15 +509,24 @@ local function _exportScale(powerWeights, essenceWeights, scaleName, classID, sp
 	n.CreatePopUp("Export", L.ExportPopup_Title, format(L.ExportPopup_Desc, NORMAL_FONT_COLOR_CODE .. scaleName .. FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE), exportString)
 end
 
+local importStack = {}
 local function _importScale(importMode) -- Show import popup and parse input
 	local template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*:%s*(.+)%s*%)%s*$"
+	wipe(importStack)
 
 	local callbackFunction = function(widget, callback, ...)
 		local function _saveString(importString, version)
+			importStack[#importStack + 1] = ("Version: %s"):format(tostring(version))
+			importStack[#importStack + 1] = importString
+
 			if version and version == 1 then
 				template = "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:%s*\"([^\"]+)\"%s*:%s*(%d+)%s*:%s*(%d+)%s*:%s*(.+)%s*%)%s*$"
 			end
 			local startPos, endPos, stringVersion, scaleName, classID, specID, powerWeights, essenceWeights = strfind(importString, template)
+
+			importStack[#importStack + 1] = ("startPos: %s, endPos: %s, stringVersion: %s, scaleName: %s, classID: %s, specID: %s"):format(tostring(startPos), tostring(endPos), tostring(stringVersion), tostring(scaleName), tostring(classID), tostring(specID))
+			importStack[#importStack + 1] = ("powerWeights: %s"):format(tostring(powerWeights))
+			importStack[#importStack + 1] = ("essenceWeights: %s"):format(tostring(essenceWeights))
 
 			stringVersion = tonumber(stringVersion) or 0
 			scaleName = scaleName or L.ScaleName_Unnamed
@@ -526,23 +535,37 @@ local function _importScale(importMode) -- Show import popup and parse input
 			classID = tonumber(classID) or nil
 			specID = tonumber(specID) or nil
 
+			if stringVersion == 0 then -- Try to find string version if we didn't find it previously
+				startPos, endPos, stringVersion = strfind(importString, "^%s*%(%s*" .. ADDON_NAME .. "%s*:%s*(%d+)%s*:.*%)%s*$")
+				stringVersion = tonumber(stringVersion) or 0
+
+				importStack[#importStack + 1] = ("Fixed stringVersion: %s"):format(tostring(stringVersion))
+			end
+
 			if (not cfg.importingCanUpdate) or (version and version > 0) then -- No updating for you, get collision free name
 				scaleName = _checkForNameCollisions(scaleName, false, classID, specID)
 			end
 
 			if (version and stringVersion < version) or (not version and stringVersion < importVersion) then -- String version is old and not supported
 				Debug("Version:", tostring(stringVersion), tostring(importVersion), tostring(version))
+
+				importStack[#importStack + 1] = ("String version is old: %s / %s / %s"):format(tostring(stringVersion), tostring(importVersion), tostring(version))
 				if not version then
+					importStack[#importStack + 1] = "-> First retry...\n"
 					Print(L.ImportPopup_Error_OldStringRetry)
 					_saveString(importString, (importVersion - 1))
 				elseif version > 1 then
+					importStack[#importStack + 1] = "-> Still retrying...\n"
 					_saveString(importString, (version - 1))
 				else
+					importStack[#importStack + 1] = "-> Too old or malformed, can't figure this out...\n> END"
 					Print(L.ImportPopup_Error_OldStringVersion)
 				end
 			elseif type(classID) ~= "number" or classID < 1 or type(specID) ~= "number" or specID < 1 then -- No class or no spec, this really shouldn't happen ever
+				importStack[#importStack + 1] = ("Problem with classID %s or specID %s, bailing out...\n> END"):format(tostring(classID), tostring(specID))
 				Print(L.ImportPopup_Error_MalformedString)
 			else -- Everything seems to be OK
+				importStack[#importStack + 1] = "Everything seems to be OK"
 				local result = insertCustomScalesData(scaleName, classID, specID, powerWeights, essenceWeights, 2) -- Set scaleMode 2 for Imported
 
 				-- Rebuild Tree
@@ -551,11 +574,13 @@ local function _importScale(importMode) -- Show import popup and parse input
 				n.treeGroup:RefreshTree(true)
 
 				if result then -- Updated old scale
+					importStack[#importStack + 1] = "- Updated old scale.\n> END"
 					Print(L.ImportPopup_UpdatedScale, scaleName)
 					-- Update the scores just incase if it is the scale actively in use
 					_populateWeights()
 					delayedUpdate()
 				else -- Created new
+					importStack[#importStack + 1] = "- Created new scale\n> END"
 					Print(L.ImportPopup_CreatedNewScale, scaleName)
 				end
 			end
@@ -590,8 +615,10 @@ local function _importScale(importMode) -- Show import popup and parse input
 
 	--CreatePopUp(mode, titleText, descriptionText, editboxText, callbackFunction)
 	if importMode then -- Mass Import
+		importStack[#importStack + 1] = "=== MassImport"
 		n.CreatePopUp("MassImport", L.MassImportPopup_Title, format(L.MassImportPopup_Desc, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE .. _G.ACCEPT .. FONT_COLOR_CODE_CLOSE), "", callbackFunction)
 	else -- Import
+		importStack[#importStack + 1] = "=== Import"
 		n.CreatePopUp("Import", L.ImportPopup_Title, format(L.ImportPopup_Desc, NORMAL_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, NORMAL_FONT_COLOR_CODE .. _G.ACCEPT .. FONT_COLOR_CODE_CLOSE), "", callbackFunction)
 	end
 	Debug("Import", importMode)
@@ -3009,8 +3036,55 @@ local SlashHandlers = {
 		end
 		--ReloadUI()
 	end,
-	["scale"] = function()
-		Print("> Ver. %s: '%s' - '%s'", GetAddOnMetadata(ADDON_NAME, "Version"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+	["ticket"] = function()
+		local text = ("%s %s/%d/%s (%s)\nSettings: "):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+		local first = true
+		local skip = {
+			["debug"] = true,
+			["onlyOwnClassDefaults"] = false,
+			["onlyOwnClassCustoms"] = false,
+			["importingCanUpdate"] = true,
+			["defensivePowers"] = false,
+			["rolePowers"] = false,
+			["rolePowersNoOffRolePowers"] = false,
+			["zonePowers"] = false,
+			["professionPowers"] = false,
+			["pvpPowers"] = false,
+			["addILvlToScore"] = true,
+			["scaleByAzeriteEmpowered"] = true,
+			["addPrimaryStatToScore"] = true,
+			["relativeScore"] = true,
+			["showOnlyUpgrades"] = true,
+			["showTooltipLegend"] = true,
+			["outlineScores"] = true,
+			["specScales"] = true,
+			["tooltipScales"] = true
+		}
+		for key, _ in pairs(charDefaults) do
+			if not skip[key] then
+				if first then
+					first = false
+					text = text .. ("%s: %s"):format(key, tostring(cfg[key]))
+				else
+					text = text .. (", %s: %s"):format(key, tostring(cfg[key]))
+				end
+			end
+		end
+
+		local frame = AceGUI:Create("Frame")
+		frame:SetTitle(ADDON_NAME)
+		frame:SetStatusText(L.Debug_CopyToBugReport)
+		frame:SetCallback("OnClose", function(widget) AceGUI:Release(widget) end)
+		frame:SetLayout("Fill")
+
+		local editbox = AceGUI:Create("MultiLineEditBox")
+		editbox:SetLabel("")
+		editbox:DisableButton(true)
+		editbox:SetText(text)
+		editbox:SetFocus()
+		editbox:HighlightText(0, strlen(text))
+
+		frame:AddChild(editbox)
 	end,
 	["tt"] = function(...) -- Get tooltip stuff
 		local text = string.format("> START\n- - - - - - - - - -\nVer. %s\nClass/Spec: %s / %s\nScale: %s (%s)\n- - - - - - - - - -\n", GetAddOnMetadata(ADDON_NAME, "Version"), playerClassID, playerSpecID, cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
@@ -3085,6 +3159,24 @@ local SlashHandlers = {
 		end
 
 		text = text .. "> END"
+
+		local frame = AceGUI:Create("Frame")
+		frame:SetTitle(ADDON_NAME)
+		frame:SetStatusText(L.Debug_CopyToBugReport)
+		frame:SetCallback("OnClose", function(widget) AceGUI:Release(widget) end)
+		frame:SetLayout("Fill")
+
+		local editbox = AceGUI:Create("MultiLineEditBox")
+		editbox:SetLabel("")
+		editbox:DisableButton(true)
+		editbox:SetText(text)
+		editbox:SetFocus()
+		editbox:HighlightText(0, strlen(text))
+
+		frame:AddChild(editbox)
+	end,
+	["is"] = function()
+		local text = string.join("\n", ("> START\nVer. %s"):format(GetAddOnMetadata(ADDON_NAME, "Version")), unpack(importStack))
 
 		local frame = AceGUI:Create("Frame")
 		frame:SetTitle(ADDON_NAME)
