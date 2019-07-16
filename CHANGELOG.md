@@ -1,3 +1,12 @@
+### 8.2.3
+
+- Fixed Azerite Essences current potential score and maximum score calculations resulting in wrong scores if you scroll the Essence-list down.
+- Even more Debug-stuff added.
+
+### 8.2.2
+
+- Added more Debug-stuff to help me to solve tickets in the future.
+
 ### 8.2.1
 
 - Update Default-scales (SimulationCraft 820-01)
