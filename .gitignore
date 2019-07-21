@@ -6,6 +6,7 @@
 
 # All SimCraft related
 SimcProfiles\*
+SimcProfiles/*
 
 # Dev Memo
 Notes.lua

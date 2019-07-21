@@ -63,1677 +63,1677 @@ local L = n.L
 -- Powers for every Class and Spec
 local sourceData = {
 	["center"] = {
-		["spellID"] = 263978,
-		["icon"] = 2065624,
-		["name"] = "Azerite Empowered",
 		["azeritePowerID"] = 13,
+		["name"] = "Azerite Empowered",
+		["icon"] = 2065624,
+		["spellID"] = 263978,
 	},
 	["class"] = {
 		{
 			[73] = {
 				{
-					["spellID"] = 272824,
-					["icon"] = 136105,
-					["name"] = "Deafening Crash",
 					["azeritePowerID"] = 118,
+					["name"] = "Deafening Crash",
+					["icon"] = 136105,
+					["spellID"] = 272824,
 				}, -- [1]
 				{
-					["spellID"] = 279172,
-					["icon"] = 1377132,
-					["name"] = "Bloodsport",
 					["azeritePowerID"] = 177,
+					["name"] = "Bloodsport",
+					["icon"] = 1377132,
+					["spellID"] = 279172,
 				}, -- [2]
 				{
-					["spellID"] = 287377,
-					["icon"] = 254108,
-					["name"] = "Bastion of Might",
 					["azeritePowerID"] = 237,
+					["name"] = "Bastion of Might",
+					["icon"] = 254108,
+					["spellID"] = 287377,
 				}, -- [3]
 				{
-					["spellID"] = 278760,
-					["icon"] = 132353,
-					["name"] = "Callous Reprisal",
 					["azeritePowerID"] = 440,
+					["name"] = "Callous Reprisal",
+					["icon"] = 132353,
+					["spellID"] = 278760,
 				}, -- [4]
 				{
-					["spellID"] = 278765,
-					["icon"] = 942783,
-					["name"] = "Iron Fortress",
 					["azeritePowerID"] = 441,
+					["name"] = "Iron Fortress",
+					["icon"] = 942783,
+					["spellID"] = 278765,
 				}, -- [5]
 				{
-					["spellID"] = 277636,
-					["icon"] = 134951,
-					["name"] = "Brace for Impact",
 					["azeritePowerID"] = 450,
+					["name"] = "Brace for Impact",
+					["icon"] = 134951,
+					["spellID"] = 277636,
 				}, -- [6]
 			},
 			[71] = {
 				{
-					["spellID"] = 288452,
-					["icon"] = 236317,
-					["name"] = "Striking the Anvil",
 					["azeritePowerID"] = 121,
+					["name"] = "Striking the Anvil",
+					["icon"] = 236317,
+					["spellID"] = 288452,
 				}, -- [1]
 				{
-					["spellID"] = 273409,
-					["icon"] = 236303,
-					["name"] = "Gathering Storm",
 					["azeritePowerID"] = 174,
+					["name"] = "Gathering Storm",
+					["icon"] = 236303,
+					["spellID"] = 273409,
 				}, -- [2]
 				{
-					["spellID"] = 275529,
-					["icon"] = 236314,
-					["name"] = "Test of Might",
 					["azeritePowerID"] = 226,
+					["name"] = "Test of Might",
+					["icon"] = 236314,
+					["spellID"] = 275529,
 				}, -- [3]
 				{
-					["spellID"] = 277639,
-					["icon"] = 132223,
-					["name"] = "Seismic Wave",
 					["azeritePowerID"] = 433,
+					["name"] = "Seismic Wave",
+					["icon"] = 132223,
+					["spellID"] = 277639,
 				}, -- [4]
 				{
-					["spellID"] = 278751,
-					["icon"] = 132340,
-					["name"] = "Crushing Assault",
 					["azeritePowerID"] = 434,
+					["name"] = "Crushing Assault",
+					["icon"] = 132340,
+					["spellID"] = 278751,
 				}, -- [5]
 				{
-					["spellID"] = 278752,
-					["icon"] = 464973,
-					["name"] = "Lord of War",
 					["azeritePowerID"] = 435,
+					["name"] = "Lord of War",
+					["icon"] = 464973,
+					["spellID"] = 278752,
 				}, -- [6]
 			},
 			[72] = {
 				{
-					["spellID"] = 288056,
-					["icon"] = 132344,
-					["name"] = "Unbridled Ferocity",
 					["azeritePowerID"] = 119,
+					["name"] = "Unbridled Ferocity",
+					["icon"] = 132344,
+					["spellID"] = 288056,
 				}, -- [1]
 				{
-					["spellID"] = 273409,
-					["icon"] = 236303,
-					["name"] = "Gathering Storm",
 					["azeritePowerID"] = 174,
+					["name"] = "Gathering Storm",
+					["icon"] = 236303,
+					["spellID"] = 273409,
 				}, -- [2]
 				{
-					["spellID"] = 288080,
-					["icon"] = 236276,
-					["name"] = "Cold Steel, Hot Blood",
 					["azeritePowerID"] = 176,
+					["name"] = "Cold Steel, Hot Blood",
+					["icon"] = 236276,
+					["spellID"] = 288080,
 				}, -- [3]
 				{
-					["spellID"] = 275632,
-					["icon"] = 132352,
-					["name"] = "Pulverizing Blows",
 					["azeritePowerID"] = 229,
+					["name"] = "Pulverizing Blows",
+					["icon"] = 132352,
+					["spellID"] = 275632,
 				}, -- [4]
 				{
-					["spellID"] = 278757,
-					["icon"] = 136110,
-					["name"] = "Simmering Rage",
 					["azeritePowerID"] = 437,
+					["name"] = "Simmering Rage",
+					["icon"] = 136110,
+					["spellID"] = 278757,
 				}, -- [5]
 				{
-					["spellID"] = 278758,
-					["icon"] = 132147,
-					["name"] = "Reckless Flurry",
 					["azeritePowerID"] = 438,
+					["name"] = "Reckless Flurry",
+					["icon"] = 132147,
+					["spellID"] = 278758,
 				}, -- [6]
 				{
-					["spellID"] = 277638,
-					["icon"] = 458972,
-					["name"] = "Infinite Fury",
 					["azeritePowerID"] = 451,
+					["name"] = "Infinite Fury",
+					["icon"] = 458972,
+					["spellID"] = 277638,
 				}, -- [7]
 			},
 		}, -- [1]
 		{
 			[70] = {
 				{
-					["spellID"] = 272898,
-					["icon"] = 135875,
-					["name"] = "Avenger's Might",
 					["azeritePowerID"] = 125,
+					["name"] = "Avenger's Might",
+					["icon"] = 135875,
+					["spellID"] = 272898,
 				}, -- [1]
 				{
-					["spellID"] = 278617,
-					["icon"] = 135897,
-					["name"] = "Relentless Inquisitor",
 					["azeritePowerID"] = 154,
+					["name"] = "Relentless Inquisitor",
+					["icon"] = 135897,
+					["spellID"] = 278617,
 				}, -- [2]
 				{
-					["spellID"] = 273473,
-					["icon"] = 1360757,
-					["name"] = "Expurgation",
 					["azeritePowerID"] = 187,
+					["name"] = "Expurgation",
+					["icon"] = 1360757,
+					["spellID"] = 273473,
 				}, -- [3]
 				{
-					["spellID"] = 275496,
-					["icon"] = 135959,
-					["name"] = "Indomitable Justice",
 					["azeritePowerID"] = 235,
+					["name"] = "Indomitable Justice",
+					["icon"] = 135959,
+					["spellID"] = 275496,
 				}, -- [4]
 				{
-					["spellID"] = 278593,
-					["icon"] = 135917,
-					["name"] = "Grace of the Justicar",
 					["azeritePowerID"] = 393,
+					["name"] = "Grace of the Justicar",
+					["icon"] = 135917,
+					["spellID"] = 278593,
 				}, -- [5]
 				{
-					["spellID"] = 286229,
-					["icon"] = 135878,
-					["name"] = "Light's Decree",
 					["azeritePowerID"] = 396,
+					["name"] = "Light's Decree",
+					["icon"] = 135878,
+					["spellID"] = 286229,
 				}, -- [6]
 				{
-					["spellID"] = 286390,
-					["icon"] = 236263,
-					["name"] = "Empyrean Power",
 					["azeritePowerID"] = 453,
+					["name"] = "Empyrean Power",
+					["icon"] = 236263,
+					["spellID"] = 286390,
 				}, -- [7]
 				{
-					["spellID"] = 277675,
-					["icon"] = 1603010,
-					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
+					["name"] = "Judicious Defense",
+					["icon"] = 1603010,
+					["spellID"] = 277675,
 				}, -- [8]
 			},
 			[65] = {
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [1]
 				{
-					["spellID"] = 272898,
-					["icon"] = 135875,
-					["name"] = "Avenger's Might",
 					["azeritePowerID"] = 125,
+					["name"] = "Avenger's Might",
+					["icon"] = 135875,
+					["spellID"] = 272898,
 				}, -- [2]
 				{
-					["spellID"] = 287268,
-					["icon"] = 1360764,
-					["name"] = "Glimmer of Light",
 					["azeritePowerID"] = 139,
+					["name"] = "Glimmer of Light",
+					["icon"] = 1360764,
+					["spellID"] = 287268,
 				}, -- [3]
 				{
-					["spellID"] = 273513,
-					["icon"] = 135907,
-					["name"] = "Moment of Compassion",
 					["azeritePowerID"] = 188,
+					["name"] = "Moment of Compassion",
+					["icon"] = 135907,
+					["spellID"] = 273513,
 				}, -- [4]
 				{
-					["spellID"] = 275463,
-					["icon"] = 236254,
-					["name"] = "Divine Revelations",
 					["azeritePowerID"] = 233,
+					["name"] = "Divine Revelations",
+					["icon"] = 236254,
+					["spellID"] = 275463,
 				}, -- [5]
 				{
-					["spellID"] = 275496,
-					["icon"] = 135959,
-					["name"] = "Indomitable Justice",
 					["azeritePowerID"] = 235,
+					["name"] = "Indomitable Justice",
+					["icon"] = 135959,
+					["spellID"] = 275496,
 				}, -- [6]
 				{
-					["spellID"] = 278593,
-					["icon"] = 135917,
-					["name"] = "Grace of the Justicar",
 					["azeritePowerID"] = 393,
+					["name"] = "Grace of the Justicar",
+					["icon"] = 135917,
+					["spellID"] = 278593,
 				}, -- [7]
 				{
-					["spellID"] = 278594,
-					["icon"] = 461859,
-					["name"] = "Breaking Dawn",
 					["azeritePowerID"] = 394,
+					["name"] = "Breaking Dawn",
+					["icon"] = 461859,
+					["spellID"] = 278594,
 				}, -- [8]
 				{
-					["spellID"] = 277674,
-					["icon"] = 135972,
-					["name"] = "Radiant Incandescence",
 					["azeritePowerID"] = 452,
+					["name"] = "Radiant Incandescence",
+					["icon"] = 135972,
+					["spellID"] = 277674,
 				}, -- [9]
 				{
-					["spellID"] = 277675,
-					["icon"] = 1603010,
-					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
+					["name"] = "Judicious Defense",
+					["icon"] = 1603010,
+					["spellID"] = 277675,
 				}, -- [10]
 			},
 			[66] = {
 				{
-					["spellID"] = 272898,
-					["icon"] = 135875,
-					["name"] = "Avenger's Might",
 					["azeritePowerID"] = 125,
+					["name"] = "Avenger's Might",
+					["icon"] = 135875,
+					["spellID"] = 272898,
 				}, -- [1]
 				{
-					["spellID"] = 272976,
-					["icon"] = 135943,
-					["name"] = "Bulwark of Light",
 					["azeritePowerID"] = 133,
+					["name"] = "Bulwark of Light",
+					["icon"] = 135943,
+					["spellID"] = 272976,
 				}, -- [2]
 				{
-					["spellID"] = 278605,
-					["icon"] = 135874,
-					["name"] = "Soaring Shield",
 					["azeritePowerID"] = 150,
+					["name"] = "Soaring Shield",
+					["icon"] = 135874,
+					["spellID"] = 278605,
 				}, -- [3]
 				{
-					["spellID"] = 287126,
-					["icon"] = 135981,
-					["name"] = "Righteous Conviction",
 					["azeritePowerID"] = 189,
+					["name"] = "Righteous Conviction",
+					["icon"] = 135981,
+					["spellID"] = 287126,
 				}, -- [4]
 				{
-					["spellID"] = 275477,
-					["icon"] = 236265,
-					["name"] = "Inner Light",
 					["azeritePowerID"] = 234,
+					["name"] = "Inner Light",
+					["icon"] = 236265,
+					["spellID"] = 275477,
 				}, -- [5]
 				{
-					["spellID"] = 275496,
-					["icon"] = 135959,
-					["name"] = "Indomitable Justice",
 					["azeritePowerID"] = 235,
+					["name"] = "Indomitable Justice",
+					["icon"] = 135959,
+					["spellID"] = 275496,
 				}, -- [6]
 				{
-					["spellID"] = 278593,
-					["icon"] = 135917,
-					["name"] = "Grace of the Justicar",
 					["azeritePowerID"] = 393,
+					["name"] = "Grace of the Justicar",
+					["icon"] = 135917,
+					["spellID"] = 278593,
 				}, -- [7]
 				{
-					["spellID"] = 278609,
-					["icon"] = 133176,
-					["name"] = "Inspiring Vanguard",
 					["azeritePowerID"] = 395,
+					["name"] = "Inspiring Vanguard",
+					["icon"] = 133176,
+					["spellID"] = 278609,
 				}, -- [8]
 				{
-					["spellID"] = 277675,
-					["icon"] = 1603010,
-					["name"] = "Judicious Defense",
 					["azeritePowerID"] = 454,
+					["name"] = "Judicious Defense",
+					["icon"] = 1603010,
+					["spellID"] = 277675,
 				}, -- [9]
 			},
 		}, -- [2]
 		{
 			[255] = {
 				{
-					["spellID"] = 272717,
-					["icon"] = 132176,
-					["name"] = "Serrated Jaws",
 					["azeritePowerID"] = 107,
+					["name"] = "Serrated Jaws",
+					["icon"] = 132176,
+					["spellID"] = 272717,
 				}, -- [1]
 				{
-					["spellID"] = 272742,
-					["icon"] = 451164,
-					["name"] = "Wildfire Cluster",
 					["azeritePowerID"] = 110,
+					["name"] = "Wildfire Cluster",
+					["icon"] = 451164,
+					["spellID"] = 272742,
 				}, -- [2]
 				{
-					["spellID"] = 273283,
-					["icon"] = 1033905,
-					["name"] = "Latent Poison",
 					["azeritePowerID"] = 163,
+					["name"] = "Latent Poison",
+					["icon"] = 1033905,
+					["spellID"] = 273283,
 				}, -- [3]
 				{
-					["spellID"] = 274590,
-					["icon"] = 136067,
-					["name"] = "Venomous Fangs",
 					["azeritePowerID"] = 213,
+					["name"] = "Venomous Fangs",
+					["icon"] = 136067,
+					["spellID"] = 274590,
 				}, -- [4]
 				{
-					["spellID"] = 287093,
-					["icon"] = 236186,
-					["name"] = "Dire Consequences",
 					["azeritePowerID"] = 365,
+					["name"] = "Dire Consequences",
+					["icon"] = 236186,
+					["spellID"] = 287093,
 				}, -- [5]
 				{
-					["spellID"] = 277653,
-					["icon"] = 2065565,
-					["name"] = "Blur of Talons",
 					["azeritePowerID"] = 371,
+					["name"] = "Blur of Talons",
+					["icon"] = 2065565,
+					["spellID"] = 277653,
 				}, -- [6]
 				{
-					["spellID"] = 278532,
-					["icon"] = 132214,
-					["name"] = "Wilderness Survival",
 					["azeritePowerID"] = 372,
+					["name"] = "Wilderness Survival",
+					["icon"] = 132214,
+					["spellID"] = 278532,
 				}, -- [7]
 				{
-					["spellID"] = 288570,
-					["icon"] = 132210,
-					["name"] = "Primeval Intuition",
 					["azeritePowerID"] = 373,
+					["name"] = "Primeval Intuition",
+					["icon"] = 132210,
+					["spellID"] = 288570,
 				}, -- [8]
 			},
 			[254] = {
 				{
-					["spellID"] = 264198,
-					["icon"] = 461115,
-					["name"] = "In The Rhythm",
 					["azeritePowerID"] = 36,
+					["name"] = "In The Rhythm",
+					["icon"] = 461115,
+					["spellID"] = 264198,
 				}, -- [1]
 				{
-					["spellID"] = 287707,
-					["icon"] = 132212,
-					["name"] = "Surging Shots",
 					["azeritePowerID"] = 162,
+					["name"] = "Surging Shots",
+					["icon"] = 132212,
+					["spellID"] = 287707,
 				}, -- [2]
 				{
-					["spellID"] = 274444,
-					["icon"] = 132329,
-					["name"] = "Unerring Vision",
 					["azeritePowerID"] = 212,
+					["name"] = "Unerring Vision",
+					["icon"] = 132329,
+					["spellID"] = 274444,
 				}, -- [3]
 				{
-					["spellID"] = 277651,
-					["icon"] = 135130,
-					["name"] = "Steady Aim",
 					["azeritePowerID"] = 368,
+					["name"] = "Steady Aim",
+					["icon"] = 135130,
+					["spellID"] = 277651,
 				}, -- [4]
 				{
-					["spellID"] = 278530,
-					["icon"] = 132330,
-					["name"] = "Rapid Reload",
 					["azeritePowerID"] = 369,
+					["name"] = "Rapid Reload",
+					["icon"] = 132330,
+					["spellID"] = 278530,
 				}, -- [5]
 				{
-					["spellID"] = 278531,
-					["icon"] = 878211,
-					["name"] = "Focused Fire",
 					["azeritePowerID"] = 370,
+					["name"] = "Focused Fire",
+					["icon"] = 878211,
+					["spellID"] = 278531,
 				}, -- [6]
 			},
 			[253] = {
 				{
-					["spellID"] = 272717,
-					["icon"] = 132176,
-					["name"] = "Serrated Jaws",
 					["azeritePowerID"] = 107,
+					["name"] = "Serrated Jaws",
+					["icon"] = 132176,
+					["spellID"] = 272717,
 				}, -- [1]
 				{
-					["spellID"] = 273262,
-					["icon"] = 132127,
-					["name"] = "Haze of Rage",
 					["azeritePowerID"] = 161,
+					["name"] = "Haze of Rage",
+					["icon"] = 132127,
+					["spellID"] = 273262,
 				}, -- [2]
 				{
-					["spellID"] = 274441,
-					["icon"] = 132133,
-					["name"] = "Dance of Death",
 					["azeritePowerID"] = 211,
+					["name"] = "Dance of Death",
+					["icon"] = 132133,
+					["spellID"] = 274441,
 				}, -- [3]
 				{
-					["spellID"] = 287093,
-					["icon"] = 236186,
-					["name"] = "Dire Consequences",
 					["azeritePowerID"] = 365,
+					["name"] = "Dire Consequences",
+					["icon"] = 236186,
+					["spellID"] = 287093,
 				}, -- [4]
 				{
-					["spellID"] = 279806,
-					["icon"] = 136074,
-					["name"] = "Primal Instincts",
 					["azeritePowerID"] = 366,
+					["name"] = "Primal Instincts",
+					["icon"] = 136074,
+					["spellID"] = 279806,
 				}, -- [5]
 				{
-					["spellID"] = 278529,
-					["icon"] = 2058007,
-					["name"] = "Feeding Frenzy",
 					["azeritePowerID"] = 367,
+					["name"] = "Feeding Frenzy",
+					["icon"] = 2058007,
+					["spellID"] = 278529,
 				}, -- [6]
 				{
-					["spellID"] = 278530,
-					["icon"] = 132330,
-					["name"] = "Rapid Reload",
 					["azeritePowerID"] = 369,
+					["name"] = "Rapid Reload",
+					["icon"] = 132330,
+					["spellID"] = 278530,
 				}, -- [7]
 			},
 		}, -- [3]
 		{
 			[260] = {
 				{
-					["spellID"] = 272935,
-					["icon"] = 1373908,
-					["name"] = "Deadshot",
 					["azeritePowerID"] = 129,
+					["name"] = "Deadshot",
+					["icon"] = 1373908,
+					["spellID"] = 272935,
 				}, -- [1]
 				{
-					["spellID"] = 288979,
-					["icon"] = 132350,
-					["name"] = "Keep Your Wits About You",
 					["azeritePowerID"] = 180,
+					["name"] = "Keep Your Wits About You",
+					["icon"] = 132350,
+					["spellID"] = 288979,
 				}, -- [2]
 				{
-					["spellID"] = 275846,
-					["icon"] = 132336,
-					["name"] = "Snake Eyes",
 					["azeritePowerID"] = 239,
+					["name"] = "Snake Eyes",
+					["icon"] = 132336,
+					["spellID"] = 275846,
 				}, -- [3]
 				{
-					["spellID"] = 278675,
-					["icon"] = 1373910,
-					["name"] = "Paradise Lost",
 					["azeritePowerID"] = 410,
+					["name"] = "Paradise Lost",
+					["icon"] = 1373910,
+					["spellID"] = 278675,
 				}, -- [4]
 				{
-					["spellID"] = 278676,
-					["icon"] = 135610,
-					["name"] = "Ace Up Your Sleeve",
 					["azeritePowerID"] = 411,
+					["name"] = "Ace Up Your Sleeve",
+					["icon"] = 135610,
+					["spellID"] = 278676,
 				}, -- [5]
 				{
-					["spellID"] = 277676,
-					["icon"] = 136206,
-					["name"] = "Brigand's Blitz",
 					["azeritePowerID"] = 446,
+					["name"] = "Brigand's Blitz",
+					["icon"] = 136206,
+					["spellID"] = 277676,
 				}, -- [6]
 			},
 			[261] = {
 				{
-					["spellID"] = 286121,
-					["icon"] = 237532,
-					["name"] = "Replicating Shadows",
 					["azeritePowerID"] = 124,
+					["name"] = "Replicating Shadows",
+					["icon"] = 237532,
+					["spellID"] = 286121,
 				}, -- [1]
 				{
-					["spellID"] = 273418,
-					["icon"] = 1373907,
-					["name"] = "Night's Vengeance",
 					["azeritePowerID"] = 175,
+					["name"] = "Night's Vengeance",
+					["icon"] = 1373907,
+					["spellID"] = 273418,
 				}, -- [2]
 				{
-					["spellID"] = 275896,
-					["icon"] = 1373912,
-					["name"] = "Blade In The Shadows",
 					["azeritePowerID"] = 240,
+					["name"] = "Blade In The Shadows",
+					["icon"] = 1373912,
+					["spellID"] = 275896,
 				}, -- [3]
 				{
-					["spellID"] = 278681,
-					["icon"] = 236279,
-					["name"] = "The First Dance",
 					["azeritePowerID"] = 413,
+					["name"] = "The First Dance",
+					["icon"] = 236279,
+					["spellID"] = 278681,
 				}, -- [4]
 				{
-					["spellID"] = 278683,
-					["icon"] = 252272,
-					["name"] = "Inevitability",
 					["azeritePowerID"] = 414,
+					["name"] = "Inevitability",
+					["icon"] = 252272,
+					["spellID"] = 278683,
 				}, -- [5]
 				{
-					["spellID"] = 277673,
-					["icon"] = 132090,
-					["name"] = "Perforate",
 					["azeritePowerID"] = 445,
+					["name"] = "Perforate",
+					["icon"] = 132090,
+					["spellID"] = 277673,
 				}, -- [6]
 			},
 			[259] = {
 				{
-					["spellID"] = 273007,
-					["icon"] = 132304,
-					["name"] = "Double Dose",
 					["azeritePowerID"] = 136,
+					["name"] = "Double Dose",
+					["icon"] = 132304,
+					["spellID"] = 273007,
 				}, -- [1]
 				{
-					["spellID"] = 273488,
-					["icon"] = 132287,
-					["name"] = "Twist the Knife",
 					["azeritePowerID"] = 181,
+					["name"] = "Twist the Knife",
+					["icon"] = 132287,
+					["spellID"] = 273488,
 				}, -- [2]
 				{
-					["spellID"] = 286573,
-					["icon"] = 458726,
-					["name"] = "Nothing Personal",
 					["azeritePowerID"] = 249,
+					["name"] = "Nothing Personal",
+					["icon"] = 458726,
+					["spellID"] = 286573,
 				}, -- [3]
 				{
-					["spellID"] = 277679,
-					["icon"] = 132302,
-					["name"] = "Scent of Blood",
 					["azeritePowerID"] = 406,
+					["name"] = "Scent of Blood",
+					["icon"] = 132302,
+					["spellID"] = 277679,
 				}, -- [4]
 				{
-					["spellID"] = 287649,
-					["icon"] = 236273,
-					["name"] = "Echoing Blades",
 					["azeritePowerID"] = 407,
+					["name"] = "Echoing Blades",
+					["icon"] = 236273,
+					["spellID"] = 287649,
 				}, -- [5]
 				{
-					["spellID"] = 278666,
-					["icon"] = 132297,
-					["name"] = "Shrouded Suffocation",
 					["azeritePowerID"] = 408,
+					["name"] = "Shrouded Suffocation",
+					["icon"] = 132297,
+					["spellID"] = 278666,
 				}, -- [6]
 			},
 		}, -- [4]
 		{
 			[257] = {
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [1]
 				{
-					["spellID"] = 272780,
-					["icon"] = 135907,
-					["name"] = "Permeating Glow",
 					["azeritePowerID"] = 114,
+					["name"] = "Permeating Glow",
+					["icon"] = 135907,
+					["spellID"] = 272780,
 				}, -- [2]
 				{
-					["spellID"] = 273313,
-					["icon"] = 237541,
-					["name"] = "Blessed Sanctuary",
 					["azeritePowerID"] = 165,
+					["name"] = "Blessed Sanctuary",
+					["icon"] = 237541,
+					["spellID"] = 273313,
 				}, -- [3]
 				{
-					["spellID"] = 275602,
-					["icon"] = 135943,
-					["name"] = "Prayerful Litany",
 					["azeritePowerID"] = 228,
+					["name"] = "Prayerful Litany",
+					["icon"] = 135943,
+					["spellID"] = 275602,
 				}, -- [4]
 				{
-					["spellID"] = 277681,
-					["icon"] = 135913,
-					["name"] = "Everlasting Light",
 					["azeritePowerID"] = 400,
+					["name"] = "Everlasting Light",
+					["icon"] = 135913,
+					["spellID"] = 277681,
 				}, -- [5]
 				{
-					["spellID"] = 278645,
-					["icon"] = 135944,
-					["name"] = "Word of Mending",
 					["azeritePowerID"] = 401,
+					["name"] = "Word of Mending",
+					["icon"] = 135944,
+					["spellID"] = 278645,
 				}, -- [6]
 				{
-					["spellID"] = 287336,
-					["icon"] = 135937,
-					["name"] = "Promise of Deliverance",
 					["azeritePowerID"] = 402,
+					["name"] = "Promise of Deliverance",
+					["icon"] = 135937,
+					["spellID"] = 287336,
 				}, -- [7]
 			},
 			[258] = {
 				{
-					["spellID"] = 272788,
-					["icon"] = 237565,
-					["name"] = "Searing Dialogue",
 					["azeritePowerID"] = 115,
+					["name"] = "Searing Dialogue",
+					["icon"] = 237565,
+					["spellID"] = 272788,
 				}, -- [1]
 				{
-					["spellID"] = 288340,
-					["icon"] = 135978,
-					["name"] = "Thought Harvester",
 					["azeritePowerID"] = 166,
+					["name"] = "Thought Harvester",
+					["icon"] = 135978,
+					["spellID"] = 288340,
 				}, -- [2]
 				{
-					["spellID"] = 275541,
-					["icon"] = 136202,
-					["name"] = "Depth of the Shadows",
 					["azeritePowerID"] = 227,
+					["name"] = "Depth of the Shadows",
+					["icon"] = 136202,
+					["spellID"] = 275541,
 				}, -- [3]
 				{
-					["spellID"] = 275722,
-					["icon"] = 237298,
-					["name"] = "Whispers of the Damned",
 					["azeritePowerID"] = 236,
+					["name"] = "Whispers of the Damned",
+					["icon"] = 237298,
+					["spellID"] = 275722,
 				}, -- [4]
 				{
-					["spellID"] = 277682,
-					["icon"] = 458229,
-					["name"] = "Spiteful Apparitions",
 					["azeritePowerID"] = 403,
+					["name"] = "Spiteful Apparitions",
+					["icon"] = 458229,
+					["spellID"] = 277682,
 				}, -- [5]
 				{
-					["spellID"] = 278659,
-					["icon"] = 136163,
-					["name"] = "Death Throes",
 					["azeritePowerID"] = 404,
+					["name"] = "Death Throes",
+					["icon"] = 136163,
+					["spellID"] = 278659,
 				}, -- [6]
 				{
-					["spellID"] = 278661,
-					["icon"] = 1386549,
-					["name"] = "Chorus of Insanity",
 					["azeritePowerID"] = 405,
+					["name"] = "Chorus of Insanity",
+					["icon"] = 1386549,
+					["spellID"] = 278661,
 				}, -- [7]
 			},
 			[256] = {
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [1]
 				{
-					["spellID"] = 272775,
-					["icon"] = 135936,
-					["name"] = "Moment of Repose",
 					["azeritePowerID"] = 113,
+					["name"] = "Moment of Repose",
+					["icon"] = 135936,
+					["spellID"] = 272775,
 				}, -- [2]
 				{
-					["spellID"] = 273307,
-					["icon"] = 237545,
-					["name"] = "Weal and Woe",
 					["azeritePowerID"] = 164,
+					["name"] = "Weal and Woe",
+					["icon"] = 237545,
+					["spellID"] = 273307,
 				}, -- [3]
 				{
-					["spellID"] = 275541,
-					["icon"] = 136202,
-					["name"] = "Depth of the Shadows",
 					["azeritePowerID"] = 227,
+					["name"] = "Depth of the Shadows",
+					["icon"] = 136202,
+					["spellID"] = 275541,
 				}, -- [4]
 				{
-					["spellID"] = 287355,
-					["icon"] = 135922,
-					["name"] = "Sudden Revelation",
 					["azeritePowerID"] = 397,
+					["name"] = "Sudden Revelation",
+					["icon"] = 135922,
+					["spellID"] = 287355,
 				}, -- [5]
 				{
-					["spellID"] = 278629,
-					["icon"] = 237567,
-					["name"] = "Contemptuous Homily",
 					["azeritePowerID"] = 398,
+					["name"] = "Contemptuous Homily",
+					["icon"] = 237567,
+					["spellID"] = 278629,
 				}, -- [6]
 				{
-					["spellID"] = 278643,
-					["icon"] = 1386546,
-					["name"] = "Enduring Luminescence",
 					["azeritePowerID"] = 399,
+					["name"] = "Enduring Luminescence",
+					["icon"] = 1386546,
+					["spellID"] = 278643,
 				}, -- [7]
 			},
 		}, -- [5]
 		{
 			[252] = {
 				{
-					["spellID"] = 288417,
-					["icon"] = 348276,
-					["name"] = "Magus of the Dead",
 					["azeritePowerID"] = 109,
+					["name"] = "Magus of the Dead",
+					["icon"] = 348276,
+					["spellID"] = 288417,
 				}, -- [1]
 				{
-					["spellID"] = 273088,
-					["icon"] = 136144,
-					["name"] = "Bone Spike Graveyard",
 					["azeritePowerID"] = 140,
+					["name"] = "Bone Spike Graveyard",
+					["icon"] = 136144,
+					["spellID"] = 273088,
 				}, -- [2]
 				{
-					["spellID"] = 286832,
-					["icon"] = 342913,
-					["name"] = "Helchains",
 					["azeritePowerID"] = 142,
+					["name"] = "Helchains",
+					["icon"] = 342913,
+					["spellID"] = 286832,
 				}, -- [3]
 				{
-					["spellID"] = 274081,
-					["icon"] = 1129420,
-					["name"] = "Festermight",
 					["azeritePowerID"] = 199,
+					["name"] = "Festermight",
+					["icon"] = 1129420,
+					["spellID"] = 274081,
 				}, -- [4]
 				{
-					["spellID"] = 275929,
-					["icon"] = 136145,
-					["name"] = "Harrowing Decay",
 					["azeritePowerID"] = 244,
+					["name"] = "Harrowing Decay",
+					["icon"] = 136145,
+					["spellID"] = 275929,
 				}, -- [5]
 				{
-					["spellID"] = 278482,
-					["icon"] = 879926,
-					["name"] = "Cankerous Wounds",
 					["azeritePowerID"] = 350,
+					["name"] = "Cankerous Wounds",
+					["icon"] = 879926,
+					["spellID"] = 278482,
 				}, -- [6]
 				{
-					["spellID"] = 278489,
-					["icon"] = 136133,
-					["name"] = "Last Surprise",
 					["azeritePowerID"] = 351,
+					["name"] = "Last Surprise",
+					["icon"] = 136133,
+					["spellID"] = 278489,
 				}, -- [7]
 			},
 			[251] = {
 				{
-					["spellID"] = 272718,
-					["icon"] = 135372,
-					["name"] = "Icy Citadel",
 					["azeritePowerID"] = 108,
+					["name"] = "Icy Citadel",
+					["icon"] = 135372,
+					["spellID"] = 272718,
 				}, -- [1]
 				{
-					["spellID"] = 273093,
-					["icon"] = 237520,
-					["name"] = "Latent Chill",
 					["azeritePowerID"] = 141,
+					["name"] = "Latent Chill",
+					["icon"] = 237520,
+					["spellID"] = 273093,
 				}, -- [2]
 				{
-					["spellID"] = 287283,
-					["icon"] = 1580450,
-					["name"] = "Frostwhelp's Indignation",
 					["azeritePowerID"] = 198,
+					["name"] = "Frostwhelp's Indignation",
+					["icon"] = 1580450,
+					["spellID"] = 287283,
 				}, -- [3]
 				{
-					["spellID"] = 275917,
-					["icon"] = 135833,
-					["name"] = "Echoing Howl",
 					["azeritePowerID"] = 242,
+					["name"] = "Echoing Howl",
+					["icon"] = 135833,
+					["spellID"] = 275917,
 				}, -- [4]
 				{
-					["spellID"] = 278480,
-					["icon"] = 135305,
-					["name"] = "Killer Frost",
 					["azeritePowerID"] = 346,
+					["name"] = "Killer Frost",
+					["icon"] = 135305,
+					["spellID"] = 278480,
 				}, -- [5]
 				{
-					["spellID"] = 278487,
-					["icon"] = 538770,
-					["name"] = "Frozen Tempest",
 					["azeritePowerID"] = 347,
+					["name"] = "Frozen Tempest",
+					["icon"] = 538770,
+					["spellID"] = 278487,
 				}, -- [6]
 			},
 			[250] = {
 				{
-					["spellID"] = 272684,
-					["icon"] = 132155,
-					["name"] = "Deep Cuts",
 					["azeritePowerID"] = 106,
+					["name"] = "Deep Cuts",
+					["icon"] = 132155,
+					["spellID"] = 272684,
 				}, -- [1]
 				{
-					["spellID"] = 273088,
-					["icon"] = 136144,
-					["name"] = "Bone Spike Graveyard",
 					["azeritePowerID"] = 140,
+					["name"] = "Bone Spike Graveyard",
+					["icon"] = 136144,
+					["spellID"] = 273088,
 				}, -- [2]
 				{
-					["spellID"] = 274057,
-					["icon"] = 237517,
-					["name"] = "Marrowblood",
 					["azeritePowerID"] = 197,
+					["name"] = "Marrowblood",
+					["icon"] = 237517,
+					["spellID"] = 274057,
 				}, -- [3]
 				{
-					["spellID"] = 289339,
-					["icon"] = 135338,
-					["name"] = "Bloody Runeblade",
 					["azeritePowerID"] = 243,
+					["name"] = "Bloody Runeblade",
+					["icon"] = 135338,
+					["spellID"] = 289339,
 				}, -- [4]
 				{
-					["spellID"] = 278479,
-					["icon"] = 135277,
-					["name"] = "Eternal Rune Weapon",
 					["azeritePowerID"] = 348,
+					["name"] = "Eternal Rune Weapon",
+					["icon"] = 135277,
+					["spellID"] = 278479,
 				}, -- [5]
 				{
-					["spellID"] = 278484,
-					["icon"] = 1376745,
-					["name"] = "Bones of the Damned",
 					["azeritePowerID"] = 349,
+					["name"] = "Bones of the Damned",
+					["icon"] = 1376745,
+					["spellID"] = 278484,
 				}, -- [6]
 			},
 		}, -- [6]
 		{
 			[263] = {
 				{
-					["spellID"] = 263786,
-					["icon"] = 538565,
-					["name"] = "Astral Shift",
 					["azeritePowerID"] = 17,
+					["name"] = "Astral Shift",
+					["icon"] = 538565,
+					["spellID"] = 263786,
 				}, -- [1]
 				{
-					["spellID"] = 272992,
-					["icon"] = 236289,
-					["name"] = "Primal Primer",
 					["azeritePowerID"] = 137,
+					["name"] = "Primal Primer",
+					["icon"] = 236289,
+					["spellID"] = 272992,
 				}, -- [2]
 				{
-					["spellID"] = 273461,
-					["icon"] = 136086,
-					["name"] = "Strength of Earth",
 					["azeritePowerID"] = 179,
+					["name"] = "Strength of Earth",
+					["icon"] = 136086,
+					["spellID"] = 273461,
 				}, -- [3]
 				{
-					["spellID"] = 275388,
-					["icon"] = 237443,
-					["name"] = "Lightning Conduit",
 					["azeritePowerID"] = 223,
+					["name"] = "Lightning Conduit",
+					["icon"] = 237443,
+					["spellID"] = 275388,
 				}, -- [4]
 				{
-					["spellID"] = 278697,
-					["icon"] = 136028,
-					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
+					["name"] = "Natural Harmony",
+					["icon"] = 136028,
+					["spellID"] = 278697,
 				}, -- [5]
 				{
-					["spellID"] = 278719,
-					["icon"] = 132314,
-					["name"] = "Roiling Storm",
 					["azeritePowerID"] = 420,
+					["name"] = "Roiling Storm",
+					["icon"] = 132314,
+					["spellID"] = 278719,
 				}, -- [6]
 				{
-					["spellID"] = 277666,
-					["icon"] = 451167,
-					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
+					["name"] = "Ancestral Resonance",
+					["icon"] = 451167,
+					["spellID"] = 277666,
 				}, -- [7]
 				{
-					["spellID"] = 277671,
-					["icon"] = 136048,
-					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
+					["name"] = "Synapse Shock",
+					["icon"] = 136048,
+					["spellID"] = 277671,
 				}, -- [8]
 				{
-					["spellID"] = 287768,
-					["icon"] = 136046,
-					["name"] = "Thunderaan's Fury",
 					["azeritePowerID"] = 530,
+					["name"] = "Thunderaan's Fury",
+					["icon"] = 136046,
+					["spellID"] = 287768,
 				}, -- [9]
 			},
 			[264] = {
 				{
-					["spellID"] = 263786,
-					["icon"] = 538565,
-					["name"] = "Astral Shift",
 					["azeritePowerID"] = 17,
+					["name"] = "Astral Shift",
+					["icon"] = 538565,
+					["spellID"] = 263786,
 				}, -- [1]
 				{
-					["spellID"] = 263792,
-					["icon"] = 136015,
-					["name"] = "Lightningburn",
 					["azeritePowerID"] = 24,
+					["name"] = "Lightningburn",
+					["icon"] = 136015,
+					["spellID"] = 263792,
 				}, -- [2]
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [3]
 				{
-					["spellID"] = 272978,
-					["icon"] = 237582,
-					["name"] = "Volcanic Lightning",
 					["azeritePowerID"] = 135,
+					["name"] = "Volcanic Lightning",
+					["icon"] = 237582,
+					["spellID"] = 272978,
 				}, -- [4]
 				{
-					["spellID"] = 272989,
-					["icon"] = 136042,
-					["name"] = "Soothing Waters",
 					["azeritePowerID"] = 138,
+					["name"] = "Soothing Waters",
+					["icon"] = 136042,
+					["spellID"] = 272989,
 				}, -- [5]
 				{
-					["spellID"] = 287300,
-					["icon"] = 237590,
-					["name"] = "Turn of the Tide",
 					["azeritePowerID"] = 191,
+					["name"] = "Turn of the Tide",
+					["icon"] = 237590,
+					["spellID"] = 287300,
 				}, -- [6]
 				{
-					["spellID"] = 275488,
-					["icon"] = 135127,
-					["name"] = "Swelling Stream",
 					["azeritePowerID"] = 224,
+					["name"] = "Swelling Stream",
+					["icon"] = 135127,
+					["spellID"] = 275488,
 				}, -- [7]
 				{
-					["spellID"] = 278697,
-					["icon"] = 136028,
-					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
+					["name"] = "Natural Harmony",
+					["icon"] = 136028,
+					["spellID"] = 278697,
 				}, -- [8]
 				{
-					["spellID"] = 278713,
-					["icon"] = 252995,
-					["name"] = "Surging Tides",
 					["azeritePowerID"] = 422,
+					["name"] = "Surging Tides",
+					["icon"] = 252995,
+					["spellID"] = 278713,
 				}, -- [9]
 				{
-					["spellID"] = 278715,
-					["icon"] = 237586,
-					["name"] = "Spouting Spirits",
 					["azeritePowerID"] = 423,
+					["name"] = "Spouting Spirits",
+					["icon"] = 237586,
+					["spellID"] = 278715,
 				}, -- [10]
 				{
-					["spellID"] = 277666,
-					["icon"] = 451167,
-					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
+					["name"] = "Ancestral Resonance",
+					["icon"] = 451167,
+					["spellID"] = 277666,
 				}, -- [11]
 				{
-					["spellID"] = 277671,
-					["icon"] = 136048,
-					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
+					["name"] = "Synapse Shock",
+					["icon"] = 136048,
+					["spellID"] = 277671,
 				}, -- [12]
 				{
-					["spellID"] = 277658,
-					["icon"] = 136037,
-					["name"] = "Overflowing Shores",
 					["azeritePowerID"] = 449,
+					["name"] = "Overflowing Shores",
+					["icon"] = 136037,
+					["spellID"] = 277658,
 				}, -- [13]
 				{
-					["spellID"] = 279829,
-					["icon"] = 451169,
-					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
+					["name"] = "Igneous Potential",
+					["icon"] = 451169,
+					["spellID"] = 279829,
 				}, -- [14]
 			},
 			[262] = {
 				{
-					["spellID"] = 263786,
-					["icon"] = 538565,
-					["name"] = "Astral Shift",
 					["azeritePowerID"] = 17,
+					["name"] = "Astral Shift",
+					["icon"] = 538565,
+					["spellID"] = 263786,
 				}, -- [1]
 				{
-					["spellID"] = 263792,
-					["icon"] = 136015,
-					["name"] = "Lightningburn",
 					["azeritePowerID"] = 24,
+					["name"] = "Lightningburn",
+					["icon"] = 136015,
+					["spellID"] = 263792,
 				}, -- [2]
 				{
-					["spellID"] = 272978,
-					["icon"] = 237582,
-					["name"] = "Volcanic Lightning",
 					["azeritePowerID"] = 135,
+					["name"] = "Volcanic Lightning",
+					["icon"] = 237582,
+					["spellID"] = 272978,
 				}, -- [3]
 				{
-					["spellID"] = 273448,
-					["icon"] = 136026,
-					["name"] = "Lava Shock",
 					["azeritePowerID"] = 178,
+					["name"] = "Lava Shock",
+					["icon"] = 136026,
+					["spellID"] = 273448,
 				}, -- [4]
 				{
-					["spellID"] = 275381,
-					["icon"] = 135790,
-					["name"] = "Echo of the Elementals",
 					["azeritePowerID"] = 222,
+					["name"] = "Echo of the Elementals",
+					["icon"] = 135790,
+					["spellID"] = 275381,
 				}, -- [5]
 				{
-					["spellID"] = 278697,
-					["icon"] = 136028,
-					["name"] = "Natural Harmony",
 					["azeritePowerID"] = 416,
+					["name"] = "Natural Harmony",
+					["icon"] = 136028,
+					["spellID"] = 278697,
 				}, -- [6]
 				{
-					["spellID"] = 286949,
-					["icon"] = 136025,
-					["name"] = "Tectonic Thunder",
 					["azeritePowerID"] = 417,
+					["name"] = "Tectonic Thunder",
+					["icon"] = 136025,
+					["spellID"] = 286949,
 				}, -- [7]
 				{
-					["spellID"] = 277666,
-					["icon"] = 451167,
-					["name"] = "Ancestral Resonance",
 					["azeritePowerID"] = 447,
+					["name"] = "Ancestral Resonance",
+					["icon"] = 451167,
+					["spellID"] = 277666,
 				}, -- [8]
 				{
-					["spellID"] = 277671,
-					["icon"] = 136048,
-					["name"] = "Synapse Shock",
 					["azeritePowerID"] = 448,
+					["name"] = "Synapse Shock",
+					["icon"] = 136048,
+					["spellID"] = 277671,
 				}, -- [9]
 				{
-					["spellID"] = 279829,
-					["icon"] = 451169,
-					["name"] = "Igneous Potential",
 					["azeritePowerID"] = 457,
+					["name"] = "Igneous Potential",
+					["icon"] = 451169,
+					["spellID"] = 279829,
 				}, -- [10]
 			},
 		}, -- [7]
 		{
 			[64] = {
 				{
-					["spellID"] = 272968,
-					["icon"] = 612394,
-					["name"] = "Packed Ice",
 					["azeritePowerID"] = 132,
+					["name"] = "Packed Ice",
+					["icon"] = 612394,
+					["spellID"] = 272968,
 				}, -- [1]
 				{
-					["spellID"] = 288164,
-					["icon"] = 236209,
-					["name"] = "Flash Freeze",
 					["azeritePowerID"] = 170,
+					["name"] = "Flash Freeze",
+					["icon"] = 236209,
+					["spellID"] = 288164,
 				}, -- [2]
 				{
-					["spellID"] = 279854,
-					["icon"] = 2126034,
-					["name"] = "Glacial Assault",
 					["azeritePowerID"] = 225,
+					["name"] = "Glacial Assault",
+					["icon"] = 2126034,
+					["spellID"] = 279854,
 				}, -- [3]
 				{
-					["spellID"] = 277663,
-					["icon"] = 135846,
-					["name"] = "Tunnel of Ice",
 					["azeritePowerID"] = 379,
+					["name"] = "Tunnel of Ice",
+					["icon"] = 135846,
+					["spellID"] = 277663,
 				}, -- [4]
 				{
-					["spellID"] = 278541,
-					["icon"] = 135844,
-					["name"] = "Whiteout",
 					["azeritePowerID"] = 380,
+					["name"] = "Whiteout",
+					["icon"] = 135844,
+					["spellID"] = 278541,
 				}, -- [5]
 				{
-					["spellID"] = 278542,
-					["icon"] = 135838,
-					["name"] = "Frigid Grasp",
 					["azeritePowerID"] = 381,
+					["name"] = "Frigid Grasp",
+					["icon"] = 135838,
+					["spellID"] = 278542,
 				}, -- [6]
 			},
 			[63] = {
 				{
-					["spellID"] = 272932,
-					["icon"] = 135810,
-					["name"] = "Flames of Alacrity",
 					["azeritePowerID"] = 128,
+					["name"] = "Flames of Alacrity",
+					["icon"] = 135810,
+					["spellID"] = 272932,
 				}, -- [1]
 				{
-					["spellID"] = 288755,
-					["icon"] = 460698,
-					["name"] = "Wildfire",
 					["azeritePowerID"] = 168,
+					["name"] = "Wildfire",
+					["icon"] = 460698,
+					["spellID"] = 288755,
 				}, -- [2]
 				{
-					["spellID"] = 274596,
-					["icon"] = 135807,
-					["name"] = "Blaster Master",
 					["azeritePowerID"] = 215,
+					["name"] = "Blaster Master",
+					["icon"] = 135807,
+					["spellID"] = 274596,
 				}, -- [3]
 				{
-					["spellID"] = 277656,
-					["icon"] = 135808,
-					["name"] = "Trailing Embers",
 					["azeritePowerID"] = 376,
+					["name"] = "Trailing Embers",
+					["icon"] = 135808,
+					["spellID"] = 277656,
 				}, -- [4]
 				{
-					["spellID"] = 278538,
-					["icon"] = 135812,
-					["name"] = "Duplicative Incineration",
 					["azeritePowerID"] = 377,
+					["name"] = "Duplicative Incineration",
+					["icon"] = 135812,
+					["spellID"] = 278538,
 				}, -- [5]
 				{
-					["spellID"] = 278539,
-					["icon"] = 236218,
-					["name"] = "Firemind",
 					["azeritePowerID"] = 378,
+					["name"] = "Firemind",
+					["icon"] = 236218,
+					["spellID"] = 278539,
 				}, -- [6]
 			},
 			[62] = {
 				{
-					["spellID"] = 270669,
-					["icon"] = 136096,
-					["name"] = "Arcane Pummeling",
 					["azeritePowerID"] = 88,
+					["name"] = "Arcane Pummeling",
+					["icon"] = 136096,
+					["spellID"] = 270669,
 				}, -- [1]
 				{
-					["spellID"] = 286027,
-					["icon"] = 135732,
-					["name"] = "Equipoise",
 					["azeritePowerID"] = 127,
+					["name"] = "Equipoise",
+					["icon"] = 135732,
+					["spellID"] = 286027,
 				}, -- [2]
 				{
-					["spellID"] = 273326,
-					["icon"] = 136075,
-					["name"] = "Brain Storm",
 					["azeritePowerID"] = 167,
+					["name"] = "Brain Storm",
+					["icon"] = 136075,
+					["spellID"] = 273326,
 				}, -- [3]
 				{
-					["spellID"] = 274594,
-					["icon"] = 236205,
-					["name"] = "Arcane Pressure",
 					["azeritePowerID"] = 214,
+					["name"] = "Arcane Pressure",
+					["icon"] = 236205,
+					["spellID"] = 274594,
 				}, -- [4]
 				{
-					["spellID"] = 278536,
-					["icon"] = 135730,
-					["name"] = "Galvanizing Spark",
 					["azeritePowerID"] = 374,
+					["name"] = "Galvanizing Spark",
+					["icon"] = 135730,
+					["spellID"] = 278536,
 				}, -- [5]
 				{
-					["spellID"] = 278537,
-					["icon"] = 136116,
-					["name"] = "Explosive Echo",
 					["azeritePowerID"] = 375,
+					["name"] = "Explosive Echo",
+					["icon"] = 136116,
+					["spellID"] = 278537,
 				}, -- [6]
 			},
 		}, -- [8]
 		{
 			[266] = {
 				{
-					["spellID"] = 272944,
-					["icon"] = 136181,
-					["name"] = "Shadow's Bite",
 					["azeritePowerID"] = 130,
+					["name"] = "Shadow's Bite",
+					["icon"] = 136181,
+					["spellID"] = 272944,
 				}, -- [1]
 				{
-					["spellID"] = 273523,
-					["icon"] = 236296,
-					["name"] = "Umbral Blaze",
 					["azeritePowerID"] = 190,
+					["name"] = "Umbral Blaze",
+					["icon"] = 236296,
+					["spellID"] = 273523,
 				}, -- [2]
 				{
-					["spellID"] = 275395,
-					["icon"] = 2032610,
-					["name"] = "Explosive Potential",
 					["azeritePowerID"] = 231,
+					["name"] = "Explosive Potential",
+					["icon"] = 2032610,
+					["spellID"] = 275395,
 				}, -- [3]
 				{
-					["spellID"] = 278737,
-					["icon"] = 535592,
-					["name"] = "Demonic Meteor",
 					["azeritePowerID"] = 428,
+					["name"] = "Demonic Meteor",
+					["icon"] = 535592,
+					["spellID"] = 278737,
 				}, -- [4]
 				{
-					["spellID"] = 287059,
-					["icon"] = 237561,
-					["name"] = "Baleful Invocation",
 					["azeritePowerID"] = 429,
+					["name"] = "Baleful Invocation",
+					["icon"] = 237561,
+					["spellID"] = 287059,
 				}, -- [5]
 				{
-					["spellID"] = 276007,
-					["icon"] = 460856,
-					["name"] = "Excoriate",
 					["azeritePowerID"] = 443,
+					["name"] = "Excoriate",
+					["icon"] = 460856,
+					["spellID"] = 276007,
 				}, -- [6]
 				{
-					["spellID"] = 279878,
-					["icon"] = 2065628,
-					["name"] = "Supreme Commander",
 					["azeritePowerID"] = 458,
+					["name"] = "Supreme Commander",
+					["icon"] = 2065628,
+					["spellID"] = 279878,
 				}, -- [7]
 			},
 			[267] = {
 				{
-					["spellID"] = 287637,
-					["icon"] = 134075,
-					["name"] = "Chaos Shards",
 					["azeritePowerID"] = 131,
+					["name"] = "Chaos Shards",
+					["icon"] = 134075,
+					["spellID"] = 287637,
 				}, -- [1]
 				{
-					["spellID"] = 275425,
-					["icon"] = 135817,
-					["name"] = "Flashpoint",
 					["azeritePowerID"] = 232,
+					["name"] = "Flashpoint",
+					["icon"] = 135817,
+					["spellID"] = 275425,
 				}, -- [2]
 				{
-					["spellID"] = 278747,
-					["icon"] = 1380866,
-					["name"] = "Rolling Havoc",
 					["azeritePowerID"] = 431,
+					["name"] = "Rolling Havoc",
+					["icon"] = 1380866,
+					["spellID"] = 278747,
 				}, -- [3]
 				{
-					["spellID"] = 278748,
-					["icon"] = 135789,
-					["name"] = "Chaotic Inferno",
 					["azeritePowerID"] = 432,
+					["name"] = "Chaotic Inferno",
+					["icon"] = 135789,
+					["spellID"] = 278748,
 				}, -- [4]
 				{
-					["spellID"] = 277644,
-					["icon"] = 236291,
-					["name"] = "Crashing Chaos",
 					["azeritePowerID"] = 444,
+					["name"] = "Crashing Chaos",
+					["icon"] = 236291,
+					["spellID"] = 277644,
 				}, -- [5]
 				{
-					["spellID"] = 279909,
-					["icon"] = 135807,
-					["name"] = "Bursting Flare",
 					["azeritePowerID"] = 460,
+					["name"] = "Bursting Flare",
+					["icon"] = 135807,
+					["spellID"] = 279909,
 				}, -- [6]
 			},
 			[265] = {
 				{
-					["spellID"] = 272891,
-					["icon"] = 237564,
-					["name"] = "Wracking Brilliance",
 					["azeritePowerID"] = 123,
+					["name"] = "Wracking Brilliance",
+					["icon"] = 237564,
+					["spellID"] = 272891,
 				}, -- [1]
 				{
-					["spellID"] = 273521,
-					["icon"] = 537517,
-					["name"] = "Inevitable Demise",
 					["azeritePowerID"] = 183,
+					["name"] = "Inevitable Demise",
+					["icon"] = 537517,
+					["spellID"] = 273521,
 				}, -- [2]
 				{
-					["spellID"] = 275372,
-					["icon"] = 136228,
-					["name"] = "Cascading Calamity",
 					["azeritePowerID"] = 230,
+					["name"] = "Cascading Calamity",
+					["icon"] = 136228,
+					["spellID"] = 275372,
 				}, -- [3]
 				{
-					["spellID"] = 278721,
-					["icon"] = 136139,
-					["name"] = "Sudden Onset",
 					["azeritePowerID"] = 425,
+					["name"] = "Sudden Onset",
+					["icon"] = 136139,
+					["spellID"] = 278721,
 				}, -- [4]
 				{
-					["spellID"] = 278727,
-					["icon"] = 1416161,
-					["name"] = "Dreadful Calling",
 					["azeritePowerID"] = 426,
+					["name"] = "Dreadful Calling",
+					["icon"] = 1416161,
+					["spellID"] = 278727,
 				}, -- [5]
 				{
-					["spellID"] = 289364,
-					["icon"] = 136230,
-					["name"] = "Pandemic Invocation",
 					["azeritePowerID"] = 442,
+					["name"] = "Pandemic Invocation",
+					["icon"] = 136230,
+					["spellID"] = 289364,
 				}, -- [6]
 			},
 		}, -- [9]
 		{
 			[269] = {
 				{
-					["spellID"] = 287055,
-					["icon"] = 606548,
-					["name"] = "Fury of Xuen",
 					["azeritePowerID"] = 117,
+					["name"] = "Fury of Xuen",
+					["icon"] = 606548,
+					["spellID"] = 287055,
 				}, -- [1]
 				{
-					["spellID"] = 273291,
-					["icon"] = 642415,
-					["name"] = "Sunrise Technique",
 					["azeritePowerID"] = 184,
+					["name"] = "Sunrise Technique",
+					["icon"] = 642415,
+					["spellID"] = 273291,
 				}, -- [2]
 				{
-					["spellID"] = 288634,
-					["icon"] = 1381297,
-					["name"] = "Glory of the Dawn",
 					["azeritePowerID"] = 388,
+					["name"] = "Glory of the Dawn",
+					["icon"] = 1381297,
+					["spellID"] = 288634,
 				}, -- [3]
 				{
-					["spellID"] = 279918,
-					["icon"] = 627606,
-					["name"] = "Open Palm Strikes",
 					["azeritePowerID"] = 389,
+					["name"] = "Open Palm Strikes",
+					["icon"] = 627606,
+					["spellID"] = 279918,
 				}, -- [4]
 				{
-					["spellID"] = 278577,
-					["icon"] = 606551,
-					["name"] = "Pressure Point",
 					["azeritePowerID"] = 390,
+					["name"] = "Pressure Point",
+					["icon"] = 606551,
+					["spellID"] = 278577,
 				}, -- [5]
 				{
-					["spellID"] = 286585,
-					["icon"] = 607849,
-					["name"] = "Dance of Chi-Ji",
 					["azeritePowerID"] = 391,
+					["name"] = "Dance of Chi-Ji",
+					["icon"] = 607849,
+					["spellID"] = 286585,
 				}, -- [6]
 			},
 			[270] = {
 				{
-					["spellID"] = 287829,
-					["icon"] = 611418,
-					["name"] = "Secret Infusion",
 					["azeritePowerID"] = 76,
+					["name"] = "Secret Infusion",
+					["icon"] = 611418,
+					["spellID"] = 287829,
 				}, -- [1]
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [2]
 				{
-					["spellID"] = 273291,
-					["icon"] = 642415,
-					["name"] = "Sunrise Technique",
 					["azeritePowerID"] = 184,
+					["name"] = "Sunrise Technique",
+					["icon"] = 642415,
+					["spellID"] = 273291,
 				}, -- [3]
 				{
-					["spellID"] = 273328,
-					["icon"] = 775461,
-					["name"] = "Overflowing Mists",
 					["azeritePowerID"] = 185,
+					["name"] = "Overflowing Mists",
+					["icon"] = 775461,
+					["spellID"] = 273328,
 				}, -- [4]
 				{
-					["spellID"] = 275975,
-					["icon"] = 627487,
-					["name"] = "Misty Peaks",
 					["azeritePowerID"] = 248,
+					["name"] = "Misty Peaks",
+					["icon"] = 627487,
+					["spellID"] = 275975,
 				}, -- [5]
 				{
-					["spellID"] = 277667,
-					["icon"] = 627485,
-					["name"] = "Burst of Life",
 					["azeritePowerID"] = 385,
+					["name"] = "Burst of Life",
+					["icon"] = 627485,
+					["spellID"] = 277667,
 				}, -- [6]
 				{
-					["spellID"] = 279875,
-					["icon"] = 1360978,
-					["name"] = "Font of Life",
 					["azeritePowerID"] = 386,
+					["name"] = "Font of Life",
+					["icon"] = 1360978,
+					["spellID"] = 279875,
 				}, -- [7]
 				{
-					["spellID"] = 278576,
-					["icon"] = 1020466,
-					["name"] = "Uplifted Spirits",
 					["azeritePowerID"] = 387,
+					["name"] = "Uplifted Spirits",
+					["icon"] = 1020466,
+					["spellID"] = 278576,
 				}, -- [8]
 				{
-					["spellID"] = 288634,
-					["icon"] = 1381297,
-					["name"] = "Glory of the Dawn",
 					["azeritePowerID"] = 388,
+					["name"] = "Glory of the Dawn",
+					["icon"] = 1381297,
+					["spellID"] = 288634,
 				}, -- [9]
 			},
 			[268] = {
 				{
-					["spellID"] = 272792,
-					["icon"] = 615339,
-					["name"] = "Boiling Brew",
 					["azeritePowerID"] = 116,
+					["name"] = "Boiling Brew",
+					["icon"] = 615339,
+					["spellID"] = 272792,
 				}, -- [1]
 				{
-					["spellID"] = 273464,
-					["icon"] = 1500803,
-					["name"] = "Staggering Strikes",
 					["azeritePowerID"] = 186,
+					["name"] = "Staggering Strikes",
+					["icon"] = 1500803,
+					["spellID"] = 273464,
 				}, -- [2]
 				{
-					["spellID"] = 275892,
-					["icon"] = 133701,
-					["name"] = "Fit to Burst",
 					["azeritePowerID"] = 238,
+					["name"] = "Fit to Burst",
+					["icon"] = 133701,
+					["spellID"] = 275892,
 				}, -- [3]
 				{
-					["spellID"] = 285958,
-					["icon"] = 1360979,
-					["name"] = "Straight, No Chaser",
 					["azeritePowerID"] = 382,
+					["name"] = "Straight, No Chaser",
+					["icon"] = 1360979,
+					["spellID"] = 285958,
 				}, -- [4]
 				{
-					["spellID"] = 278569,
-					["icon"] = 611419,
-					["name"] = "Training of Niuzao",
 					["azeritePowerID"] = 383,
+					["name"] = "Training of Niuzao",
+					["icon"] = 611419,
+					["spellID"] = 278569,
 				}, -- [5]
 				{
-					["spellID"] = 278571,
-					["icon"] = 642416,
-					["name"] = "Elusive Footwork",
 					["azeritePowerID"] = 384,
+					["name"] = "Elusive Footwork",
+					["icon"] = 642416,
+					["spellID"] = 278571,
 				}, -- [6]
 			},
 		}, -- [10]
 		{
 			[103] = {
 				{
-					["spellID"] = 279524,
-					["icon"] = 236149,
-					["name"] = "Blood Mist",
 					["azeritePowerID"] = 111,
+					["name"] = "Blood Mist",
+					["icon"] = 236149,
+					["spellID"] = 279524,
 				}, -- [1]
 				{
-					["spellID"] = 273338,
-					["icon"] = 132122,
-					["name"] = "Untamed Ferocity",
 					["azeritePowerID"] = 169,
+					["name"] = "Untamed Ferocity",
+					["icon"] = 132122,
+					["spellID"] = 273338,
 				}, -- [2]
 				{
-					["spellID"] = 273344,
-					["icon"] = 236169,
-					["name"] = "Masterful Instincts",
 					["azeritePowerID"] = 171,
+					["name"] = "Masterful Instincts",
+					["icon"] = 236169,
+					["spellID"] = 273344,
 				}, -- [3]
 				{
-					["spellID"] = 274424,
-					["icon"] = 132242,
-					["name"] = "Jungle Fury",
 					["azeritePowerID"] = 209,
+					["name"] = "Jungle Fury",
+					["icon"] = 132242,
+					["spellID"] = 274424,
 				}, -- [4]
 				{
-					["spellID"] = 275906,
-					["icon"] = 451161,
-					["name"] = "Twisted Claws",
 					["azeritePowerID"] = 241,
+					["name"] = "Twisted Claws",
+					["icon"] = 451161,
+					["spellID"] = 275906,
 				}, -- [5]
 				{
-					["spellID"] = 276021,
-					["icon"] = 132134,
-					["name"] = "Iron Jaws",
 					["azeritePowerID"] = 247,
+					["name"] = "Iron Jaws",
+					["icon"] = 132134,
+					["spellID"] = 276021,
 				}, -- [6]
 				{
-					["spellID"] = 278509,
-					["icon"] = 132152,
-					["name"] = "Gushing Lacerations",
 					["azeritePowerID"] = 358,
+					["name"] = "Gushing Lacerations",
+					["icon"] = 132152,
+					["spellID"] = 278509,
 				}, -- [7]
 				{
-					["spellID"] = 279527,
-					["icon"] = 236305,
-					["name"] = "Wild Fleshrending",
 					["azeritePowerID"] = 359,
+					["name"] = "Wild Fleshrending",
+					["icon"] = 236305,
+					["spellID"] = 279527,
 				}, -- [8]
 			},
 			[104] = {
 				{
-					["spellID"] = 269379,
-					["icon"] = 136096,
-					["name"] = "Long Night",
 					["azeritePowerID"] = 51,
+					["name"] = "Long Night",
+					["icon"] = 136096,
+					["spellID"] = 269379,
 				}, -- [1]
 				{
-					["spellID"] = 279552,
-					["icon"] = 1378702,
-					["name"] = "Layered Mane",
 					["azeritePowerID"] = 112,
+					["name"] = "Layered Mane",
+					["icon"] = 1378702,
+					["spellID"] = 279552,
 				}, -- [2]
 				{
-					["spellID"] = 273344,
-					["icon"] = 236169,
-					["name"] = "Masterful Instincts",
 					["azeritePowerID"] = 171,
+					["name"] = "Masterful Instincts",
+					["icon"] = 236169,
+					["spellID"] = 273344,
 				}, -- [3]
 				{
-					["spellID"] = 275906,
-					["icon"] = 451161,
-					["name"] = "Twisted Claws",
 					["azeritePowerID"] = 241,
+					["name"] = "Twisted Claws",
+					["icon"] = 451161,
+					["spellID"] = 275906,
 				}, -- [4]
 				{
-					["spellID"] = 289314,
-					["icon"] = 571585,
-					["name"] = "Burst of Savagery",
 					["azeritePowerID"] = 251,
+					["name"] = "Burst of Savagery",
+					["icon"] = 571585,
+					["spellID"] = 289314,
 				}, -- [5]
 				{
-					["spellID"] = 279527,
-					["icon"] = 236305,
-					["name"] = "Wild Fleshrending",
 					["azeritePowerID"] = 359,
+					["name"] = "Wild Fleshrending",
+					["icon"] = 236305,
+					["spellID"] = 279527,
 				}, -- [6]
 				{
-					["spellID"] = 278510,
-					["icon"] = 132091,
-					["name"] = "Gory Regeneration",
 					["azeritePowerID"] = 360,
+					["name"] = "Gory Regeneration",
+					["icon"] = 132091,
+					["spellID"] = 278510,
 				}, -- [7]
 				{
-					["spellID"] = 278511,
-					["icon"] = 132136,
-					["name"] = "Guardian's Wrath",
 					["azeritePowerID"] = 361,
-				}, -- [8]
-			},
-			[102] = {
-				{
-					["spellID"] = 269379,
-					["icon"] = 136096,
-					["name"] = "Long Night",
-					["azeritePowerID"] = 51,
-				}, -- [1]
-				{
-					["spellID"] = 272871,
-					["icon"] = 136060,
-					["name"] = "Streaking Stars",
-					["azeritePowerID"] = 122,
-				}, -- [2]
-				{
-					["spellID"] = 273367,
-					["icon"] = 136096,
-					["name"] = "Power of the Moon",
-					["azeritePowerID"] = 173,
-				}, -- [3]
-				{
-					["spellID"] = 287773,
-					["icon"] = 135730,
-					["name"] = "Arcanic Pulsar",
-					["azeritePowerID"] = 200,
-				}, -- [4]
-				{
-					["spellID"] = 276152,
-					["icon"] = 135753,
-					["name"] = "Dawning Sun",
-					["azeritePowerID"] = 250,
-				}, -- [5]
-				{
-					["spellID"] = 278505,
-					["icon"] = 236216,
-					["name"] = "High Noon",
-					["azeritePowerID"] = 356,
-				}, -- [6]
-				{
-					["spellID"] = 278507,
-					["icon"] = 236168,
-					["name"] = "Lunar Shrapnel",
-					["azeritePowerID"] = 357,
-				}, -- [7]
-				{
-					["spellID"] = 279642,
-					["icon"] = 136048,
-					["name"] = "Lively Spirit",
-					["azeritePowerID"] = 364,
+					["name"] = "Guardian's Wrath",
+					["icon"] = 132136,
+					["spellID"] = 278511,
 				}, -- [8]
 			},
 			[105] = {
 				{
-					["spellID"] = 269379,
-					["icon"] = 136096,
-					["name"] = "Long Night",
 					["azeritePowerID"] = 51,
+					["name"] = "Long Night",
+					["icon"] = 136096,
+					["spellID"] = 269379,
 				}, -- [1]
 				{
-					["spellID"] = 267892,
-					["icon"] = 513195,
-					["name"] = "Synergistic Growth",
 					["azeritePowerID"] = 102,
+					["name"] = "Synergistic Growth",
+					["icon"] = 513195,
+					["spellID"] = 267892,
 				}, -- [2]
 				{
-					["spellID"] = 287251,
-					["icon"] = 236153,
-					["name"] = "Early Harvest",
 					["azeritePowerID"] = 120,
+					["name"] = "Early Harvest",
+					["icon"] = 236153,
+					["spellID"] = 287251,
 				}, -- [3]
 				{
-					["spellID"] = 279778,
-					["icon"] = 134914,
-					["name"] = "Grove Tending",
 					["azeritePowerID"] = 172,
+					["name"] = "Grove Tending",
+					["icon"] = 134914,
+					["spellID"] = 279778,
 				}, -- [4]
 				{
-					["spellID"] = 274432,
-					["icon"] = 136081,
-					["name"] = "Autumn Leaves",
 					["azeritePowerID"] = 210,
+					["name"] = "Autumn Leaves",
+					["icon"] = 136081,
+					["spellID"] = 274432,
 				}, -- [5]
 				{
-					["spellID"] = 278505,
-					["icon"] = 236216,
-					["name"] = "High Noon",
 					["azeritePowerID"] = 356,
+					["name"] = "High Noon",
+					["icon"] = 236216,
+					["spellID"] = 278505,
 				}, -- [6]
 				{
-					["spellID"] = 278515,
-					["icon"] = 136085,
-					["name"] = "Rampant Growth",
 					["azeritePowerID"] = 362,
+					["name"] = "Rampant Growth",
+					["icon"] = 136085,
+					["spellID"] = 278515,
 				}, -- [7]
 				{
-					["spellID"] = 278513,
-					["icon"] = 134157,
-					["name"] = "Waking Dream",
 					["azeritePowerID"] = 363,
+					["name"] = "Waking Dream",
+					["icon"] = 134157,
+					["spellID"] = 278513,
 				}, -- [8]
 				{
-					["spellID"] = 279642,
-					["icon"] = 136048,
-					["name"] = "Lively Spirit",
 					["azeritePowerID"] = 364,
+					["name"] = "Lively Spirit",
+					["icon"] = 136048,
+					["spellID"] = 279642,
 				}, -- [9]
+			},
+			[102] = {
+				{
+					["azeritePowerID"] = 51,
+					["name"] = "Long Night",
+					["icon"] = 136096,
+					["spellID"] = 269379,
+				}, -- [1]
+				{
+					["azeritePowerID"] = 122,
+					["name"] = "Streaking Stars",
+					["icon"] = 136060,
+					["spellID"] = 272871,
+				}, -- [2]
+				{
+					["azeritePowerID"] = 173,
+					["name"] = "Power of the Moon",
+					["icon"] = 136096,
+					["spellID"] = 273367,
+				}, -- [3]
+				{
+					["azeritePowerID"] = 200,
+					["name"] = "Arcanic Pulsar",
+					["icon"] = 135730,
+					["spellID"] = 287773,
+				}, -- [4]
+				{
+					["azeritePowerID"] = 250,
+					["name"] = "Dawning Sun",
+					["icon"] = 135753,
+					["spellID"] = 276152,
+				}, -- [5]
+				{
+					["azeritePowerID"] = 356,
+					["name"] = "High Noon",
+					["icon"] = 236216,
+					["spellID"] = 278505,
+				}, -- [6]
+				{
+					["azeritePowerID"] = 357,
+					["name"] = "Lunar Shrapnel",
+					["icon"] = 236168,
+					["spellID"] = 278507,
+				}, -- [7]
+				{
+					["azeritePowerID"] = 364,
+					["name"] = "Lively Spirit",
+					["icon"] = 136048,
+					["spellID"] = 279642,
+				}, -- [8]
 			},
 		}, -- [11]
 		{
 			[577] = {
 				{
-					["spellID"] = 279581,
-					["icon"] = 1305149,
-					["name"] = "Revolving Blades",
 					["azeritePowerID"] = 126,
+					["name"] = "Revolving Blades",
+					["icon"] = 1305149,
+					["spellID"] = 279581,
 				}, -- [1]
 				{
-					["spellID"] = 273231,
-					["icon"] = 1305156,
-					["name"] = "Furious Gaze",
 					["azeritePowerID"] = 159,
+					["name"] = "Furious Gaze",
+					["icon"] = 1305156,
+					["spellID"] = 273231,
 				}, -- [2]
 				{
-					["spellID"] = 273236,
-					["icon"] = 1344649,
-					["name"] = "Infernal Armor",
 					["azeritePowerID"] = 160,
+					["name"] = "Infernal Armor",
+					["icon"] = 1344649,
+					["spellID"] = 273236,
 				}, -- [3]
 				{
-					["spellID"] = 288754,
-					["icon"] = 1305157,
-					["name"] = "Chaotic Transformation",
 					["azeritePowerID"] = 220,
+					["name"] = "Chaotic Transformation",
+					["icon"] = 1305157,
+					["spellID"] = 288754,
 				}, -- [4]
 				{
-					["spellID"] = 275934,
-					["icon"] = 1097741,
-					["name"] = "Seething Power",
 					["azeritePowerID"] = 245,
+					["name"] = "Seething Power",
+					["icon"] = 1097741,
+					["spellID"] = 275934,
 				}, -- [5]
 				{
-					["spellID"] = 278493,
-					["icon"] = 1305152,
-					["name"] = "Thirsting Blades",
 					["azeritePowerID"] = 352,
+					["name"] = "Thirsting Blades",
+					["icon"] = 1305152,
+					["spellID"] = 278493,
 				}, -- [6]
 				{
-					["spellID"] = 278500,
-					["icon"] = 463286,
-					["name"] = "Eyes of Rage",
 					["azeritePowerID"] = 353,
+					["name"] = "Eyes of Rage",
+					["icon"] = 463286,
+					["spellID"] = 278500,
 				}, -- [7]
 			},
 			[581] = {
 				{
-					["spellID"] = 272983,
-					["icon"] = 1344647,
-					["name"] = "Revel in Pain",
 					["azeritePowerID"] = 134,
+					["name"] = "Revel in Pain",
+					["icon"] = 1344647,
+					["spellID"] = 272983,
 				}, -- [1]
 				{
-					["spellID"] = 273236,
-					["icon"] = 1344649,
-					["name"] = "Infernal Armor",
 					["azeritePowerID"] = 160,
+					["name"] = "Infernal Armor",
+					["icon"] = 1344649,
+					["spellID"] = 273236,
 				}, -- [2]
 				{
-					["spellID"] = 275350,
-					["icon"] = 1344645,
-					["name"] = "Rigid Carapace",
 					["azeritePowerID"] = 221,
+					["name"] = "Rigid Carapace",
+					["icon"] = 1344645,
+					["spellID"] = 275350,
 				}, -- [3]
 				{
-					["spellID"] = 288878,
-					["icon"] = 615099,
-					["name"] = "Hour of Reaping",
 					["azeritePowerID"] = 246,
+					["name"] = "Hour of Reaping",
+					["icon"] = 615099,
+					["spellID"] = 288878,
 				}, -- [4]
 				{
-					["spellID"] = 278502,
-					["icon"] = 1344652,
-					["name"] = "Cycle of Binding",
 					["azeritePowerID"] = 354,
+					["name"] = "Cycle of Binding",
+					["icon"] = 1344652,
+					["spellID"] = 278502,
 				}, -- [5]
 				{
-					["spellID"] = 278501,
-					["icon"] = 1344648,
-					["name"] = "Essence Sever",
 					["azeritePowerID"] = 355,
+					["name"] = "Essence Sever",
+					["icon"] = 1344648,
+					["spellID"] = 278501,
 				}, -- [6]
 			},
 		}, -- [12]
@@ -1741,821 +1741,851 @@ local sourceData = {
 	["defensive"] = {
 		{
 			{
-				["spellID"] = 280023,
-				["icon"] = 132351,
-				["name"] = "Moment of Glory",
 				["azeritePowerID"] = 476,
+				["name"] = "Moment of Glory",
+				["icon"] = 132351,
+				["spellID"] = 280023,
 			}, -- [1]
 			{
-				["spellID"] = 280128,
-				["icon"] = 132342,
-				["name"] = "Bury the Hatchet",
 				["azeritePowerID"] = 477,
+				["name"] = "Bury the Hatchet",
+				["icon"] = 132342,
+				["spellID"] = 280128,
 			}, -- [2]
 			{
-				["spellID"] = 288641,
-				["icon"] = 132126,
-				["name"] = "Intimidating Presence",
 				["azeritePowerID"] = 554,
+				["name"] = "Intimidating Presence",
+				["icon"] = 132126,
+				["spellID"] = 288641,
 			}, -- [3]
 		}, -- [1]
 		{
 			{
-				["spellID"] = 274388,
-				["icon"] = 524354,
-				["name"] = "Stalwart Protector",
 				["azeritePowerID"] = 206,
+				["name"] = "Stalwart Protector",
+				["icon"] = 524354,
+				["spellID"] = 274388,
 			}, -- [1]
 			{
-				["spellID"] = 280017,
-				["icon"] = 1360759,
-				["name"] = "Gallant Steed",
 				["azeritePowerID"] = 471,
+				["name"] = "Gallant Steed",
+				["icon"] = 1360759,
+				["spellID"] = 280017,
 			}, -- [2]
 			{
-				["spellID"] = 287729,
-				["icon"] = 135928,
-				["name"] = "Empyreal Ward",
 				["azeritePowerID"] = 538,
+				["name"] = "Empyreal Ward",
+				["icon"] = 135928,
+				["spellID"] = 287729,
 			}, -- [3]
 		}, -- [2]
 		{
 			{
-				["spellID"] = 274355,
-				["icon"] = 132199,
-				["name"] = "Shellshock",
 				["azeritePowerID"] = 203,
+				["name"] = "Shellshock",
+				["icon"] = 132199,
+				["spellID"] = 274355,
 			}, -- [1]
 			{
-				["spellID"] = 280014,
-				["icon"] = 132293,
-				["name"] = "Duck and Cover",
 				["azeritePowerID"] = 469,
+				["name"] = "Duck and Cover",
+				["icon"] = 132293,
+				["spellID"] = 280014,
 			}, -- [2]
 			{
-				["spellID"] = 287938,
-				["icon"] = 1014024,
-				["name"] = "Nature's Salve",
 				["azeritePowerID"] = 543,
+				["name"] = "Nature's Salve",
+				["icon"] = 1014024,
+				["spellID"] = 287938,
 			}, -- [3]
 		}, -- [3]
 		{
 			{
-				["spellID"] = 274692,
-				["icon"] = 132307,
-				["name"] = "Footpad",
 				["azeritePowerID"] = 217,
+				["name"] = "Footpad",
+				["icon"] = 132307,
+				["spellID"] = 274692,
 			}, -- [1]
 			{
-				["spellID"] = 280020,
-				["icon"] = 136177,
-				["name"] = "Shrouded Mantle",
 				["azeritePowerID"] = 473,
+				["name"] = "Shrouded Mantle",
+				["icon"] = 136177,
+				["spellID"] = 280020,
 			}, -- [2]
 			{
-				["spellID"] = 288079,
-				["icon"] = 132301,
-				["name"] = "Lying In Wait",
 				["azeritePowerID"] = 548,
+				["name"] = "Lying In Wait",
+				["icon"] = 132301,
+				["spellID"] = 288079,
 			}, -- [3]
 		}, -- [4]
 		{
 			{
-				["spellID"] = 274366,
-				["icon"] = 135994,
-				["name"] = "Sanctum",
 				["azeritePowerID"] = 204,
+				["name"] = "Sanctum",
+				["icon"] = 135994,
+				["spellID"] = 274366,
 			}, -- [1]
 			{
-				["spellID"] = 280018,
-				["icon"] = 136066,
-				["name"] = "Twist Magic",
 				["azeritePowerID"] = 472,
+				["name"] = "Twist Magic",
+				["icon"] = 136066,
+				["spellID"] = 280018,
 			}, -- [2]
 			{
-				["spellID"] = 287717,
-				["icon"] = 463835,
-				["name"] = "Death Denied",
 				["azeritePowerID"] = 537,
+				["name"] = "Death Denied",
+				["icon"] = 463835,
+				["spellID"] = 287717,
 			}, -- [3]
 		}, -- [5]
 		{
 			{
-				["spellID"] = 280010,
-				["icon"] = 136120,
-				["name"] = "Runic Barrier",
 				["azeritePowerID"] = 201,
+				["name"] = "Runic Barrier",
+				["icon"] = 136120,
+				["spellID"] = 280010,
 			}, -- [1]
 			{
-				["spellID"] = 280011,
-				["icon"] = 237561,
-				["name"] = "March of the Damned",
 				["azeritePowerID"] = 465,
+				["name"] = "March of the Damned",
+				["icon"] = 237561,
+				["spellID"] = 280011,
 			}, -- [2]
 			{
-				["spellID"] = 288424,
-				["icon"] = 237525,
-				["name"] = "Cold Hearted",
 				["azeritePowerID"] = 549,
+				["name"] = "Cold Hearted",
+				["icon"] = 237525,
+				["spellID"] = 288424,
 			}, -- [3]
 		}, -- [6]
 		{
 			{
-				["spellID"] = 274412,
-				["icon"] = 538565,
-				["name"] = "Serene Spirit",
 				["azeritePowerID"] = 207,
+				["name"] = "Serene Spirit",
+				["icon"] = 538565,
+				["spellID"] = 274412,
 			}, -- [1]
 			{
-				["spellID"] = 280021,
-				["icon"] = 136095,
-				["name"] = "Pack Spirit",
 				["azeritePowerID"] = 474,
+				["name"] = "Pack Spirit",
+				["icon"] = 136095,
+				["spellID"] = 280021,
 			}, -- [2]
 			{
-				["spellID"] = 287774,
-				["icon"] = 133439,
-				["name"] = "Ancient Ankh Talisman",
 				["azeritePowerID"] = 539,
+				["name"] = "Ancient Ankh Talisman",
+				["icon"] = 133439,
+				["spellID"] = 287774,
 			}, -- [3]
 		}, -- [7]
 		{
 			{
-				["spellID"] = 274379,
-				["icon"] = 135991,
-				["name"] = "Eldritch Warding",
 				["azeritePowerID"] = 205,
+				["name"] = "Eldritch Warding",
+				["icon"] = 135991,
+				["spellID"] = 274379,
 			}, -- [1]
 			{
-				["spellID"] = 280015,
-				["icon"] = 135736,
-				["name"] = "Cauterizing Blink",
 				["azeritePowerID"] = 468,
+				["name"] = "Cauterizing Blink",
+				["icon"] = 135736,
+				["spellID"] = 280015,
 			}, -- [2]
 			{
-				["spellID"] = 288121,
-				["icon"] = 135754,
-				["name"] = "Quick Thinking",
 				["azeritePowerID"] = 546,
+				["name"] = "Quick Thinking",
+				["icon"] = 135754,
+				["spellID"] = 288121,
 			}, -- [3]
 		}, -- [8]
 		{
 			{
-				["spellID"] = 274418,
-				["icon"] = 538745,
-				["name"] = "Lifeblood",
 				["azeritePowerID"] = 208,
+				["name"] = "Lifeblood",
+				["icon"] = 538745,
+				["spellID"] = 274418,
 			}, -- [1]
 			{
-				["spellID"] = 280022,
-				["icon"] = 136169,
-				["name"] = "Desperate Power",
 				["azeritePowerID"] = 475,
+				["name"] = "Desperate Power",
+				["icon"] = 136169,
+				["spellID"] = 280022,
 			}, -- [2]
 			{
-				["spellID"] = 287822,
-				["icon"] = 136183,
-				["name"] = "Terror of the Mind",
 				["azeritePowerID"] = 531,
+				["name"] = "Terror of the Mind",
+				["icon"] = 136183,
+				["spellID"] = 287822,
 			}, -- [3]
 		}, -- [9]
 		{
 			{
-				["spellID"] = 274762,
-				["icon"] = 606546,
-				["name"] = "Strength of Spirit",
 				["azeritePowerID"] = 218,
+				["name"] = "Strength of Spirit",
+				["icon"] = 606546,
+				["spellID"] = 274762,
 			}, -- [1]
 			{
-				["spellID"] = 280016,
-				["icon"] = 642414,
-				["name"] = "Sweep the Leg",
 				["azeritePowerID"] = 470,
+				["name"] = "Sweep the Leg",
+				["icon"] = 642414,
+				["spellID"] = 280016,
 			}, -- [2]
 			{
-				["spellID"] = 289322,
-				["icon"] = 574574,
-				["name"] = "Exit Strategy",
 				["azeritePowerID"] = 566,
+				["name"] = "Exit Strategy",
+				["icon"] = 574574,
+				["spellID"] = 289322,
 			}, -- [3]
 		}, -- [10]
 		{
 			{
-				["spellID"] = 274813,
-				["icon"] = 136080,
-				["name"] = "Reawakening",
 				["azeritePowerID"] = 219,
+				["name"] = "Reawakening",
+				["icon"] = 136080,
+				["spellID"] = 274813,
 			}, -- [1]
 			{
-				["spellID"] = 280013,
-				["icon"] = 136097,
-				["name"] = "Ursoc's Endurance",
 				["azeritePowerID"] = 467,
+				["name"] = "Ursoc's Endurance",
+				["icon"] = 136097,
+				["spellID"] = 280013,
 			}, -- [2]
 			{
-				["spellID"] = 287803,
-				["icon"] = 135879,
-				["name"] = "Switch Hitter",
 				["azeritePowerID"] = 540,
+				["name"] = "Switch Hitter",
+				["icon"] = 135879,
+				["spellID"] = 287803,
 			}, -- [3]
 		}, -- [11]
 		{
 			{
-				["spellID"] = 274344,
-				["icon"] = 1305158,
-				["name"] = "Soulmonger",
 				["azeritePowerID"] = 202,
+				["name"] = "Soulmonger",
+				["icon"] = 1305158,
+				["spellID"] = 274344,
 			}, -- [1]
 			{
-				["spellID"] = 280012,
-				["icon"] = 828455,
-				["name"] = "Burning Soul",
 				["azeritePowerID"] = 466,
+				["name"] = "Burning Soul",
+				["icon"] = 828455,
+				["spellID"] = 280012,
 			}, -- [2]
 			{
-				["spellID"] = 288973,
-				["icon"] = 1392554,
-				["name"] = "Thrive in Chaos",
 				["azeritePowerID"] = 564,
+				["name"] = "Thrive in Chaos",
+				["icon"] = 1392554,
+				["spellID"] = 288973,
 			}, -- [3]
 		}, -- [12]
 		["common"] = {
 			{
-				["spellID"] = 268594,
-				["icon"] = 538536,
-				["name"] = "Longstrider",
 				["azeritePowerID"] = 14,
+				["name"] = "Longstrider",
+				["icon"] = 538536,
+				["spellID"] = 268594,
 			}, -- [1]
 			{
-				["spellID"] = 263962,
-				["icon"] = 1769069,
-				["name"] = "Resounding Protection",
 				["azeritePowerID"] = 15,
+				["name"] = "Resounding Protection",
+				["icon"] = 1769069,
+				["spellID"] = 263962,
 			}, -- [2]
 			{
-				["spellID"] = 268599,
-				["icon"] = 237395,
-				["name"] = "Vampiric Speed",
 				["azeritePowerID"] = 44,
+				["name"] = "Vampiric Speed",
+				["icon"] = 237395,
+				["spellID"] = 268599,
 			}, -- [3]
 			{
-				["spellID"] = 268437,
-				["icon"] = 1387707,
-				["name"] = "Impassive Visage",
 				["azeritePowerID"] = 83,
+				["name"] = "Impassive Visage",
+				["icon"] = 1387707,
+				["spellID"] = 268437,
 			}, -- [4]
 			{
-				["spellID"] = 268595,
-				["icon"] = 651746,
-				["name"] = "Bulwark of the Masses",
 				["azeritePowerID"] = 84,
+				["name"] = "Bulwark of the Masses",
+				["icon"] = 651746,
+				["spellID"] = 268595,
 			}, -- [5]
 			{
-				["spellID"] = 268596,
-				["icon"] = 1686575,
-				["name"] = "Gemhide",
 				["azeritePowerID"] = 85,
+				["name"] = "Gemhide",
+				["icon"] = 1686575,
+				["spellID"] = 268596,
 			}, -- [6]
 			{
-				["spellID"] = 268435,
-				["icon"] = 646669,
-				["name"] = "Azerite Fortification",
 				["azeritePowerID"] = 86,
+				["name"] = "Azerite Fortification",
+				["icon"] = 646669,
+				["spellID"] = 268435,
 			}, -- [7]
 			{
-				["spellID"] = 268600,
-				["icon"] = 413591,
-				["name"] = "Self Reliance",
 				["azeritePowerID"] = 87,
+				["name"] = "Self Reliance",
+				["icon"] = 413591,
+				["spellID"] = 268600,
 			}, -- [8]
 		},
 	},
 	["role"] = {
 		["tank"] = {
 			{
-				["spellID"] = 267671,
-				["icon"] = 1029596,
-				["name"] = "Winds of War",
 				["azeritePowerID"] = 43,
+				["name"] = "Winds of War",
+				["icon"] = 1029596,
+				["spellID"] = 267671,
 			}, -- [1]
 			{
-				["spellID"] = 267683,
-				["icon"] = 1129419,
-				["name"] = "Azerite Veins",
 				["azeritePowerID"] = 89,
+				["name"] = "Azerite Veins",
+				["icon"] = 1129419,
+				["spellID"] = 267683,
 			}, -- [2]
 			{
-				["spellID"] = 271536,
-				["icon"] = 134978,
-				["name"] = "Crystalline Carapace",
 				["azeritePowerID"] = 98,
+				["name"] = "Crystalline Carapace",
+				["icon"] = 134978,
+				["spellID"] = 271536,
 			}, -- [3]
 			{
-				["spellID"] = 271540,
-				["icon"] = 645224,
-				["name"] = "Ablative Shielding",
 				["azeritePowerID"] = 99,
+				["name"] = "Ablative Shielding",
+				["icon"] = 645224,
+				["spellID"] = 271540,
 			}, -- [4]
 			{
-				["spellID"] = 271546,
-				["icon"] = 136031,
-				["name"] = "Strength in Numbers",
 				["azeritePowerID"] = 100,
+				["name"] = "Strength in Numbers",
+				["icon"] = 136031,
+				["spellID"] = 271546,
 			}, -- [5]
 			{
-				["spellID"] = 271557,
-				["icon"] = 1323035,
-				["name"] = "Shimmering Haven",
 				["azeritePowerID"] = 101,
+				["name"] = "Shimmering Haven",
+				["icon"] = 1323035,
+				["spellID"] = 271557,
 			}, -- [6]
 		},
 		["nonhealer"] = {
 			{
-				["spellID"] = 263984,
-				["icon"] = 1029585,
-				["name"] = "Elemental Whirl",
 				["azeritePowerID"] = 21,
+				["name"] = "Elemental Whirl",
+				["icon"] = 1029585,
+				["spellID"] = 263984,
 			}, -- [1]
 			{
-				["spellID"] = 266180,
-				["icon"] = 252174,
-				["name"] = "Overwhelming Power",
 				["azeritePowerID"] = 30,
+				["name"] = "Overwhelming Power",
+				["icon"] = 252174,
+				["spellID"] = 266180,
 			}, -- [2]
 			{
-				["spellID"] = 266937,
-				["icon"] = 132109,
-				["name"] = "Gutripper",
 				["azeritePowerID"] = 31,
+				["name"] = "Gutripper",
+				["icon"] = 132109,
+				["spellID"] = 266937,
 			}, -- [3]
 			{
-				["spellID"] = 266936,
-				["icon"] = 646670,
-				["name"] = "Azerite Globules",
 				["azeritePowerID"] = 462,
+				["name"] = "Azerite Globules",
+				["icon"] = 646670,
+				["spellID"] = 266936,
 			}, -- [4]
 		},
 		["healer"] = {
 			{
-				["spellID"] = 267880,
-				["icon"] = 463526,
-				["name"] = "Woundbinder",
 				["azeritePowerID"] = 19,
+				["name"] = "Woundbinder",
+				["icon"] = 463526,
+				["spellID"] = 267880,
 			}, -- [1]
 			{
-				["spellID"] = 267883,
-				["icon"] = 413576,
-				["name"] = "Savior",
 				["azeritePowerID"] = 42,
+				["name"] = "Savior",
+				["icon"] = 413576,
+				["spellID"] = 267883,
 			}, -- [2]
 			{
-				["spellID"] = 267882,
-				["icon"] = 970412,
-				["name"] = "Concentrated Mending",
 				["azeritePowerID"] = 103,
+				["name"] = "Concentrated Mending",
+				["icon"] = 970412,
+				["spellID"] = 267882,
 			}, -- [3]
 			{
-				["spellID"] = 267884,
-				["icon"] = 236832,
-				["name"] = "Bracing Chill",
 				["azeritePowerID"] = 104,
+				["name"] = "Bracing Chill",
+				["icon"] = 236832,
+				["spellID"] = 267884,
 			}, -- [4]
 			{
-				["spellID"] = 267886,
-				["icon"] = 133020,
-				["name"] = "Ephemeral Recovery",
 				["azeritePowerID"] = 105,
+				["name"] = "Ephemeral Recovery",
+				["icon"] = 133020,
+				["spellID"] = 267886,
 			}, -- [5]
 			{
-				["spellID"] = 267889,
-				["icon"] = 135905,
-				["name"] = "Blessed Portents",
 				["azeritePowerID"] = 463,
+				["name"] = "Blessed Portents",
+				["icon"] = 135905,
+				["spellID"] = 267889,
 			}, -- [6]
 		},
 		["common"] = {
 			{
-				["spellID"] = 264108,
-				["icon"] = 538560,
-				["name"] = "Blood Siphon",
 				["azeritePowerID"] = 18,
+				["name"] = "Blood Siphon",
+				["icon"] = 538560,
+				["spellID"] = 264108,
 			}, -- [1]
 			{
-				["spellID"] = 267665,
-				["icon"] = 236166,
-				["name"] = "Lifespeed",
 				["azeritePowerID"] = 20,
+				["name"] = "Lifespeed",
+				["icon"] = 236166,
+				["spellID"] = 267665,
 			}, -- [2]
 			{
-				["spellID"] = 263987,
-				["icon"] = 237589,
-				["name"] = "Heed My Call",
 				["azeritePowerID"] = 22,
+				["name"] = "Heed My Call",
+				["icon"] = 237589,
+				["spellID"] = 263987,
 			}, -- [3]
 			{
-				["spellID"] = 267879,
-				["icon"] = 132565,
-				["name"] = "On My Way",
 				["azeritePowerID"] = 38,
+				["name"] = "On My Way",
+				["icon"] = 132565,
+				["spellID"] = 267879,
 			}, -- [4]
 			{
-				["spellID"] = 279899,
-				["icon"] = 514016,
-				["name"] = "Unstable Flames",
 				["azeritePowerID"] = 459,
+				["name"] = "Unstable Flames",
+				["icon"] = 514016,
+				["spellID"] = 279899,
 			}, -- [5]
 			{
-				["spellID"] = 279926,
-				["icon"] = 2065623,
-				["name"] = "Earthlink",
 				["azeritePowerID"] = 461,
+				["name"] = "Earthlink",
+				["icon"] = 2065623,
+				["spellID"] = 279926,
 			}, -- [6]
 		},
 	},
 	["raid"] = {
 		{
-			["spellID"] = 280555,
-			["icon"] = 2000853,
-			["name"] = "Archive of the Titans",
 			["azeritePowerID"] = 483,
+			["name"] = "Archive of the Titans",
+			["icon"] = 2000853,
+			["spellID"] = 280555,
 		}, -- [1]
 		{
-			["spellID"] = 280559,
-			["icon"] = 136039,
-			["name"] = "Laser Matrix",
 			["azeritePowerID"] = 485,
+			["name"] = "Laser Matrix",
+			["icon"] = 136039,
+			["spellID"] = 280559,
 		}, -- [2]
 		{
-			["spellID"] = 288802,
-			["icon"] = 895888,
-			["name"] = "Bonded Souls",
 			["azeritePowerID"] = 560,
+			["name"] = "Bonded Souls",
+			["icon"] = 895888,
+			["spellID"] = 288802,
 		}, -- [3]
 		{
-			["spellID"] = 288749,
-			["icon"] = 2442247,
-			["name"] = "Seductive Power",
 			["azeritePowerID"] = 561,
+			["name"] = "Seductive Power",
+			["icon"] = 2442247,
+			["spellID"] = 288749,
 		}, -- [4]
 		{
-			["spellID"] = 288953,
-			["icon"] = 1778226,
-			["name"] = "Treacherous Covenant",
 			["azeritePowerID"] = 562,
+			["name"] = "Treacherous Covenant",
+			["icon"] = 1778226,
+			["spellID"] = 288953,
 		}, -- [5]
+		{
+			["azeritePowerID"] = 575,
+			["name"] = "Undulating Tides",
+			["icon"] = 1698701,
+			["spellID"] = 303008,
+		}, -- [6]
+		{
+			["azeritePowerID"] = 576,
+			["name"] = "Loyal to the End",
+			["icon"] = 136159,
+			["spellID"] = 303007,
+		}, -- [7]
+		{
+			["azeritePowerID"] = 577,
+			["name"] = "Arcane Heart",
+			["icon"] = 1391778,
+			["spellID"] = 303006,
+		}, -- [8]
 	},
 	["zone"] = {
 		{
-			["spellID"] = 280710,
-			["icon"] = 135885,
-			["name"] = "Champion of Azeroth",
 			["azeritePowerID"] = 82,
+			["name"] = "Champion of Azeroth",
+			["icon"] = 135885,
+			["spellID"] = 280710,
 		}, -- [1]
 		{
-			["spellID"] = 273150,
-			["icon"] = 135780,
-			["name"] = "Ruinous Bolt",
 			["azeritePowerID"] = 156,
+			["name"] = "Ruinous Bolt",
+			["icon"] = 135780,
+			["spellID"] = 273150,
 		}, -- [2]
 		{
-			["spellID"] = 273790,
-			["icon"] = 2011133,
-			["name"] = "Rezan's Fury",
 			["azeritePowerID"] = 157,
+			["name"] = "Rezan's Fury",
+			["icon"] = 2011133,
+			["spellID"] = 273790,
 		}, -- [3]
 		{
-			["spellID"] = 273682,
-			["icon"] = 132299,
-			["name"] = "Meticulous Scheming",
 			["azeritePowerID"] = 192,
+			["name"] = "Meticulous Scheming",
+			["icon"] = 132299,
+			["spellID"] = 273682,
 		}, -- [4]
 		{
-			["spellID"] = 273823,
-			["icon"] = 1778229,
-			["name"] = "Blightborne Infusion",
 			["azeritePowerID"] = 193,
+			["name"] = "Blightborne Infusion",
+			["icon"] = 1778229,
+			["spellID"] = 273823,
 		}, -- [5]
 		{
-			["spellID"] = 273834,
-			["icon"] = 840409,
-			["name"] = "Filthy Transfusion",
 			["azeritePowerID"] = 194,
+			["name"] = "Filthy Transfusion",
+			["icon"] = 840409,
+			["spellID"] = 273834,
 		}, -- [6]
 		{
-			["spellID"] = 273829,
-			["icon"] = 463858,
-			["name"] = "Secrets of the Deep",
 			["azeritePowerID"] = 195,
+			["name"] = "Secrets of the Deep",
+			["icon"] = 463858,
+			["spellID"] = 273829,
 		}, -- [7]
 		{
-			["spellID"] = 280429,
-			["icon"] = 796638,
-			["name"] = "Swirling Sands",
 			["azeritePowerID"] = 196,
+			["name"] = "Swirling Sands",
+			["icon"] = 796638,
+			["spellID"] = 280429,
 		}, -- [8]
 		{
-			["spellID"] = 280402,
-			["icon"] = 1698701,
-			["name"] = "Tidal Surge",
 			["azeritePowerID"] = 478,
+			["name"] = "Tidal Surge",
+			["icon"] = 1698701,
+			["spellID"] = 280402,
 		}, -- [9]
 		{
-			["spellID"] = 280284,
-			["icon"] = 135642,
-			["name"] = "Dagger in the Back",
 			["azeritePowerID"] = 479,
+			["name"] = "Dagger in the Back",
+			["icon"] = 135642,
+			["spellID"] = 280284,
 		}, -- [10]
 		{
-			["spellID"] = 280407,
-			["icon"] = 463568,
-			["name"] = "Blood Rite",
 			["azeritePowerID"] = 480,
+			["name"] = "Blood Rite",
+			["icon"] = 463568,
+			["spellID"] = 280407,
 		}, -- [11]
 		{
-			["spellID"] = 280410,
-			["icon"] = 132193,
-			["name"] = "Incite the Pack",
 			["azeritePowerID"] = 481,
+			["name"] = "Incite the Pack",
+			["icon"] = 132193,
+			["spellID"] = 280410,
 		}, -- [12]
 		{
-			["spellID"] = 280380,
-			["icon"] = 839983,
-			["name"] = "Thunderous Blast",
 			["azeritePowerID"] = 482,
+			["name"] = "Thunderous Blast",
+			["icon"] = 839983,
+			["spellID"] = 280380,
 		}, -- [13]
 		{
-			["spellID"] = 281514,
-			["icon"] = 2032578,
-			["name"] = "Unstable Catalyst",
 			["azeritePowerID"] = 504,
+			["name"] = "Unstable Catalyst",
+			["icon"] = 2032578,
+			["spellID"] = 281514,
 		}, -- [14]
 		{
-			["spellID"] = 281841,
-			["icon"] = 1029595,
-			["name"] = "Tradewinds",
 			["azeritePowerID"] = 505,
+			["name"] = "Tradewinds",
+			["icon"] = 1029595,
+			["spellID"] = 281841,
 		}, -- [15]
 		{
-			["spellID"] = 287467,
-			["icon"] = 135900,
-			["name"] = "Shadow of Elune",
 			["azeritePowerID"] = 521,
+			["name"] = "Shadow of Elune",
+			["icon"] = 135900,
+			["spellID"] = 287467,
 		}, -- [16]
 		{
-			["spellID"] = 287604,
-			["icon"] = 874580,
-			["name"] = "Ancients' Bulwark",
 			["azeritePowerID"] = 522,
+			["name"] = "Ancients' Bulwark",
+			["icon"] = 874580,
+			["spellID"] = 287604,
 		}, -- [17]
 		{
-			["spellID"] = 287631,
-			["icon"] = 463547,
-			["name"] = "Apothecary's Concoctions",
 			["azeritePowerID"] = 523,
+			["name"] = "Apothecary's Concoctions",
+			["icon"] = 463547,
+			["spellID"] = 287631,
 		}, -- [18]
 		{
-			["spellID"] = 287662,
-			["icon"] = 2357388,
-			["name"] = "Endless Hunger",
 			["azeritePowerID"] = 526,
+			["name"] = "Endless Hunger",
+			["icon"] = 2357388,
+			["spellID"] = 287662,
 		}, -- [19]
+		{
+			["azeritePowerID"] = 569,
+			["name"] = "Clockwork Heart",
+			["icon"] = 134377,
+			["spellID"] = 300170,
+		}, -- [20]
 	},
 	["profession"] = {
 		{
-			["spellID"] = 280163,
-			["icon"] = 463515,
-			["name"] = "Barrage Of Many Bombs",
 			["azeritePowerID"] = 498,
+			["name"] = "Barrage Of Many Bombs",
+			["icon"] = 463515,
+			["spellID"] = 280163,
 		}, -- [1]
 		{
-			["spellID"] = 280168,
-			["icon"] = 134427,
-			["name"] = "Ricocheting Inflatable Pyrosaw",
 			["azeritePowerID"] = 499,
+			["name"] = "Ricocheting Inflatable Pyrosaw",
+			["icon"] = 134427,
+			["spellID"] = 280168,
 		}, -- [2]
 		{
-			["spellID"] = 280174,
-			["icon"] = 1320373,
-			["name"] = "Synaptic Spark Capacitor",
 			["azeritePowerID"] = 500,
+			["name"] = "Synaptic Spark Capacitor",
+			["icon"] = 1320373,
+			["spellID"] = 280174,
 		}, -- [3]
 		{
-			["spellID"] = 280178,
-			["icon"] = 133873,
-			["name"] = "Relational Normalization Gizmo",
 			["azeritePowerID"] = 501,
+			["name"] = "Relational Normalization Gizmo",
+			["icon"] = 133873,
+			["spellID"] = 280178,
 		}, -- [4]
 		{
-			["spellID"] = 280181,
-			["icon"] = 1336885,
-			["name"] = "Personal Absorb-o-Tron",
 			["azeritePowerID"] = 502,
+			["name"] = "Personal Absorb-o-Tron",
+			["icon"] = 1336885,
+			["spellID"] = 280181,
 		}, -- [5]
 		{
-			["spellID"] = 280172,
-			["icon"] = 514950,
-			["name"] = "Auto-Self-Cauterizer",
 			["azeritePowerID"] = 503,
+			["name"] = "Auto-Self-Cauterizer",
+			["icon"] = 514950,
+			["spellID"] = 280172,
 		}, -- [6]
+		{
+			["azeritePowerID"] = 568,
+			["name"] = "Person-Computer Interface",
+			["icon"] = 2115322,
+			["spellID"] = 300168,
+		}, -- [7]
 	},
 	["pvp"] = {
 		{
-			["spellID"] = 280577,
-			["icon"] = 1028980,
-			["name"] = "Glory in Battle",
 			["azeritePowerID"] = 486,
+			["name"] = "Glory in Battle",
+			["icon"] = 1028980,
+			["spellID"] = 280577,
 		}, -- [1]
 		{
-			["spellID"] = 280579,
-			["icon"] = 1035504,
-			["name"] = "Retaliatory Fury",
 			["azeritePowerID"] = 487,
+			["name"] = "Retaliatory Fury",
+			["icon"] = 1035504,
+			["spellID"] = 280579,
 		}, -- [2]
 		{
-			["spellID"] = 280582,
-			["icon"] = 236646,
-			["name"] = "Battlefield Focus",
 			["azeritePowerID"] = 488,
+			["name"] = "Battlefield Focus",
+			["icon"] = 236646,
+			["spellID"] = 280582,
 		}, -- [3]
 		{
-			["spellID"] = 280598,
-			["icon"] = 236560,
-			["name"] = "Sylvanas' Resolve",
 			["azeritePowerID"] = 489,
+			["name"] = "Sylvanas' Resolve",
+			["icon"] = 236560,
+			["spellID"] = 280598,
 		}, -- [4]
 		{
-			["spellID"] = 280580,
-			["icon"] = 236324,
-			["name"] = "Combined Might",
 			["azeritePowerID"] = 490,
+			["name"] = "Combined Might",
+			["icon"] = 236324,
+			["spellID"] = 280580,
 		}, -- [5]
 		{
-			["spellID"] = 280581,
-			["icon"] = 136003,
-			["name"] = "Collective Will",
 			["azeritePowerID"] = 491,
+			["name"] = "Collective Will",
+			["icon"] = 136003,
+			["spellID"] = 280581,
 		}, -- [6]
 		{
-			["spellID"] = 280623,
-			["icon"] = 1028984,
-			["name"] = "Liberator's Might",
 			["azeritePowerID"] = 492,
+			["name"] = "Liberator's Might",
+			["icon"] = 1028984,
+			["spellID"] = 280623,
 		}, -- [7]
 		{
-			["spellID"] = 280624,
-			["icon"] = 236478,
-			["name"] = "Last Gift",
 			["azeritePowerID"] = 493,
+			["name"] = "Last Gift",
+			["icon"] = 236478,
+			["spellID"] = 280624,
 		}, -- [8]
 		{
-			["spellID"] = 280627,
-			["icon"] = 132486,
-			["name"] = "Battlefield Precision",
 			["azeritePowerID"] = 494,
+			["name"] = "Battlefield Precision",
+			["icon"] = 132486,
+			["spellID"] = 280627,
 		}, -- [9]
 		{
-			["spellID"] = 280628,
-			["icon"] = 1042294,
-			["name"] = "Anduin's Dedication",
 			["azeritePowerID"] = 495,
+			["name"] = "Anduin's Dedication",
+			["icon"] = 1042294,
+			["spellID"] = 280628,
 		}, -- [10]
 		{
-			["spellID"] = 280625,
-			["icon"] = 2022762,
-			["name"] = "Stronger Together",
 			["azeritePowerID"] = 496,
+			["name"] = "Stronger Together",
+			["icon"] = 2022762,
+			["spellID"] = 280625,
 		}, -- [11]
 		{
-			["spellID"] = 280626,
-			["icon"] = 236344,
-			["name"] = "Stand As One",
 			["azeritePowerID"] = 497,
+			["name"] = "Stand As One",
+			["icon"] = 236344,
+			["spellID"] = 280626,
 		}, -- [12]
 		{
-			["spellID"] = 287818,
-			["icon"] = 236310,
-			["name"] = "Fight or Flight",
 			["azeritePowerID"] = 541,
+			["name"] = "Fight or Flight",
+			["icon"] = 236310,
+			["spellID"] = 287818,
 		}, -- [13]
 	},
-}
+},
 n.sourceData = sourceData
 -- 8.2 Azerite Essences
 local essenceData = {
 	["common"] = {
 		{
-			["essenceID"] = 4,
 			["name"] = "Worldvein Resonance",
 			["icon"] = 1830317,
+			["essenceID"] = 4,
 		}, -- [1]
 		{
-			["essenceID"] = 12,
 			["name"] = "The Crucible of Flame",
 			["icon"] = 3015740,
+			["essenceID"] = 12,
 		}, -- [2]
 		{
-			["essenceID"] = 15,
 			["name"] = "Ripple in Space",
 			["icon"] = 2967109,
+			["essenceID"] = 15,
 		}, -- [3]
 		{
-			["essenceID"] = 22,
 			["name"] = "Vision of Perfection",
 			["icon"] = 3015743,
+			["essenceID"] = 22,
 		}, -- [4]
 		{
-			["essenceID"] = 27,
 			["name"] = "Memory of Lucid Dreams",
 			["icon"] = 2967104,
+			["essenceID"] = 27,
 		}, -- [5]
 		{
-			["essenceID"] = 32,
 			["name"] = "Conflict and Strife",
 			["icon"] = 3015742,
+			["essenceID"] = 32,
 		}, -- [6]
 	},
 	["tank"] = {
 		{
-			["essenceID"] = 2,
 			["name"] = "Azeroth's Undying Gift",
 			["icon"] = 2967107,
+			["essenceID"] = 2,
 		}, -- [1]
 		{
-			["essenceID"] = 3,
 			["name"] = "Sphere of Suppression",
 			["icon"] = 2065602,
+			["essenceID"] = 3,
 		}, -- [2]
 		{
-			["essenceID"] = 7,
 			["name"] = "Anima of Life and Death",
 			["icon"] = 2967105,
+			["essenceID"] = 7,
 		}, -- [3]
 		{
-			["essenceID"] = 13,
 			["name"] = "Nullification Dynamo",
 			["icon"] = 3015741,
+			["essenceID"] = 13,
 		}, -- [4]
 		{
-			["essenceID"] = 25,
 			["name"] = "Aegis of the Deep",
 			["icon"] = 2967110,
+			["essenceID"] = 25,
 		}, -- [5]
 	},
 	["healer"] = {
 		{
-			["essenceID"] = 17,
 			["name"] = "The Ever-Rising Tide",
 			["icon"] = 2967108,
+			["essenceID"] = 17,
 		}, -- [1]
 		{
-			["essenceID"] = 18,
 			["name"] = "Artifice of Time",
 			["icon"] = 2967112,
+			["essenceID"] = 18,
 		}, -- [2]
 		{
-			["essenceID"] = 19,
 			["name"] = "The Well of Existence",
 			["icon"] = 516796,
+			["essenceID"] = 19,
 		}, -- [3]
 		{
-			["essenceID"] = 20,
 			["name"] = "Life-Binder's Invocation",
 			["icon"] = 2967106,
+			["essenceID"] = 20,
 		}, -- [4]
 		{
-			["essenceID"] = 21,
 			["name"] = "Vitality Conduit",
 			["icon"] = 2967100,
+			["essenceID"] = 21,
 		}, -- [5]
 	},
 	["damager"] = {
 		{
-			["essenceID"] = 5,
 			["name"] = "Essence of the Focusing Iris",
 			["icon"] = 2967111,
+			["essenceID"] = 5,
 		}, -- [1]
 		{
-			["essenceID"] = 6,
 			["name"] = "Purification Protocol",
 			["icon"] = 2967103,
+			["essenceID"] = 6,
 		}, -- [2]
 		{
-			["essenceID"] = 14,
 			["name"] = "Condensed Life-Force",
 			["icon"] = 2967113,
+			["essenceID"] = 14,
 		}, -- [3]
 		{
-			["essenceID"] = 23,
 			["name"] = "Blood of the Enemy",
 			["icon"] = 2032580,
+			["essenceID"] = 23,
 		}, -- [4]
 		{
-			["essenceID"] = 28,
 			["name"] = "The Unbound Force",
 			["icon"] = 2967102,
+			["essenceID"] = 28,
 		}, -- [5]
 	},
-}
+},
 n.essenceData = essenceData
 
 -- Default Scales Data
@@ -2581,13 +2611,12 @@ n.defaultNameTable = defaultNameTable
 local defaultScalesData = {}
 n.defaultScalesData = defaultScalesData
 
-local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, essenceScales, timestamp)
+local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, timestamp)
 	defaultScalesData[#defaultScalesData + 1] = {
 		scaleName,
 		classIndex,
 		specNum,
 		powerScales,
-		essenceScales,
 		timestamp
 	}
 end
