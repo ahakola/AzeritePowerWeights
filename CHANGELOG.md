@@ -1,3 +1,7 @@
+### 8.2.5
+
+- Removed two mispalced commas that sabotaged the previous release.
+
 ### 8.2.4
 
 - Fixed the missing Azerite Traits (When you automate stuff, remember to update your automation tools also when updating data!) [Ticket #33](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/33)

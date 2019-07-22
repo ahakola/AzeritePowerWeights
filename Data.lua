@@ -2468,7 +2468,7 @@ local sourceData = {
 			["spellID"] = 287818,
 		}, -- [13]
 	},
-},
+}
 n.sourceData = sourceData
 -- 8.2 Azerite Essences
 local essenceData = {
@@ -2585,7 +2585,7 @@ local essenceData = {
 			["essenceID"] = 28,
 		}, -- [5]
 	},
-},
+}
 n.essenceData = essenceData
 
 -- Default Scales Data
