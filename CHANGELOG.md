@@ -1,6 +1,11 @@
+### 8.2.6
+
+- Moved misplaced `Person-Computer Interface` from `Professions Powers` to `Zone Powers`. [Ticket #35](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/35)
+   - While fixing this, found and fixed bug where `Clockwork Heart` wasn't showing up in the Weight Editor at all (you can find it now also under `Zone Powers`).
+
 ### 8.2.5
 
-- Removed two mispalced commas that sabotaged the previous release.
+- Removed two mispalced commas that sabotaged the previous release. [Ticket #34](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/34)
 
 ### 8.2.4
 

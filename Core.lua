@@ -1295,6 +1295,23 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 				container:AddChild(e[c])
 				c = c + 1
 			end
+			-- 8.2 ->
+			for i = 20, #n.sourceData.zone do
+				local powerData = n.sourceData.zone[i]
+				local name = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(powerData.azeritePowerID).spellID)
+				e[c] = AceGUI:Create("EditBox")
+				e[c]:SetLabel(format("  |T%d:18|t %s", powerData.icon, name or powerData.name))
+				e[c]:SetText(powerWeights[powerData.azeritePowerID] or "")
+				e[c]:SetRelativeWidth(.5)
+				if isCustomScale then
+					e[c]:SetUserData("dataPointer", n.sourceData.zone[i].azeritePowerID)
+					e[c]:SetCallback("OnEnterPressed", _saveValue)
+				else
+					e[c]:SetDisabled(true)
+				end
+				container:AddChild(e[c])
+				c = c + 1
+			end
 		end
 
 		if cfg.professionPowers then
@@ -3335,33 +3352,28 @@ local SlashHandlers = {
 }
 
 local shouldKnowAboutConfig
-local _scanPowers -- Debug
 SlashCmdList["AZERITEPOWERWEIGHTS"] = function(text)
 	local command, params = strsplit(" ", text, 2)
 
 	if SlashHandlers[command] then
 		SlashHandlers[command](params)
 	else
-		if _scanPowers then
-			_scanPowers()
-		else
-			if not shouldKnowAboutConfig then
-				Print(L.Slash_RemindConfig, ADDON_NAME)
-				shouldKnowAboutConfig = true
-			end
-			if not n.guiContainer then
-				if not _G.AzeriteEmpoweredItemUI then
-					local loaded, reason = LoadAddOn("Blizzard_AzeriteUI")
-					if loaded then
-						_toggleEditorUI()
-					else
-						Print(L.Slash_Error_Unkown)
-						Debug(reason)
-					end
+		if not shouldKnowAboutConfig then
+			Print(L.Slash_RemindConfig, ADDON_NAME)
+			shouldKnowAboutConfig = true
+		end
+		if not n.guiContainer then
+			if not _G.AzeriteEmpoweredItemUI then
+				local loaded, reason = LoadAddOn("Blizzard_AzeriteUI")
+				if loaded then
+					_toggleEditorUI()
+				else
+					Print(L.Slash_Error_Unkown)
+					Debug(reason)
 				end
-			else
-				_toggleEditorUI()
 			end
+		else
+			_toggleEditorUI()
 		end
 	end
 end
