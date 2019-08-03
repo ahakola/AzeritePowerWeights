@@ -1,3 +1,7 @@
+### 8.2.7
+
+- Update Default-scales (SimulationCraft 820-02)
+
 ### 8.2.6
 
 - Moved misplaced `Person-Computer Interface` from `Professions Powers` to `Zone Powers`. [Ticket #35](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/35)

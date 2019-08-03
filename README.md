@@ -84,5 +84,5 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 10.07.2019]
-- Default-scales for 8.2.0 [updated 10.07.2019]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 02.08.2019]
+- Default-scales for 8.2.0 [updated 02.08.2019]
