@@ -3324,25 +3324,41 @@ local SlashHandlers = {
 		Print("Data check start")
 		local numSpecs = {
 			[1] = 3+1, -- Warrior (+1 for TMI)
-			[2] = 3+1, -- Paladin (+1 for TMI)
+			[2] = 3+1-1, -- Paladin (+1 for TMI, -1 for Holy)
 			[3] = 3, -- Hunter
 			[4] = 3, -- Rogue
-			[5] = 3+1, -- Priest (+1 for Disc Off)
+			[5] = 3+1-2-1, -- Priest (+1 for Disc Off, -2 for Disc and Disc Off, -1 for Holy)
 			[6] = 3+1, -- Death Knight (+1 for TMI)
-			[7] = 3+1, -- Shaman (+1 for Resto Off)
+			[7] = 3+1-1, -- Shaman (+1 for Resto Off, -1 for Resto)
 			[8] = 3, -- Mage
 			[9] = 3, -- Warlock
-			[10] = 3+1, -- Monk (+1 for TMI)
-			[11] = 4+1, -- Druid (+1 for TMI)
+			[10] = 3+1-1, -- Monk (+1 for TMI, -1 for MW)
+			[11] = 4+1-1, -- Druid (+1 for TMI, -1 for Resto)
 			[12] = 2+1, -- Demon Hunter (+1 for TMI)
 		}
+		--[[
+			Holy Paladin
+			Disc Priest + Disc Priest Off
+			Holy Priest
+			Restoratio Shaman
+			Mistweaver Monk
+			Restoration Druid
+		]]--
+		local emptySpecs = 7
 		for _, v in ipairs(n.defaultScalesData) do
-			numSpecs[v[2]] = numSpecs[v[2]] - 1
+			if next(v[4]) or next(v[5]) then -- Check for not empty scales
+				numSpecs[v[2]] = numSpecs[v[2]] - 1
+			else
+				emptySpecs = emptySpecs - 1
+			end
 		end
 		for k, v in ipairs(numSpecs) do
 			if v ~= 0 then
 				Print("!!!", k, v)
 			end
+		end
+		if emptySpecs ~= 0 then
+			Print("Empty specs:", emptySpecs)
 		end
 		Print("Data check end")
 	end,

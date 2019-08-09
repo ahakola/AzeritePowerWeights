@@ -2611,12 +2611,13 @@ n.defaultNameTable = defaultNameTable
 local defaultScalesData = {}
 n.defaultScalesData = defaultScalesData
 
-local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, timestamp)
+local function insertDefaultScalesData(scaleName, classIndex, specNum, powerScales, essenceScales, timestamp)
 	defaultScalesData[#defaultScalesData + 1] = {
 		scaleName,
 		classIndex,
 		specNum,
 		powerScales,
+		essenceScales,
 		timestamp
 	}
 end
@@ -4590,6 +4591,83 @@ do
 			[14] = { 6.84, 2.68 }, -- Condensed Life-Force
 		}, 1564736400)
 
+		insertDefaultScalesData(defaultName, 7, 2, { -- Enhancement Shaman
+			-- SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 30918)
+			-- Iterations: 28543 - 36709 (avg 33598), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 09.08.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[20] = 1.49, -- Lifespeed
+			[521] = 3.16, -- Shadow of Elune
+			[560] = 1.43, -- Bonded Souls
+			[179] = 3.44, -- Strength of Earth
+			[523] = 3.22, -- Apothecary's Concoctions
+			[195] = 3.24, -- Secrets of the Deep
+			[485] = 3.43, -- Laser Matrix
+			[483] = 3.49, -- Archive of the Titans
+			[137] = 2.63, -- Primal Primer
+			[462] = 1.07, -- Azerite Globules
+			[495] = 3.12, -- Anduin's Dedication
+			[18] = 1.3, -- Blood Siphon
+			[480] = 3.18, -- Blood Rite
+			[192] = 3.91, -- Meticulous Scheming
+			[494] = 3.82, -- Battlefield Precision
+			[577] = 1.65, -- Arcane Heart
+			[461] = 1.06, -- Earthlink
+			[30] = 2.77, -- Overwhelming Power
+			[193] = 5.16, -- Blightborne Infusion
+			[22] = 1.63, -- Heed My Call
+			[447] = 5.45, -- Ancestral Resonance
+			[223] = 1.95, -- Lightning Conduit
+			[38] = 1.32, -- On My Way
+			[561] = 2.77, -- Seductive Power
+			[481] = 3.24, -- Incite the Pack
+			[157] = 3.87, -- Rezan's Fury
+			[420] = 10, -- Roiling Storm
+			[499] = 1.4, -- Ricocheting Inflatable Pyrosaw
+			[505] = 3.45, -- Tradewinds
+			[576] = 2.29, -- Loyal to the End
+			[522] = 4.91, -- Ancients' Bulwark
+			[526] = 4.86, -- Endless Hunger
+			[82] = 4.71, -- Champion of Azeroth
+			[575] = 6.16, -- Undulating Tides
+			[479] = 4.1, -- Dagger in the Back
+			[497] = 0.77, -- Stand As One
+			[541] = 1.03, -- Fight or Flight
+			[21] = 1.53, -- Elemental Whirl
+			[156] = 2.22, -- Ruinous Bolt
+			[504] = 3.48, -- Unstable Catalyst
+			[496] = 0.95, -- Stronger Together
+			[569] = 3.74, -- Clockwork Heart
+			[530] = 5.29, -- Thunderaan's Fury
+			[478] = 3.79, -- Tidal Surge
+			[482] = 3.12, -- Thunderous Blast
+			[31] = 1.83, -- Gutripper
+			[498] = 2.39, -- Barrage Of Many Bombs
+			[196] = 4.59, -- Swirling Sands
+			[500] = 1.98, -- Synaptic Spark Capacitor
+			[416] = 6.77, -- Natural Harmony
+			[501] = 3.91, -- Relational Normalization Gizmo
+			[194] = 3.2, -- Filthy Transfusion
+			[562] = 5.07, -- Treacherous Covenant
+			[493] = 1.83, -- Last Gift
+			[492] = 3.13, -- Liberator's Might
+			[459] = 1.89, -- Unstable Flames
+		}, { -- Azerite Essences
+			-- SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 30918)
+			-- Iterations: 26388 - 34097 (avg 32297), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
+			-- Updated: 09.08.2019, Metric: Damage per Second,  Scaling: Linear 0 - 10, Precision: 2
+			[4] = { 1.53, 1.25 }, -- Worldvein Resonance
+			[12] = { 8.83, 3.63 }, -- The Crucible of Flame
+			[15] = { 3.98, 0 }, -- Ripple in Space
+			[6] = { 6.43, 2.89 }, -- Purification Protocol
+			[14] = { 9.35, 3.36 }, -- Condensed Life-Force
+			[28] = { 4.02, 2.1 }, -- The Unbound Force
+			[23] = { 8.26, 2.57 }, -- Blood of the Enemy
+			[22] = { 1.7, 0.13 }, -- Vision of Perfection
+			[27] = { 0.84, 1.48 }, -- Memory of Lucid Dreams
+			[32] = { 6.94, 2.57 }, -- Conflict and Strife
+			[5] = { 10, 4.15 }, -- Essence of the Focusing Iris
+		}, 1565341200)
+
 		insertDefaultScalesData(offensiveName, 7, 3, { -- Restoration Shaman
 			-- SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 30918)
 			-- Iterations: 6767 - 8437 (avg 7149), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
@@ -5708,10 +5786,6 @@ do
 		}, {
 		}, 1564822800)
 
-
-		insertDefaultScalesData(defaultName, 7, 2, { -- Enhancement Shaman
-
-		}, {})
 
 		insertDefaultScalesData(offensiveName, 5, 1, { -- Discipline Priest
 

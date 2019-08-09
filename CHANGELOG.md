@@ -1,3 +1,7 @@
+### 8.2.8
+
+- Added missing Default-scale for Enhancement Shaman. This solves [Ticket #40](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/40) by Mastadood.
+
 ### 8.2.7
 
 - Update Default-scales (SimulationCraft 820-02)
