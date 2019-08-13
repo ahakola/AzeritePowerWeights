@@ -6,10 +6,9 @@ Small help on how to create working ImportStrings manually or with self-made too
 
 ## Import string version 1
 
-```
-( AzeritePowerWeights:1:"My Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2 )
-( AzeritePowerWeights:1:"My Empty Import String":10:268: )
-```
+`( AzeritePowerWeights:1:"My Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2 )`
+
+`( AzeritePowerWeights:1:"My Empty Import String":10:268: )`
 
 Version 1 was introduced on addons release and was used from game version 8.0 until 8.1.5. ImportString is made out of parts that are separated by a colon-punctuation `:` and every part has to be in the right order or the import won't work.
 
@@ -26,12 +25,13 @@ Version 1 was introduced on addons release and was used from game version 8.0 un
 
 ## Import string version 2
 
-```
-( AzeritePowerWeights:2:"My Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2: 2=2/2, 3=3/3, 4=1/1, 27=0/0, 7=1/1, 15=0/0, 32=1/1, 22=0/0, 25=0/0, 13=2/2, 12=2/2 )
-( AzeritePowerWeights:2:"My No Essences Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2: )
-( AzeritePowerWeights:2:"My Only Essences Import String":10:268: : 2=2/2, 3=3/3, 4=1/1, 27=0/0, 7=1/1, 15=0/0, 32=1/1, 22=0/0, 25=0/0, 13=2/2, 12=2/2 )
-( AzeritePowerWeights:2:"My Empty Import String":10:268: : )
-```
+`( AzeritePowerWeights:2:"My Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2: 2=2/2, 3=3/3, 4=1/1, 27=0/0, 7=1/1, 15=0/0, 32=1/1, 22=0/0, 25=0/0, 13=2/2, 12=2/2 )`
+
+`( AzeritePowerWeights:2:"My No Essences Import String":10:268: 116=3.1, 15=2, 186=2, 18=2, 238=2, 382=3.3, 383=3.3, 384=3.1, 43=2, 44=1, 83=3.1, 84=2.1, 85=3.3, 89=3.2, 98=3.3, 99=2: )`
+
+`( AzeritePowerWeights:2:"My Only Essences Import String":10:268: : 2=2/2, 3=3/3, 4=1/1, 27=0/0, 7=1/1, 15=0/0, 32=1/1, 22=0/0, 25=0/0, 13=2/2, 12=2/2 )`
+
+`( AzeritePowerWeights:2:"My Empty Import String":10:268: : )`
 
 Version 2 was introduced on gameversion 8.2 to support the new feature: AzeriteEssences. This adds one extra element to the string and it is added after Azerite Trait weights and is separed with colon-punctuation `:`.
 
