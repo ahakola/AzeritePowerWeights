@@ -1,6 +1,7 @@
 ### 8.2.8
 
 - Added missing Default-scale for Enhancement Shaman. This solves [Ticket #40](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/40) by Mastadood.
+- Also fixed bug where changes made for the Azerite Essence -scoring was reverted to pre-8.2 code and might have caused weird stuff with timestamps of Default-scales.
 
 ### 8.2.7
 
