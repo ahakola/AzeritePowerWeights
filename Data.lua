@@ -5383,19 +5383,20 @@ do
 			-- Iterations: 7098 - 10128 (avg 7675), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
 			-- Updated: 03.08.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
 			[560] = 2.25, -- Bonded Souls
-			[243] = 9.7, -- Bloody Runeblade
+			[243] = 2.50, -- Bloody Runeblade
 			[481] = 5.85, -- Incite the Pack
 			[196] = 3.81, -- Swirling Sands
 			[193] = 4.12, -- Blightborne Infusion
 			[461] = 0.72, -- Earthlink
 			[496] = 1.05, -- Stronger Together
 			[43] = 0.11, -- Winds of War
-			[349] = 4.81, -- Bones of the Damned
-			[197] = 7.06, -- Marrowblood
+			[83] = 10, -- Impassive Visage
+			[349] = 1.00, -- Bones of the Damned
+			[197] = 0.30, -- Marrowblood
 			[495] = 1.99, -- Anduin's Dedication
 			[82] = 6.03, -- Champion of Azeroth
 			[15] = 10, -- Resounding Protection
-			[348] = 4.02, -- Eternal Rune Weapon
+			[348] = 2.00, -- Eternal Rune Weapon
 			[18] = 5.65, -- Blood Siphon
 			[526] = 3.6, -- Endless Hunger
 			[577] = 0.92, -- Arcane Heart
@@ -5416,7 +5417,7 @@ do
 			[480] = 3.98, -- Blood Rite
 			[140] = 2.69, -- Bone Spike Graveyard
 			[485] = 0.06, -- Laser Matrix
-			[44] = 0.07, -- Vampiric Speed
+			[44] = 3.00, -- Vampiric Speed
 			[498] = 0.08, -- Barrage Of Many Bombs
 			[19] = 0.06, -- Woundbinder
 			[504] = 2.8, -- Unstable Catalyst
