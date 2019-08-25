@@ -5435,15 +5435,16 @@ do
 			-- SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 30918)
 			-- Iterations: 6865 - 7777 (avg 7389), Target Error: 0.05, Fight Length: 240 - 360, Fight Style: Patchwerk
 			-- Updated: 03.08.2019, Metric: Theck-Meloree-Index,  Scaling: Linear 0 - 10, Precision: 2
-			[32] = { 0.71, 0.87 }, -- Conflict and Strife
-			[3] = { 3.15, 3.26 }, -- Sphere of Suppression
-			[7] = { 3.8, 3.69 }, -- Anima of Life and Death
+			[32] = { 0.71, 3.70 }, -- Conflict and Strife
+			[3] = { 1.20, 0.50 }, -- Sphere of Suppression
+			[7] = { 0.70, 0.30 }, -- Anima of Life and Death
 			[4] = { 0.69, 0.48 }, -- Worldvein Resonance
-			[25] = { 0.36, 0.21 }, -- Aegis of the Deep
-			[2] = { 0, 0.03 }, -- Azeroth's Undying Gift
-			[22] = { 0.97, 0 }, -- Vision of Perfection
+			[25] = { 0.36, 2.50 }, -- Aegis of the Deep
+			[12] = { 3.00, 1.70 }, -- The Crucible of Flame
+			[2] = { 1.20, 0.03 }, -- Azeroth's Undying Gift
+			[22] = { 0.40, 0 }, -- Vision of Perfection
 			[15] = { 0.56, 0 }, -- Ripple in Space
-			[27] = { 10, 5.63 }, -- Memory of Lucid Dreams
+			[27] = { 1.50, 0.70 }, -- Memory of Lucid Dreams
 		}, 1564822800)
 
 		insertDefaultScalesData(defensiveName, 11, 3, { -- Guardian Druid (TMI)
