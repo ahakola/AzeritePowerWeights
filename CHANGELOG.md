@@ -1,3 +1,9 @@
+### 8.2.9
+
+- Updated Default-scales (SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 31429))
+- New Blood Death Knight Defensive scale by Acherus.
+- There has been update on German-translations at some point.
+
 ### 8.2.8
 
 - Added missing Default-scale for Enhancement Shaman. This solves [Ticket #40](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/40) by Mastadood.
