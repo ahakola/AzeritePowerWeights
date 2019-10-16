@@ -395,7 +395,7 @@ local function _SelectGroup(widget, callback, group)
 		scaleKey = dataGroup
 	end
 
-	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey)
+	local groupSet, classID, specNum, scaleName = strsplit("/", scaleKey, 4) -- Fixes the non-selectable scales if the scalename includes a slash-sign ('/') [Issue #46, https://www.curseforge.com/wow/addons/azeritepowerweights/issues/46]
 	Debug(">>", dataGroup, ">", scaleKey, ">", groupSet, ">", classID, ">", specNum, ">", scaleName)
 
 	if scaleKey == ADDON_NAME.."Import" then -- Create New / Import
@@ -411,7 +411,7 @@ local function _SelectGroup(widget, callback, group)
 			for _, dataSet in ipairs(customScales) do
 				if (dataSet) and dataSet[1] == scaleName and dataSet[2] == classID and dataSet[3] == specNum then
 					--n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet[1], dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum) -- specNum is actually specID here
-					n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum) -- specNum is actually specID here
+					n:CreateWeightEditorGroup(true, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specNum, nil) -- specNum is actually specID here, nil is mode
 
 					break
 				end
@@ -426,7 +426,7 @@ local function _SelectGroup(widget, callback, group)
 					local specID, name, description, iconID, role, isRecommended, isAllowed = GetSpecializationInfoForClassID(classID, dataSet[3])
 
 					--n:CreateWeightEditorGroup(false, n.scalesScroll, ("%s - %s (%s)"):format(classDisplayName, name, dataSet[1]), dataSet[4], scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID)
-					n:CreateWeightEditorGroup(false, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID)
+					n:CreateWeightEditorGroup(false, n.scalesScroll, dataSet, scaleKey, cfg.specScales[playerSpecID].scaleID == scaleKey, classID, specID, nil) -- nil is mode
 
 					break
 				end
@@ -872,13 +872,14 @@ function n:CreateImportGroup(container)
 end
 
 --function n:CreateWeightEditorGroup(isCustomScale, container, titleText, powerWeights, scaleKey, isCurrentScales, classID, specID)
-function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, isCurrentScales, classID, specID)
+function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, isCurrentScales, classID, specID, mode)
 	local classDisplayName = GetClassInfo(dataSet[2])
 	local _, specName = GetSpecializationInfoForClassID(classID, dataSet[3])
 	local titleText = isCustomScale and dataSet[1] or ("%s - %s (%s)"):format(classDisplayName, specName, dataSet[1])
 	local powerWeights = dataSet[4]
 	-- 8.2 Azerite Essences
 	local essenceWeights = dataSet[5]
+	local currentMode = mode or ((_G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown()) and 1 or 0)
 
 	container:ReleaseChildren()
 
@@ -933,7 +934,8 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	-- Tooltip start
 	local tooltipCheckbox = AceGUI:Create("CheckBox")
 	tooltipCheckbox:SetLabel(L.WeightEditor_TooltipText)
-	tooltipCheckbox:SetFullWidth(true)
+	--tooltipCheckbox:SetFullWidth(true)
+	tooltipCheckbox:SetRelativeWidth(.5)
 	tooltipCheckbox:SetValue(false)
 	tooltipCheckbox:SetCallback("OnValueChanged", function(widget, callback, checked)
 		if checked == true then
@@ -964,6 +966,15 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 		end
 	end
 	-- Tooltip end
+
+	local modeButton = AceGUI:Create("Button")
+	modeButton:SetText(currentMode == 1 and L.WeightEditor_ModeToTraits or L.WeightEditor_ModeToEssences)
+	modeButton:SetRelativeWidth(.5)
+	modeButton:SetCallback("OnClick", function()
+		-- Change Mode
+		n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, isCurrentScales, classID, specID, currentMode == 1 and 0 or 1)
+	end)
+	container:AddChild(modeButton)
 
 	-- Timestamp start
 	local timestampText = AceGUI:Create("Label")
@@ -1073,7 +1084,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 		_updateTimestamp()
 	end
 
-	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+	if currentMode == 0 then -- _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() or both UIs hidden
 		-- Class Powers title
 		local classTitle = AceGUI:Create("Heading")
 		classTitle:SetText(L.PowersTitles_Class)
@@ -1384,7 +1395,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 			end
 		end
 		traitStack.editor = #e or 0
-	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+	elseif currentMode == 1 then -- _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown()
 		local topLine = AceGUI:Create("Heading")
 		topLine:SetFullWidth(true)
 		container:AddChild(topLine)
@@ -1542,7 +1553,7 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 		essenceStack.editor = #e or 0
 	end
 
-	Debug("C-Elements:", #e)
+	Debug("C-Elements:", #e, "Mode:", currentMode, mode)
 
 	local line = AceGUI:Create("Heading")
 	line:SetFullWidth(true)
@@ -3119,7 +3130,7 @@ local SlashHandlers = {
 		--ReloadUI()
 	end,
 	["ticket"] = function()
-		local text = ("%s %s/%d/%s (%s)\nSettings: "):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+		local text = ("%s %s/%d/%s (%s)\nSettings: "):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), C_CVar.GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
 		local first = true
 		local skip = {
 			["debug"] = true,

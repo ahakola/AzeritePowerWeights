@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ahakola/AzeritePowerWeights.svg?branch=master)](https://travis-ci.com/ahakola/AzeritePowerWeights)
+
 # AzeritePowerWeights
 
 Helps you pick the best Azerite powers on your gear for your class and spec.

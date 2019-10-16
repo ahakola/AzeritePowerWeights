@@ -25,3 +25,4 @@ ignore:
     - README.md
     - LittleHelpForTranslators.md
     - ImportStringHelp.md
+    - .travis.yml

@@ -68,6 +68,8 @@ do -- enUS / enGB
 	L.WeightEditor_RenameText = "Rename"
 	L.WeightEditor_DeleteText = "Delete"
 	L.WeightEditor_TooltipText = "Show in Tooltips"
+	L.WeightEditor_ModeToEssences = "Change to Essences"
+	L.WeightEditor_ModeToTraits = "Change to Traits"
 	L.WeightEditor_TimestampText_Created = "Created %s" -- %s DD.MM.YYYY
 	L.WeightEditor_TimestampText_Imported = "Imported %s" -- %s DD.MM.YYYY
 	L.WeightEditor_TimestampText_Updated = "Updated %s" -- %s DD.MM.YYYY

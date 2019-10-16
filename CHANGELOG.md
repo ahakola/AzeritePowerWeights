@@ -1,3 +1,12 @@
+### 8.2.10
+
+- Fixed a bug where slash-sign ('/') in scales name would make the scale unselectable in the scales list. This solvers [Issue #46](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/46)
+- New feature: There is a button in scale editor to switch between Trait-weights and Essence-weights of the scale.
+   - This adds two new strings for translators to translate at [Curseforge Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization)
+- Updated one API call to match todays standards.
+- Changing Github Webhook to BigWigs packager -script
+- No changes to the Default-scales. They will follow in another update soon(tm) when I have time to run them first.
+
 ### 8.2.9
 
 - Updated Default-scales (SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 31429))
