@@ -86,6 +86,6 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 09.09.2019]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 18.10.2019]
 - **Blood Death Knight (Defensive)** by Acherus [updated 07.09.2019]
-- Default-scales for 8.2.0 [updated 09.09.2019]
+- Default-scales for 8.2.0 [updated 18.10.2019]
