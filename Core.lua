@@ -2049,11 +2049,11 @@ function f:UpdateValues() -- Update scores
 			if essenceScoreData[essence.ID] then
 				if essence.valid then
 					tempMaxMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
-					tempMaxMinors[essence.ID] = essenceScoreData[essence.ID][1] or 0
+					tempMaxMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
 
 					if essence.unlocked then
 						tempPotMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
-						tempPotMinors[essence.ID] = essenceScoreData[essence.ID][1] or 0
+						tempPotMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
 					end
 				end
 
@@ -2156,16 +2156,22 @@ function f:UpdateValues() -- Update scores
 			if essenceID then
 				if essenceScoreData[essenceID] then
 					if slotFrame.isMajorSlot then -- Major Slot
-						score = (essenceScoreData[essenceID][1] or 0) + (essenceScoreData[essenceID][2] or 0)
+						--score = (essenceScoreData[essenceID][1] or 0) + (essenceScoreData[essenceID][2] or 0)
+						-- Show Major/Minor values instead of combined value in the UI
+						score = (essenceScoreData[essenceID][1] or 0) .. "\n" .. (essenceScoreData[essenceID][2] or 0)
+						currentScore = currentScore + (essenceScoreData[essenceID][1] or 0) + (essenceScoreData[essenceID][2] or 0)
+						Debug("currentScore:", currentScore, (essenceScoreData[essenceID][1] or 0), (essenceScoreData[essenceID][2] or 0))
 					else -- Minor Slot
 						score = essenceScoreData[essenceID][2] or 0
+						currentScore = currentScore + score
+						Debug("currentScore:", currentScore, score)
 					end
 				end
 
-				currentScore = currentScore + score
-				Debug("currentScore:", currentScore, score)
+				--currentScore = currentScore + score
+				--Debug("currentScore:", currentScore, score)
 
-				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s/%s"):format(tostring(essenceID), tostring(score), tostring(slotFrame.isMajorSlot))
+				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s/%s"):format(tostring(essenceID), string.gsub(tostring(score), "\n", "-"), tostring(slotFrame.isMajorSlot))
 			end
 
 			frameTmp = frameTmp .. " " .. (slotFrame.milestoneID or "?") .. " " .. (slotFrame.requiredLevel or "?") .. " " .. (slotFrame.slot or "?") .. " " .. (slotFrame.swirlScale or "?") .. " " .. tostring(slotFrame.canUnlock) .. " " .. tostring(slotFrame.isDraggable) .. " " .. tostring(slotFrame.isMajorSlot) .. " " .. tostring(slotFrame.unlocked)
