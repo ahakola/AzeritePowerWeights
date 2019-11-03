@@ -2059,12 +2059,14 @@ function f:UpdateValues() -- Update scores
 
 				local majorS = essenceScoreData[essence.ID][1] or 0
 				local minorS = essenceScoreData[essence.ID][2] or 0
+				local combinedS = majorS + minorS
 				if not essence.unlocked then
 					majorS = GRAY_FONT_COLOR_CODE .. majorS .. FONT_COLOR_CODE_CLOSE
 					minorS = GRAY_FONT_COLOR_CODE .. minorS .. FONT_COLOR_CODE_CLOSE
+					combinedS = GRAY_FONT_COLOR_CODE .. combinedS .. FONT_COLOR_CODE_CLOSE
 				end
 
-				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s/%s"):format(tostring(essence.ID), tostring(majorS), tostring(minorS))
+				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s (%s/%s)"):format(tostring(essence.ID), tostring(combinedS), tostring(majorS), tostring(minorS))
 			end
 		end
 
@@ -2083,6 +2085,8 @@ function f:UpdateValues() -- Update scores
 			end
 		end
 
+		essenceStack.math = essenceStack.math or {}
+
 		-- Find Maximum score
 		local tempMax, tempMaxID = 0, 0
 		local tempMiniMax = {}
@@ -2091,8 +2095,11 @@ function f:UpdateValues() -- Update scores
 			if tempMax < score then
 				tempMax = score
 				tempMaxID = essenceID
+
+				essenceStack.math[1] = ("MAX Major: %s + %s = %s (%d)"):format(tostring(majorScore), tostring(tempMaxMinors[essenceID]), tostring(score), essenceID)
 			end
 		end
+
 		maxScore = maxScore + tempMax
 		Debug("maxScore:", maxScore, tempMax, tempMax-(tempMaxMinors[tempMaxID] or 0), tempMaxMinors[tempMaxID], tempMaxID)
 		tempMaxMinors[tempMaxID] = nil -- Remove the top Major score's minor score
@@ -2101,10 +2108,19 @@ function f:UpdateValues() -- Update scores
 			tempMiniMax[#tempMiniMax + 1] = minorScore
 		end
 		sort(tempMiniMax)
+
+		essenceStack.math[2] = "MinorMax:"
+		for _, val in ipairs(tempMiniMax) do
+			essenceStack.math[2] = essenceStack.math[2] .. (" %s"):format(tostring(val))
+		end
+
 		local firstMax = tremove(tempMiniMax) or 0
 		local secondMax = tremove(tempMiniMax) or 0
 		maxScore = maxScore + firstMax + secondMax
 		Debug("maxScore:", maxScore, firstMax, secondMax)
+
+		essenceStack.math[3] = ("MAX Minor: %s / %s"):format(tostring(firstMax), tostring(secondMax))
+		essenceStack.math[4] = ("MAX Score: %s"):format(tostring(maxScore))
 
 		-- Find Potential score
 		local tempPot, tempPotID = 0, 0
@@ -2114,8 +2130,11 @@ function f:UpdateValues() -- Update scores
 			if tempPot < score then
 				tempPot = score
 				tempPotID = essenceID
+
+				essenceStack.math[5] = ("POT Major: %s + %s = %s (%d)"):format(tostring(majorScore), tostring(tempPotMinors[essenceID]), tostring(score), essenceID)
 			end
 		end
+
 		currentPotential = currentPotential + tempPot
 		Debug("currentPotential:", currentPotential, tempPot, tempPot-(tempPotMinors[tempPotID] or 0), tempPotMinors[tempPotID], tempPotID)
 		tempPotMinors[tempPotID] = nil -- Remove the top Major score's minor score
@@ -2124,6 +2143,12 @@ function f:UpdateValues() -- Update scores
 			tempMiniPot[#tempMiniPot + 1] = minorScore
 		end
 		sort(tempMiniPot)
+
+		essenceStack.math[6] = "MinorPot:"
+		for _, val in ipairs(tempMiniPot) do
+			essenceStack.math[6] = essenceStack.math[6] .. (" %s"):format(tostring(val))
+		end
+
 		local firstPot = tremove(tempMiniPot) or 0
 		local secondPot = tremove(tempMiniPot) or 0
 
@@ -2137,6 +2162,9 @@ function f:UpdateValues() -- Update scores
 			currentPotential = 0
 		end
 		Debug("currentPotential:", currentPotential, firstPot, secondPot, slots)
+
+		essenceStack.math[7] = ("POT Minor: %s / %s"):format(tostring(firstPot), tostring(secondPot))
+		essenceStack.math[8] = ("POT Score: %s (%d)"):format(tostring(currentPotential), slots)
 
 		--[[
 			maxScore: 10.5 10.5 7 3.5 25
@@ -2171,7 +2199,7 @@ function f:UpdateValues() -- Update scores
 				--currentScore = currentScore + score
 				--Debug("currentScore:", currentScore, score)
 
-				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s/%s"):format(tostring(essenceID), string.gsub(tostring(score), "\n", "-"), tostring(slotFrame.isMajorSlot))
+				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s/%s"):format(tostring(essenceID), string.gsub(tostring(score), "\n", " - "), tostring(slotFrame.isMajorSlot))
 			end
 
 			frameTmp = frameTmp .. " " .. (slotFrame.milestoneID or "?") .. " " .. (slotFrame.requiredLevel or "?") .. " " .. (slotFrame.slot or "?") .. " " .. (slotFrame.swirlScale or "?") .. " " .. tostring(slotFrame.canUnlock) .. " " .. tostring(slotFrame.isDraggable) .. " " .. tostring(slotFrame.isMajorSlot) .. " " .. tostring(slotFrame.unlocked)
@@ -3176,38 +3204,37 @@ local SlashHandlers = {
 		end
 		text = text .. ("\nTrait Scores:\nLoaded: %s, Editor: %s"):format(tostring(traitStack.loading), tostring(traitStack.editor))
 		if traitStack.scoreData then
-			first = true
 			text = text .. ("\nC/P/M: %s / %s / %s"):format(tostring(traitStack.scoreData.current), tostring(traitStack.scoreData.potential), tostring(traitStack.scoreData.maximum))
+			text = text .. "\nNumbers:"
 			for _, v in ipairs(traitStack.scoreData) do
 				if string.find(v, RED_FONT_COLOR_CODE) then
 					v = v .. "R"
 				elseif string.find(v, GRAY_FONT_COLOR_CODE) then
 					v = v .. "G"
 				end
-				if first then
-					first = false
-					text = text .. ("\nNumbers: %s"):format(tostring(v))
-				else
-					text = text .. (", %s"):format(tostring(v))
-				end
+
+				text = text .. ("\n   %s"):format(tostring(v))
 			end
 		end
 		text = text .. ("\nEssence Scores:\nLoaded: %s, Editor: %s"):format(tostring(essenceStack.loading), tostring(essenceStack.editor))
 		if essenceStack.scoreData then
-			first = true
 			text = text .. ("\nC/P/M/Slots: %s / %s / %s / %s"):format(tostring(essenceStack.scoreData.current), tostring(essenceStack.scoreData.potential), tostring(essenceStack.scoreData.maximum), tostring(essenceStack.scoreData.slots))
+			text = text .. "\nNumbers:"
 			for _, v in ipairs(essenceStack.scoreData) do
 				if string.find(v, RED_FONT_COLOR_CODE) then
 					v = v .. "R"
 				elseif string.find(v, GRAY_FONT_COLOR_CODE) then
 					v = v .. "G"
 				end
-				if first then
-					first = false
-					text = text .. ("\nNumbers: %s"):format(tostring(v))
-				else
-					text = text .. (", %s"):format(tostring(v))
-				end
+
+				text = text .. ("\n   %s"):format(tostring(v))
+			end
+		end
+
+		if essenceStack.math then
+			text = text .. "\nEssence Math:"
+			for _, v in ipairs(essenceStack.math) do
+				text = text .. ("\n   %s"):format(tostring(v))
 			end
 		end
 
