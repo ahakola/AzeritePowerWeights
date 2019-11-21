@@ -136,6 +136,8 @@ do -- enUS / enGB
 	L.Config_Score_ShowTooltipLegend_Desc = "Show reminder for \"Current score / Current potential / Maximum score\" in tooltips."
 	L.Config_Score_OutlineScores = "Outline Scores"
 	L.Config_Score_OutlineScores_Desc = "Draw small outline around the score-numbers on Azerite traits/essences to make it easier to read the numbers on light trait/essence icons."
+	L.Config_Score_PreferBiSMajor = "Prefer best major essence"
+	L.Config_Score_PreferBiSMajor_Desc = "Always pick the highest scored major essence even when sometimes you could get better overall score by not selecting the best major essence. When this setting is disabled, the addon will calculate few different score combinations and will pick the best overall score."
 
 	L.Slash_Command = "/azerite" -- If you need localized slash-command, this doesn't replace the existing /azerite
 	L.Slash_RemindConfig = "Check ESC -> Interface -> AddOns -> %s for settings." -- %s = ADDON_NAME

@@ -1,3 +1,13 @@
+### 8.2.15
+
+- Maybe this time we fix the [Issue #47](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/47) for real?
+   - There is new setting which is on by default and the addon works like previously prefering the highest scored major essence and selecting best minor essences after that.
+   - When the new setting is disabled, the addon will calculate overall scores for couple different high scored major essences and pick the highest scored overall combination.
+   - With the introduction of this new setting, there is two more strings for translators at [Curseforge Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization).
+- The addon is now coloring the best traits and essences for you.
+   - For azerite traits the addon will color the highest scored trait(s) for every tier with heirloom-color to help you see them faster.
+   - For azerite essences the addon will color the highest scored major essence(s) with legendary-color and the minors with heirloom-color to help you see them faster.
+
 ### 8.2.14
 
 - Last update didn't solve [Issue #47](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/47) so I'm updating some debug tools to help me find the source of the bug.

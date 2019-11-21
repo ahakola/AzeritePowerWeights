@@ -23,7 +23,7 @@ local dbDefaults = {
 	char = {},
 	dbVersion = dbVersion
 }
-local charDefaults = {
+local charDefaults = { -- Remember to update the ticket-tool when changing this
 	debug = false,
 	onlyOwnClassDefaults = true,
 	onlyOwnClassCustoms = false,
@@ -41,6 +41,7 @@ local charDefaults = {
 	showOnlyUpgrades = false,
 	showTooltipLegend = true,
 	outlineScores = true,
+	preferBiSMarjor = true,
 	specScales = {},
 	tooltipScales = {}
 }
@@ -111,6 +112,20 @@ local function initDB(db, defaults) -- This function copies values from one tabl
 		end
 	end
 	return db
+end
+
+local function shallowcopy(orig) -- http://lua-users.org/wiki/CopyTable
+	local orig_type = type(orig)
+	local copy
+	if orig_type == 'table' then
+		copy = {}
+		for orig_key, orig_value in pairs(orig) do
+			copy[orig_key] = orig_value
+		end
+	else -- number, string, boolean, etc
+		copy = orig
+	end
+	return copy
 end
 
 local function _isInteger(number)
@@ -1757,51 +1772,6 @@ function f:UpdateValues() -- Update scores
 			ReleaseString(s)
 		end
 
-		traitStack.scoreData = traitStack.scoreData or {}
-		wipe(traitStack.scoreData)
-
-		local container = _G.AzeriteEmpoweredItemUI.ClipFrame.PowerContainerFrame
-		local children = { container:GetChildren() }
-		local frameTmp = "> Frames:"
-		for _, frame in ipairs(children) do
-			if frame and frame:IsShown() then
-				--Debug(">" frame.azeritePowerID, frame.spellID, frame.unlockLevel)
-				--Debug(">>", frame.isSelected)
-
-				local score = 0
-				local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(frame.azeritePowerID)
-				if powerInfo then
-					score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
-				end
-
-				if frame.isSelected == true then
-					currentScore = currentScore + score
-
-					if powerInfo.azeritePowerID == 13 then -- Middle
-						midTrait = midTrait + 1
-						Debug("UpdateValues Middle is selected")
-					end
-				end
-
-				if currentLevel < frame.unlockLevel then
-					score = GRAY_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
-				end
-
-				if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
-					score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
-				end
-				frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
-				--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
-				local s = AcquireString(frame, score)
-				activeStrings[#activeStrings + 1] = s
-
-				if powerInfo then
-					traitStack.scoreData[#traitStack.scoreData + 1] = ("%s = %s"):format(tostring(powerInfo.azeritePowerID), tostring(score))
-				end
-			end
-		end
-		Debug(frameTmp)
-
 		-- Calculate maxScore for the item
 		local allTierInfo = _G.AzeriteEmpoweredItemUI.azeriteItemDataSource:GetAllTierInfo()
 		if not allTierInfo then
@@ -1838,6 +1808,7 @@ function f:UpdateValues() -- Update scores
 			}
 		]]
 
+		local tierMaximumInfo = {} -- Keep track of best trait for every tier
 		for tierIndex, tierInfo in ipairs(allTierInfo) do
 			local maximum, tierMaximum = 0, 0
 			local scoreTmp = "> Tier " .. tierIndex .. ":"
@@ -1850,6 +1821,8 @@ function f:UpdateValues() -- Update scores
 
 				if maximum < score then
 					maximum = score
+					--tierMaximumInfo[tierIndex] = azeritePowerID
+					tierMaximumInfo[tierIndex] = score -- Get best score for tier instead of azeritePowerID
 				end
 				if tierInfo.unlockLevel <= currentLevel and tierMaximum < score then
 					tierMaximum = score
@@ -1867,6 +1840,58 @@ function f:UpdateValues() -- Update scores
 			end
 		end
 
+		-- Update scores on the traits
+		traitStack.scoreData = traitStack.scoreData or {}
+		wipe(traitStack.scoreData)
+
+		local container = _G.AzeriteEmpoweredItemUI.ClipFrame.PowerContainerFrame
+		local children = { container:GetChildren() }
+		local frameTmp = "> Frames:"
+		for _, frame in ipairs(children) do
+			if frame and frame:IsShown() then
+				--Debug(">" frame.azeritePowerID, frame.spellID, frame.unlockLevel)
+				--Debug(">>", frame.isSelected)
+
+				local score = 0
+				local powerInfo = C_AzeriteEmpoweredItem.GetPowerInfo(frame.azeritePowerID)
+				if powerInfo then
+					score = scoreData[powerInfo.azeritePowerID] or scoreData[powerInfo.spellID] or 0
+				end
+
+				if frame.isSelected == true then
+					currentScore = currentScore + score
+
+					if powerInfo.azeritePowerID == 13 then -- Middle
+						midTrait = midTrait + 1
+						Debug("UpdateValues Middle is selected")
+					end
+				end
+
+				local tier = frame:GetTierIndex()
+				Debug("Tier", tier, powerInfo.azeritePowerID)
+				if currentLevel < frame.unlockLevel then
+					score = GRAY_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
+				--elseif tier and tierMaximumInfo[tier] == powerInfo.azeritePowerID then -- Best trait for tier
+				elseif tier and tierMaximumInfo[tier] == score then -- Best score for tier
+					score = ITEM_QUALITY_COLORS[7].hex .. score .. FONT_COLOR_CODE_CLOSE
+				end
+
+				if not C_AzeriteEmpoweredItem.IsPowerAvailableForSpec(frame.azeritePowerID, playerSpecID) then -- Recolor unusable powers
+					score = RED_FONT_COLOR_CODE .. score .. FONT_COLOR_CODE_CLOSE
+				end
+				frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
+				--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
+				local s = AcquireString(frame, score)
+				activeStrings[#activeStrings + 1] = s
+
+				if powerInfo then
+					traitStack.scoreData[#traitStack.scoreData + 1] = ("%s = %s"):format(tostring(powerInfo.azeritePowerID), tostring(score))
+				end
+			end
+		end
+		Debug(frameTmp)
+
+		-- Update the string
 		if currentLevel >= maxLevel then
 			midTrait = midTrait + 1 -- 0 = Middle is locked, 1 = Middle is open, 2 = Middle is open and selected
 			if midTrait == 1 then
@@ -1923,8 +1948,6 @@ function f:UpdateValues() -- Update scores
 
 		--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
 	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then -- 8.2 Azerite Essences
-		local currentScore, currentPotential, maxScore = 0, 0, 0
-
 		-- Update score strings and calculate current score
 		while #activeStrings > 0 do
 			local s = tremove(activeStrings)
@@ -1934,63 +1957,42 @@ function f:UpdateValues() -- Update scores
 		essenceStack.scoreData = essenceStack.scoreData or {}
 		wipe(essenceStack.scoreData)
 
-		--[[
-			AzeriteEssenceInfo
-			Key			Type
-			-------------------
-			ID			number
-			name		string
-			rank		number
-			unlocked	bool
-			valid		bool
-			icon		number
-		]]--
+		local essences = C_AzeriteEssence.GetEssences()
+		local maxMajors, maxMinors = {}, {}
+		local potMajors, potMinors = {}, {}
+		for i = 1, #essences do
+			--[[
+				[8]={
+					valid=true,
+					name="Nullification Dynamo",
+					ID=13,
+					icon=3015741,
+					unlocked=false,
+					rank=0
+				},
+			]]--
+			local essence = essences[i]
+			if essenceScoreData[essence.ID] then
+				if essence.valid then
+					maxMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
+					maxMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
 
-		-- Draw scores on the Essences inside the scroll-frame
-		local container = _G.AzeriteEssenceUI.EssenceList.ScrollChild
-		local children = { container:GetChildren() }
-		for _, frame in ipairs(children) do
-			if frame and frame:IsShown() then -- There are 13 buttons, but you can fit only 12 on the screen at any given time or you end up with numbers hovering under or over the frame
-				Debug(">", frame.essenceID, frame.rank)
-
-				if frame.essenceID then
-					local majorScore, minorScore = 0, 0
-
-					local essenceInfo = C_AzeriteEssence.GetEssenceInfo(frame.essenceID)
-					if essenceInfo then
-						Debug(">>", essenceInfo.ID, essenceInfo.name, essenceInfo.rank, essenceInfo.unlocked, essenceInfo.valid, essenceInfo.icon)
-
-						if essenceScoreData[essenceInfo.ID] then
-							majorScore = essenceScoreData[essenceInfo.ID][1] or 0
-							minorScore = essenceScoreData[essenceInfo.ID][2] or 0
-						end
+					if essence.unlocked then
+						potMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
+						potMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
 					end
-
-					if not frame.majorString then
-						--frame.majorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-						frame.majorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-						frame.majorString:SetPoint("TOPRIGHT", -2, -5)
-					end
-					frame.majorString:SetText(majorScore)
-
-					if not frame.minorString then
-						--frame.minorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-						frame.minorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-						frame.minorString:SetPoint("BOTTOMRIGHT", -2, 5)
-					end
-					frame.minorString:SetText(minorScore)
-
-					if essenceInfo and not essenceInfo.valid then
-						frame.majorString:SetText(RED_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
-						frame.minorString:SetText(RED_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
-					elseif essenceInfo and not essenceInfo.unlocked then
-						frame.majorString:SetText(GRAY_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
-						frame.minorString:SetText(GRAY_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
-					end
-
-					Debug("Major:", majorScore, "Minor:", minorScore)
 				end
 
+				local majorS = essenceScoreData[essence.ID][1] or 0
+				local minorS = essenceScoreData[essence.ID][2] or 0
+				local combinedS = majorS + minorS
+				if not essence.unlocked then
+					majorS = GRAY_FONT_COLOR_CODE .. majorS .. FONT_COLOR_CODE_CLOSE
+					minorS = GRAY_FONT_COLOR_CODE .. minorS .. FONT_COLOR_CODE_CLOSE
+					combinedS = GRAY_FONT_COLOR_CODE .. combinedS .. FONT_COLOR_CODE_CLOSE
+				end
+
+				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s (%s/%s)"):format(tostring(essence.ID), tostring(combinedS), tostring(majorS), tostring(minorS))
 			end
 		end
 
@@ -2031,45 +2033,6 @@ function f:UpdateValues() -- Update scores
 			isMajorSlot		false
 			unlocked		false
 		]]--
-		local essences = C_AzeriteEssence.GetEssences()
-		local tempMaxMajors, tempMaxMinors = {}, {}
-		local tempPotMajors, tempPotMinors = {}, {}
-		for i = 1, #essences do
-			--[[
-				[8]={
-					valid=true,
-					name="Nullification Dynamo",
-					ID=13,
-					icon=3015741,
-					unlocked=false,
-					rank=0
-				},
-			]]--
-			local essence = essences[i]
-			if essenceScoreData[essence.ID] then
-				if essence.valid then
-					tempMaxMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
-					tempMaxMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
-
-					if essence.unlocked then
-						tempPotMajors[essence.ID] = essenceScoreData[essence.ID][1] or 0
-						tempPotMinors[essence.ID] = essenceScoreData[essence.ID][2] or 0
-					end
-				end
-
-				local majorS = essenceScoreData[essence.ID][1] or 0
-				local minorS = essenceScoreData[essence.ID][2] or 0
-				local combinedS = majorS + minorS
-				if not essence.unlocked then
-					majorS = GRAY_FONT_COLOR_CODE .. majorS .. FONT_COLOR_CODE_CLOSE
-					minorS = GRAY_FONT_COLOR_CODE .. minorS .. FONT_COLOR_CODE_CLOSE
-					combinedS = GRAY_FONT_COLOR_CODE .. combinedS .. FONT_COLOR_CODE_CLOSE
-				end
-
-				essenceStack.scoreData[#essenceStack.scoreData + 1] = ("%s = %s (%s/%s)"):format(tostring(essence.ID), tostring(combinedS), tostring(majorS), tostring(minorS))
-			end
-		end
-
 		local milestones = C_AzeriteEssence.GetMilestones()
 		local slots = 0
 		for i = #milestones, 1, -1 do
@@ -2086,85 +2049,184 @@ function f:UpdateValues() -- Update scores
 		end
 
 		essenceStack.math = essenceStack.math or {}
+		wipe(essenceStack.math)
 
-		-- Find Maximum score
-		local tempMax, tempMaxID = 0, 0
-		local tempMiniMax = {}
-		for essenceID, majorScore in pairs(tempMaxMajors) do -- Find maximum Major/Minor-score -combination
-			local score = majorScore + tempMaxMinors[essenceID]
-			if tempMax < score then
-				tempMax = score
-				tempMaxID = essenceID
+		-- Calculate the best combination for essences
+		local finalEssenceScores = finalEssenceScores or {}
+		for iterator = 1, 3 do
+			essenceStack.math[#essenceStack.math + 1] = ("Iteration %d:\n   ---------------"):format(iterator)
 
-				essenceStack.math[1] = ("MAX Major: %s + %s = %s (%d)"):format(tostring(majorScore), tostring(tempMaxMinors[essenceID]), tostring(score), essenceID)
+			-- Copy the essence scores so we don't mess up with the original results tainting later iterations
+			local tempMaxMajors = shallowcopy(maxMajors)
+			local tempMaxMinors = shallowcopy(maxMinors)
+			local tempPotMajors = shallowcopy(potMajors)
+			local tempPotMinors = shallowcopy(potMinors)
+
+			-- Sort functions
+			local function maxMajorSort(a, b) -- Sort from largest to the smallest score
+				return ((tempMaxMajors[a] or 0) + (tempMaxMinors[a] or 0)) > ((tempMaxMajors[b] or 0) + (tempMaxMinors[b] or 0))
+			end
+			local function maxMinorSort(a, b) -- Sort from smallest to the largest score
+				return (tempMaxMinors[a] or 0) < (tempMaxMinors[b] or 0)
+			end
+
+			local function potMajorSort(a, b) -- Sort from largest to the smallest score
+				return ((tempPotMajors[a] or 0) + (tempPotMinors[a] or 0)) > ((tempPotMajors[b] or 0) + (tempPotMinors[b] or 0))
+			end
+			local function potMinorSort(a, b) -- Sort from smallest to the largest score
+				return (tempPotMinors[a] or 0) < (tempPotMinors[b] or 0)
+			end
+
+			-- Find Maximum score
+			-- Find best Major score
+			local maxMajorIDs = {}
+			for essenceID in pairs(tempMaxMajors) do
+				maxMajorIDs[#maxMajorIDs + 1] = essenceID
+			end
+
+			sort(maxMajorIDs, maxMajorSort)
+			local maxMajorID = tremove(maxMajorIDs, iterator) -- Remove Nth element
+			local tempMax = ((tempMaxMajors[maxMajorID] or 0) + (tempMaxMinors[maxMajorID] or 0))
+			local maxScore = tempMax
+
+			essenceStack.math[#essenceStack.math + 1] = ("MAX Major: %s + %s = %s (%d)"):format(tostring(tempMax-(tempMaxMinors[maxMajorID] or 0)), tostring(tempMaxMinors[maxMajorID]), tostring(tempMax), maxMajorID)
+
+			Debug("maxScore:", maxScore, tempMax, tempMax-(tempMaxMinors[maxMajorID] or 0), tempMaxMinors[maxMajorID], maxMajorID)
+			if tempMaxMinors[maxMajorID] then
+				tempMaxMinors[maxMajorID] = nil -- Remove the top Major score's minor score
+			end
+
+			-- Find top 3 maximum Minor scores from the rest by putting them into table and sorting them and picking first 3
+			local maxMinorIDs = {}
+			for essenceID in pairs(tempMaxMinors) do
+				maxMinorIDs[#maxMinorIDs + 1] = essenceID
+			end
+
+			sort(maxMinorIDs, maxMinorSort)
+			essenceStack.math[#essenceStack.math + 1] = "MinorMax:"
+			for _, val in ipairs(tempMaxMinors) do
+				essenceStack.math[#essenceStack.math] = essenceStack.math[#essenceStack.math] .. (" %s"):format(tostring(val))
+			end
+
+			local firstMaxID = tremove(maxMinorIDs)
+			local secondMaxID = tremove(maxMinorIDs)
+			local thirdMaxID = tremove(maxMinorIDs)
+
+			local firstMax = tempMaxMinors[firstMaxID] or 0
+			local secondMax = tempMaxMinors[secondMaxID] or 0
+			local thirdMax = tempMaxMinors[thirdMaxID] or 0
+
+			maxScore = maxScore + firstMax + secondMax --+ thirdMax -- Doing work for 8.3 already
+			Debug("maxScore:", maxScore, firstMax, secondMax, thirdMax)
+
+			essenceStack.math[#essenceStack.math + 1] = ("MAX Minor: %s / %s / %s (%d - %d - %d)"):format(tostring(firstMax), tostring(secondMax), tostring(thirdMax), firstMaxID, secondMaxID, thirdMaxID)
+			essenceStack.math[#essenceStack.math + 1] = ("MAX Score: %s"):format(tostring(maxScore))
+
+			-- Find Potential score
+			-- Find best Major score
+			local potMajorIDs = {}
+			for essenceID in pairs(tempPotMajors) do
+				potMajorIDs[#potMajorIDs + 1] = essenceID
+			end
+
+			sort(potMajorIDs, potMajorSort)
+			local potMajorID = tremove(potMajorIDs, iterator) -- Remove Nth element
+			local tempPot = ((tempPotMajors[potMajorID] or 0) + (tempPotMinors[potMajorID] or 0))
+			local currentPotential = tempPot
+
+			essenceStack.math[#essenceStack.math + 1] = ("POT Major: %s + %s = %s (%d)"):format(tostring(tempPot-(tempPotMinors[potMajorID] or 0)), tostring(tempPotMinors[potMajorID]), tostring(tempPot), potMajorID)
+
+			Debug("currentPotential:", currentPotential, tempPot, tempPot-(tempPotMinors[potMajorID] or 0), tempPotMinors[potMajorID], potMajorID)
+			if tempPotMinors[potMajorID] then
+				tempPotMinors[potMajorID] = nil -- Remove the top Major score's minor score
+			end
+
+			-- Find top 3 potential Minor scores from the rest by putting them into table and sorting them and picking first 3
+			local potMinorIDs = {}
+			for essenceID in pairs(tempPotMinors) do
+				potMinorIDs[#potMinorIDs + 1] = essenceID
+			end
+
+			sort(potMinorIDs, potMinorSort)
+			essenceStack.math[#essenceStack.math + 1] = "MinorPot:"
+			for _, val in ipairs(tempPotMinors) do
+				essenceStack.math[#essenceStack.math] = essenceStack.math[#essenceStack.math] .. (" %s"):format(tostring(val))
+			end
+
+			local firstPotID = tremove(potMinorIDs)
+			local secondPotID = tremove(potMinorIDs)
+			local thirdPotID = tremove(potMinorIDs)
+
+			local firstPot = tempPotMinors[firstPotID] or 0
+			local secondPot = tempPotMinors[secondPotID] or 0
+			local thirdPot = tempPotMinors[thirdPotID] or 0
+
+			if slots == 1 then
+				--currentPotential = currentPotential -- Previously set Major slot's score
+			elseif slots == 2 then
+				currentPotential = currentPotential + firstPot
+			elseif slots == 3 then
+				currentPotential = currentPotential + firstPot + secondPot
+			elseif slots == 4 then -- 8.3
+				currentPotential = currentPotential + firstPot + secondPot + thirdPot
+			else -- Slots == 0
+				currentPotential = 0
+			end
+			Debug("currentPotential:", currentPotential, firstPot, secondPot, thirdPot, slots)
+
+			essenceStack.math[#essenceStack.math + 1] = ("POT Minor: %s / %s / %s (%d - %d - %d)"):format(tostring(firstPot), tostring(secondPot), tostring(thirdPot), firstPotID, secondPotID, thirdPotID)
+			essenceStack.math[#essenceStack.math + 1] = ("POT Score: %s (%d)\n   ---------------"):format(tostring(currentPotential), slots)
+
+			finalEssenceScores[iterator] = {
+				maxScore, -- 1
+				--[[
+				maxMajorID, -- 2
+				firstMaxID, -- 3
+				secondMaxID, -- 4
+				thirdMaxID, -- 5
+				]]--
+				currentPotential, -- 6, 2
+				potMajorID, -- 7, 3
+				firstPotID, -- 8, 4
+				secondPotID, -- 9, 5
+				thirdPotID, -- 10, 6
+				tempPot, -- 11, 7
+				firstPot, -- 12, 8
+				secondPot, -- 13, 9
+				thirdPot -- 14, 10
+			}
+		end
+
+		local currentScore, currentPotential, maxScore = 0, 0, 0
+		local maxID, potID = 1, 1
+
+		if cfg.preferBiSMarjor then -- Prefer BiS Major essence
+			maxScore = finalEssenceScores[1][1]
+			currentPotential = finalEssenceScores[1][2]
+		else -- Check if we can get better score with non-BiS Major essence
+			if finalEssenceScores[1][1] > finalEssenceScores[2][1] and finalEssenceScores[1][1] > finalEssenceScores[3][1] then
+				maxID = 1
+				maxScore = finalEssenceScores[1][1]
+			elseif finalEssenceScores[2][1] > finalEssenceScores[1][1] and finalEssenceScores[2][1] > finalEssenceScores[3][1] then
+				maxID = 2
+				maxScore = finalEssenceScores[2][1]
+			else
+				maxID = 3
+				maxScore = finalEssenceScores[3][1]
+			end
+
+			if finalEssenceScores[1][2] > finalEssenceScores[2][2] and finalEssenceScores[1][2] > finalEssenceScores[3][2] then
+				potID = 1
+				currentPotential = finalEssenceScores[1][2]
+			elseif finalEssenceScores[2][2] > finalEssenceScores[1][2] and finalEssenceScores[2][2] > finalEssenceScores[3][2] then
+				potID = 2
+				currentPotential = finalEssenceScores[2][2]
+			else
+				potID = 3
+				currentPotential = finalEssenceScores[3][2]
 			end
 		end
-
-		maxScore = maxScore + tempMax
-		Debug("maxScore:", maxScore, tempMax, tempMax-(tempMaxMinors[tempMaxID] or 0), tempMaxMinors[tempMaxID], tempMaxID)
-		tempMaxMinors[tempMaxID] = nil -- Remove the top Major score's minor score
-		-- Find top 2 maximum Minor scores from the rest by putting them into table and sorting them and picking first 2
-		for _, minorScore in pairs(tempMaxMinors) do
-			tempMiniMax[#tempMiniMax + 1] = minorScore
-		end
-		sort(tempMiniMax)
-
-		essenceStack.math[2] = "MinorMax:"
-		for _, val in ipairs(tempMiniMax) do
-			essenceStack.math[2] = essenceStack.math[2] .. (" %s"):format(tostring(val))
-		end
-
-		local firstMax = tremove(tempMiniMax) or 0
-		local secondMax = tremove(tempMiniMax) or 0
-		maxScore = maxScore + firstMax + secondMax
-		Debug("maxScore:", maxScore, firstMax, secondMax)
-
-		essenceStack.math[3] = ("MAX Minor: %s / %s"):format(tostring(firstMax), tostring(secondMax))
-		essenceStack.math[4] = ("MAX Score: %s"):format(tostring(maxScore))
-
-		-- Find Potential score
-		local tempPot, tempPotID = 0, 0
-		local tempMiniPot = {}
-		for essenceID, majorScore in pairs(tempPotMajors) do -- Find maximum Major/Minor-score -combination
-			local score = majorScore + tempPotMinors[essenceID]
-			if tempPot < score then
-				tempPot = score
-				tempPotID = essenceID
-
-				essenceStack.math[5] = ("POT Major: %s + %s = %s (%d)"):format(tostring(majorScore), tostring(tempPotMinors[essenceID]), tostring(score), essenceID)
-			end
-		end
-
-		currentPotential = currentPotential + tempPot
-		Debug("currentPotential:", currentPotential, tempPot, tempPot-(tempPotMinors[tempPotID] or 0), tempPotMinors[tempPotID], tempPotID)
-		tempPotMinors[tempPotID] = nil -- Remove the top Major score's minor score
-		-- Find top 2 maximum Minor scores from the rest by putting them into table and sorting them and picking first 2
-		for _, minorScore in pairs(tempPotMinors) do
-			tempMiniPot[#tempMiniPot + 1] = minorScore
-		end
-		sort(tempMiniPot)
-
-		essenceStack.math[6] = "MinorPot:"
-		for _, val in ipairs(tempMiniPot) do
-			essenceStack.math[6] = essenceStack.math[6] .. (" %s"):format(tostring(val))
-		end
-
-		local firstPot = tremove(tempMiniPot) or 0
-		local secondPot = tremove(tempMiniPot) or 0
-
-		if slots == 1 then
-			--currentPotential = currentPotential -- Previously set Major slot's score
-		elseif slots == 2 then
-			currentPotential = currentPotential + firstPot
-		elseif slots == 3 then
-			currentPotential = currentPotential + firstPot + secondPot
-		else -- Slots == 0
-			currentPotential = 0
-		end
-		Debug("currentPotential:", currentPotential, firstPot, secondPot, slots)
-
-		essenceStack.math[7] = ("POT Minor: %s / %s"):format(tostring(firstPot), tostring(secondPot))
-		essenceStack.math[8] = ("POT Score: %s (%d)"):format(tostring(currentPotential), slots)
+		essenceStack.math[#essenceStack.math + 1] = ("FINAL Score: %s / %s (%d / %d) - %s"):format(tostring(currentPotential), tostring(maxScore), potID, maxID, tostring(cfg.preferBiSMarjor))
 
 		--[[
 			maxScore: 10.5 10.5 7 3.5 25
@@ -2173,6 +2235,91 @@ function f:UpdateValues() -- Update scores
 			currentPotential: 9 2 1 1
 			currentScore: 7 7
 		]]--
+
+		-- Draw scores on the Essences inside the scroll-frame
+		--[[
+			AzeriteEssenceInfo
+			Key			Type
+			-------------------
+			ID			number
+			name		string
+			rank		number
+			unlocked	bool
+			valid		bool
+			icon		number
+		]]--
+		local container = _G.AzeriteEssenceUI.EssenceList.ScrollChild
+		local children = { container:GetChildren() }
+		for _, frame in ipairs(children) do
+			if frame and frame:IsShown() then -- There are 13 buttons, but you can fit only 12 on the screen at any given time or you end up with numbers hovering under or over the frame
+				Debug(">", frame.essenceID, frame.rank)
+
+				if frame.essenceID then
+					local majorScore, minorScore = 0, 0
+
+					local essenceInfo = C_AzeriteEssence.GetEssenceInfo(frame.essenceID)
+					if essenceInfo then
+						Debug(">>", essenceInfo.ID, essenceInfo.name, essenceInfo.rank, essenceInfo.unlocked, essenceInfo.valid, essenceInfo.icon)
+
+						if essenceScoreData[essenceInfo.ID] then
+							majorScore = essenceScoreData[essenceInfo.ID][1] or 0
+							minorScore = essenceScoreData[essenceInfo.ID][2] or 0
+						end
+					end
+
+					local isBiSMajor, isBiSMinor = false, false
+					if not frame.majorString then
+						--frame.majorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.majorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+						frame.majorString:SetPoint("TOPRIGHT", -2, -5)
+					end
+					--if finalEssenceScores[potID][3] == essenceInfo.ID then -- BiS Major
+					if finalEssenceScores[potID][7] == (majorScore + minorScore) then -- BiS Major score
+						isBiSMajor = true
+					end
+					frame.majorString:SetText(majorScore)
+
+					if not frame.minorString then
+						--frame.minorString = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+						frame.minorString = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+						frame.minorString:SetPoint("BOTTOMRIGHT", -2, 5)
+					end
+					--if finalEssenceScores[potID][4] == essenceInfo.ID or finalEssenceScores[potID][5] == essenceInfo.ID then -- or finalEssenceScores[potID][6] == essenceInfo.ID then -- BiS Minor
+					if finalEssenceScores[potID][8] == minorScore or finalEssenceScores[potID][9] == minorScore then -- or finalEssenceScores[potID][10] == minorScore then -- BiS Minor score
+						isBiSMinor = true
+					end
+					frame.minorString:SetText(minorScore)
+
+					if essenceInfo then
+						if not essenceInfo.valid then -- Not valid
+							frame.majorString:SetText(RED_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+							frame.minorString:SetText(RED_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						elseif not essenceInfo.unlocked then -- Locked
+							frame.majorString:SetText(GRAY_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+							frame.minorString:SetText(GRAY_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						elseif isBiSMajor then -- BiS Major
+							frame.majorString:SetText(ITEM_QUALITY_COLORS[5].hex .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+							frame.minorString:SetText(ITEM_QUALITY_COLORS[5].hex .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						elseif isBiSMinor then -- BiS Minor
+							frame.majorString:SetText(ITEM_QUALITY_COLORS[7].hex .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+							frame.minorString:SetText(ITEM_QUALITY_COLORS[7].hex .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						end
+					end
+					--[[
+					if essenceInfo and not essenceInfo.valid then
+						frame.majorString:SetText(RED_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						frame.minorString:SetText(RED_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+					elseif essenceInfo and not essenceInfo.unlocked then
+						frame.majorString:SetText(GRAY_FONT_COLOR_CODE .. frame.majorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+						frame.minorString:SetText(GRAY_FONT_COLOR_CODE .. frame.minorString:GetText() .. FONT_COLOR_CODE_CLOSE)
+					end
+					]]--
+
+					Debug("Major:", majorScore, "Minor:", minorScore)
+				end
+
+			end
+		end
 
 		-- Draw scores for the Essences in the main view of the UI
 		local frameTmp = "> Frames:"
@@ -3132,6 +3279,14 @@ function f:CreateOptions()
 						width = "full",
 						order = 6,
 					},
+					preferBiSMarjor = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Score_PreferBiSMajor .. FONT_COLOR_CODE_CLOSE,
+						desc = L.Config_Score_PreferBiSMajor_Desc,
+						descStyle = "inline",
+						width = "full",
+						order = 7,
+					},
 				},
 			},
 		},
@@ -3184,6 +3339,7 @@ local SlashHandlers = {
 			["showOnlyUpgrades"] = true,
 			["showTooltipLegend"] = true,
 			["outlineScores"] = true,
+			["preferBiSMarjor"] = false,
 			["specScales"] = true,
 			["tooltipScales"] = true
 		}
