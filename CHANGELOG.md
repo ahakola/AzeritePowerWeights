@@ -1,3 +1,7 @@
+### 8.2.16
+
+- Update Russian translations
+
 ### 8.2.15
 
 - Maybe this time we fix the [Issue #47](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/47) for real?
