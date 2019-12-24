@@ -1,3 +1,7 @@
+### 8.2.17
+
+- Updated Default-scales (SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 31478))
+
 ### 8.2.16
 
 - Update Russian translations
