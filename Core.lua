@@ -1997,6 +1997,7 @@ function f:UpdateValues() -- Update scores
 		end
 
 		--[[
+			=== 8.2:
 			Major Slot
 			---------------------
 			milestoneID		115
@@ -2008,6 +2009,11 @@ function f:UpdateValues() -- Update scores
 			isDraggable		true
 			isMajorSlot		true
 			unlocked		true
+
+			-- Perseverance
+			milestoneID		110
+			requiredLevel	52
+			swirlScale		0.5
 
 			Minor Slot 1
 			---------------------
@@ -2021,6 +2027,16 @@ function f:UpdateValues() -- Update scores
 			isMajorSlot		false
 			unlocked		false
 
+			-- Perseverance
+			milestoneID		111
+			requiredLevel	57
+			swirlScale		0.5
+
+			-- Perseverance
+			milestoneID		112
+			requiredLevel	62
+			swirlScale		0.5
+
 			Minor Slot 2
 			---------------------
 			milestoneID		117
@@ -2032,10 +2048,41 @@ function f:UpdateValues() -- Update scores
 			isDraggable		false
 			isMajorSlot		false
 			unlocked		false
+
+			-- Perseverance
+			milestoneID		113
+			requiredLevel	67
+			swirlScale		0.5
+
+			=== 8.3:
+			-- Perseverance
+			milestoneID		118
+			requiredLevel	71
+			swirlScale		0.5
+
+			Minor Slot 3
+			---------------------
+			milestoneID		119
+			requiredLevel	75
+			slot			3
+			swirlScale		1
+
+			canUnlock		false
+			isDraggable		false
+			isMajorSlot		false
+			unlocked		false
+
+			-- Perseverance
+			milestoneID		120
+			requiredLevel	80
+			swirlScale		0.5
 		]]--
 		local milestones = C_AzeriteEssence.GetMilestones()
 		local slots = 0
 		for i = #milestones, 1, -1 do
+			if milestones[i].ID == 119 and milestones[i].unlocked == true then -- Major + 3 minor
+				slots = 4
+				break
 			if milestones[i].ID == 117 and milestones[i].unlocked == true then -- Major + 2 Minor
 				slots = 3
 				break
@@ -2116,7 +2163,7 @@ function f:UpdateValues() -- Update scores
 			local secondMax = tempMaxMinors[secondMaxID] or 0
 			local thirdMax = tempMaxMinors[thirdMaxID] or 0
 
-			maxScore = maxScore + firstMax + secondMax --+ thirdMax -- Doing work for 8.3 already
+			maxScore = maxScore + firstMax + secondMax + thirdMax -- Doing work for 8.3 already
 			Debug("maxScore:", maxScore, firstMax, secondMax, thirdMax)
 
 			essenceStack.math[#essenceStack.math + 1] = ("MAX Minor: %s / %s / %s (%d - %d - %d)"):format(tostring(firstMax), tostring(secondMax), tostring(thirdMax), firstMaxID, secondMaxID, thirdMaxID)

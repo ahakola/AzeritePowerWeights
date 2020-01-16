@@ -2170,7 +2170,13 @@ local sourceData = {
 				["name"] = "Earthlink",
 				["azeritePowerID"] = 461,
 			}, -- [6]
-		}
+			{
+				["spellID"] = 317137,
+				["icon"] = 839910,
+				["name"] = "Heart of Darkness",
+				["azeritePowerID"] = 582,
+			}, -- [7]
+		},
 	},
 	["raid"] = {
 		{
@@ -2503,6 +2509,11 @@ local essenceData = {
 			["name"] = "Conflict and Strife",
 			["icon"] = 3015742,
 		}, -- [6]
+		{
+			["essenceID"] = 37,
+			["name"] = "The Formless Void",
+			["icon"] = 3193845,
+		}, -- [7]
 	},
 	["tank"] = {
 		{
@@ -2530,33 +2541,53 @@ local essenceData = {
 			["name"] = "Aegis of the Deep",
 			["icon"] = 2967110,
 		}, -- [5]
+		{
+			["essenceID"] = 33,
+			["name"] = "Touch of the Everlasting",
+			["icon"] = 3193847,
+		}, -- [6]
+		{
+			["essenceID"] = 34,
+			["name"] = "Strength of the Warden",
+			["icon"] = 3193846,
+		}, -- [7]
 	},
 	["healer"] = {
+		{
+			["essenceID"] = 16,
+			["name"] = "Unwavering Ward",
+			["icon"] = 3193842,
+		}, -- [1]
 		{
 			["essenceID"] = 17,
 			["name"] = "The Ever-Rising Tide",
 			["icon"] = 2967108,
-		}, -- [1]
+		}, -- [2]
 		{
 			["essenceID"] = 18,
 			["name"] = "Artifice of Time",
 			["icon"] = 2967112,
-		}, -- [2]
+		}, -- [3]
 		{
 			["essenceID"] = 19,
 			["name"] = "The Well of Existence",
 			["icon"] = 516796,
-		}, -- [3]
+		}, -- [4]
 		{
 			["essenceID"] = 20,
 			["name"] = "Life-Binder's Invocation",
 			["icon"] = 2967106,
-		}, -- [4]
+		}, -- [5]
 		{
 			["essenceID"] = 21,
 			["name"] = "Vitality Conduit",
 			["icon"] = 2967100,
-		}, -- [5]
+		}, -- [6]
+		{
+			["essenceID"] = 24,
+			["name"] = "Spirit of Preservation",
+			["icon"] = 2967101,
+		}, -- [7]
 	},
 	["damager"] = {
 		{
@@ -2584,6 +2615,16 @@ local essenceData = {
 			["name"] = "The Unbound Force",
 			["icon"] = 2967102,
 		}, -- [5]
+		{
+			["essenceID"] = 35,
+			["name"] = "Breath of the Dying",
+			["icon"] = 3193844,
+		}, -- [6]
+		{
+			["essenceID"] = 36,
+			["name"] = "Spark of Inspiration",
+			["icon"] = 3193843,
+		}, -- [7]
 	}
 }
 n.essenceData = essenceData
