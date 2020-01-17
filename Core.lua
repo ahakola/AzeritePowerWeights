@@ -2083,7 +2083,7 @@ function f:UpdateValues() -- Update scores
 			if milestones[i].ID == 119 and milestones[i].unlocked == true then -- Major + 3 minor
 				slots = 4
 				break
-			if milestones[i].ID == 117 and milestones[i].unlocked == true then -- Major + 2 Minor
+			elseif milestones[i].ID == 117 and milestones[i].unlocked == true then -- Major + 2 Minor
 				slots = 3
 				break
 			elseif milestones[i].ID == 116 and milestones[i].unlocked == true then -- Major + Minor
