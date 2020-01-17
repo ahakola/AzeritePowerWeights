@@ -1,3 +1,13 @@
+### 8.3.1
+
+- Fix missing changelog from previous update, once again... (Apparetnly it is still too hard for me to press the 'Save'-button in editor before pushing to the Github)
+- Fix the addon not loading because of broken if-then-else -evaluation [Issue #50](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/50). Thanks to ganksmacker1 for reporting this.
+
+### 8.3.0
+
+- TOC update
+- Added new 8.3 Azerite Traits and Azerite Essences
+
 ### 8.2.17
 
 - Updated Default-scales (SimulationCraft 820-02 for World of Warcraft 8.2.0 Live (wow build 31478))
