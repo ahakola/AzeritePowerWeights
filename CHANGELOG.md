@@ -1,4 +1,4 @@
-### 8.2.17
+### 8.3.2
 
 - Updated Default-scales (SimulationCraft 830-01 for World of Warcraft 8.3.0 Live (wow build 33051))
    - Missing Retribution Paladin and Protection Warrior scales
