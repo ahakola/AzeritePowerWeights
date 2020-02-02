@@ -1,3 +1,8 @@
+### 8.2.17
+
+- Updated Default-scales (SimulationCraft 830-01 for World of Warcraft 8.3.0 Live (wow build 33051))
+   - Missing Retribution Paladin and Protection Warrior scales
+
 ### 8.3.1
 
 - Fix missing changelog from previous update, once again... (Apparetnly it is still too hard for me to press the 'Save'-button in editor before pushing to the Github)

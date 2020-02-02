@@ -3570,18 +3570,20 @@ local SlashHandlers = {
 	["data"] = function()
 		Print("Data check start")
 		local numSpecs = {
-			[1] = 3+1, -- Warrior (+1 for TMI)
-			[2] = 3+1-1, -- Paladin (+1 for TMI, -1 for Holy)
-			[3] = 3, -- Hunter
-			[4] = 3, -- Rogue
-			[5] = 3-1-1, -- Priest (-1 for Disc, -1 for Holy)
-			[6] = 3+1, -- Death Knight (+1 for TMI)
-			[7] = 3+1-1, -- Shaman (+1 for Resto Off, -1 for Resto)
-			[8] = 3, -- Mage
-			[9] = 3, -- Warlock
-			[10] = 3+1-1, -- Monk (+1 for TMI, -1 for MW)
-			[11] = 4+1+1-1, -- Druid (+1 for TMI, +1 for Resto Off, -1 for Resto)
-			[12] = 2+1, -- Demon Hunter (+1 for TMI)
+			--		Base count		Healing
+			--			TMI/Heal Off		Missing
+			[1] =	3	+	1	-	0	-	2, -- Warrior (+1 for TMI), -2 for Protection missing!!!
+			[2] =	3	+	1	-	1	-	1, -- Paladin (+1 for TMI, -1 for Holy), -1 for Retribution missing!!!
+			[3] =	3	+	0	-	0	-	0, -- Hunter
+			[4] =	3	+	0	-	0	-	0, -- Rogue
+			[5] =	3	+	0	-	2	-	0, -- Priest (-1 for Disc, -1 for Holy)
+			[6] =	3	+	1	-	0	-	0, -- Death Knight (+1 for TMI)
+			[7] =	3	+	1	-	1	-	0, -- Shaman (+1 for Resto Off, -1 for Resto)
+			[8] =	3	+	0	-	0	-	0, -- Mage
+			[9] =	3	+	0	-	0	-	0, -- Warlock
+			[10] =	3	+	1	-	1	-	0, -- Monk (+1 for TMI, -1 for MW)
+			[11] =	4	+	1	-	1	-	0, -- Druid (+1 for TMI, -1 for Resto)
+			[12] =	2	+	1	-	0	-	0, -- Demon Hunter (+1 for TMI)
 		}
 		--[[
 			Holy Paladin
@@ -3590,8 +3592,12 @@ local SlashHandlers = {
 			Restoratio Shaman
 			Mistweaver Monk
 			Restoration Druid
+			---
+			Protection Warrior
+			Protection Warrior TMI
+			Retribution Paladin
 		]]--
-		local emptySpecs = 6
+		local emptySpecs = 9
 		for _, v in ipairs(n.defaultScalesData) do
 			if next(v[4]) or next(v[5]) then -- Check for not empty scales
 				numSpecs[v[2]] = numSpecs[v[2]] - 1
