@@ -1,5 +1,9 @@
+### 8.3.4
+- Added missing Retribution Paladin Default-scales.
+   - Thanks to both Retribution Paladin -players who actually read the change log and didn't report me them missing!
+
 ### 8.3.3
-- Added Protection Warrior -scales (SimulationCraft 830-02 for World of Warcraft 8.3.0 Live (wow build 33051))
+- Added missing Protection Warrior -scales (SimulationCraft 830-02 for World of Warcraft 8.3.0 Live (wow build 33051))
    - Still missing Retribution Paladin Default-scale
 - Updated all Defensive -scales without external source (SimulationCraft 830-02 for World of Warcraft 8.3.0 Live (wow build 33051))
   - Protection Warrior one is even more all over the place than other classes, so don't trust that.

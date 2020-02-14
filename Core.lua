@@ -3573,7 +3573,7 @@ local SlashHandlers = {
 			--		Base count		Healing
 			--			TMI/Heal Off		Missing
 			[1] =	3	+	1	-	0	-	0, -- Warrior (+1 for TMI)
-			[2] =	3	+	1	-	1	-	1, -- Paladin (+1 for TMI, -1 for Holy), -1 for Retribution missing!!!
+			[2] =	3	+	1	-	1	-	0, -- Paladin (+1 for TMI, -1 for Holy)
 			[3] =	3	+	0	-	0	-	0, -- Hunter
 			[4] =	3	+	0	-	0	-	0, -- Rogue
 			[5] =	3	+	0	-	2	-	0, -- Priest (-1 for Disc, -1 for Holy)
@@ -3593,9 +3593,8 @@ local SlashHandlers = {
 			Mistweaver Monk
 			Restoration Druid
 			---
-			Retribution Paladin
 		]]--
-		local emptySpecs = 7
+		local emptySpecs = 6
 		for _, v in ipairs(n.defaultScalesData) do
 			if next(v[4]) or next(v[5]) then -- Check for not empty scales
 				numSpecs[v[2]] = numSpecs[v[2]] - 1
