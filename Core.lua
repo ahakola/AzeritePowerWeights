@@ -17,7 +17,7 @@ local ACR = LibStub("AceConfigRegistry-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 
 -- Default DB settings
-local dbVersion = 2
+local dbVersion = 3
 local dbDefaults = {
 	customScales = {},
 	char = {},
@@ -25,6 +25,8 @@ local dbDefaults = {
 }
 local charDefaults = { -- Remember to update the ticket-tool when changing this
 	debug = false,
+	enableTraits = true,
+	enableEssences = true,
 	onlyOwnClassDefaults = true,
 	onlyOwnClassCustoms = false,
 	importingCanUpdate = true,
@@ -63,7 +65,7 @@ local importVersion = 2
 
 -- Score Strings
 local reallyBigNumber = 2^31 - 1 -- 2147483647, go over this and errors are thrown
-local activeStrings = {} -- Pointers of score strings in use are save in this table
+local activeTStrings, activeEStrings = {}, {} -- Pointers of score strings in use are save in this table
 local scoreData = {} -- Current active scales are saved to this table
 -- 8.2 Azerite Essences
 local essenceScoreData = {}
@@ -1577,14 +1579,16 @@ function n:CreateWeightEditorGroup(isCustomScale, container, dataSet, scaleKey, 
 	lastOpenScale = scaleKey
 end
 
-local function _toggleEditorUI()
+local function _toggleEditorUI(widget, handler, button, down)
 	if not n.guiContainer then return end
 
 	n.guiContainer:ClearAllPoints()
-	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+	--if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+	if widget == n.TenableButton then
 		n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI, "TOPRIGHT", 10, 0)
 		n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMRIGHT", 10, 0)
-	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+	--elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+	elseif widget == n.EenableButton then
 		n.guiContainer:SetPoint("TOPLEFT", _G.AzeriteEssenceUI, "TOPRIGHT", 10, 0)
 		n.guiContainer:SetPoint("BOTTOMLEFT", _G.AzeriteEssenceUI, "BOTTOMRIGHT", 10, 0)
 	else
@@ -1601,37 +1605,69 @@ end
 -- Hook and Init functions
 local function _setupStringAndEnableButton() -- Move string and enableButton between AzeriteEmpoweredItemUI and AzeriteEssenceUI
 	C_Timer.After(0, function() -- Fire on next frame instead of current frame
-		if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
-			n.frame:SetParent(_G.AzeriteEmpoweredItemUI)
+		if cfg.enableTraits and _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+			if not n.Tstring then
+				local s = AcquireString(_G.AzeriteEmpoweredItemUI, "")
+
+				local scale = _G.AzeriteEmpoweredItemUI:GetEffectiveScale() or 1
+				local fontName, fontHeight, fontFlags = s:GetFont()
+				s:SetFont(fontName, fontHeight * scale, "")
+
+				s:SetJustifyH("LEFT")
+				s:SetJustifyV("TOP")
+				n.Tstring = s
+			end
 
 			if _G.AzeriteEmpoweredItemUIPortrait:IsShown() then -- Default UI etc. who show Portrait
-				n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
+				n.Tstring:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
 			else -- ElvUI etc. who hides Portrait
-				n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
+				n.Tstring:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
 			end
+			n.Tstring:Show()
 
-			n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
-			n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
-		elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
-			n.frame:SetParent(_G.AzeriteEssenceUI)
+			n.TenableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
+			n.TenableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
+			n.TenableButton.frame:Show()
+		else
+			Debug("!!! string and enableButton !AzeriteEmpoweredItemUI", cfg.enableTraits)
+			if n.Tstring then
+				n.Tstring:Hide()
+			end
+			n.TenableButton.frame:Hide()
+		end
+		
+		if cfg.enableEssences and _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then
+			if not n.Estring then
+				local s = AcquireString(_G.AzeriteEssenceUI, "")
+
+				local scale = _G.AzeriteEssenceUI:GetEffectiveScale() or 1
+				local fontName, fontHeight, fontFlags = s:GetFont()
+				s:SetFont(fontName, fontHeight * scale, "")
+
+				s:SetJustifyH("LEFT")
+				s:SetJustifyV("TOP")
+				n.Estring = s
+			end
 
 			if ElvUI and ElvUI[3] and ElvUI[3].skins and ElvUI[3].skins.blizzard and ElvUI[3].skins.blizzard.AzeriteEssence then -- ElvUI etc. who hides Portrait
-				n.string:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -10)
+				n.Estring:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -10)
 			else -- Default UI etc. who show Portrait
-				n.string:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -50)
+				n.Estring:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -50)
 			end
+			n.Estring:Show()
 
-			n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEssenceUI, "BOTTOMLEFT", 10, 10)
-			n.enableButton.frame:SetParent(_G.AzeriteEssenceUI.LeftInset)
+			n.EenableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEssenceUI, "BOTTOMLEFT", 10, 10)
+			n.EenableButton.frame:SetParent(_G.AzeriteEssenceUI.LeftInset)
+			n.EenableButton.frame:Show()
 		else
-			Debug("!!! string and enableButton ???")
-			n.frame:Hide()
-			n.enableButton.frame:Hide()
+			Debug("!!! string and enableButton !AzeriteEssenceUI", cfg.enableEssences)
+			if n.Estring then
+				n.Estring:Hide()
+			end
+			n.EenableButton.frame:Hide()
 
-			return
+			--return
 		end
-		n.frame:Show()
-		n.enableButton.frame:Show()
 	end)
 end
 
@@ -1640,24 +1676,12 @@ function f:HookAzeriteUI() -- Set Parents and Anchors
 	Debug("HOOK Azerite UI")
 	self:InitUI()
 
-	--[[
-	if _G.AzeriteEmpoweredItemUIPortrait:IsShown() then -- Default UI etc. who show Portrait
-		n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
-	else -- ElvUI etc. who hides Portrait
-		n.string:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
-	end
-	n.frame:Show()
-
-	n.enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
-	n.enableButton.frame:SetParent(_G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame) -- Fix enableButton hiding behind AzeriteEmpoweredItemUI elements with ElvUI if the AzeriteUI skinning is disabled.
-	n.enableButton.frame:Show()
-	]]
 	_setupStringAndEnableButton()
 
 	_G.AzeriteEmpoweredItemUI:HookScript("OnHide", function() -- Hide strings on frame hide
-		Debug("== HIDING 1 ==", #activeStrings)
-		while #activeStrings > 0 do
-			local s = tremove(activeStrings)
+		Debug("== HIDING 1 ==", #activeTStrings)
+		while #activeTStrings > 0 do
+			local s = tremove(activeTStrings)
 			ReleaseString(s)
 		end
 
@@ -1668,8 +1692,10 @@ function f:HookAzeriteUI() -- Set Parents and Anchors
 			f:RefreshConfig()
 
 			n.guiContainer:Hide()
+			n.Tstring:Hide()
+			n.TenableButton.frame:Hide()
 		end
-		Debug("== HIDDEN 1 ==", #activeStrings)
+		Debug("== HIDDEN 1 ==", #activeTStrings)
 	end)
 end
 
@@ -1681,9 +1707,9 @@ function f:HookAzeriteEssenceUI() -- Set Parents and Anchors for the 8.2 Azerite
 	_setupStringAndEnableButton()
 
 	_G.AzeriteEssenceUI:HookScript("OnHide", function() -- Hide strings on frame hide
-		Debug("== HIDING 2 ==", #activeStrings)
-		while #activeStrings > 0 do
-			local s = tremove(activeStrings)
+		Debug("== HIDING 2 ==", #activeEStrings)
+		while #activeEStrings > 0 do
+			local s = tremove(activeEStrings)
 			ReleaseString(s)
 		end
 
@@ -1694,8 +1720,10 @@ function f:HookAzeriteEssenceUI() -- Set Parents and Anchors for the 8.2 Azerite
 			f:RefreshConfig()
 
 			n.guiContainer:Hide()
+			n.Estring:Hide()
+			n.EenableButton.frame:Hide()
 		end
-		Debug("== HIDDEN 2 ==", #activeStrings)
+		Debug("== HIDDEN 2 ==", #activeEStrings)
 	end)
 end
 
@@ -1706,23 +1734,19 @@ function f:InitUI() -- Build UI and set up some initial data
 
 	Debug("INIT UI")
 
-	local frame = CreateFrame("Frame")
-	frame:Hide()
-	n.frame = frame
-
-	local string = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-	string:SetJustifyH("LEFT")
-	string:SetJustifyV("TOP")
-	string:SetText("")
-	n.string = string
-
-	-- Enable Button
-	local enableButton = AceGUI:Create("Button")
+	-- Enable Buttons
+	local TenableButton = AceGUI:Create("Button")
 	--enableButton:SetPoint("BOTTOMLEFT", _G.AzeriteEmpoweredItemUI, "BOTTOMLEFT", 10, 10)
-	enableButton:SetText(ADDON_NAME)
-	enableButton:SetAutoWidth(true)
-	enableButton:SetCallback("OnClick", _toggleEditorUI)
-	n.enableButton = enableButton
+	TenableButton:SetText(ADDON_NAME)
+	TenableButton:SetAutoWidth(true)
+	TenableButton:SetCallback("OnClick", _toggleEditorUI)
+	n.TenableButton = TenableButton
+
+	local EenableButton = AceGUI:Create("Button")
+	EenableButton:SetText(ADDON_NAME)
+	EenableButton:SetAutoWidth(true)
+	EenableButton:SetCallback("OnClick", _toggleEditorUI)
+	n.EenableButton = EenableButton
 
 	-- Editor GUI
 	n.guiContainer = n.CreateUI()
@@ -1759,7 +1783,8 @@ function f:UpdateValues() -- Update scores
 	if not (_G.AzeriteEmpoweredItemUI or _G.AzeriteEssenceUI) then return end
 	Debug("UPDATE VALUES")
 
-	if _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
+	-- TRAITS
+	if cfg.enableTraits and _G.AzeriteEmpoweredItemUI and _G.AzeriteEmpoweredItemUI:IsShown() then
 		local currentScore, currentPotential, maxScore, currentLevel, maxLevel, midTrait = 0, 0, 0, 0, 0, 0
 		local azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
 		if azeriteItemLocation then
@@ -1767,8 +1792,8 @@ function f:UpdateValues() -- Update scores
 		end
 
 		-- Update score strings and calculate current score
-		while #activeStrings > 0 do
-			local s = tremove(activeStrings)
+		while #activeTStrings > 0 do
+			local s = tremove(activeTStrings)
 			ReleaseString(s)
 		end
 
@@ -1882,7 +1907,7 @@ function f:UpdateValues() -- Update scores
 				frameTmp = frameTmp .. " " .. (frame.azeritePowerID or "?") .. ":" .. (scoreData[powerInfo.azeritePowerID] or "!") .. ":" .. (scoreData[frame.azeritePowerID] or "!")
 				--Debug("> Frame:", frame.azeritePowerID, frame.spellID, frame.unlockLevel, frame.isSelected, score)
 				local s = AcquireString(frame, score)
-				activeStrings[#activeStrings + 1] = s
+				activeTStrings[#activeTStrings + 1] = s
 
 				if powerInfo then
 					traitStack.scoreData[#traitStack.scoreData + 1] = ("%s = %s"):format(tostring(powerInfo.azeritePowerID), tostring(score))
@@ -1940,17 +1965,23 @@ function f:UpdateValues() -- Update scores
 		local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
 
 		--n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. (cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
-		n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+		if n.Tstring then
+			n.Tstring:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+		else
+			delayedUpdate()
+		end
 
 		traitStack.scoreData.current = cS
 		traitStack.scoreData.potential = cP
 		traitStack.scoreData.maximum = mS
 
-		--Debug("Score:", currentScore, maxScore, currentLevel, #activeStrings, itemID)
-	elseif _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then -- 8.2 Azerite Essences
+		Debug("Score:", currentScore, maxScore, currentLevel, #activeTStrings, itemID)
+	end
+	-- ESSENCES
+	if cfg.enableEssences and _G.AzeriteEssenceUI and _G.AzeriteEssenceUI:IsShown() then -- 8.2 Azerite Essences
 		-- Update score strings and calculate current score
-		while #activeStrings > 0 do
-			local s = tremove(activeStrings)
+		while #activeEStrings > 0 do
+			local s = tremove(activeEStrings)
 			ReleaseString(s)
 		end
 
@@ -2400,7 +2431,7 @@ function f:UpdateValues() -- Update scores
 
 			if slotFrame.unlocked then
 				local s = AcquireString(slotFrame, score)
-				activeStrings[#activeStrings + 1] = s
+				activeEStrings[#activeEStrings + 1] = s
 			end
 		end
 		Debug(frameTmp)
@@ -2424,7 +2455,11 @@ function f:UpdateValues() -- Update scores
 		local baseScore = format(L.PowersScoreString, cS, cP, mS, currentLevel, maxLevel)
 		local groupSet, _, _, scaleName = strsplit("/", cfg.specScales[playerSpecID].scaleID)
 
-		n.string:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+		if n.Estring then
+			n.Estring:SetText(format("%s\n%s", NORMAL_FONT_COLOR_CODE .. ((groupSet == "D" and (n.defaultNameTable[scaleName] or cfg.specScales[playerSpecID].scaleName) or cfg.specScales[playerSpecID].scaleName) or L.ScaleName_Unknown) .. FONT_COLOR_CODE_CLOSE, baseScore))
+		else
+			delayedUpdate()
+		end
 
 		essenceStack.scoreData.current = cS
 		essenceStack.scoreData.potential = cP
@@ -2432,7 +2467,7 @@ function f:UpdateValues() -- Update scores
 		essenceStack.scoreData.slots = slots
 	end
 
-	Debug("Active Strings:", #activeStrings, f:GetFrameStrata())
+	Debug("Active Strings:", #activeEStrings, f:GetFrameStrata())
 end
 
 -- Item Tooltip & Hook - Hacked together and probably could be done better
@@ -3085,13 +3120,13 @@ function f:CreateOptions()
 				type = "description",
 				name = L.Config_SettingsScoreExplanation,
 				width = "full",
-				order = 1,
+				order = 10,
 			},
 			line = {
 				type = "header",
 				name = "",
 				width = "full",
-				order = 2,
+				order = 20,
 			},
 			reminder = {
 				type = "description",
@@ -3099,19 +3134,49 @@ function f:CreateOptions()
 				fontSize = "large",
 				image = "Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew", --"Interface\\DialogFrame\\DialogAlertIcon",
 				width = "full",
-				order = 3,
+				order = 30,
 			},
 			spacer1 = {
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 4,
+				order = 40,
+			},
+			gEnable = {
+				type = "group",
+				name = _G.ENABLE,
+				inline = true,
+				order = 50,
+				args = {
+					enableTraits = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Enable_Traits .. FONT_COLOR_CODE_CLOSE,
+						desc = format(L.Config_Enable_Traits_Desc, ADDON_NAME),
+						descStyle = "inline",
+						width = "full",
+						order = 0,
+					},
+					enableEssences = {
+						type = "toggle",
+						name = NORMAL_FONT_COLOR_CODE .. L.Config_Enable_Essences .. FONT_COLOR_CODE_CLOSE,
+						desc = format(L.Config_Enable_Essences_Desc, ADDON_NAME),
+						descStyle = "inline",
+						width = "full",
+						order = 1,
+					},
+				},
+			},
+			spacer2 = {
+				type = "description",
+				name = " ",
+				width = "full",
+				order = 60,
 			},
 			gScales = {
 				type = "group",
 				name = L.Config_Scales_Title,
 				inline = true,
-				order = 5,
+				order = 70,
 				args = {
 					--[[
 					scalesText = {
@@ -3142,17 +3207,17 @@ function f:CreateOptions()
 					},
 				},
 			},
-			spacer2 = {
+			spacer3 = {
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 6,
+				order = 80,
 			},
 			gImport = {
 				type = "group",
 				name = L.Config_Importing_Title,
 				inline = true,
-				order = 7,
+				order = 90,
 				args = {
 					importingCanUpdate = {
 						type = "toggle",
@@ -3172,17 +3237,17 @@ function f:CreateOptions()
 					},
 				},
 			},
-			spacer3 = {
+			spacer4 = {
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 8,
+				order = 100,
 			},
 			gEditor = {
 				type = "group",
 				name = L.Config_WeightEditor_Title,
 				inline = true,
-				order = 9,
+				order = 110,
 				args = {
 					editorText = {
 						type = "description",
@@ -3258,17 +3323,17 @@ function f:CreateOptions()
 					},
 				},
 			},
-			spacer4 = {
+			spacer5 = {
 				type = "description",
 				name = " ",
 				width = "full",
-				order = 10,
+				order = 120,
 			},
 			gScore = {
 				type = "group",
 				name = L.Config_Score_Title,
 				inline = true,
-				order = 11,
+				order = 130,
 				args = {
 					addILvlToScore = {
 						type = "toggle",
@@ -3370,6 +3435,8 @@ local SlashHandlers = {
 		local first = true
 		local skip = {
 			["debug"] = true,
+			["enableTraits"] = false,
+			["enableEssences"] = false,
 			["onlyOwnClassDefaults"] = false,
 			["onlyOwnClassCustoms"] = false,
 			["importingCanUpdate"] = true,
@@ -3400,10 +3467,17 @@ local SlashHandlers = {
 				end
 			end
 		end
-		if n.frame then
-			text = text .. ("\nFrame: %s, %s, %s/%s, %s/%s"):format(tostring(n.frame:GetParent():GetName()), tostring(n.frame:IsShown()), tostring(n.frame:GetFrameStrata()), tostring(n.frame:GetParent():GetFrameStrata()), tostring(n.frame:GetFrameLevel()), tostring(n.frame:GetParent():GetFrameLevel()))
-			text = text .. ("\nString: %s, %s"):format(tostring(n.string:GetParent():GetParent():GetName()), tostring(n.string:IsShown()))
-			text = text .. ("\nButton: %s, %s, %s/%s, %s/%s"):format(tostring(n.enableButton.frame:GetParent():GetParent():GetName() or n.enableButton.frame:GetParent():GetParent():GetParent():GetName()), tostring(n.enableButton.frame:IsShown()), tostring(n.enableButton.frame:GetFrameStrata()), tostring(n.enableButton.frame:GetParent():GetFrameStrata()), tostring(n.enableButton.frame:GetFrameLevel()), tostring(n.enableButton.frame:GetParent():GetFrameLevel()))
+		if n.Tstring then
+			text = text .. ("\nTString: %s, %s"):format(tostring(select(2, n.Tstring:GetPoint()):GetParent():GetParent():GetName()), tostring(n.Tstring:IsShown()))
+			text = text .. ("\nTButton: %s, %s, %s/%s, %s/%s"):format(tostring(n.TenableButton.frame:GetParent():GetParent():GetName() or n.TenableButton.frame:GetParent():GetParent():GetParent():GetName()), tostring(n.TenableButton.frame:IsShown()), tostring(n.TenableButton.frame:GetFrameStrata()), tostring(n.TenableButton.frame:GetParent():GetFrameStrata()), tostring(n.TenableButton.frame:GetFrameLevel()), tostring(n.TenableButton.frame:GetParent():GetFrameLevel()))
+		else
+			text = text .. ("\nNo Tstring / TButton")
+		end
+		if n.Estring then
+			text = text .. ("\nEString: %s, %s"):format(tostring(select(2, n.Estring:GetPoint()):GetParent():GetName()), tostring(n.Estring:IsShown()))
+			text = text .. ("\nEButton: %s, %s, %s/%s, %s/%s"):format(tostring(n.EenableButton.frame:GetParent():GetParent():GetName() or n.EenableButton.frame:GetParent():GetParent():GetParent():GetName()), tostring(n.EenableButton.frame:IsShown()), tostring(n.EenableButton.frame:GetFrameStrata()), tostring(n.EenableButton.frame:GetParent():GetFrameStrata()), tostring(n.EenableButton.frame:GetFrameLevel()), tostring(n.EenableButton.frame:GetParent():GetFrameLevel()))
+		else
+			text = text .. ("\nNo Estring / EButton")
 		end
 		text = text .. ("\nTrait Scores:\nLoaded: %s, Editor: %s"):format(tostring(traitStack.loading), tostring(traitStack.editor))
 		if traitStack.scoreData then

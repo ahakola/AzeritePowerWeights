@@ -92,6 +92,11 @@ do -- enUS / enGB
 	L.Config_SettingsScoreExplanation = "\"Current score\" is the sum of the currently selected Azerite powers in the item.\n\"Current potential\" is the sum of the highest weighted Azerite powers from each tier you have access to in the item.\n\"Maximum score\" is the sum of the highest weighted Azerite powers from each tier, including the locked ones, in the item."
 	L.Config_SettingsSavedPerChar = "All these settings here are saved per character.\nCustom scales are shared between all characters."
 
+	L.Config_Enable_Traits = "Azerite Traits"
+	L.Config_Enable_Traits_Desc = "Enable %s for Azerite Empowered items." -- %s = ADDON_NAME
+	L.Config_Enable_Essences = "Azerite Essences"
+	L.Config_Enable_Essences_Desc = "Enable %s for Azerite Essences." -- %s = ADDON_NAME
+
 	L.Config_Scales_Title = "Scales list"
 	--L.Config_Scales_Desc = "Following settings only affects the list of Default scales. All Custom scales will be always listed to every class."
 	L.Config_Scales_OwnClassDefaultsOnly = "List own class Default-scales only"
