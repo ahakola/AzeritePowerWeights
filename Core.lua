@@ -1692,7 +1692,9 @@ function f:HookAzeriteUI() -- Set Parents and Anchors
 			f:RefreshConfig()
 
 			n.guiContainer:Hide()
-			n.Tstring:Hide()
+			if n.Tstring then
+				n.Tstring:Hide()
+			end
 			n.TenableButton.frame:Hide()
 		end
 		Debug("== HIDDEN 1 ==", #activeTStrings)
@@ -1720,7 +1722,9 @@ function f:HookAzeriteEssenceUI() -- Set Parents and Anchors for the 8.2 Azerite
 			f:RefreshConfig()
 
 			n.guiContainer:Hide()
-			n.Estring:Hide()
+			if n.Estring then
+				n.Estring:Hide()
+			end
 			n.EenableButton.frame:Hide()
 		end
 		Debug("== HIDDEN 2 ==", #activeEStrings)
