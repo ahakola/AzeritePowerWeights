@@ -2367,7 +2367,7 @@ function f:UpdateValues() -- Update scores
 						frame.minorString:SetPoint("BOTTOMRIGHT", -2, 5)
 					end
 					--if finalEssenceScores[potID][4] == essenceInfo.ID or finalEssenceScores[potID][5] == essenceInfo.ID then -- or finalEssenceScores[potID][6] == essenceInfo.ID then -- BiS Minor
-					if finalEssenceScores[potID][8] == minorScore or finalEssenceScores[potID][9] == minorScore then -- or finalEssenceScores[potID][10] == minorScore then -- BiS Minor score
+					if finalEssenceScores[potID][8] == minorScore or finalEssenceScores[potID][9] == minorScore or finalEssenceScores[potID][10] == minorScore then -- BiS Minor score
 						isBiSMinor = true
 					end
 					frame.minorString:SetText(minorScore)

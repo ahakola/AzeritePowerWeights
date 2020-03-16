@@ -1,3 +1,10 @@
+### 8.3.7
+
+- Updated Default-scales (SimulationCraft 830-02 for World of Warcraft 8.3.0 Live (wow build 33051))
+   - I used `target_error=0.05` and it took almost 70 hours to run all the simulations with my old CPU (you are welcome for the CPU time).
+   - Because of the time spent, in the future I won't be doing simulations in this accuracy anymore unless I figure out some way to optimize the simulations in order to get the runtime down.
+- Fixed a bug causing the Essence UI to only color the top two minor essences instead of top three.
+
 ### 8.3.6
 - Fix bug where you get error when you close Azerite UI when scores for that UI is disabled or something else went wrong. This fixes [Issue #63](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/63).
 - Update Traditional Chinese translations.

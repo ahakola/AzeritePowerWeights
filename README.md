@@ -34,6 +34,14 @@ You can also enable relative scores to replace the absolute number values with p
 
 ---
 
+In the Azerite Essences UI this addon calculates **Current score**, **Current potential** and **Maximum score** for your essences. The scores are calculated same way as Azerite Trait scores and the score markers on the essence slots show the scores for your current setup. Minor essence slots only show the score for minor power while the major slot shows score for both the major and minor power of the selected essence.
+
+The addon also adds two score markers on the essences list on the side of the Azerite Essences UI. The top one is the score for major power of the essence and the lower one is the score for minor power of the essence. Best potential major essence is colored with `Legendary`-color and best potential minor essences are colored with `Heirloom`-color.
+
+![Azerite Essence Score Legend](https://i.imgur.com/HpqotpB.png "Azerite Essence Score Legend")
+
+---
+
 ## Scales
 
 `Default-scales` are meant to be a all-around starter weights for people who aren't good at simulating their own results. My plan is to NOT push updates for them after every small fix or fine tuning of `SimulationCraft`. For more accurate and/or up to date results, I strongly suggest you use `Custom-scales` by either simulating your own results tailored for your own characters, search for import-strings at sites specialized in theorycrafting for your own class and specialization or visit sites specialized at doing these simulations for all the different classes and specializations. **If you are min-maxing your character, running your own simulations after every item swap for every scenario you are interested in is the only way of getting accurate results. There isn't a single magic scale that works everytime all the time.**
@@ -60,13 +68,18 @@ If you still can't find a trait and you are 100% sure you should be able to find
 
 If you run into errors or bugs or have request for new feature, **please check if someone has already made a ticket** for it. Going through same information posted across all the different pages and inboxes takes time away from actually fixing the problems.
 
-You can find all the tickets at the [Curseforge's Issue tracker](https://www.curseforge.com/wow/addons/azeritepowerweights/issues) and post your new findings to the existing tickets if the new information is still relevant. If you can't find existing ticket for the bug/feature request, then you can create a new one.
+You can find all the tickets at the [Curseforge's Issue tracker](https://www.curseforge.com/wow/addons/azeritepowerweights/issues) and post your new findings to the existing tickets if the new information is still relevant. If you can't find existing ticket for the bug/feature request, then you can create a new one and fill the template if applicable.
+
+### Tickets with such a topic as "It doesn't work" or "Shows only zeroes" with no other information are impossible to fix and will be ignored.
 
 If you don't get any errors but the addon is clearly not working, make sure you have Lua-errors turned on (**/console scriptErrors 1**).
 
 ---
 
 ### Translations
+
+If you want to help translate this addon by contributing new translation or fixing the existing lines, you can do it at the [Curseforge's Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization). Curseforge doesn't alert me anymore if there are new translation contributions, so if you contribute to the translations and don't see new version pushed out in a day or two, PM me to inform about the new available translations.
+
 - deDE (German): **Aurielli, Bullseiify, imna1975, med0rian, StellariMi, tiggye, zhavvorsa, Zonk87**
 - esES (Spanish): **sinnkin**
 - esMX (Latin American Spanish):
@@ -86,6 +99,6 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 02.02.2020]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 13.03.2020]
 - **Blood Death Knight (Defensive)** by Acherus [updated 07.09.2019]
-- Default-scales for 8.3.0 [updated 02.02.2020]
+- Default-scales for 8.3.0 [updated 16.03.2020]
