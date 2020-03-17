@@ -1,3 +1,7 @@
+### 8.3.8
+
+- Poke the packager.
+
 ### 8.3.7
 
 - Updated Default-scales (SimulationCraft 830-02 for World of Warcraft 8.3.0 Live (wow build 33051))
