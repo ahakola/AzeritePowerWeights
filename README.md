@@ -83,7 +83,7 @@ If you want to help translate this addon by contributing new translation or fixi
 - deDE (German): **Aurielli, Bullseiify, imna1975, med0rian, StellariMi, tiggye, zhavvorsa, Zonk87**
 - esES (Spanish): **sinnkin**
 - esMX (Latin American Spanish):
-- frFR (French): **Marechoux, Matisk, tthegarde**
+- frFR (French): **Marechoux, Matisk, tthegarde, Simbiawow**
 - itIT (Italian):
 - koKR (Korean): **killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**

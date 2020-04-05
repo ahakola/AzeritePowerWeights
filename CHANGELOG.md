@@ -1,3 +1,7 @@
+### 8.3.9
+
+- Update French translations (thanks to Simbiawow)
+
 ### 8.3.8
 
 - Poke the packager.
