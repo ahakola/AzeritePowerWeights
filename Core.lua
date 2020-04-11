@@ -3435,8 +3435,8 @@ local SlashHandlers = {
 		--ReloadUI()
 	end,
 	["ticket"] = function()
-		local text = ("%s %s/%d/%s (%s)\nSettings: "):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), C_CVar.GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
-		local first = true
+		local text = ("%s %s/%d/%s (%s)\nSettings: Locale: %s"):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), C_CVar.GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID, GetLocale() or "n/a")
+		--local first = true
 		local skip = {
 			["debug"] = true,
 			["enableTraits"] = false,
@@ -3463,12 +3463,12 @@ local SlashHandlers = {
 		}
 		for key, _ in pairs(charDefaults) do
 			if not skip[key] then
-				if first then
-					first = false
-					text = text .. ("%s: %s"):format(key, tostring(cfg[key]))
-				else
+				--if first then
+				--	first = false
+				--	text = text .. ("%s: %s"):format(key, tostring(cfg[key]))
+				--else
 					text = text .. (", %s: %s"):format(key, tostring(cfg[key]))
-				end
+				--end
 			end
 		end
 		if n.Tstring then
