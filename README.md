@@ -101,4 +101,5 @@ Dates are in DD.MM.YYYY-format.
 
 - **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 13.03.2020]
 - **Blood Death Knight (Defensive)** by Acherus [updated 07.09.2019]
+- **Holy Priest** by Simbiawow [updated 11.04.2020]
 - Default-scales for 8.3.0 [updated 16.03.2020]

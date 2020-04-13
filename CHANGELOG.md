@@ -1,3 +1,7 @@
+### 8.3.11
+
+- Add Holy Priest Default-scale by Simbiawow
+
 ### 8.3.10
 
 - Fix error in one of the lines in French translations causing error on login. This fixes [Issue #67](https://www.curseforge.com/wow/addons/azeritepowerweights/issues/67).
