@@ -76,7 +76,7 @@ If you don't get any errors but the addon is clearly not working, make sure you 
 
 ---
 
-### Translations
+## Translations
 
 If you want to help translate this addon by contributing new translation or fixing the existing lines, you can do it at the [Curseforge's Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization). Curseforge doesn't alert me anymore if there are new translation contributions, so if you contribute to the translations and don't see new version pushed out in a day or two, PM me to inform about the new available translations.
 
@@ -95,11 +95,11 @@ Polish translations: available at https://wowpopolsku.pl/viewtopic.php?f=6&t=219
 
 ---
 
-### Default scales
+## Default scales
 
 Dates are in DD.MM.YYYY-format.
 
-- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 13.03.2020]
+- **Shadow Priest** by WarcraftPriests (https://warcraftpriests.com/) [updated 13.05.2020]
 - **Blood Death Knight (Defensive)** by Acherus [updated 07.09.2019]
 - **Holy Priest** by Simbiawow [updated 11.04.2020]
-- Default-scales for 8.3.0 [updated 16.03.2020]
+- Default-scales for 8.3.0 [updated 13.05.2020]
