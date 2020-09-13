@@ -80,10 +80,10 @@ If you don't get any errors but the addon is clearly not working, make sure you 
 
 If you want to help translate this addon by contributing new translation or fixing the existing lines, you can do it at the [Curseforge's Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization). Curseforge doesn't alert me anymore if there are new translation contributions, so if you contribute to the translations and don't see new version pushed out in a day or two, PM me to inform about the new available translations.
 
-- deDE (German): **Aurielli, Bullseiify, imna1975, med0rian, StellariMi, tiggye, zhavvorsa, Zonk87**
-- esES (Spanish): **sinnkin**
+- deDE (German): **Aurielli, Bullseiify, imna1975, med0rian, StellariMi, tiggye, zhavvorsa, SunnySunflow, Zonk87**
+- esES (Spanish): **sinnkin, RideHouseGames**
 - esMX (Latin American Spanish):
-- frFR (French): **Marechoux, Matisk, tthegarde, Simbiawow**
+- frFR (French): **Marechoux, Matisk, tthegarde, Simbiawow, Devastatrice, brubru777, Elodyz**
 - itIT (Italian):
 - koKR (Korean): **killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**
