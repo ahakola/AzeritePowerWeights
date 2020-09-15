@@ -153,8 +153,8 @@ end
 -- 111 Phrases
 
 if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (5), Vivan (2), pas06 (2), Cytoph (1), imna1975 (17), Aurielqt (6)
-	-- 2 + 17 + 42 + 30 = 91
-	-- 72.97% translated
+	-- 2 + 27 + 42 + 30 = 101
+	-- 90.99% translated
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then -- isaracho (4)
@@ -198,8 +198,8 @@ elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (33)
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then -- BNSSNB (96), Sinusquell (1)
-	-- 1 + 109 + 1 = 111
-	-- 18 under review
+	-- 110 + 1 = 111
+	-- 4 under review
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end
