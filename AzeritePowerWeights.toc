@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: 90000
 ## Author: Sanex (Arathor EU)
 ## Title: AzeritePowerWeights
 ## Version: @project-version@
