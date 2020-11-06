@@ -1,3 +1,7 @@
+### 9.0.0-9.0.1
+
+- TOC update for Shadowlands
+
 ### 8.3.14
 
 - Update deDE (German) and zhTW (Traditional Chinese) -translations
