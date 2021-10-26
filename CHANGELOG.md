@@ -1,3 +1,26 @@
+### 9.1.1
+
+- Swap packaging to use Github-actions instead of Travis CI. This transition was prepared long ago, but was never pushed to the Github-repo before now.
+- Add itIT (Italian) translations by faniel80
+- Update deDE (German), esMX (Latin American Spanish) and zhCN (Simplified Chinese) translations. Thanks to all who contributed at [Curseforge Localization tool](https://www.curseforge.com/wow/addons/azeritepowerweights/localization).
+- Complete:
+   - esES (Spanish)
+   - itIT (Italian)
+   - ruRU (Russian)
+   - zhTW (Traditional Chinese)
+- Needs Review:
+   - frFR (French): 101 strings under review
+   - zhCN (Simplified Chinese): 111 strings under review
+- Needs Translation:
+   - deDE (German): 94.59% translated
+   - esMX (Latin American Spanish): 0% translated
+   - koKR (Korean): 30.63% translated
+   - ptBR (Brazilian Portuguese): 49.55% translated
+
+### 9.1.0
+
+- TOC update for 9.1
+
 ### 9.0.0-9.0.1
 
 - TOC update for Shadowlands

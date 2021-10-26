@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ahakola/AzeritePowerWeights.svg?branch=master)](https://travis-ci.com/ahakola/AzeritePowerWeights)
+![Release](https://github.com/ahakola/AzeritePowerWeights/actions/workflows/release.yml/badge.svg)
 
 # AzeritePowerWeights
 
@@ -82,9 +82,9 @@ If you want to help translate this addon by contributing new translation or fixi
 
 - deDE (German): **Aurielli, Bullseiify, imna1975, med0rian, StellariMi, tiggye, zhavvorsa, SunnySunflow, Zonk87**
 - esES (Spanish): **sinnkin, RideHouseGames**
-- esMX (Latin American Spanish):
+- esMX (Latin American Spanish): **assesino55**
 - frFR (French): **Marechoux, Matisk, tthegarde, Simbiawow, Devastatrice, brubru777, Elodyz**
-- itIT (Italian):
+- itIT (Italian): **faniel80**
 - koKR (Korean): **killberos**
 - ptBR (Brazilian Portuguese): **mariogusman**
 - ruRU (Russian): **dartraiden, Hubbotu, lorientalas, Wolfeg_xgm**

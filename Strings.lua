@@ -153,8 +153,8 @@ end
 -- 111 Phrases
 
 if LOCALE == "deDE" then -- Sinusquell (39), Tiggi2702 (5), Vivan (2), pas06 (2), Cytoph (1), imna1975 (17), Aurielqt (6)
-	-- 2 + 27 + 42 + 30 = 101
-	-- 90.99% translated
+	-- 2 + 31 + 42 + 30 = 105
+	-- 94.59% translated
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "esES" then -- isaracho (4)
@@ -162,44 +162,49 @@ elseif LOCALE == "esES" then -- isaracho (4)
 	-- 100% translated
 --@localization(locale="esES", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "esMX" then
-	-- 0 = 0
-	-- 0% translated
+elseif LOCALE == "esMX" then -- assesino55 (16)
+	-- 16 = 16
+	-- 14.4% translated
+	-- 16 under review
 --@localization(locale="esMX", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "frFR" then -- tthegarde (19), Marechoux (9), follower4jas (1)
-	-- 11 + 3 + 8 + 10 + 66 + 13 = 111
-	--  101 under review
+	-- 3 + 11 + 10 + 66 + 8 + 13 = 111
+	-- 100% translated
+	-- 101 under review
 --@localization(locale="frFR", format="lua_additive_table", handle-subnamespaces="concat")@
 
-elseif LOCALE == "itIT" then
-	-- 0 = 0
-	-- 0% translated
+elseif LOCALE == "itIT" then -- faniel80 (111)
+	-- 111 = 111
+	-- 100% translated
 --@localization(locale="itIT", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "koKR" then -- Killberos (52)
 	-- 1 + 52 = 53
 	-- 30.63% translated
+	-- 19 under review
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "ptBR" then -- mariogusman (73)
 	-- 73 = 73
 	-- 49.55% translated
+	-- 18 under review
 --@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "ruRU" then -- dartraiden (78), Hubbotu (18), rtim0905 (0), Wolfeg (1), lorientalas (1)
-	-- 83 + 24 + 1 + 3 = 111
+	-- 83 + 1 + 3 + 24 = 111
 	-- 100% translated
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhCN" then -- plok245 (27), riggzh (29), xlfd2008 (33)
-	-- 27 + 29 + 47 = 103
-	-- 0% translated
+	-- 29 + 55 + 27 = 111
+	-- 100% translated
+	-- 111 under review
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="concat")@
 
 elseif LOCALE == "zhTW" then -- BNSSNB (96), Sinusquell (1)
-	-- 110 + 1 = 111
-	-- 4 under review
+	-- 111 = 111
+	-- 100% translated
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="concat")@
 
 end
