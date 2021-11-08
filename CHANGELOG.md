@@ -1,3 +1,7 @@
+### 9.1.2
+
+- TOC update for 9.1.5
+
 ### 9.1.1
 
 - Swap packaging to use Github-actions instead of Travis CI. This transition was prepared long ago, but was never pushed to the Github-repo before now.
