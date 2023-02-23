@@ -1,3 +1,7 @@
+### 10.0.5
+
+- Update for DF because apparently this addon is still used by some people.
+
 ### 9.1.2
 
 - TOC update for 9.1.5
