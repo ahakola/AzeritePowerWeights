@@ -10,6 +10,8 @@ local ADDON_NAME, n = ...
 
 local _G = _G
 local L = n.L
+local isBFA = (_G.LE_EXPANSION_LEVEL_CURRENT == _G.LE_EXPANSION_BATTLE_FOR_AZEROTH)
+local isSL = (_G.LE_EXPANSION_LEVEL_CURRENT == _G.LE_EXPANSION_SHADOWLANDS)
 
 -- Libs
 local ACD = LibStub("AceConfigDialog-3.0")
@@ -1619,7 +1621,7 @@ local function _setupStringAndEnableButton() -- Move string and enableButton bet
 			end
 
 			if _G.AzeriteEmpoweredItemUIPortrait:IsShown() then -- Default UI etc. who show Portrait
-				n.Tstring:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -50)
+				n.Tstring:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -30)
 			else -- ElvUI etc. who hides Portrait
 				n.Tstring:SetPoint("TOPLEFT", _G.AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame, 10, -10)
 			end
@@ -1652,7 +1654,7 @@ local function _setupStringAndEnableButton() -- Move string and enableButton bet
 			if ElvUI and ElvUI[3] and ElvUI[3].skins and ElvUI[3].skins.blizzard and ElvUI[3].skins.blizzard.AzeriteEssence then -- ElvUI etc. who hides Portrait
 				n.Estring:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -10)
 			else -- Default UI etc. who show Portrait
-				n.Estring:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -50)
+				n.Estring:SetPoint("TOPLEFT", _G.AzeriteEssenceUI.LeftInset, 10, -30)
 			end
 			n.Estring:Show()
 
@@ -2863,22 +2865,24 @@ hooksecurefunc(GameTooltip, "SetMerchantItem", function(self, ...) -- ... = merc
 	end
 end)
 
--- Comparison tooltip for Vendor items (https://www.townlong-yak.com/framexml/27602/GameTooltip.lua#490)
-hooksecurefunc(GameTooltip.shoppingTooltips[1], "SetCompareItem", function(self, ...) -- ... = ShoppingTooltip2, GameTooltip
-	if not cfg or not cfg.tooltipScales then return end
-	if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
-	--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
+if isBFA or isSL then -- This is deprecated in DF
+	-- Comparison tooltip for Vendor items (https://www.townlong-yak.com/framexml/27602/GameTooltip.lua#490)
+	hooksecurefunc(GameTooltip.shoppingTooltips[1], "SetCompareItem", function(self, ...) -- ... = ShoppingTooltip2, GameTooltip
+		if not cfg or not cfg.tooltipScales then return end
+		if #cfg.tooltipScales == 0 then return end -- Not tracking any scales for tooltip
+		--if azeriteEmpoweredItemLocation:HasAnyLocation() then return end
 
-	local itemName, itemLink = self:GetItem()
-	if not itemName then return end
+		local itemName, itemLink = self:GetItem()
+		if not itemName then return end
 
-	if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
-		local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
-		azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLocToSlot[itemEquipLoc])
+		if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(itemLink) then
+			local _, _, _, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+			azeriteEmpoweredItemLocation = ItemLocation:CreateFromEquipmentSlot(itemEquipLocToSlot[itemEquipLoc])
 
-		_updateTooltip(self, itemLink)
-	end
-end)
+			_updateTooltip(self, itemLink)
+		end
+	end)
+end
 
 -- Comparison tooltip for WQ items (https://github.com/phanx-wow/PhanxBorder/blob/master/Blizzard.lua#L205)
 -- WorldmapTooltip is being deprecated in 8.1.5. GameTooltip should be used instead. (https://www.wowinterface.com/forums/showthread.php?t=56964)

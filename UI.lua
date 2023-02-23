@@ -23,7 +23,7 @@ local function CreateUI(...)
 	--frame:SetWidth(474)
 	frame:SetWidth(540)
 	frame:SetHeight(484)
-	frame.frame:SetMinResize(474, 484)
+	frame.frame:SetResizeBounds(474, 484)
 	frame:Hide()
 
 	-- Scales List
