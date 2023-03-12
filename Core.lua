@@ -88,9 +88,9 @@ local function Debug(text, ...)
 
 	if text then
 		if text:match("%%[dfqsx%d%.]") then
-			(DEBUG_CHAT_FRAME or ChatFrame3):AddMessage("|cffff9999"..ADDON_NAME..":|r " .. format(text, ...))
+			(DEBUG_CHAT_FRAME or (ChatFrame3:IsShown() and ChatFrame3 or ChatFrame4)):AddMessage("|cffff9999"..ADDON_NAME..":|r " .. format(text, ...))
 		else
-			(DEBUG_CHAT_FRAME or ChatFrame3):AddMessage("|cffff9999"..ADDON_NAME..":|r " .. strjoin(" ", text, tostringall(...)))
+			(DEBUG_CHAT_FRAME or (ChatFrame3:IsShown() and ChatFrame3 or ChatFrame4)):AddMessage("|cffff9999"..ADDON_NAME..":|r " .. strjoin(" ", text, tostringall(...)))
 		end
 	end
 end
@@ -2332,7 +2332,7 @@ function f:UpdateValues() -- Update scores
 			valid		bool
 			icon		number
 		]]--
-		local container = _G.AzeriteEssenceUI.EssenceList.ScrollChild
+		local container = _G.AzeriteEssenceUI.EssenceList.ScrollBox.ScrollTarget
 		local children = { container:GetChildren() }
 		for _, frame in ipairs(children) do
 			if frame and frame:IsShown() then -- There are 13 buttons, but you can fit only 12 on the screen at any given time or you end up with numbers hovering under or over the frame
