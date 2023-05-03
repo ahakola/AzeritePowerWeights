@@ -846,7 +846,7 @@ function n:CreateImportGroup(container)
 	container:ReleaseChildren()
 
 	local version = AceGUI:Create("Label")
-	version:SetText(format(L.WeightEditor_VersionText, GetAddOnMetadata(ADDON_NAME, "Version")))
+	version:SetText(format(L.WeightEditor_VersionText, C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version")))
 	version:SetJustifyH("RIGHT")
 	version:SetFullWidth(true)
 	container:AddChild(version)
@@ -3439,7 +3439,7 @@ local SlashHandlers = {
 		--ReloadUI()
 	end,
 	["ticket"] = function()
-		local text = ("%s %s/%d/%s (%s)\nSettings: Locale: %s"):format(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Version"), C_CVar.GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID, GetLocale() or "n/a")
+		local text = ("%s %s/%d/%s (%s)\nSettings: Locale: %s"):format(ADDON_NAME, C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version"), C_CVar.GetCVar("scriptErrors"), cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID, GetLocale() or "n/a")
 		--local first = true
 		local skip = {
 			["debug"] = true,
@@ -3539,7 +3539,7 @@ local SlashHandlers = {
 		frame:AddChild(editbox)
 	end,
 	["tt"] = function(...) -- Get tooltip stuff
-		local text = string.format("> START\n- - - - - - - - - -\nVer. %s\nClass/Spec: %s / %s\nScale: %s (%s)\n- - - - - - - - - -\n", GetAddOnMetadata(ADDON_NAME, "Version"), playerClassID, playerSpecID, cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
+		local text = string.format("> START\n- - - - - - - - - -\nVer. %s\nClass/Spec: %s / %s\nScale: %s (%s)\n- - - - - - - - - -\n", C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version"), playerClassID, playerSpecID, cfg.specScales[playerSpecID].scaleName or L.ScaleName_Unknown, cfg.specScales[playerSpecID].scaleID)
 
 		text = text .. string.format("Score settings:\naddILvlToScore: %s\nscaleByAzeriteEmpowered: %s\naddPrimaryStatToScore: %s\nrelativeScore: %s\nshowOnlyUpgrades: %s\nshowTooltipLegend: %s\n- - - - - - - - - -\n", tostring(cfg.addILvlToScore), tostring(cfg.scaleByAzeriteEmpowered), tostring(cfg.addPrimaryStatToScore), tostring(cfg.relativeScore), tostring(cfg.showOnlyUpgrades), tostring(cfg.showTooltipLegend))
 
@@ -3628,7 +3628,7 @@ local SlashHandlers = {
 		frame:AddChild(editbox)
 	end,
 	["is"] = function()
-		local text = string.join("\n", ("> START\nVer. %s"):format(GetAddOnMetadata(ADDON_NAME, "Version")), unpack(importStack))
+		local text = string.join("\n", ("> START\nVer. %s"):format(C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version")), unpack(importStack))
 
 		local frame = AceGUI:Create("Frame")
 		frame:SetTitle(ADDON_NAME)
