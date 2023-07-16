@@ -1,3 +1,15 @@
+### 10.1.5
+
+- TOC update for 10.1.5
+
+### 10.1.0
+
+- ScrollFrame changes for AzeriteEssenceUI
+
+### 10.0.7
+
+- TOC update for 10.0.7
+
 ### 10.0.5
 
 - Update for DF because apparently this addon is still used by some people.
