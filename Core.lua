@@ -3712,7 +3712,7 @@ SlashCmdList["AZERITEPOWERWEIGHTS"] = function(text)
 		end
 		if not n.guiContainer then
 			if not _G.AzeriteEmpoweredItemUI then
-				local loaded, reason = LoadAddOn("Blizzard_AzeriteUI")
+				local loaded, reason = C_AddOns.LoadAddOn("Blizzard_AzeriteUI")
 				if loaded then
 					_toggleEditorUI()
 				else
