@@ -1,3 +1,34 @@
+### 11.0.7
+
+- TOC update for 11.0.7
+- I always forget to update the CHANGELOG.md so I'm changing to automatically generated changelog
+- Updating manual CHANGELOG.md one last time to include this and five previously missing patches (10.2.5 - 11.0.5)
+
+### 11.0.5
+
+- TOC update for 11.0.5
+- Packager yaml syntax
+
+### 11.0.2
+
+- TOC update for 11.0.2
+- Fixes for TWW
+   - If I don't update this addon, I'm 99,999% sure someone will come and ask for an update even if this addon haven't been relevant for 3 xpacks now
+
+### 10.2.7
+
+- TOC update for 10.2.7
+
+### 10.2.6
+
+- TOC update for 10.2.6
+- Update packager workflow
+- Current year is 2024
+
+### 10.2.5
+
+- TOC update for 10.2.5
+
 ### 10.2.0
 
 - TOC update for 10.2.0
