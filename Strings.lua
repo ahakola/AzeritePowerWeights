@@ -3,7 +3,7 @@
 
 	Helps you pick the best Azerite powers on your gear for your class and spec.
 
-	(c) 2018 - 2025
+	(c) 2018 - 2026
 	Sanex @ EU-Arathor / ahak @ Curseforge
 ----------------------------------------------------------------------------]]--
 local ADDON_NAME, n = ...
